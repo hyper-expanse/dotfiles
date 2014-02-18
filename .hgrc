@@ -1,0 +1,26 @@
+[email]
+from = Hutson Betts <hutson@hyper-expanse.net>
+
+[ui]
+username = Hutson Betts <hutson@hyper-expanse.net>
+editor = vim
+
+[bookmarks]
+# Only update the currently active bookmark instead of all bookmarks pointing to the current changeset if a new changeset is being committed. This makes bookmarks more like Git branching.
+track.current = True
+
+[extensions]
+bookmarks =
+hgext.churn =
+color =
+hgext.convert =
+hgext.gpg =
+graphlog =
+mq =
+progress =
+purge =
+rebase =
+share =
+
+[GPG]
+key = CC9B6421

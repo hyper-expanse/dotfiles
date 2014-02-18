@@ -1,0 +1,26 @@
+[user]
+	name = Hutson Betts
+	email = hutson@hyper-expanse.net
+
+[core]
+	editor = vim
+
+[push]
+	# 'Simple' instructs Git to push only the current branch to its upstream branch and make sure the upstream branch's name is the same as the local branch. To prevents pushing the incorrect branch to upstream or pushing a branch to the incorrect, name not matching, branch.
+	default = simple
+
+[color]
+	branch = true
+	diff = true
+	status = true
+	ui = true
+
+[diff]
+	tool = vimdiff
+
+[alias]
+	# Minimized log that displays commit messages and a graphical representation of merges and branches.
+	l = log --oneline --decorate --graph
+
+	# Standard log with file lines additions/removals.
+	ll = log --stat --abbrev-commit
