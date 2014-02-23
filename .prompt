@@ -6,8 +6,9 @@
 # This script only needs to be sourced upon logging into a system to override the default Bash prompt.
 #====================================================
 
-PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
-PROMPT_ENABLE_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN, GIT, HG, etc.) name for the repository stored in the current directory.
+export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
+export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=0 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
+export PROMPT_ENABLE_SVN_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN) name for the repository stored in the current directory.
 
 COLOR_OFF='\[\e[0m\]'			# Remove all color modifications.
 
@@ -36,33 +37,57 @@ B_WHITE='\[\033[1;37m\]'	# White.
 # High intensity colors.
 I_Cyan='\[\033[0;94m\]'		# Cyan.
 
-function ParseGitBranch()
+#! Retrieve the Git branch name.
+# Retrieve the name of the Git branch in the current directory, if a Git branch exists in the current directory.
+ParseGitBranch()
 {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(git::\1)/'
 }
 
-function ParseSVNURL()
+ParseSVNURL()
 {
 	svn info 2>/dev/null | grep -e '^URL*' | sed -e 's#^URL: *\(.*\)#\1#g '
 }
 
-function ParseSVNRepositoryRoot()
+ParseSVNRepositoryRoot()
 {
 	svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
 }
 
-function ParseSVNCheckout()
+#! Retrieve the SVN repository name.
+# Retrieve the name of the SVN repository in the current directory, if a SVN checkout exists in the current directory.
+ParseSVNCheckout()
 {
 	ParseSVNURL | sed -e 's#^'"$(ParseSVNRepositoryRoot)"'##g' | awk -F / '{print "(svn::"$1 "/" $2 ")"}'
 }
 
-function LoadPrompt()
+#! Retrieve the number of unique proessor cores.
+# Retrieve the number of unique processor cores on the system.
+GetNumberOfCores()
+{
+	# Get a count of the unique cores in the system.
+	local CORES=`cat /proc/cpuinfo | grep "core id" | uniq | wc -l`
+
+	# If that approach did not work then query just the number of processors reported by the system.
+	if [ "${CORES}" -le 0 ]; then
+		CORES=`cat /proc/cpuinfo | grep "processor" | uniq | wc -l`
+	fi
+
+	# Make sure to return a value greater than zero (Because you have at least one processor core, right?).
+	if [ "${CORES}" -gt 0 ]; then
+		echo "${CORES}"
+	else
+		echo 1
+	fi
+}
+
+LoadPrompt()
 {
 	PS1="\n${COLUMN_FIX}"
 
 	# Set user portion of the prompt based on the administrative powers of that user.
 	PS1="${PS1}${B_BLACK}("
-	if [ ${UID} -eq 0 ]; then
+	if [ "${UID}" -eq 0 ]; then
 		if [ -n "${SUDO_USER}" ]; then
 			PS1="${PS1}${B_YELLOW}"
 		else
@@ -86,7 +111,7 @@ function LoadPrompt()
 	PS1="${PS1}-"
 
 	# Current 1 minute system load.
-	local NUMBER_OF_CORES="\$(cat /proc/cpuinfo | grep \"core id\" | uniq | wc -l)"
+	local NUMBER_OF_CORES="\$(GetNumberOfCores)"
 	local LOAD="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
 	local SCALE="100"
 	local PERCENT_UTILIZATION="\$(echo \"scale=0;${SCALE} * ${LOAD} / ${NUMBER_OF_CORES}\" | bc)"
@@ -104,7 +129,7 @@ function LoadPrompt()
 	PS1="${PS1}(${B_CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
 
 	# Indicate whether we're currently within a terminal multiplexer session. 'S' = Screen. Also indicate the current Screen window by appending a dask, '-', followed by the window number.
-	if [[ $STY ]]; then
+	if [ ! -z "$STY" ]; then
 		PS1="${PS1}-(${B_CYAN}S-${WINDOW}${B_BLACK})"
 	fi
 
@@ -114,7 +139,7 @@ function LoadPrompt()
 	# Current working directory.
 	PS1="${PS1}${B_BLACK}(${GREEN}\w${B_BLACK})"
 
-	if [[ $PROMPT_ENABLE_FILE_INFORMATION == 1 ]]; then
+	if [ "${PROMPT_ENABLE_FILE_INFORMATION}" -eq 1 ]; then
 
 		PS1="${PS1}-"
 
@@ -122,12 +147,17 @@ function LoadPrompt()
 		PS1="${PS1}(${GREEN}\$(ls -1 | wc -l | sed 's: ::g') files, \$(ls -lah | grep -m 1 total | sed 's/total //')b${B_BLACK})"
 	fi
 
-	if [[ $PROMPT_ENABLE_REPO_INDENTIFICATION == 1 ]]; then
+	if [ "${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION}" -eq 1 ]; then
 
 		PS1="${PS1}-${GREEN}"
 
 		# Print name of Git branch.
 		PS1="${PS1}${GREEN}\$(ParseGitBranch)"
+	fi
+
+	if [ "${PROMPT_ENABLE_SVN_REPO_IDENTIFICATION}" -eq 1 ]; then
+
+		PS1="${PS1}-${GREEN}"
 
 		# Print name of SVN checkout.
 		PS1="${PS1}${GREEN}\$(ParseSVNCheckout)"
