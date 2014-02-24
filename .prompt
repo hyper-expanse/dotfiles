@@ -66,16 +66,16 @@ ParseSVNCheckout()
 GetNumberOfCores()
 {
 	# Get a count of the unique cores in the system.
-	local CORES=`cat /proc/cpuinfo | grep "core id" | uniq | wc -l`
+	local cores=`cat /proc/cpuinfo | grep "core id" | uniq | wc -l`
 
 	# If that approach did not work then query just the number of processors reported by the system.
-	if [ "${CORES}" -le 0 ]; then
-		CORES=`cat /proc/cpuinfo | grep "processor" | uniq | wc -l`
+	if [ "${cores}" -le 0 ]; then
+		cores=`cat /proc/cpuinfo | grep "processor" | uniq | wc -l`
 	fi
 
 	# Make sure to return a value greater than zero (Because you have at least one processor core, right?).
-	if [ "${CORES}" -gt 0 ]; then
-		echo "${CORES}"
+	if [ "${cores}" -gt 0 ]; then
+		echo "${cores}"
 	else
 		echo 1
 	fi
@@ -111,12 +111,12 @@ LoadPrompt()
 	PS1="${PS1}-"
 
 	# Current 1 minute system load.
-	local NUMBER_OF_CORES="\$(GetNumberOfCores)"
-	local LOAD="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
-	local SCALE="100"
-	local PERCENT_UTILIZATION="\$(echo \"scale=0;${SCALE} * ${LOAD} / ${NUMBER_OF_CORES}\" | bc)"
+	local numberOfCores="\$(GetNumberOfCores)"
+	local load="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
+	local scale="100"
+	local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${numberOfCores}\" | bc)"
 
-	PS1="${PS1}(${B_CYAN}\$(echo \"$PERCENT_UTILIZATION%\")${B_BLACK})"
+	PS1="${PS1}(${B_CYAN}\$(echo \"${percentUtilization}%\")${B_BLACK})"
 
 	PS1="${PS1}-"
 

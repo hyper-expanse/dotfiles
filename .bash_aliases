@@ -60,6 +60,9 @@ alias wget='wget -c'
 # Enable the standard math library for the math command line tool.
 alias bc='bc -l'
 
+# Enable SSH Agent authentication forwarding. This allows authentication against remote servers using the private SSH key-pair residing on the local system.
+alias ssh='ssh -A'
+
 # Quickly find and print the top four processes consuming CPU cycles.
 alias psmem='ps auxf | sort -nr -k 4'
 

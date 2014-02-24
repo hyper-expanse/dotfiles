@@ -101,37 +101,103 @@ fi
 # Set the default console editor.
 export EDITOR=vim
 
-#! Extract multiple types of archive files.
-# Extract multiple types of archive files. Extraction is based on the archive type, and whether they are compressed, and if so, the type of compression used.
-# \param $1 Full path to the archive file.
-extract ()
+#! Compress a file or folder into one of many types of archive formats.
+# Compress a file or folder into one of many types of archive formats. Compression is based on the archive type specified.
+# This function is based on http://bijayrungta.com/extract-and-compress-files-from-command-line-in-linux
+#
+# \param $1 Path to the file or folder to be archived.
+# \param $2 Archive type; such as 'tar' or 'zip'.
+compress()
 {
-	if [ -f $1 ] ; then
-		case $1 in
-			*.tar.bz2)	tar xvjf $1		;;
-			*.tar.gz)	tar xvzf $1		;;
-			*.bz2)		bunzip2 $1		;;
-			*.rar)		unrar x $1		;;
-			*.gz)		gunzip $1		;;
-			*.tar)		tar xvf $1		;;
-			*.tbz2)		tar xvjf $1		;;
-			*.tgz)		tar xvzf $1		;;
-			*.zip)		unzip $1		;;
-			*.Z)		uncompress $1	;;
-			*.7z)		7z x $1			;;
-			*)			echo "Don't know how to extract '$1'..." ;;
+	local dirPriorToExe=`pwd`
+	local dirName=`dirname ${1}`
+	local baseName=`basename ${1}`
+
+	if [ -f ${1} ] ; then
+		echo "Selected a file for compression. Changing directory to ${dirName}."
+		cd ${dirName}
+		case ${2} in
+			tar.bz2)   tar cjf ${baseName}.tar.bz2 ${baseName} ;;
+			tar.gz)    tar czf ${baseName}.tar.gz ${baseName}  ;;
+			gz)        gzip ${baseName}                        ;;
+			tar)       tar -cvvf ${baseName}.tar ${baseName}   ;;
+			zip)       zip -r ${baseName}.zip ${baseName}      ;;
+			*)
+				echo "A compression format was not chosen. Defaulting to tar.bz2"
+				tar cjf ${baseName}.tar.bz2 ${baseName}
+				;;
 		esac
+		echo "Navigating back to ${dirPriorToExe}"
+		cd ${dirPriorToExe}
+	elif [ -d ${1} ] ; then
+		echo "Selected a directory for compression. Changing directory to ${dirName}."
+		cd ${dirName}
+		case ${2} in
+			tar.bz2)   tar cjf ${baseName}.tar.bz2 ${baseName} ;;
+			tar.gz)    tar czf ${baseName}.tar.gz ${baseName}  ;;
+			gz)        gzip -r ${baseName}                     ;;
+			tar)       tar -cvvf ${baseName}.tar ${baseName}   ;;
+			zip)       zip -r ${baseName}.zip ${baseName}      ;;
+			*)
+				echo "A compression format was not chosen. Defaulting to tar.bz2"
+				tar cjf ${baseName}.tar.bz2 ${baseName}
+				;;
+		esac
+		echo "Navigating back to ${dirPriorToExe}"
+		cd ${dirPriorToExe}
 	else
-		echo "'$1' is not a valid file!"
+		echo "'${1}' is not a valid file or directory."
 	fi
 }
 
+#! Extract multiple types of archive files.
+# Extract multiple types of archive files. Extraction is based on the archive type, and whether they are compressed, and if so, the type of compression used.
+# This function is based on https://github.com/xvoland/Extract.
+#
+# \param $1 Path to the archive file.
+extract () {
+	if [ -z "${1}" ]; then
+		echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+		exit
+	fi
+
+	if [ -f "${1}" ] ; then
+		case ${1} in
+			*.tar.bz2)   tar xvjf ../${1}    ;;
+			*.tar.gz)    tar xvzf ../${1}    ;;
+			*.tar.xz)    tar xvJf ../${1}    ;;
+			*.lzma)      unlzma ../${1}      ;;
+			*.bz2)       bunzip2 ../${1}     ;;
+			*.rar)       unrar x -ad ../${1} ;;
+			*.gz)        gunzip ../${1}      ;;
+			*.tar)       tar xvf ../${1}     ;;
+			*.tbz2)      tar xvjf ../${1}    ;;
+			*.tgz)       tar xvzf ../${1}    ;;
+			*.zip)       unzip ../${1}       ;;
+			*.Z)         uncompress ../${1}  ;;
+			*.7z)        7z x ../${1}        ;;
+			*.xz)        unxz ../${1}        ;;
+			*.exe)       cabextract ../${1}  ;;
+			*)           echo "extract: '${1}' - unknown archive method" ;;
+		esac
+	else
+		echo "${1} - file does not exist"
+	fi
+}
 
 #! Launch NASA TV.
 # Will hit NASA TV's HTTP live streaming source typically used by IPad and Android devices who don't have Adobe Flash. The script used to launch NASA TV will be forked into a TMUX-managed terminal. The script can be found at ~/Resources/Scripts/nasatv.sh.
+#
 # \param $@ Accepts any number of parameters offered by the NASATV script.
 nasatv ()
 {
-	TEMP="$@" # We have to capture $@ in a temp variable to pass as part of the call to TMUX or, for some unknown reason, the variable arguments will be passed to TMUX and not to the script executed by Bash.
-	tmux new-session -s NASATV -d "bash ~/Resources/Scripts/nasatv.sh ${TEMP}"
+	local script="~/Resources/Scripts/nasatv.sh"
+
+	if [ ! -f "${script}" ]; then
+		echo "The required script, ${script}, does not exist."
+		exit 1
+	fi
+
+	local arguments="$@" # We have to capture $@ in a temp variable to pass as part of the call to TMUX or, for some unknown reason, the variable arguments will be passed to TMUX and not to the script executed by Bash.
+	tmux new-session -s NASATV -d "bash ${script} ${arguments}"
 }
