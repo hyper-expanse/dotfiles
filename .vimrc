@@ -97,7 +97,11 @@ syntax on
 " Enable better command-line completion.
 set wildmenu " Enables a menu at the bottom of the window.
 set wildmode=list:longest,full " Allows the completion of commands on the command line via the tab button.
-set wildignore=*.swp,*.bak,*.class,*.tmp,*.o,*~,*.pyc,*pyo,*.a " Ignore certain backup and compiled files based on file extensions when using tab completion.
+
+" Ignore certain backup and compiled files based on file extensions when using tab completion.
+set wildignore=*.swp,*.bak,*.tmp,*~
+set wildignore+=*.zip,*.7z,*.gzip,*.gz
+set wildignore+=*.jpg,*.png,*.gif,*.avi,*.mov,*.mpeg
 
 " Show partial commands in the last line of the screen.
 set showcmd
@@ -981,7 +985,8 @@ Bundle 'https://github.com/gmarik/vundle'
 
 " All other plugins.
 Bundle 'https://github.com/vim-scripts/closetag.vim'
-Bundle 'https://github.com/wincent/Command-T'
+Bundle 'https://github.com/kien/ctrlp.vim'
+Bundle 'https://github.com/gregsexton/gitv.git'
 Bundle 'https://github.com/claco/jasmine.vim'
 Bundle 'https://github.com/vim-scripts/jQuery'
 Bundle 'https://github.com/vim-scripts/OmniCppComplete'
@@ -1005,22 +1010,38 @@ Bundle "https://github.com/garbas/vim-snipmate"
 Bundle "https://github.com/honza/vim-snippets"
 
 "====================================================
-" Setup Ack Plugin
-"
-" Setup the Ack plugin so that it can provide a list of files from a project, along with appropriate line numbers, for matches to a fuzzy word search.
-"====================================================
-
-" Map Ack to a convienent shortcut. The exclamation mark is required to
-" prevent the first result from automatically being opened.
-nmap <leader>a <Esc>:Ack!
-
-"====================================================
 " Setup Closetag Plugin
 "
 " Setup for a tool that closes open HTML/XML tags.
 "====================================================
 
 " Default mapping for closing an HTML/XML tag is <C-_>.
+
+"====================================================
+" Setup CtrlP Plugin
+"
+" Setup for a tool that allows for fuzzy matching on file names within the current directory, or parent directory containing a repository directory, or against opened buffers, or MRU (Most Recently Used) files.
+"====================================================
+
+" Default mapping for CtrlP is <C-P>.
+
+" Set the default behavior for the CtrlP plugin to search against files, buffers, and MRU files.
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+"|bin|tmp|node_modules|bower_components$',
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
+	\ }
+
+" Set the maximum depth of a directory tree to recurse into.
+let g:ctrlp_max_depth = 40
+
+" Set the maximum number of files to scan into the CtrlP cache for fuzzing matching.
+let g:ctrlp_max_files = 10000
+
+" Set the option to require CtrlP to scan for dotfiles and dotdirs.
+let g:ctrlp_show_hidden = 1
 
 "====================================================
 " Setup FSwitch Plugin
@@ -1062,6 +1083,16 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 " Gremove
 " Gmove
 " Others...
+
+"====================================================
+" Setup Jasmine Plugin
+"
+" Setup for Jasmine allowing Jasmine templates to be used when creating new Jasmine Spec files, for snippets that allow for basic Jasmine auto-completion, and for Jasmine syntax highlighting.
+"====================================================
+
+" Must set these directories manually. If not the Jasmine plugin will attempt to use Pathogen commands to resolve the plugin path. Because we use Vundle instead of Pathogen, Pathogen commands do not exist. If we specify the path manually the calls to Pathogen are bypassed.
+let g:jasmine_snippets_directory='~/.vim/bundle/jasmine.vim/snippets'
+let g:jasmine_templates_directory='~/.vim/bundle/jasmine.vim/templates'
 
 "====================================================
 " Setup JavaScript Plugin
@@ -1156,13 +1187,3 @@ nnoremap <silent> <F8> <ESC>:TagbarToggle<CR>
 inoremap <silent> <F8> <ESC>:TagbarToggle<CR>i
 " Place the letter 'v' at the end causes the Tagbar to be turned on/off and for Vim to then return to visual mode.
 vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
-
-"====================================================
-" Setup Jasmine Plugin
-"
-" Setup for Jasmine allowing Jasmine templates to be used when creating new Jasmine Spec files, for snippets that allow for basic Jasmine auto-completion, and for Jasmine syntax highlighting.
-"====================================================
-
-" Must set these directories manually. If not the Jasmine plugin will attempt to use Pathogen commands to resolve the plugin path. Because we use Vundle instead of Pathogen, Pathogen commands do not exist. If we specify the path manually the calls to Pathogen are bypassed.
-let g:jasmine_snippets_directory='~/.vim/bundle/jasmine.vim/snippets'
-let g:jasmine_templates_directory='~/.vim/bundle/jasmine.vim/templates'
