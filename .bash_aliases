@@ -70,7 +70,7 @@ alias psmem='ps auxf | sort -nr -k 4'
 alias update='sudo apt-get update && sudo apt-get dist-upgrade --no-install-recommends'
 
 # Connect to the Hyper-Expanse OpenVPN access point.
-alias connect='tmux new-session -s OpenVPN "sudo openvpn --config ~/Documents/OpenVPN/client.conf"'
+alias connect='tmux new-session -s OpenVPN "cd ~/Documents/OpenVPN/; sudo openvpn --config ~/Documents/OpenVPN/client.conf"'
 
 # Run a custom backup script to backup the system to an external server.
 alias backup='bash ~/Resources/Scripts/backup.sh'

@@ -1160,6 +1160,11 @@ set iskeyword+=:
 " Setup for the Syntastic plugin so that it knows how to behave for each software language filetype. Additional configuration can be included in this section to, for example, specify the tool that should be used to check a particular filetype for lint issues.
 "====================================================
 
+" C++
+
+" Set our preferred lint checker to CppChecker.
+let g:syntastic_cpp_checkers=['cppcheck']
+
 " JavaScript
 
 " Set our preferred lint checker to JsHint.
