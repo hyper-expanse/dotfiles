@@ -63,8 +63,14 @@ alias bc='bc -l'
 # Enable SSH Agent authentication forwarding. This allows authentication against remote servers using the private SSH key-pair residing on the local system.
 alias ssh='ssh -A'
 
-# Quickly find and print the top four processes consuming CPU cycles.
-alias psmem='ps auxf | sort -nr -k 4'
+# Quickly find and print the top five processes consuming CPU cycles.
+alias pscpu='ps aux | sort --stable --parallel=2 -k3rh | head -n 5'
+
+# Quickly find and print the top five processes consuming memory.
+alias psmem='ps aux | sort --stable --parallel=2 -k4rh | head -n 5'
+
+# Set a default pastebin website for the pastebinit utility.
+alias pastebinit='pastebinit -b http://paste.ubuntu.com'
 
 # Update a system on one command.
 alias update='sudo apt-get update && sudo apt-get dist-upgrade --no-install-recommends'

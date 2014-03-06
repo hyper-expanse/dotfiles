@@ -201,3 +201,47 @@ nasatv ()
 	local arguments="$@" # We have to capture $@ in a temp variable to pass as part of the call to TMUX or, for some unknown reason, the variable arguments will be passed to TMUX and not to the script executed by Bash.
 	tmux new-session -s NASATV -d "bash ${script} ${arguments}"
 }
+
+#! Setup a watch and run a command.
+# Watch for changes to files that match a given file specification, and on change, run the given command.
+#
+# \param $1 A command accessible in the user's PATH.
+# \param $2 A filespec; for example '*' or '/home/user'.
+watch ()
+{
+	if [ ! -z `command -v inotifywait` ]; then
+		echo "'inotifywait', needed to run the watch command, is not accessible in your PATH."
+		return
+	fi
+
+	# Validate the command parameter.
+	if [ -z "${1}" ]; then
+		echo "Invalid command."
+		return
+	fi
+
+	# Validate the filespec parameter.
+	if [ -z "${2}" ]; then
+		echo "Invalid filespec."
+		return
+	fi
+
+	# Set an appropriate inotify watch event default.
+	local default="modify"
+	local events=${3:-$default}
+
+	while inotifywait -e "${events}" "${2}"; do
+
+		# If the script failed (thereby returning an error), exit rather than loop again.
+		if [ $? -gt 0 ]; then
+			return
+		fi
+
+		"${1}"
+
+		# If the requested command fails, exit rather than loop again.
+		if [ $? -gt 0 ]; then
+			return
+		fi
+	done
+}
