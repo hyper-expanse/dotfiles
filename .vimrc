@@ -216,17 +216,6 @@ set mousemodel=popup
 autocmd FileType helpfile set nonumber
 
 "====================================================
-" Doxygen
-"
-" These options manage settings associated with Vim's built-in support for Doxygen.
-"====================================================
-
-" Autoload Doxygen highlighting. This allows Vim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
-if version >=700
-	let g:load_doxygen_syntax=1
-endif
-
-"====================================================
 " Backups
 "
 " These options manage settings associated with how backups are handled by Vim.
@@ -242,6 +231,32 @@ set backupdir=~/.vim/backups
 
 " The backup directory, used to store copies of files before they're modified, must exist for backup files to be created. If it does not exist backup files will not get created.
 call EnsureDirExists($HOME . '/.vim/backups')
+
+"====================================================
+" Clipboard
+"
+" These options manage settings associated with Vim's built-in clipboard support that allows copying between Vim instances and other applications. This is possible by leveraging the System's clipboard.
+"====================================================
+
+" Setup Vim to use the operating system's native clipboard for all copy and paste operations. This will allow content to be copied and pasted between Vim and other system applications.
+if has('clipboard')
+	" Set Vim to use the system clipboard, available through the * registry, by default for all copy and paste operations.
+	set clipboard=unnamed
+elseif has('xterm_clipboard')
+	" Set Vim to use the X11 clipboard, available through the + registry, by default for all copy and paste operations.
+	set clipboard=unnamedplus
+endif
+
+"====================================================
+" Doxygen
+"
+" These options manage settings associated with Vim's built-in support for Doxygen.
+"====================================================
+
+" Autoload Doxygen highlighting. This allows Vim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
+if version >=700
+	let g:load_doxygen_syntax=1
+endif
 
 "====================================================
 " Undo
@@ -598,13 +613,6 @@ if &term =~ '^screen'
 	" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
 	set ttymouse=xterm2
 endif
-
-" Copy entire file contents to clipboard while in any mode.
-map <C-Y> :%y+<CR>
-map! <C-Y> :%y+<CR>
-
-" Pressing CTRL-V pastes clipboard text at the cursor's location.
-map <C-V> "+gP
 
 " Start a browser instance loading the URI that is underneath the cursor.
 nnoremap <silent> <C-U> <ESC>:call Browser()<CR>

@@ -22,7 +22,7 @@
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches.
 	l = log --abbrev-commit --decorate --graph --oneline
-	lf = log --abbrev-commit --decorate --graph --oneline --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(blue)<%an>%Creset'
+	lf = log --abbrev-commit --decorate --graph --oneline --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(magenta)<%an> %C(cyan)<%G?>%Creset'
 
 	# Standard log with file lines additions/removals.
 	ll = log --abbrev-commit --decorate --graph --stat

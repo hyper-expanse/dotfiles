@@ -8,19 +8,19 @@
 
 # If not running interactively, don't do anything.
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
 
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
-# Append command to the bash command history file instead of overwriting it.
-shopt -s histappend
-
 # For setting history length see HISTSIZE and HISTFILESIZE in bash(1).
 HISTSIZE=1000
 HISTFILESIZE=2000
+
+# Append command to the bash command history file instead of overwriting it.
+shopt -s histappend
 
 # Append command to the history after every display of the command prompt instead of after terminating the session.
 PROMPT_COMMAND='history -a'
@@ -68,25 +68,27 @@ case "$TERM" in
 		;;
 esac
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like ~/.bash_aliases, instead of adding them here directly.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # Enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		source  /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		source /etc/bash_completion
+	fi
 fi
 
-# Source our Bash prompt.
+# Source our custom shell aliases. All custom shell aliases should be in this external file rather than cluttering up this file.
+if [ -f ~/.bash_aliases ]; then
+	source ~/.bash_aliases
+fi
+
+# Source our custom prompt setup script.
 if [ -f ~/.prompt ]; then
 	source ~/.prompt
 fi
+
+# Add local Node.js module directory to the beginning of our PATH so that Node.js modules pulled down by a project, through, say, NPM and package.json, can be used rather than any global Node.js modules on the system, or in the user's local bin directory. This will ensure project builds use their desired versions of Node.js modules.
+export PATH=./node_modules/.bin:$PATH
 
 # Retrieve the name of our operating system platform.
 platform=`uname -o`
