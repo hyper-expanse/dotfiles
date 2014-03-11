@@ -1038,7 +1038,7 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 
 "|bin|tmp|node_modules|bower_components$',
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist)$',
 	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
 	\ }
 
