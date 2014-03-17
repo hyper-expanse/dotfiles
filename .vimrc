@@ -1,8 +1,52 @@
 "====================================================
-" VIM Configuration
+" Vim Configuration
 "
-" This script provides useful VIM configuration settings.
+" This script provides useful Vim configuration settings.
 "====================================================
+
+"====================================================
+" Setup Vundle Plugin
+"
+" Setup the Vundle plugin so that it's aware of external plugins we're interested in incorporating into our Vim instance. Vundle will manage those plugins by pulling in updates and placing them in the appropriate Vim directory.
+"
+" Note: Vundle-managed plugins MUST be listed before any configuration steps involving these plugins can take place.
+"====================================================
+
+" Add Vundle to Vim's PATH and then initialize Vundle.
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Main Vundle plugin repository.
+Bundle 'https://github.com/gmarik/vundle'
+
+" All other plugins.
+Bundle 'https://github.com/kien/ctrlp.vim'
+Bundle 'https://github.com/gregsexton/gitv'
+Bundle 'https://github.com/claco/jasmine.vim'
+Bundle 'https://github.com/vim-scripts/jQuery'
+Bundle 'https://github.com/vim-scripts/OmniCppComplete'
+Bundle 'https://github.com/scrooloose/syntastic'
+Bundle 'https://github.com/majutsushi/tagbar'
+Bundle 'https://github.com/mbbill/undotree'
+Bundle 'https://github.com/bling/vim-airline'
+Bundle 'https://github.com/flazz/vim-colorschemes'
+Bundle 'https://github.com/derekwyatt/vim-fswitch'
+Bundle 'https://github.com/tpope/vim-fugitive'
+Bundle 'https://github.com/pangloss/vim-javascript'
+Bundle 'https://github.com/heavenshell/vim-jsdoc'
+Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
+Bundle 'https://github.com/dbakker/vim-lint'
+Bundle 'https://github.com/phleet/vim-mercenary'
+Bundle 'https://github.com/techlivezheng/vim-plugin-minibufexpl'
+Bundle 'https://github.com/kana/vim-scratch'
+Bundle 'https://github.com/mhinz/vim-signify'
+" Required by vim-snipmate.
+Bundle "https://github.com/MarcWeber/vim-addon-mw-utils"
+" Required by vim-snipmate.
+Bundle "https://github.com/tomtom/tlib_vim"
+Bundle "https://github.com/garbas/vim-snipmate"
+Bundle "https://github.com/honza/vim-snippets"
+Bundle 'https://github.com/jmcantrell/vim-virtualenv'
 
 "====================================================
 " General Features
@@ -73,7 +117,7 @@ set directory=~/.vim/temp
 " Set the default language to use for spell checking.
 setlocal spelllang=en_us
 
-" \todo
+" Todo: Not sure, but do something.
 function! EnsureDirExists(dir)
 	if !isdirectory(a:dir)
 		if exists('*mkdir')
@@ -91,8 +135,8 @@ endfunction
 " These options alter the graphical layout and visual color of the interface, and alter how file contents are rendered.
 "====================================================
 
-" Enable syntax highlighting.
-syntax on
+" Enable Vim's syntax highlighting support. Specifically we call 'syntax enable' rather than 'syntax on'. Using 'enable' will instruct Vim to keep the current color settings rather than overruling those settings with Vim's defaults.
+syntax enable
 
 " Enable better command-line completion.
 set wildmenu " Enables a menu at the bottom of the window.
@@ -178,9 +222,6 @@ if has('gui_running')
 	set guioptions-=m
 	set guioptions-=T
 
-	" Inform Vim to expect a light GUI background. This will cause Vim to compensate by altering the colorcsheme.
-	set background=light
-
 	" Set GUI font options based on the operating system.
 	if has('win32') || has ('win64')
 		set guifont=Monospace\ 10
@@ -189,12 +230,6 @@ if has('gui_running')
 	elseif has('vms')
 		set guifont=-adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1
 	endif
-else
-	" Set a default color scheme.
-	colorscheme default
-
-	" Inform Vim to expect a dark terminal background. This will cause Vim to compensate by altering the colorscheme.
-	set background=dark
 endif
 
 " Start scrolling when we're 3 lines from the bottom of the current window.
@@ -808,24 +843,6 @@ nnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>
 vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
 
 "====================================================
-" Setup Python Virtual Environment Support
-
-" Add Python's virtualenv's site-packages to the Vim path so that code completion will only work for those libraries within
-" the virtual environment.
-"====================================================
-
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-
-"====================================================
 " Setup Omni Complete Plugin and Other Language Tools
 "
 " Setup for Omni Completion to facilitate auto-completion support and to further configure language-specific helper tools.
@@ -838,11 +855,7 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 " Set the default tag file to equal the name of the file that is generated as a result of the UpdateTags() function. If a tag file not exist within the directory containing the file that is being edited by Vim then it is simply not used. No negative effects occur.
-if has('win32')
-	set tags+=./tags
-elseif has('unix')
-	set tags+=./tags
-endif
+set tags+=./tags
 
 " Use binary search to search a tags file for matching patterns. Assumes the tags file was sorted on ASCII byte value. If no match is found during an initial search, Vim will switch to a linear search and re-scan the tags file. OPTIMIZATION: Requires tags files to be sorted by Ctags using the 'foldcase' option and requires Vim to have 'ignorecase' option set. Optimization will insure all matching tags are found, while still supporting binary search. See ":help tagbsearch".
 set tagbsearch
@@ -979,43 +992,10 @@ inoremap <silent> <F5> <ESC>:call UpdateTags()<CR>i
 vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 
 "====================================================
-" Setup Vundle Plugin
+" Setup Vundle-based Plugins
 "
-" Setup the Vundle plugin so that it's aware of all the external plugins we're interested in.
+" Each section below is designated to setting up and configuring a specific plugin pulled in by Vundle.
 "====================================================
-
-" Add Vundle to Vim's PATH and then initialize Vundle.
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" Main Vundle plugin repository.
-Bundle 'https://github.com/gmarik/vundle'
-
-" All other plugins.
-Bundle 'https://github.com/vim-scripts/closetag.vim'
-Bundle 'https://github.com/kien/ctrlp.vim'
-Bundle 'https://github.com/gregsexton/gitv.git'
-Bundle 'https://github.com/claco/jasmine.vim'
-Bundle 'https://github.com/vim-scripts/jQuery'
-Bundle 'https://github.com/vim-scripts/OmniCppComplete'
-Bundle 'https://github.com/scrooloose/syntastic'
-Bundle 'https://github.com/majutsushi/tagbar'
-Bundle 'https://github.com/mbbill/undotree'
-Bundle 'https://github.com/derekwyatt/vim-fswitch'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'https://github.com/pangloss/vim-javascript'
-Bundle 'https://github.com/heavenshell/vim-jsdoc'
-Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
-Bundle 'https://github.com/dbakker/vim-lint'
-Bundle 'https://github.com/phleet/vim-mercenary'
-"Bundle 'https://github.com/techlivezheng/vim-plugin-minibufexpl.git' " Disabling this plugin until the following issue is resolved in the vim-plugin-minibufexpl plugin: https://github.com/techlivezheng/vim-plugin-minibufexpl/issues/21
-Bundle 'https://github.com/kana/vim-scratch'
-" Required by vim-snipmate.
-Bundle "https://github.com/MarcWeber/vim-addon-mw-utils"
-" Required by vim-snipmate.
-Bundle "https://github.com/tomtom/tlib_vim"
-Bundle "https://github.com/garbas/vim-snipmate"
-Bundle "https://github.com/honza/vim-snippets"
 
 "====================================================
 " Setup Closetag Plugin
@@ -1163,6 +1143,31 @@ set iskeyword+=:
 "	:q
 
 "====================================================
+" Setup Signify Plugin
+"
+" Setup for the Signify plugin that adds the +, -, and ~ characters in the "gutter", a.k.a left sidebar, of Vim to indicate when lines have been added, removed, or modified as compared against a file managed by a VCS.
+"====================================================
+
+" Instruct the Signify plugin to only check for these version control systems upon loading a file into a Vim buffer. Restricting the list of version control systems to check for will improve the performance of the Signify plugin (by preventing Signify from checking the loaded buffer against every version control system). Also note that this list is a priority list. Version control support is checked in the order of those items in the list.
+let g:signify_vcs_list = ['git', 'hg']
+
+" Mapping for jumping around in a buffer between next, or previous, change hunks.
+let g:signify_mapping_next_hunk = '<leader>gj'
+let g:signify_mapping_prev_hunk = '<leader>gk'
+
+" Toggles the Signify plugin for the current buffer only.
+let g:signify_mapping_toggle = '<leader>gt'
+
+" Don't overwrite existing signs placed into the left sidebar by other Vim plugins.
+let g:signify_sign_overwrite = 0
+
+" Update signs when Vim is given focus.
+let g:signify_update_on_focusgained = 0
+
+" Use alternative signs for various states of a line under version control.
+let g:signify_sign_change = '~'
+
+"====================================================
 " Setup Syntastic Plugin
 "
 " Setup for the Syntastic plugin so that it knows how to behave for each software language filetype. Additional configuration can be included in this section to, for example, specify the tool that should be used to check a particular filetype for lint issues.
@@ -1200,3 +1205,17 @@ nnoremap <silent> <F8> <ESC>:TagbarToggle<CR>
 inoremap <silent> <F8> <ESC>:TagbarToggle<CR>i
 " Place the letter 'v' at the end causes the Tagbar to be turned on/off and for Vim to then return to visual mode.
 vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
+
+"====================================================
+" Setup Colorscheme
+"
+" Setup Vim to recognize our terminal as having a particular background color, and then set our preferred color scheme (a.k.a theme).
+"
+" Note: This setup step must be last so that the color scheme is setup properly. If configured earlier, some setting in this configuration file will cause Vim to revert to its default color scheme (or worse, you'll get a collision of multiple color schemes.).
+"====================================================
+
+" Inform Vim to expect a dark terminal background. This will cause Vim to compensate by altering the color scheme.
+set background=dark
+
+" Set Vim's color scheme.
+colorscheme jellybeans

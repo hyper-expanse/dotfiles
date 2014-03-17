@@ -16,6 +16,10 @@
 	status = true
 	ui = true
 
+[commit]
+	# Instruct Git to always cyptographically sign commits.
+	gpgsign = true
+
 [diff]
 	tool = vimdiff
 
