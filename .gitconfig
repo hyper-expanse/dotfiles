@@ -11,9 +11,7 @@
 	default = simple
 
 [color]
-	branch = true
-	diff = true
-	status = true
+	# By enablng git's UI color option git will color its output if the output goes to a terminal. Output will not be colored for other output modes such as piping to files or other commands. ui=true enables color output for color.branch, color.diff, color.interactive, and color.status.
 	ui = true
 
 [commit]
@@ -21,7 +19,11 @@
 	gpgsign = true
 
 [diff]
+	# Instruct Git to use the vimdiff tool when using git's difftool command.
 	tool = vimdiff
+
+	# Instruct Git to use mnemonic prefixes (Such as *i*ndex, *w*ork tree, *c*ommit, or *o*bject) instead of the standard *a* and *b* notation.
+	mnemonicprefix = true
 
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches.

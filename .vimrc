@@ -23,13 +23,14 @@ Bundle 'https://github.com/gmarik/vundle'
 Bundle 'https://github.com/kien/ctrlp.vim'
 Bundle 'https://github.com/gregsexton/gitv'
 Bundle 'https://github.com/claco/jasmine.vim'
+Bundle 'https://github.com/nanotech/jellybeans.vim'
 Bundle 'https://github.com/vim-scripts/jQuery'
 Bundle 'https://github.com/vim-scripts/OmniCppComplete'
 Bundle 'https://github.com/scrooloose/syntastic'
 Bundle 'https://github.com/majutsushi/tagbar'
+Bundle 'https://github.com/edkolev/tmuxline.vim'
 Bundle 'https://github.com/mbbill/undotree'
 Bundle 'https://github.com/bling/vim-airline'
-Bundle 'https://github.com/flazz/vim-colorschemes'
 Bundle 'https://github.com/derekwyatt/vim-fswitch'
 Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/pangloss/vim-javascript'
@@ -1167,6 +1168,9 @@ let g:signify_update_on_focusgained = 0
 " Use alternative signs for various states of a line under version control.
 let g:signify_sign_change = '~'
 
+" By default `git diff` compares the working copy against the staging index. Therefore, after you have added a change hunk to the index, signify will no longer indicate the change along the file's left sidebar. This is not really our desired behavior. It would be preferable to see all changes in a file not yet committed to the repository.
+let g:signify_diffoptions = { 'git': 'HEAD' }
+
 "====================================================
 " Setup Syntastic Plugin
 "
@@ -1205,6 +1209,15 @@ nnoremap <silent> <F8> <ESC>:TagbarToggle<CR>
 inoremap <silent> <F8> <ESC>:TagbarToggle<CR>i
 " Place the letter 'v' at the end causes the Tagbar to be turned on/off and for Vim to then return to visual mode.
 vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
+
+"====================================================
+" Setup Tmuxline Plugin
+"
+" Setup for Tmuxline to enable a Powerline line like status line for TMUX, but using Vim to manage the setup and configuration.
+"====================================================
+
+" Choose one of the built-in status line presets available from the Tmuxline plugin. In this case I have chosen Tmuxline's 'full' preset that includes most available data points; such as open windows, date, time, and host.
+let g:tmuxline_preset = 'full'
 
 "====================================================
 " Setup Colorscheme
