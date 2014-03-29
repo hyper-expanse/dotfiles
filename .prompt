@@ -111,10 +111,9 @@ LoadPrompt()
 	PS1="${PS1}-"
 
 	# Current 1 minute system load.
-	local numberOfCores="\$(GetNumberOfCores)"
 	local load="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
 	local scale="100"
-	local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${numberOfCores}\" | bc)"
+	local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${NUMBER_OF_CORES}\" | bc)"
 
 	PS1="${PS1}(${B_CYAN}\$(echo \"${percentUtilization}%\")${B_BLACK})"
 
@@ -169,6 +168,9 @@ LoadPrompt()
 	# Reset color back to the default which will be overwritten by subsequent output.
 	PS1="${PS1}${COLOR_OFF}"
 }
+
+# Make a cache of the number of cores on the current system. This allows us to avoid retrieving this information every time the prompt is generated. Instead, the number is only retrieved when this file is sourced.
+export NUMBER_OF_CORES="$(GetNumberOfCores)"
 
 # Call the load prompt function to set the user's prompt to the custom version.
 LoadPrompt
