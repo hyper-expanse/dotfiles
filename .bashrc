@@ -108,7 +108,7 @@ compress()
 	local dirName=`dirname ${1}`
 	local baseName=`basename ${1}`
 
-	if [ -f ${1} ] ; then
+	if [ -f ${1} ]; then
 		echo "Selected a file for compression. Changing directory to ${dirName}."
 		cd ${dirName}
 		case ${2} in
@@ -124,7 +124,7 @@ compress()
 		esac
 		echo "Navigating back to ${dirPriorToExe}"
 		cd ${dirPriorToExe}
-	elif [ -d ${1} ] ; then
+	elif [ -d ${1} ]; then
 		echo "Selected a directory for compression. Changing directory to ${dirName}."
 		cd ${dirName}
 		case ${2} in
@@ -156,7 +156,7 @@ extract () {
 		exit
 	fi
 
-	if [ -f "${1}" ] ; then
+	if [ -f "${1}" ]; then
 		case ${1} in
 			*.tar.bz2)   tar xvjf ../${1}    ;;
 			*.tar.gz)    tar xvzf ../${1}    ;;
@@ -190,7 +190,7 @@ nasatv ()
 
 	if [ ! -f "${script}" ]; then
 		echo "The required script, ${script}, does not exist."
-		exit 1
+		return
 	fi
 
 	local arguments="$@" # We have to capture $@ in a temp variable to pass as part of the call to TMUX or, for some unknown reason, the variable arguments will be passed to TMUX and not to the script executed by Bash.
