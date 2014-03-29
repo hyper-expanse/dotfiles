@@ -5,55 +5,23 @@
 "====================================================
 
 "====================================================
-" Setup Vundle Plugin
+" Environment State
 "
-" Setup the Vundle plugin so that it's aware of external plugins we're interested in incorporating into our Vim instance. Vundle will manage those plugins by pulling in updates and placing them in the appropriate Vim directory.
-"
-" Note: Vundle-managed plugins MUST be listed before any configuration steps involving these plugins can take place.
+" Capture the state of Vim's working environment (Such as the operating system, and its environmental variables, on which Vim is executing) so that various options can be enabled, or disabled, to optimize the user's experience.
 "====================================================
 
-" Add Vundle to Vim's PATH and then initialize Vundle.
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" Main Vundle plugin repository.
-Bundle 'https://github.com/gmarik/vundle'
-
-" All other plugins.
-Bundle 'https://github.com/kien/ctrlp.vim'
-Bundle 'https://github.com/gregsexton/gitv'
-Bundle 'https://github.com/claco/jasmine.vim'
-Bundle 'https://github.com/nanotech/jellybeans.vim'
-Bundle 'https://github.com/vim-scripts/jQuery'
-Bundle 'https://github.com/vim-scripts/OmniCppComplete'
-Bundle 'https://github.com/scrooloose/syntastic'
-Bundle 'https://github.com/majutsushi/tagbar'
-Bundle 'https://github.com/edkolev/tmuxline.vim'
-Bundle 'https://github.com/mbbill/undotree'
-Bundle 'https://github.com/bling/vim-airline'
-Bundle 'https://github.com/derekwyatt/vim-fswitch'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'https://github.com/pangloss/vim-javascript'
-Bundle 'https://github.com/heavenshell/vim-jsdoc'
-Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
-Bundle 'https://github.com/dbakker/vim-lint'
-Bundle 'https://github.com/phleet/vim-mercenary'
-Bundle 'https://github.com/techlivezheng/vim-plugin-minibufexpl'
-Bundle 'https://github.com/kana/vim-scratch'
-Bundle 'https://github.com/mhinz/vim-signify'
-" Required by vim-snipmate.
-Bundle "https://github.com/MarcWeber/vim-addon-mw-utils"
-" Required by vim-snipmate.
-Bundle "https://github.com/tomtom/tlib_vim"
-Bundle "https://github.com/garbas/vim-snipmate"
-Bundle "https://github.com/honza/vim-snippets"
-Bundle 'https://github.com/jmcantrell/vim-virtualenv'
+let s:isSSH = !empty($SSH_TTY)
 
 "====================================================
 " General Features
 "
 " These options enable several useful baseline features for improving Vim functionality.
 "====================================================
+
+if has('vim_starting')
+	" Ensure that Vim always starts with its defaults rather than those imposed by the current system.
+	set all&
+endif
 
 " Set how many lines of history Vim must remember.
 set history=1000
@@ -67,11 +35,11 @@ set nocompatible
 " Disable filetype detection as per Vundle's requirements.
 filetype off
 
-" Enabled filetype plugins based on the version of Vim used.
-if version >= 600
-	filetype plugin on " Enable filetype for the inclusion of plugins that are file type specific.
-	filetype indent on " Enable filetype plugins that allow intelligent auto-indenting based on file type.
-endif
+" Enable filetype for the inclusion of plugins that are file type specific.
+filetype plugin on
+
+" Enable filetype plugins that allow intelligent auto-indenting based on file type.
+filetype indent on
 
 " Use Unix as the standard file type when saving a buffer back to file. This will cause Unix line terminators, \n, to be used for deliminating a file's newlines.
 set fileformat=unix
@@ -88,8 +56,8 @@ if has('multi_byte')
 	set fileencodings=ucs-bom,utf-8,latin1 " Set the sequence of encodings to be used as a heuristic when reading an existing file. The first encoding that matches will be used.
 endif
 
-" Set Bash as the default shell to be used when executing commands within a shell.
-set shell=/bin/bash
+" Set the system's default shell as Vim's default shell to be used when executing commands within a shell.
+set shell=/bin/sh
 
 " Configure Vim to remember certain information between instances.
 " '10 : Marks will be remembered for up to 10 previously edited files.
@@ -103,8 +71,12 @@ set viminfo='10,\"100,:20,%,n~/.vim/viminfo
 set nomodeline " Turn off modeline parsing altogether.
 set modelines=0 " Set the number of modelines Vim parses, when reading a file, to zero.
 
-" Indicate to Vim that we have a fast terminal connection. This instructs Vim to send more characters to the screen for re-drawing rather than using insert/delete commands.
-set ttyfast
+" When running Vim outside of an SSH session indicate to Vim that we have a fast terminal connection. If running over an SSH connection then disable the ttyfast option. ttyfast instructs Vim to send more characters to the screen for re-drawing rather than using insert/delete line commands.
+if !s:isSSH
+	set ttyfast
+else
+	set nottyfast
+endif
 
 " Set printing options such as syntax and the output paper size.
 set printoptions=paper:A4,syntax:y
@@ -118,17 +90,79 @@ set directory=~/.vim/temp
 " Set the default language to use for spell checking.
 setlocal spelllang=en_us
 
-" Todo: Not sure, but do something.
-function! EnsureDirExists(dir)
-	if !isdirectory(a:dir)
+" Create a directory if it doesn't already exist.
+function! EnsureDirectoryExists(directory)
+	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore Vim's suffixes and wildignore options..
+	let l:path = expand(substitute(a:directory, '\s\+', '', 'g'), 1)
+
+	" Ensure the expanded path is non-empty. An empty l:path may be caused if path expansion in previous step fails. For that reason we should return the original directory in hopes that it's useful for debugging.
+	if empty(l:path)
+		echoerr "EnsureDirectoryExists(): Invalid path: " . a:directory
+		return 0
+	endif
+
+	" Ensure the path does not already exist (Because what's the point of creating a directory that already exists.).
+	if !isdirectory(l:path)
+		" Ensure `mkdir` exists on the system or otherwise we can't create the directory automatically.
 		if exists('*mkdir')
-			call mkdir(a:dir,'p')
-			echo "Created directory: " . a:dir
+			call mkdir(l:path,'p')
+			echomsg "Created directory: " . l:path
 		else
-			echo "Please create directory: " . a:dir
+			echoerr "Please create directory: " . l:path
 		endif
 	endif
+
+	return isdirectory(l:path)
 endfunction
+
+"====================================================
+" Setup Vundle Plugin
+"
+" Setup the Vundle plugin so that it's aware of external plugins we're interested in incorporating into our Vim instance. Vundle will manage those plugins by pulling in updates and placing them in the appropriate Vim directory.
+"
+" Note: Vundle-managed plugins MUST be listed before any configuration steps involving these plugins can take place.
+"====================================================
+
+" Add Vundle to Vim's runtime PATH.
+if has('vim_starting')
+	set runtimepath+=~/.vim/bundle/vundle/
+endif
+
+" Initialize Vundle.
+call vundle#rc()
+
+" Main Vundle plugin repository.
+Plugin 'https://github.com/gmarik/vundle'
+
+" All other plugins.
+Plugin 'https://github.com/kien/ctrlp.vim'
+Plugin 'https://github.com/gregsexton/gitv'
+Plugin 'https://github.com/claco/jasmine.vim'
+Plugin 'https://github.com/nanotech/jellybeans.vim'
+Plugin 'https://github.com/vim-scripts/jQuery'
+Plugin 'https://github.com/vim-scripts/OmniCppComplete'
+Plugin 'https://github.com/scrooloose/syntastic'
+Plugin 'https://github.com/majutsushi/tagbar'
+Plugin 'https://github.com/edkolev/tmuxline.vim'
+Plugin 'https://github.com/mbbill/undotree'
+Plugin 'https://github.com/bling/vim-airline'
+Plugin 'https://github.com/derekwyatt/vim-fswitch'
+Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/pangloss/vim-javascript'
+Plugin 'https://github.com/heavenshell/vim-jsdoc'
+Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
+Plugin 'https://github.com/dbakker/vim-lint'
+Plugin 'https://github.com/phleet/vim-mercenary'
+Plugin 'https://github.com/techlivezheng/vim-plugin-minibufexpl'
+Plugin 'https://github.com/kana/vim-scratch'
+Plugin 'https://github.com/mhinz/vim-signify'
+" Required by vim-snipmate.
+Plugin 'https://github.com/MarcWeber/vim-addon-mw-utils'
+" Required by vim-snipmate.
+Plugin 'https://github.com/tomtom/tlib_vim'
+Plugin 'https://github.com/garbas/vim-snipmate'
+Plugin 'https://github.com/honza/vim-snippets'
+Plugin 'https://github.com/jmcantrell/vim-virtualenv'
 
 "====================================================
 " User Interface
@@ -183,8 +217,11 @@ set confirm
 " Enable use of the mouse for all Vim modes: Normal, Insert, Visual, and Command-line.
 set mouse=a
 
-" Set the command window height to 2 lines, to avoid many cases of having to 'press <Enter> to continue'.
-set cmdheight=2
+" Set the command window height to one line. This leaves a single line underneath the status line for command output. This could cause issues with commands that return more output than can fit on that one line. In those cases you may be prompted with the following statement 'press <Enter> to continue', which will require physical intervention on your part. However, this seems like a reasonable compromise as the reduction of the command output lines to only one line saves valuable real estate by avoiding unused white space. One way to offset the 'press <Enter>' prompting is to use the 'shortmess' option to reduce command output.
+set cmdheight=1
+
+" Use abbreviations when posting status messages to the command output line (The line right beneth Vim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. Furthermore, we append the 't' option to 'shortmess' so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
+set shortmess=at
 
 " Display line numbers on the left with a column width of 4.
 set number
@@ -228,8 +265,6 @@ if has('gui_running')
 		set guifont=Monospace\ 10
 	elseif has('unix')
 		set guifont=DejaVu\ Sans\ Mono\ 10
-	elseif has('vms')
-		set guifont=-adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1
 	endif
 endif
 
@@ -249,7 +284,17 @@ syntax sync minlines=256
 set mousemodel=popup
 
 " Do not display line numbers when viewing a help file.
-autocmd FileType helpfile set nonumber
+augroup helpFile
+	autocmd!
+
+	autocmd FileType helpfile set nonumber
+augroup END
+
+" Configure Vim's formatting options used by Vim to automatically for a line of text. Formatting not applied when 'paste' is enabled.
+" Options:
+" l: Don't break a line after a one-letter word. Attempt to break before it.
+" j: Where it makes sense, remove a comment leader when joining lines.
+set formatoptions+=lj
 
 "====================================================
 " Backups
@@ -266,7 +311,7 @@ set noswapfile " No temporary swap files.
 set backupdir=~/.vim/backups
 
 " The backup directory, used to store copies of files before they're modified, must exist for backup files to be created. If it does not exist backup files will not get created.
-call EnsureDirExists($HOME . '/.vim/backups')
+call EnsureDirectoryExists($HOME . '/.vim/backups')
 
 "====================================================
 " Clipboard
@@ -290,9 +335,7 @@ endif
 "====================================================
 
 " Autoload Doxygen highlighting. This allows Vim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
-if version >=700
-	let g:load_doxygen_syntax=1
-endif
+let g:load_doxygen_syntax=1
 
 "====================================================
 " Undo
@@ -306,16 +349,16 @@ if has('persistent_undo')
 	set undodir=~/.vim/undo
 
 	" The undo directory, used to store undo cache files, must exist for undo cache files to be created. If it does not exist undo cache files will not get created.
-	call EnsureDirExists($HOME . '/.vim/undo')
+	call EnsureDirectoryExists($HOME . '/.vim/undo')
 
 	" Turn on persistent undo history.
 	set undofile
 
 	" Set the maximum number of undos that should be kept in history.
-	set undolevels=1000
+	set undolevels=100
 
 	" Set the maximum number of lines to save for undo on a buffer reload. Allows the current contents of a buffer to be saved when reloading the buffer so that the buffer reload can be undone.
-	set undoreload=10000
+	set undoreload=1000
 endif
 
 "====================================================
@@ -424,15 +467,21 @@ function! DeleteTrailingWS()
 endfunc
 
 " Create an autocmd that will be executed every time the buffer is written back to file, deleting trailing white space.
-augroup deleteTrailingWS
+augroup deleteTrailingWhiteSpace
+	autocmd!
+
 	autocmd BufWrite * :call DeleteTrailingWS()
 augroup END
 
 " Return to the last edit position when re-opening a file.
-autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\   exe "normal! g`\"" |
-	\ endif
+augroup returnLastLine
+	autocmd!
+
+	autocmd BufReadPost *
+		\ if line("'\"") > 0 && line("'\"") <= line("$") |
+		\   exe "normal! g`\"" |
+		\ endif
+augroup END
 
 " Search and replace support.
 function! VisualSelection(direction) range
@@ -509,29 +558,29 @@ endfunction
 
 " Autocmds to automatically enter hex mode and handle file writes properly.
 augroup Binary
-	au!
+	autocmd!
 
 	" Set binary option for all binary files before reading them.
-	au BufReadPre *.bin,*.hex,*.exe,*.tar setlocal binary
+	autocmd BufReadPre *.bin,*.hex,*.exe,*.tar setlocal binary
 
 	" If on a fresh read the buffer variable is already set, it's wrong.
-	au BufReadPost *
+	autocmd BufReadPost *
 		\ if exists('b:editHex') && b:editHex |
 		\   let b:editHex = 0 |
 		\ endif
 
 	" Convert to hex on startup for binary files automatically.
-	au BufReadPost *
+	autocmd BufReadPost *
 		\ if &binary | :call ToggleHex() | endif
 
 	" When the text is freed the next time the buffer is made active it will re-read the text and thus not match the correct mode, we will need to convert it again if the buffer is again loaded.
-	au BufUnload *
+	autocmd BufUnload *
 		\ if getbufvar(expand('<afile>'), 'editHex') == 1 |
 		\   call setbufvar(expand('<afile>'), 'editHex', 0) |
 		\ endif
 
 	" Before writing a file when editing in hex mode, convert back to non-hex.
-	au BufWritePre *
+	autocmd BufWritePre *
 		\ if exists('b:editHex') && b:editHex && &binary |
 		\  let oldro=&ro | let &ro=0 |
 		\  let oldma=&ma | let &ma=1 |
@@ -541,7 +590,7 @@ augroup Binary
 		\ endif
 
 	" After writing a binary file, if we're in hex mode, restore hex mode.
-	au BufWritePost *
+	autocmd BufWritePost *
 		\ if exists('b:editHex') && b:editHex && &binary |
 		\  let oldro=&ro | let &ro=0 |
 		\  let oldma=&ma | let &ma=1 |
@@ -609,15 +658,13 @@ function! Browser ()
 	endif
 endfunction
 
-" Retrieve the current work under the cursor.
-function! GetWordUnderCursor()
-	let s:wordUnderCursor = expand('<cword>')
-	return s:wordUnderCursor
-endfunction
-
-" Swap SQL Join predicates.
-function! SwapJoinPredicate()
-	exec "s/\\v(ON|AND|OR)\\s+(.+)\\s*\\=\\s*(.+)$/\\1 \\3 = \\2/g"
+" Automatically insert header guards into new C++ header files.
+function! InsertHeaderGuard()
+	let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+	execute "normal! i#ifndef " . gatename
+	execute "normal! o#define " . gatename
+	execute "normal! Go#endif"
+	normal! kk
 endfunction
 
 "====================================================
@@ -756,12 +803,6 @@ nnoremap <silent> <C-Down> :resize -3<CR>
 nnoremap <silent> <C-Right> :vertical resize +3<CR>
 nnoremap <silent> <C-Left> :vertical resize -3<CR>
 
-" Swap SQL join predicate.
-nnoremap <leader>sjp :call SwapJoinPredicate()<CR>
-
-" Retrieve the word currently underneath the cursor.
-nnoremap <leader>gwuc :call GetWordUnderCursor()<CR>
-
 " Pressing CTRL-A selects all text within the current buffer.
 nnoremap <C-A> gggH<C-O>G
 
@@ -830,12 +871,16 @@ vnoremap <C-A> ggVG
 "---------------------------------------------------------
 
 " Map filetypes to comment delimiters.
-au FileType haskell,vhdl,ada let b:comment_leader = '-- '
-au FileType vim let b:comment_leader = '" '
-au FileType c,cpp,java,javascript,php let b:comment_leader = '// '
-au FileType fql,fqlut let b:comment_leader = '\\ '
-au FileType sh,make let b:comment_leader = '# '
-au FileType tex let b:comment_leader = '% '
+augroup programmingLanguageComments
+	autocmd!
+
+	autocmd FileType haskell,vhdl,ada let b:comment_leader = '-- '
+	autocmd FileType vim let b:comment_leader = '" '
+	autocmd FileType c,cpp,java,javascript,php let b:comment_leader = '// '
+	autocmd FileType fql,fqlut let b:comment_leader = '\\ '
+	autocmd FileType sh,make let b:comment_leader = '# '
+	autocmd FileType tex let b:comment_leader = '% '
+augroup END
 
 " Define comment functions to map comment to 'cc' and uncomment to 'uc' in visual and normal mode.
 nnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
@@ -850,7 +895,11 @@ vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>
 "====================================================
 
 " Configure the auto-complete pop-up menu to automatically open and close.
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+augroup autoCompleteMenu
+	autocmd!
+
+	autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+augroup END
 
 " Configure pop-up menu to auto-select based on order of options.
 set completeopt=menuone,menu,longest,preview
@@ -872,44 +921,40 @@ set omnifunc=syntaxcomplete#Complete
 " C SUPPORT.
 
 " Enable C Omni Complete on C source and header files.
-if version >= 700
+augroup cSupport
+	autocmd!
+
 	autocmd FileType c set omnifunc=ccomplete#Complete " Default Omni Complete line for enabling Omni Complete for C files.
-endif
+augroup END
 
 " C++ SUPPORT.
 
-" Enable C++ Omni Complete on C++ source and header files.
-if version >= 700
+augroup cppSupport
+	autocmd!
+
+	" Enable C++ Omni Complete on C++ source and header files.
 	autocmd FileType cpp set omnifunc=omni#cpp#complete#Main " Override built-in C Omni Complete with C++ OmniCppComplete plugin.
-	" autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp " A possible improvement is to use the proceeding line in which the file extensions are specified. It may be required to get Vim to recognize files that have usual extensions.
-	let OmniCpp_GlobalScopeSearch = 1 " Search for functions starting from the global scope and narrowing down from there.
-	let OmniCpp_NamespaceSearch = 1 " Search for functions within the current file and all included files.
-	let OmniCpp_ShowAccess = 1 " Show access modifier (private(-), public(#), or protected(#)).
-	let OmniCpp_DisplayMode = 1 " Show all members: static, public, protected, and private.
-	let OmniCpp_ShowScopeInAbbr = 1 " Show namespace, such as the class, that defines the function.
-	let OmniCpp_ShowPrototypeInAbbr = 1 " Show prototype (argument types).
-	let OmniCpp_MayCompleteDot = 1 " Autocomplete after .
-	let OmniCpp_MayCompleteArrow = 1 " Autocomplete after ->
-	let OmniCpp_MayCompleteScope = 1 " Autocomplete after ::
-	let OmniCpp_SelectFirstItem = 2 " Select first item within the pop-up menu. (1 = Insert option into text, 2 = Select but don't insert into text)
-	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"] " Omni Complete will include the following namespaces by default, without first requiring the namespaces to be specified.
-	set completeopt=menuone,menu,longest
-endif
+
+	" Automatically insert header guards into new C++ header files.
+	autocmd BufNewFile *.{h,hpp} call InsertHeaderGuard()
+augroup END
+
+let OmniCpp_GlobalScopeSearch = 1	" Search for functions starting from the global scope and narrowing down from there.
+let OmniCpp_NamespaceSearch = 1		" Search for functions within the current file and all included files.
+let OmniCpp_ShowAccess = 1			" Show access modifier (private(-), public(#), or protected(#)).
+let OmniCpp_DisplayMode = 1			" Show all members: static, public, protected, and private.
+let OmniCpp_ShowScopeInAbbr = 1		" Show namespace, such as the class, that defines the function.
+let OmniCpp_ShowPrototypeInAbbr = 1 " Show prototype (argument types).
+let OmniCpp_MayCompleteDot = 1		" Autocomplete after .
+let OmniCpp_MayCompleteArrow = 1	" Autocomplete after ->
+let OmniCpp_MayCompleteScope = 1	" Autocomplete after ::
+let OmniCpp_SelectFirstItem = 2		" Select first item within the pop-up menu. (1 = Insert option into text, 2 = Select but don't insert into text)
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"] " Omni Complete will include the following namespaces by default, without first requiring the namespaces to be specified.
 
 " List OmniCppComplete tag database files.
 if has('unix')
 	set tags+=~/.vim/tags/stl " STL C++ tag database file.
 endif
-
-" Automatically insert header guards into new C++ header files.
-function! s:insert_header_guard()
-	let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-	execute "normal! i#ifndef " . gatename
-	execute "normal! o#define " . gatename
-	execute "normal! Go#endif"
-	normal! kk
-endfunction
-autocmd BufNewFile *.{h,hpp} call <SID>insert_header_guard()
 
 " Enable the display of space errors for C and C++ files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
 let c_space_errors=1
@@ -919,68 +964,76 @@ let c_comment_strings=1
 
 " PYTHON SUPPORT.
 
-" Enable Python Omni Complete on Python files.
-if version >= 700
+augroup pythonSupport
+	autocmd!
+
+	" Enable Python Omni Complete on Python files.
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
-endif
+augroup END
 
 " Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
 let python_space_errors=1
 
 " RUBY SUPPORT.
 
-" Enable Ruby Omni Complete on Ruby and eRuby files.
-if version >= 700
+augroup rubySupport
+	autocmd!
+
+	" Enable Ruby Omni Complete on Ruby and eRuby files.
 	autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-	autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 " Show buffer/rails/global members.
-	autocmd FileType ruby,eruby let g:rubycomplete_rails = 1 " Enable Ruby on Rails support.
-	autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1 " Show classes in global completions.
-endif
+augroup END
+
+let g:rubycomplete_buffer_loading = 1		" Show buffer/rails/global members.
+let g:rubycomplete_rails = 1				" Enable Ruby on Rails support.
+let g:rubycomplete_classes_in_global = 1	" Show classes in global completions.
 
 " Enable the display of space errors for Ruby files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
 let ruby_space_errors=1
 
-" JAVA SUPPORT.
-
-" Enable the display of space errors for Java files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-let java_space_errors=1
-
 " PHP SUPPORT.
 
-" Instruct Vim to treat *.phtml files as PHP source code files.
-au BufNewFile,BufRead *.phtml set syntax=php
+augroup phpSupport
+	autocmd!
+
+	" Instruct Vim to treat *.phtml files as PHP source code files.
+	autocmd BufNewFile,BufRead *.phtml set syntax=php
+augroup END
 
 " JAVASCRIPT SUPPORT.
 
-" Enable JavaScript Omni Complete on JavaScript files.
-if version >= 700
+augroup javascriptSupport
+	autocmd!
+
+	" Enable JavaScript Omni Complete on JavaScript files.
 	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-endif
+augroup END
 
 " HTML SUPPORT.
 
-" Enable HTML Omni Complete on HTML file.
-if version >= 700
+augroup htmlSupport
+	autocmd!
+
+	" Enable HTML Omni Complete on HTML file.
 	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-endif
+augroup END
 
 " CSS SUPPORT.
 
-" Enable CSS Omni Complete on CSS files.
-if version >= 700
+augroup cssSupport
+	autocmd!
+
+	" Enable CSS Omni Complete on CSS files.
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-endif
+augroup END
 
 " OTHER SUPPORT.
 
 " Change the default auto-complete pop-up window color scheme from pink to a custom scheme using Black for the background, Cyan for each entry in the dropdown, and Green for the item currently under focus..
-if version >= 700
-	highlight clear
-	highlight Pmenu ctermfg=Cyan ctermbg=Black guifg=Cyan guibg=Black gui=bold
-	highlight PmenuSel ctermfg=Green ctermbg=Black guifg=Green guibg=Black gui=bold
-	highlight PmenuSbar ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
-	highlight PmenuThumb ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
-endif
+highlight clear
+highlight Pmenu ctermfg=Cyan ctermbg=Black guifg=Cyan guibg=Black gui=bold
+highlight PmenuSel ctermfg=Green ctermbg=Black guifg=Green guibg=Black gui=bold
+highlight PmenuSbar ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
+highlight PmenuThumb ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
 
 " Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that Vim was opened.
 function! UpdateTags()
@@ -999,14 +1052,6 @@ vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 "====================================================
 
 "====================================================
-" Setup Closetag Plugin
-"
-" Setup for a tool that closes open HTML/XML tags.
-"====================================================
-
-" Default mapping for closing an HTML/XML tag is <C-_>.
-
-"====================================================
 " Setup CtrlP Plugin
 "
 " Setup for a tool that allows for fuzzy matching on file names within the current directory, or parent directory containing a repository directory, or against opened buffers, or MRU (Most Recently Used) files.
@@ -1019,7 +1064,7 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 
 "|bin|tmp|node_modules|bower_components$',
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist)$',
+	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin)$',
 	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
 	\ }
 
@@ -1044,14 +1089,12 @@ let b:fswitchdst = 'h'
 " Set the default folders to search in for a companion file.
 let b:fswitchlocs = 'reg:|src|include/**|'
 
-" Disable the creation of a new companion file if a companion file could not be found.
-"set fsnonewfiles
-
 " When viewing a C++ header file, open the first available companion file using the following order: {.cxx}, {.cpp}, and then {.c}. Furthermore, look for a companion file in an include and source directory, and if that fails, search in the current directory. If all else fails, create a new companion file in an UNKNOWN directory.
 augroup cppfiles
-	au!
-	au BufEnter *.h let b:fswitchdst  = 'cxx,cpp,c'
-	au BufEnter *.h let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
+	autocmd!
+
+	autocmd BufEnter *.h let b:fswitchdst  = 'cxx,cpp,c'
+	autocmd BufEnter *.h let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
 augroup END
 
 " Switch between a C/C++ header and its source by opening the companion file in a new vertical split window on the right. Only works if there are not other splits to the right.
@@ -1065,12 +1108,9 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 "====================================================
 
 " Use the following commands like that their counter parts in Git would be used:
-" Gsplit
 " Gedit
 " Gblame
 " Gcommit
-" Gremove
-" Gmove
 " Others...
 
 "====================================================
@@ -1099,7 +1139,11 @@ let g:html_indent_style1 = "inc" " Style contents within script tags.
 " Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
 "====================================================
 
-au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+augroup jquerySupport
+	autocmd!
+
+	autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+augroup END
 
 "====================================================
 " Setup LaTex Plugin
