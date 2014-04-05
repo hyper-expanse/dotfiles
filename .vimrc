@@ -48,7 +48,7 @@ set fileformat=unix
 if has('multi_byte')
 	" If our keyboard encoding is not set, store the current file encoding value within the keyboard terminal variable.
 	if &termencoding == ""
-		let &termencoding=&encoding
+		let &termencoding = &encoding
 	endif
 
 	set encoding=utf-8 " Set the default encoding for how Vim represents characters internally.
@@ -335,7 +335,7 @@ endif
 "====================================================
 
 " Autoload Doxygen highlighting. This allows Vim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
-let g:load_doxygen_syntax=1
+let g:load_doxygen_syntax = 1
 
 "====================================================
 " Undo
@@ -417,16 +417,16 @@ set diffopt=filler,context:6
 "====================================================
 
 " Will cause files selected in the Explorer window to be opened in the most recently used buffer window (Causing the previous buffer to be pushed into the background).
-let g:netrw_browse_split=4
+let g:netrw_browse_split = 4
 
 " Medium speed directory browsing by re-using directory listings only when using Explorer to browse remote directories.
-let g:netrw_fastbrowse=1
+let g:netrw_fastbrowse = 1
 
 " List files and directories in the Explorer window using the tree listing style.
-let g:netrw_liststyle=3
+let g:netrw_liststyle = 3
 
 " Place the file preview window in a horizontal split window. A file can be previewed by pressing 'P'.
-let g:netrw_preview=0
+let g:netrw_preview = 0
 
 "====================================================
 " Status Line
@@ -496,22 +496,13 @@ function! VisualSelection(direction) range
 	elseif a:direction == 'gv'
 		call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
 	elseif a:direction == 'replace'
-		call CmdLine("%s" . '/'. l:pattern . '/')
+		call execute "%s/" . l:pattern . "/"
 	elseif a:direction == 'f'
 		execute "normal /" . l:pattern . "^M"
 	endif
 
 	let @/ = l:pattern
 	let @" = l:saved_reg
-endfunction
-
-" Returns a status message indicating whether in paste mode, 'PASTE MODE', or not, ' '.
-function! HasPaste()
-	if &paste
-		return 'PASTE MODE'
-	endif
-
-	return ''
 endfunction
 
 " Don't close this window when deleting a buffer.
@@ -531,7 +522,7 @@ function! <SID>BufcloseCloseIt()
 	endif
 
 	if buflisted(l:currentBufNum)
-		execute('bdelete! '.l:currentBufNum)
+		execute 'bdelete! ' . l:currentBufNum
 	endif
 endfunction
 
@@ -582,66 +573,66 @@ augroup Binary
 	" Before writing a file when editing in hex mode, convert back to non-hex.
 	autocmd BufWritePre *
 		\ if exists('b:editHex') && b:editHex && &binary |
-		\  let oldro=&ro | let &ro=0 |
-		\  let oldma=&ma | let &ma=1 |
+		\  let oldro = &ro | let &ro = 0 |
+		\  let oldma = &ma | let &ma = 1 |
 		\  silent exe "%!xxd -r" |
-		\  let &ma=oldma | let &ro=oldro |
+		\  let &ma = oldma | let &ro = oldro |
 		\  unlet oldma | unlet oldro |
 		\ endif
 
 	" After writing a binary file, if we're in hex mode, restore hex mode.
 	autocmd BufWritePost *
 		\ if exists('b:editHex') && b:editHex && &binary |
-		\  let oldro=&ro | let &ro=0 |
-		\  let oldma=&ma | let &ma=1 |
+		\  let oldro = &ro | let &ro = 0 |
+		\  let oldma = &ma | let &ma = 1 |
 		\  silent exe "%!xxd" |
 		\  exe "set nomod" |
-		\  let &ma=oldma | let &ro=oldro |
+		\  let &ma = oldma | let &ro = oldro |
 		\  unlet oldma | unlet oldro |
 		\ endif
 augroup END
 
 " Toggles hex mode. Hex mode should be considered a read-only operation. Save values for modified and read-only for restoration later and clear the read-only flag for now.
 function! ToggleHex()
-	let l:modified=&mod
-	let l:oldreadonly=&readonly
+	let l:modified = &mod
+	let l:oldreadonly = &readonly
 	let &readonly = 0
-	let l:oldmodifiable=&modifiable
-	let &modifiable=1
+	let l:oldmodifiable = &modifiable
+	let &modifiable = 1
 
 	if !exists('b:editHex') || !b:editHex
 
 		" Save old options.
-		let b:oldft=&ft
-		let b:oldbin=&bin
+		let b:oldft = &ft
+		let b:oldbin = &bin
 
 		" Set new options.
 		setlocal binary " Make sure it overrides any textwidth, etc.
-		let &ft="xxd"
+		let &ft = "xxd"
 
 		" Set status.
-		let b:editHex=1
+		let b:editHex = 1
 
 		" Switch to hex editor.
 		%!xxd
 	else
 		" Restore old options.
-		let &ft=b:oldft
+		let &ft = b:oldft
 
 		if !b:oldbin
 			setlocal nobinary
 		endif
 
 		" Set status.
-		let b:editHex=0
+		let b:editHex = 0
 		" Return to normal editing.
 		%!xxd -r
 	endif
 
 	" Restore values for modified and read only state.
-	let &mod=l:modified
-	let &readonly=l:oldreadonly
-	let &modifiable=l:oldmodifiable
+	let &mod = l:modified
+	let &readonly = l:oldreadonly
+	let &modifiable = l:oldmodifiable
 endfunction
 
 " Open the URI that is currently underneath the cursor in a browser.
@@ -651,10 +642,10 @@ function! Browser ()
 
 	" In Windows use Google Chrome.
 	if has('win32')
-		exec "!C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --incognito ".line
+		execute "!C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --incognito " . line
 	" In a Unix like environment use a text-based browser such as Elinks.
 	elseif has('unix')
-		exec "!elinks ".line
+		execute "!elinks " . line
 	endif
 endfunction
 
@@ -674,8 +665,14 @@ endfunction
 "====================================================
 
 " Set a map leader so that extra key combinations can be used for quick operations.
-let mapleader=","
-let g:mapleader=","
+let mapleader = ","
+let g:mapleader = ","
+
+" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any Vim mode will enter command mode.
+map ; :
+
+" Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of Vim's enabled auto-indent features.
+set pastetoggle=<F11>
 
 " Manage spell check by supporting mappings that turn spell check on and off.
 nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
@@ -717,7 +714,7 @@ inoremap <silent> <F6> <ESC>:set list!<CR>i
 vnoremap <silent> <F6> <ESC>:set list!<CR>v
 
 " Instruct Vim to generate syntax highlight for the entire buffer, beginning from the start of the buffer.
-noremap <silent> <F12> <Esc>:syntax sync fromstart<CR>
+nnoremap <silent> <F12> <Esc>:syntax sync fromstart<CR>
 " Placing the letter 'i' at the end causes Vim to return to insert mode after toggling syntax highlighting.
 inoremap <silent> <F12> <ESC>:syntax sync fromstart<CR>i
 " Placing the letter 'v' at the end causes Vim to return to visual mode after toggling syntax highlighting.
@@ -739,17 +736,11 @@ vnoremap <silent> <C-D> <ESC><C-]>
 " Useful mappings for command-line mode.
 "====================================================
 
-" Pressing CTRL-V pastes clipboard text at the cursor's location.
-cmap <C-V> <C-R>+
-
 "====================================================
 " Insert Mode
 "
 " Useful mappings for insert mode.
 "====================================================
-
-" Use <F11> to toggle between 'paste' and 'nopaste' which disables and enables auto-indenting respectively. Useful when pasting content into a file that is already correctly indented.
-set pastetoggle=<F11>
 
 "====================================================
 " Normal Mode
@@ -760,30 +751,12 @@ set pastetoggle=<F11>
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy, which is the default.
 nnoremap Y y$
 
-"" Map <space> to /, for forward searching, and CTRL+<space> to ?, for backwards searching.
+" Map <space> to /, for forward searching, and CTRL+<space> to ?, for backwards searching.
 nnoremap <space> /
 nnoremap <C-space> ?
 
-" Setup fast saving using leader.
-nnoremap <leader>w :w!<CR>
-
 " Remove the Window's ^M character when the encoding is messed up.
 nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
-
-" Open vimgrep and put the cursor in the correct position.
-nnoremap <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-
-" Vimgreps within the current file.
-nnoremap <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-
-" Toggle spell checking on or off.
-nnoremap <silent> <leader>ss :setlocal spell!<CR>
-
-" Toggle paste mode on or off.
-nnoremap <silent> <leader>pp :setlocal paste!<CR>
-
-" Close current window.
-nnoremap <leader>cw <C-W>c
 
 " Support switching between Vim splits using ALT and the arrow keys.
 nnoremap <silent> <A-Up> :wincmd k<CR>
@@ -807,18 +780,6 @@ nnoremap <silent> <C-Left> :vertical resize -3<CR>
 nnoremap <C-A> gggH<C-O>G
 
 "====================================================
-" Operator-Pending Mode
-"
-" Useful mappings for operator-pending mode.
-"====================================================
-
-"====================================================
-" Replace Mode
-"
-" Useful mappings for replace mode.
-"====================================================
-
-"====================================================
 " Select Mode
 "
 " Useful mappings for select mode.
@@ -833,21 +794,12 @@ snoremap <C-C> <C-O>"+y
 " Useful mappings for visual mode.
 "====================================================
 
-" Pressing CTRL-C and CTRL-Insert copies the selected text.
-xnoremap <C-C> "+y
-
-"====================================================
-" Visual and Select Modes
-"
-" Useful mappings that are available in both visual and select modes.
-"====================================================
-
 " Search and replace the selected text.
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
 " Pressing * or # while in normal mode searches for the current selection. '*' searches forward while '#' searches backwards.
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
+vnoremap <silent> 8 :call VisualSelection('f')<CR>
+vnoremap <silent> 3 :call VisualSelection('b')<CR>
 
 " Pressing gv uses vimgrep after the selected text.
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
@@ -858,17 +810,14 @@ vnoremap <C-H> :<C-U>ToggleHex()<CR>
 " Pressing backspace will delete the character to the left of the cursor.
 vnoremap <backspace> d
 
-" Pressing CTRL-X and SHIFT-Del will cut the highlighted text.
-vnoremap <C-X> "+x
-
 " Pressing CTRL-A selects all text within the current buffer.
 vnoremap <C-A> ggVG
 
-"--------------------------------------------------------
+"====================================================
 " Block Commenting
 "
 " These options and commands support commenting and uncommenting large source code blocks based on language.
-"---------------------------------------------------------
+"====================================================
 
 " Map filetypes to comment delimiters.
 augroup programmingLanguageComments
@@ -957,10 +906,10 @@ if has('unix')
 endif
 
 " Enable the display of space errors for C and C++ files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-let c_space_errors=1
+let c_space_errors = 1
 
 " Highlight strings inside C comments. Therefore, the use of "string" inside of a C comment will cause the entire "string" to receive a special highlighting color.
-let c_comment_strings=1
+let c_comment_strings = 1
 
 " PYTHON SUPPORT.
 
@@ -972,7 +921,7 @@ augroup pythonSupport
 augroup END
 
 " Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-let python_space_errors=1
+let python_space_errors = 1
 
 " RUBY SUPPORT.
 
@@ -988,7 +937,7 @@ let g:rubycomplete_rails = 1				" Enable Ruby on Rails support.
 let g:rubycomplete_classes_in_global = 1	" Show classes in global completions.
 
 " Enable the display of space errors for Ruby files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-let ruby_space_errors=1
+let ruby_space_errors = 1
 
 " PHP SUPPORT.
 
@@ -1120,8 +1069,8 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 "====================================================
 
 " Must set these directories manually. If not the Jasmine plugin will attempt to use Pathogen commands to resolve the plugin path. Because we use Vundle instead of Pathogen, Pathogen commands do not exist. If we specify the path manually the calls to Pathogen are bypassed.
-let g:jasmine_snippets_directory='~/.vim/bundle/jasmine.vim/snippets'
-let g:jasmine_templates_directory='~/.vim/bundle/jasmine.vim/templates'
+let g:jasmine_snippets_directory = '~/.vim/bundle/jasmine.vim/snippets'
+let g:jasmine_templates_directory = '~/.vim/bundle/jasmine.vim/templates'
 
 "====================================================
 " Setup JavaScript Plugin
@@ -1224,22 +1173,22 @@ let g:signify_diffoptions = { 'git': 'HEAD' }
 " C++
 
 " Set our preferred lint checker to CppChecker.
-let g:syntastic_cpp_checkers=['cppcheck']
+let g:syntastic_cpp_checkers = ['cppcheck']
 
 " JavaScript
 
 " Set our preferred lint checker to JsHint.
-let g:syntastic_python_checkers=['jshint']
+let g:syntastic_python_checkers = ['jshint']
 
 " PYTHON
 
 " Set our preferred lint checker to PEP8, with a fallback to PyLint if the PEP8 checker fails to find any issues.
-let g:syntastic_python_checkers=['pep8', 'pylint']
+let g:syntastic_python_checkers = ['pep8', 'pylint']
 
 " YAML
 
 " Set our preferred lint checker to JSYAML.
-let g:syntastic_yaml_checkers=['jsyaml']
+let g:syntastic_yaml_checkers = ['jsyaml']
 
 "====================================================
 " Setup Tagbar Plugin
