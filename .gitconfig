@@ -4,6 +4,7 @@
 	signingkey = A0B0007D
 
 [core]
+	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
 	editor = vim
 
 [push]
