@@ -6,7 +6,7 @@ git stash --include-untracked --keep-index
 # Run your build or tests here.
 
 # Capture the result of the build and tests.
-local result=$?
+RESULT=$?
 
 # Back out any changes made to files in the index that may have been caused by the build or tests. (This should never happen, but we want to be absolutely sure that files are not modified before we commit them.)
 git reset --hard
@@ -15,4 +15,4 @@ git reset --hard
 git stash pop --index
 
 # Evaluate the test results and return success or failure.
-exit ${result}
+exit ${RESULT}

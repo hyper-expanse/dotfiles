@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #====================================================
-# Custom Aliases
+# Deploy Dotfiles
 #
 # This script will deploy all dotfiles as symlinks to the user's home directory.
 #====================================================
