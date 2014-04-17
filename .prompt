@@ -7,6 +7,7 @@
 #====================================================
 
 export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
+export PROMPT_ENABLE_SCREEN_INFORMATION=0 # Enable information about the current terminal multiplexer and multiplexer session.
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=0 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
 export PROMPT_ENABLE_SVN_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN) name for the repository stored in the current directory.
 
@@ -94,17 +95,17 @@ LoadPrompt()
 			PS1="${PS1}${B_RED}"
 		fi
 	else
-		PS1="${PS1}${B_CYAN}"
+		PS1="${PS1}${CYAN}"
 	fi
 	PS1="${PS1}\u"
 
-	PS1="${PS1}${B_BLUE}@"
+	PS1="${PS1}${B_BLACK}@"
 
 	# Set host portion of the prompt based on whether the host is local or remote.
 	if [ -n "${SSH_CONNECTION}" ]; then
 		PS1="${PS1}${B_YELLOW}"
 	else
-		PS1="${PS1}${B_CYAN}"
+		PS1="${PS1}${CYAN}"
 	fi
 	PS1="${PS1}\H${B_BLACK})"
 
@@ -115,51 +116,61 @@ LoadPrompt()
 	local scale="100"
 	local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${NUMBER_OF_CORES}\" | bc)"
 
-	PS1="${PS1}(${B_CYAN}\$(echo \"${percentUtilization}%\")${B_BLACK})"
+	PS1="${PS1}(${CYAN}\$(echo \"${percentUtilization}%\")${B_BLACK})"
 
 	PS1="${PS1}-"
 
 	# Number of jobs running in the background.
-	PS1="${PS1}(${B_CYAN}\j${B_BLACK})"
+	PS1="${PS1}(${CYAN}\j${B_BLACK})"
 
 	PS1="${PS1}-"
 
 	# Current datetime.
-	PS1="${PS1}(${B_CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
+	PS1="${PS1}(${CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
 
-	# Indicate whether we're currently within a terminal multiplexer session. 'S' = Screen. Also indicate the current Screen window by appending a dask, '-', followed by the window number.
-	if [ ! -z "$STY" ]; then
-		PS1="${PS1}-(${B_CYAN}S-${WINDOW}${B_BLACK})"
+	if [ "${PROMPT_ENABLE_SCREEN_INFORMATION}" -eq 1 ]; then
+
+		# Indicate whether we're currently within a terminal multiplexer session; 'S' = Screen or 'T' = TMUX.
+		if [ ! -z "${STY}" ] || [ ! -z "${TMUX}" ]; then
+			PS1="${PS1}-("
+
+			if [ ! -z "${STY}" ]; then
+				PS1="${PS1}${CYAN}s${B_BLACK})"
+			elif [ ! -z "${TMUX}" ]; then
+				local window=$(tmux display-message -p | awk '{ gsub("\\[|\\]", ""); print $1 }')
+				PS1="${PS1}${CYAN}t-${window}${B_BLACK})"
+			fi
+		fi
 	fi
 
 	# Begin a new command prompt line.
 	PS1="${PS1}\n"
 
 	# Current working directory.
-	PS1="${PS1}${B_BLACK}(${GREEN}\w${B_BLACK})"
+	PS1="${PS1}${B_BLACK}(${CYAN}\w${B_BLACK})"
 
 	if [ "${PROMPT_ENABLE_FILE_INFORMATION}" -eq 1 ]; then
 
 		PS1="${PS1}-"
 
 		# Number of files in the current directory and their total size.
-		PS1="${PS1}(${GREEN}\$(ls -1 | wc -l | sed 's: ::g') files, \$(ls -lah | grep -m 1 total | sed 's/total //')b${B_BLACK})"
+		PS1="${PS1}(${CYAN}\$(ls -1 | wc -l | sed 's: ::g') files, \$(ls -lah | grep -m 1 total | sed 's/total //')b${B_BLACK})"
 	fi
 
 	if [ "${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION}" -eq 1 ]; then
 
-		PS1="${PS1}-${GREEN}"
+		PS1="${PS1}-${CYAN}"
 
 		# Print name of Git branch.
-		PS1="${PS1}${GREEN}\$(ParseGitBranch)"
+		PS1="${PS1}${CYAN}\$(ParseGitBranch)"
 	fi
 
 	if [ "${PROMPT_ENABLE_SVN_REPO_IDENTIFICATION}" -eq 1 ]; then
 
-		PS1="${PS1}-${GREEN}"
+		PS1="${PS1}-${CYAN}"
 
 		# Print name of SVN checkout.
-		PS1="${PS1}${GREEN}\$(ParseSVNCheckout)"
+		PS1="${PS1}${CYAN}\$(ParseSVNCheckout)"
 	fi
 
 	# Add input indicator before the user's input prompt.
