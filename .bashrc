@@ -7,7 +7,7 @@
 #====================================================
 
 # If not running interactively, don't do anything.
-case $- in
+case "${-}" in
 	*i*) ;;
 	*) return;;
 esac
@@ -22,25 +22,25 @@ HISTFILESIZE=2000
 # Append command to the bash command history file instead of overwriting it.
 shopt -s histappend
 
-# Append command to the history after every display of the command prompt instead of after terminating the session.
+# Append command to the history after every display of the command prompt, instead of after terminating the session (the current shell).
 PROMPT_COMMAND='history -a'
 
 # Check the window size after each command and, if necessary update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Set variable identifying the chroot you work in (used in the prompt below).
+# Set variable identifying the current chroot.
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-export TERM=${TERM} # Export what our environment already provides.
+export TERM="${TERM}" # Export what our environment already provides.
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
 
 	# If our terminal has color support, and we're in an xterm window, modify our TERM environmental variable to indicate that it's a 256-color terminal.
-	if [ ${TERM} == "xterm" ]; then
+	if [ "${TERM}" == "xterm" ]; then
 		export TERM=xterm-256color
 	fi
 fi
@@ -80,21 +80,15 @@ else
 	esac
 fi
 
-# Add local Node.js module directory to the beginning of our PATH so that Node.js modules pulled down by a project, through, say, NPM and package.json, can be used rather than any global Node.js modules on the system, or in the user's local bin directory. This will ensure project builds use their desired versions of Node.js modules.
-export PATH=./node_modules/.bin:$PATH
-
 # Retrieve the name of our operating system platform.
 platform=`uname -o`
 
 # Disable console beeps that occur as alerts to gain operator attention.
-if [ $platform == 'GNU/Linux' ]; then
+if [ "${platform}" == 'GNU/Linux' ]; then
 	setterm -bfreq 0
-elif [ $platform == 'Cygwin' ]; then
+elif [ "${platform}" == 'Cygwin' ]; then
 	set bell-style none
 fi
-
-# Set the default console editor.
-export EDITOR=vim
 
 #! Compress a file or folder into one of many types of archive formats.
 # Compress a file or folder into one of many types of archive formats. Compression is based on the archive type specified.
@@ -108,10 +102,10 @@ compress()
 	local dirName=`dirname ${1}`
 	local baseName=`basename ${1}`
 
-	if [ -f ${1} ]; then
+	if [ -f "${1}" ]; then
 		echo "Selected a file for compression. Changing directory to ${dirName}."
-		cd ${dirName}
-		case ${2} in
+		cd "${dirName}"
+		case "${2}" in
 			tar.bz2)   tar cjf ${baseName}.tar.bz2 ${baseName} ;;
 			tar.gz)    tar czf ${baseName}.tar.gz ${baseName}  ;;
 			gz)        gzip ${baseName}                        ;;
@@ -123,11 +117,11 @@ compress()
 				;;
 		esac
 		echo "Navigating back to ${dirPriorToExe}"
-		cd ${dirPriorToExe}
-	elif [ -d ${1} ]; then
+		cd "${dirPriorToExe}"
+	elif [ -d "${1}" ]; then
 		echo "Selected a directory for compression. Changing directory to ${dirName}."
-		cd ${dirName}
-		case ${2} in
+		cd "${dirName}"
+		case "${2}" in
 			tar.bz2)   tar cjf ${baseName}.tar.bz2 ${baseName} ;;
 			tar.gz)    tar czf ${baseName}.tar.gz ${baseName}  ;;
 			gz)        gzip -r ${baseName}                     ;;
@@ -139,7 +133,7 @@ compress()
 				;;
 		esac
 		echo "Navigating back to ${dirPriorToExe}"
-		cd ${dirPriorToExe}
+		cd "${dirPriorToExe}"
 	else
 		echo "'${1}' is not a valid file or directory."
 	fi
@@ -157,7 +151,7 @@ extract () {
 	fi
 
 	if [ -f "${1}" ]; then
-		case ${1} in
+		case "${1}" in
 			*.tar.bz2)   tar xvjf ../${1}    ;;
 			*.tar.gz)    tar xvzf ../${1}    ;;
 			*.tar.xz)    tar xvJf ../${1}    ;;
@@ -186,7 +180,7 @@ extract () {
 # \param $@ Accepts any number of parameters offered by the NASATV script.
 nasatv ()
 {
-	local script="~/Resources/Scripts/nasatv.sh"
+	local script="${HOME}/Resources/Scripts/nasatv.sh"
 
 	if [ ! -f "${script}" ]; then
 		echo "The required script, ${script}, does not exist."
@@ -200,18 +194,19 @@ nasatv ()
 #! Setup a watch and run a command.
 # Watch for changes to files that match a given file specification, and on change, run the given command.
 #
-# \param $1 A command accessible in the user's PATH.
+# \param $1 A command accessible in the user's PATH to execute.
 # \param $2 A filespec; for example '*' or '/home/user'.
+# \param [$3=modify] Any combination of comma-delimited inotify events to listen for on the given filespec. Defaults to listening for "modify" events.
 watch ()
 {
-	if [ ! -z `command -v inotifywait` ]; then
+	if [ -z `command -v inotifywait` ]; then
 		echo "'inotifywait', needed to run the watch command, is not accessible in your PATH."
 		return
 	fi
 
 	# Validate the command parameter.
 	if [ -z "${1}" ]; then
-		echo "Invalid command."
+		echo "Invalid command, ${1}, provided. This command does not exist in your PATH."
 		return
 	fi
 
@@ -223,19 +218,19 @@ watch ()
 
 	# Set an appropriate inotify watch event default.
 	local default="modify"
-	local events=${3:-$default}
+	local events="${3:-$default}"
 
 	while inotifywait -e "${events}" "${2}"; do
 
 		# If the script failed (thereby returning an error), exit rather than loop again.
-		if [ $? -gt 0 ]; then
+		if [ "${?}" -gt 0 ]; then
 			return
 		fi
 
 		"${1}"
 
 		# If the requested command fails, exit rather than loop again.
-		if [ $? -gt 0 ]; then
+		if [ "${?}" -gt 0 ]; then
 			return
 		fi
 	done
