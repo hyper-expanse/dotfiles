@@ -1177,8 +1177,8 @@ let g:syntastic_cpp_checkers = ['cppcheck']
 
 " JavaScript
 
-" Set our preferred lint checker to JsHint.
-let g:syntastic_python_checkers = ['jshint']
+" Set our preferred static analysis chcker to JsHint, and style checker, the fallback checker, to jscs.
+let g:syntastic_javascript_checkers = ['jshint', 'jscs']
 
 " PYTHON
 
