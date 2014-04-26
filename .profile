@@ -7,6 +7,7 @@
 # Its contents configure the Bash shell environment.
 #====================================================
 
+# Source the Bash configuration file to load environment variables required by each shell.
 if [ -f ~/.bashrc ]; then
 	source ~/.bashrc
 fi
