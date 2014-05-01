@@ -152,6 +152,7 @@ Plugin 'https://github.com/pangloss/vim-javascript'
 Plugin 'https://github.com/heavenshell/vim-jsdoc'
 Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 Plugin 'https://github.com/dbakker/vim-lint'
+Plugin 'https://github.com/plasticboy/vim-markdown'
 Plugin 'https://github.com/phleet/vim-mercenary'
 Plugin 'https://github.com/techlivezheng/vim-plugin-minibufexpl'
 Plugin 'https://github.com/kana/vim-scratch'
@@ -1111,6 +1112,27 @@ let g:tex_flavor = 'latex'
 
 " If you write your \label's as \label{fig:something}, then if you type in \ref{fig: and press <C-n> you will automatically cycle through all the figure labels.
 set iskeyword+=:
+
+"====================================================
+" Setup Markdown Plugin
+"
+" Setup for the Markdown plugin to enable syntax highlighting, folding, and key bindings.
+"====================================================
+
+" Set the fold level at 1. This instructs Vim to fold all but the last level.
+" You will therefore see all '#' and '##' headers, but everything under '##'
+" will be folded.
+let g:vim_markdown_initial_foldlevel=1
+
+augroup markdownSupport
+	autocmd!
+
+	" Instruct Vim to treat files ending in the following as Markdown files.
+	" We specifically set these files to the 'mkd' file type which is defined
+	" by the vim-markdown plugin.
+	au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
+	au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=mkd
+augroup END
 
 "====================================================
 " Setup Mini Buffer Explorer Plugin
