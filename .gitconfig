@@ -26,6 +26,10 @@
 	# Instruct Git to use mnemonic prefixes (Such as *i*ndex, *w*ork tree, *c*ommit, or *o*bject) instead of the standard *a* and *b* notation.
 	mnemonicprefix = true
 
+[fetch]
+	# Automatically prune, delete, local branches, to occur on every fetch request, if those branches were deleted from the remote repository.
+	prune = true
+
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
 	l = log --abbrev-commit --decorate --graph --oneline
@@ -36,3 +40,34 @@
 
 	# Show commits that are on the local branch and on the remote branch that don't exist on the other. By including the cherry-pick option commits that were pushed or pulled between branches (Even when out of order) will be excluded.
 	missing = log --graph  --left-right --cherry-pick --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(magenta)<%an> %C(cyan)<%G?>%Creset' HEAD...origin/master
+
+	# Show the most recent tag (annotated or lightweight) that is reachable before the commit in the working copy. By adding the --abbrev option we instruct Git to only show the name of the tag, and subsequently exclude the other metadata associated with it.
+	lasttag = describe --tags --abbrev=0
+
+	# Show the most recent tag (annotated or lightweight) that is reachable after the commit in the working copy. By adding the --abbrev option we instruct Git to only show the name of the tag, and subsequently exclude the other metadata associated with it.
+	nexttag = describe --tags --contains --abbrev=0
+
+	# List all aliases stored in the user's Git configuration file. In addition to the aliases, display their values.
+	aliases = "!git config -l | grep alias | cut -c 7-"
+
+	# Update the current working branch to include the latest changes from the master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the master branch.
+	update = "!git fetch origin && git rebase origin/master"
+
+	# Show a diff in which individual word changes are inter-mingled with one another. Word additions are shown in green, word deletions are shown in red. This is in contrast to showing changes as line additions or deletions.
+	cdiff = diff --color-words
+
+	# Merge the current working branch onto the latest commit in master.
+	done = "!git fetch origin && git rebase origin/master && git checkout master && git merge @{-1}"
+
+	# List the name of each contributor to the working branch, and along the left of each contributor, the number of commits that person contributed. We also specifically ignore merge commits since they don't actually indicate contribution of code to the project.
+	contributors = shortlog --numbered --summary --no-merges
+
+	# Cleanup a Git repository by removing dangling objects, deleted branches, and by compressing file revisions. Specific cleanup operations are describe below:
+	# * remote prune - Delete stale tracking branches that have already been removed from `origin` but are still available locally in `remotes/origin`.
+	# * stash clear - Clear the stash, deleting any stashed changes for this repository.
+	# * clean -X - Remove all files ignored by Git through the use of Git's `.gitignore` file. Useful for cleaning out build artifacts.
+	# * gc - Compress file revisions (which will reduce disk space consumption and improve performance), and remove unreachable objects. The `--aggressive` option is used to instruct Git to be more aggressive in cleaning, at the expense of more time.
+	cleanup = "!git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive"
+
+	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
+	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
