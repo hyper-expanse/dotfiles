@@ -1009,17 +1009,17 @@ vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 
 " Default mapping for CtrlP is <C-P>.
 
-" Set the default behavior for the CtrlP plugin to search against files, buffers, and MRU files.
-let g:ctrlp_cmd = 'CtrlPMixed'
+" Set the default behavior for the CtrlP plugin to search against files only (not against the buffers or MRU).
+let g:ctrlp_cmd = 'CtrlP'
 
 "|bin|tmp|node_modules|bower_components$',
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin)$',
+	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin|build)$',
 	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
 	\ }
 
 " Set the maximum depth of a directory tree to recurse into.
-let g:ctrlp_max_depth = 40
+let g:ctrlp_max_depth = 20
 
 " Set the maximum number of files to scan into the CtrlP cache for fuzzing matching.
 let g:ctrlp_max_files = 10000
