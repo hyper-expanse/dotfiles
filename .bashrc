@@ -80,6 +80,9 @@ else
 	esac
 fi
 
+# Enable options available from our ~/.prompt script:
+export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Display working directory's Git branch name.
+
 # Retrieve the name of our operating system platform.
 platform=`uname -o`
 
