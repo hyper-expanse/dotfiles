@@ -11,9 +11,9 @@ export PROMPT_ENABLE_SCREEN_INFORMATION=0 # Enable information about the current
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=0 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
 export PROMPT_ENABLE_SVN_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN) name for the repository stored in the current directory.
 
-COLOR_OFF='\[\e[0m\]'			# Remove all color modifications.
+COLOR_OFF='\[\e[0m\]'	# Remove all color modifications.
 
-COLUMN_FIX='\[\033[G\]'			# Forces the Bash prompt to always go to the first column. Resolves the issue where text is sometimes off by two charactesr as a result of control characters such as ^C.
+COLUMN_FIX='\[\033[G\]'	# Forces the Bash prompt to always go to the first column. Resolves the issue where text is sometimes off by two characters as a result of control characters such as ^C.
 
 # Regular colors.
 BLACK='\[\033[0;30m\]'		# Black.
@@ -42,7 +42,7 @@ I_Cyan='\[\033[0;94m\]'		# Cyan.
 # Retrieve the name of the Git branch in the current directory, if a Git branch exists in the current directory.
 ParseGitBranch()
 {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(git::\1)/'
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/git::\1/' | tr -d '\n'
 }
 
 ParseSVNURL()
@@ -59,7 +59,7 @@ ParseSVNRepositoryRoot()
 # Retrieve the name of the SVN repository in the current directory, if a SVN checkout exists in the current directory.
 ParseSVNCheckout()
 {
-	ParseSVNURL | sed -e 's#^'"$(ParseSVNRepositoryRoot)"'##g' | awk -F / '{print "(svn::"$1 "/" $2 ")"}'
+	ParseSVNURL | sed -e 's#^'"$(ParseSVNRepositoryRoot)"'##g' | awk -F / '{print "svn::"$1 "/" $2}'
 }
 
 #! Retrieve the number of unique proessor cores.
@@ -149,29 +149,26 @@ LoadPrompt()
 	# Current working directory.
 	PS1="${PS1}${B_BLACK}(${CYAN}\w${B_BLACK})"
 
-	if [ "${PROMPT_ENABLE_FILE_INFORMATION}" -eq 1 ]; then
+	# If option is enabled, print the number of files in the current directory, and their total size.
+	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_FILE_INFORMATION} -eq 1 ]; then "
 
-		PS1="${PS1}-"
+		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; printf '%s files %sb' \$(ls -1 | wc -l | sed 's: ::g') \$(ls -lah | grep -m 1 total | sed 's/total //'); printf '%s%s' '${B_BLACK}' ')';"
 
-		# Number of files in the current directory and their total size.
-		PS1="${PS1}(${CYAN}\$(ls -1 | wc -l | sed 's: ::g') files, \$(ls -lah | grep -m 1 total | sed 's/total //')b${B_BLACK})"
-	fi
+	PS1="${PS1}fi)"
 
-	if [ "${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION}" -eq 1 ]; then
+	# If option is enabled, print the working directory's Git branch name.
+	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION} -eq 1 ]; then "
 
-		PS1="${PS1}-${CYAN}"
+		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; ParseGitBranch; printf '%s%s' '${B_BLACK}' ')';"
 
-		# Print name of Git branch.
-		PS1="${PS1}${CYAN}\$(ParseGitBranch)"
-	fi
+	PS1="${PS1}fi)"
 
-	if [ "${PROMPT_ENABLE_SVN_REPO_IDENTIFICATION}" -eq 1 ]; then
+	# If option is enabled, print the working directory's SVN checkout name.
+	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_SVN_REPO_IDENTIFICATION} -eq 1 ]; then "
 
-		PS1="${PS1}-${CYAN}"
+		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; ParseSVNCheckout; printf '%s%s' '${B_BLACK}' ')';"
 
-		# Print name of SVN checkout.
-		PS1="${PS1}${CYAN}\$(ParseSVNCheckout)"
-	fi
+	PS1="${PS1}fi)"
 
 	# Add input indicator before the user's input prompt.
 	PS1="${PS1}${B_BLACK}--> "
