@@ -39,7 +39,7 @@
 	ll = log --abbrev-commit --decorate --graph --show-signature --stat
 
 	# Show commits that are on the local branch and on the remote branch that don't exist on the other. By including the cherry-pick option commits that were pushed or pulled between branches (Even when out of order) will be excluded.
-	missing = log --graph  --left-right --cherry-pick --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(magenta)<%an> %C(cyan)<%G?>%Creset' HEAD...origin/master
+	missing = log --graph  --left-right --cherry-pick --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(magenta)<%an> %C(cyan)<%G?>%Creset'
 
 	# Show the most recent tag (annotated or lightweight) that is reachable before the commit in the working copy. By adding the --abbrev option we instruct Git to only show the name of the tag, and subsequently exclude the other metadata associated with it.
 	lasttag = describe --tags --abbrev=0
