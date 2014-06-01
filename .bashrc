@@ -238,3 +238,56 @@ watch ()
 		fi
 	done
 }
+
+#! Setup a local environment.
+# Setup a local environment that contains all the tools and libraries needed for development work, and play.
+setupEnvironment ()
+{
+	setupPIP
+	setupVirtualEnv
+
+	updateVim
+}
+
+#! Setup pip, Python's package manager.
+# Install and configure Python's package manager in the user's local environment.
+setupPIP ()
+{
+	# Download the PIP installer.
+	echo "Downloading PIP installer."
+	wget --quiet https://bootstrap.pypa.io/get-pip.py > /tmp/hutson-get-pip.py
+
+	# If the requested command fails, exit rather than attempt to execute further commands.
+	if [ "${?}" -gt 0 ]; then
+		return
+	fi
+
+	echo "Installing PIP user-wide."
+	python /tmp/hutson-get-pip.py --user
+
+	# If the requested command fails, exit rather than attempt to execute further commands.
+	if [ "${?}" -gt 0 ]; then
+		return
+	fi
+
+	# Upgrade the user-wide version of pip.
+	echo "Upgrading PIP to latest version."
+	pip install --user pip --upgrade
+}
+
+#! Setup Python's virtual environment tool.
+# Install and configure Python's virtual environment tool in the user's local environment.
+setupVirtualEnv ()
+{
+	pip install --user virtualenv
+}
+
+#! Update Vim.
+# Update plugins associated with the user's local environment. This includes doing the following:
+# 1) Remove plugins from Vim's bundle directory that are no longer listed in the user's .vimrc configuration file.
+# 2) Install plugins listed in the user's .vimrc file that are not already installed.
+# 3) Update plugins that are already installed on the system.
+updateVim ()
+{
+	vim +PluginClean! +PluginInstall! +qa
+}
