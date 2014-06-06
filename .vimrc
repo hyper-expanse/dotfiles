@@ -154,7 +154,6 @@ Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 Plugin 'https://github.com/dbakker/vim-lint'
 Plugin 'https://github.com/plasticboy/vim-markdown'
 Plugin 'https://github.com/phleet/vim-mercenary'
-Plugin 'https://github.com/techlivezheng/vim-plugin-minibufexpl'
 Plugin 'https://github.com/kana/vim-scratch'
 Plugin 'https://github.com/mhinz/vim-signify'
 " Required by vim-snipmate.
@@ -1133,15 +1132,6 @@ augroup markdownSupport
 	au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
 	au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=mkd
 augroup END
-
-"====================================================
-" Setup Mini Buffer Explorer Plugin
-"
-" Setup for the Mini Buffer Explorer that helps assist in visualizing all open file buffers.
-"====================================================
-
-" To switch between buffers use the following command:
-" :buffer [BUFFER INDEX]
 
 "====================================================
 " Setup Scratch Plugin
