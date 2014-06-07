@@ -228,7 +228,7 @@ set number
 set numberwidth=4
 
 " Quickly time out on keycodes, but never time out on mappings.
-set notimeout ttimeout ttimeoutlen=200
+set timeout timeoutlen=1000 ttimeoutlen=100
 
 " A buffer becomes hidden, not destroyed, when it's abandoned.
 set hidden
