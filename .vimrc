@@ -1001,6 +1001,24 @@ vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 "====================================================
 
 "====================================================
+" Setup Vim-Airline Plugin
+"
+" Setup for a vim-airline environment so that the environment will look and behave in the desired way.
+"====================================================
+
+" Enable vim-airline's buffer status bar. This buffer status bar will appear at the very top of Vim, similiar to where the multibufexpl plugin would appear.
+let g:airline#extensions#tabline#enabled = 1
+
+" Automatically populate the `g:airline_symbols` dictionary with the correct font glyphs used as the special symbols for vim-airline's status bar.
+let g:airline_powerline_fonts = 1
+
+" Correct a spacing issue that may occur with fonts loaded via the fontconfig approach.
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+"====================================================
 " Setup CtrlP Plugin
 "
 " Setup for a tool that allows for fuzzy matching on file names within the current directory, or parent directory containing a repository directory, or against opened buffers, or MRU (Most Recently Used) files.
