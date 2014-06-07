@@ -289,5 +289,21 @@ setupVirtualEnv ()
 # 3) Update plugins that are already installed on the system.
 updateVim ()
 {
+	# Make a directory to hold the font file containing the special Powerline font glyphs.
+	mkdir --parents ${HOME}/.fonts/
+
+	# Make a directory to hold a font configuration file that will load the Powerline font glyphs, replacing the appropriate font characters in our font of choice.
+	mkdir --parents ${HOME}/.config/fontconfig/conf.d/
+
+	# Download the Powerline font glyphs.
+	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf ${HOME}/.fonts/
+
+	# Update our font cache.
+	fc-cache -fv ${HOME}/.fonts/
+
+	# Download the font configuration file.
+	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf ${HOME}/.config/fontconfig/conf.d/
+
+	# Update Vim plugins.
 	vim +PluginClean! +PluginInstall! +qa
 }
