@@ -16,7 +16,7 @@ fi
 export PATH="./node_modules/.bin:${PATH}"
 
 # Add our local binary directory to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
-export PATH="~/.local/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
 
 # Set the default console editor.
 export EDITOR=vim
