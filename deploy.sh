@@ -23,6 +23,9 @@ for directory  in `find . -maxdepth 1 -type d -print`; do
 	fi
 done
 
+# Source the newly installed environment scripts.
+source ${HOME}/.profile
+
 # Pull down the Vundle repo into Vim's Bundle directory so that it's available for installing, and managing, Vim plugins.
 if [ "$(type git 2> /dev/null)" ]; then
 	echo "> Cloning Vundle for Vim plugin management."
@@ -41,4 +44,4 @@ else
 	echo "> ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run the deploy script."
 fi
 
-echo "Finished deploying dotfiles."
+echo "Finished deploying dotfiles. Your environment has been sourced and setup. Enjoy."
