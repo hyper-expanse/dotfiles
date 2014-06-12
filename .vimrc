@@ -292,9 +292,12 @@ augroup END
 
 " Configure Vim's formatting options used by Vim to automatically for a line of text. Formatting not applied when 'paste' is enabled.
 " Options:
-" l: Don't break a line after a one-letter word. Attempt to break before it.
-" j: Where it makes sense, remove a comment leader when joining lines.
-set formatoptions+=lj
+" j - Where it makes sense, remove a comment leader when joining lines.
+" l - Do not break existing long lines when entering insert mode.
+" n - Recognize numbered lists and automatically continue the correct level of indention onto the next line.
+" r - Automatically insert the current comment leader after pressing <ENTER> in Insert mode.
+" o - Automatically insert the current comment leader after after entering 'o' or 'O' in Normal mode.
+set formatoptions+=jlnro
 
 "====================================================
 " Backups
