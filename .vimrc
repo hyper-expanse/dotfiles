@@ -148,6 +148,7 @@ Plugin 'https://github.com/mbbill/undotree'
 Plugin 'https://github.com/bling/vim-airline'
 Plugin 'https://github.com/derekwyatt/vim-fswitch'
 Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
 Plugin 'https://github.com/pangloss/vim-javascript'
 Plugin 'https://github.com/heavenshell/vim-jsdoc'
 Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
@@ -1082,6 +1083,15 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 " Gblame
 " Gcommit
 " Others...
+
+"====================================================
+" Setup Indent Guide Plugin
+"
+" Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentional level.
+"====================================================
+
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 "====================================================
 " Setup Jasmine Plugin
