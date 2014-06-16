@@ -1164,8 +1164,8 @@ augroup markdownSupport
 	" Instruct Vim to treat files ending in the following as Markdown files.
 	" We specifically set these files to the 'mkd' file type which is defined
 	" by the vim-markdown plugin.
-	au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
-	au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=mkd
+	autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
+	autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
 augroup END
 
 "====================================================
