@@ -33,18 +33,6 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-export TERM="${TERM}" # Export what our environment already provides.
-if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-
-	# If our terminal has color support, and we're in an xterm window, modify our TERM environmental variable to indicate that it's a 256-color terminal.
-	if [ "${TERM}" == "xterm" ]; then
-		export TERM=xterm-256color
-	fi
-fi
-
 # If this is an xterm window set the window title to user@host:dir.
 case "$TERM" in
 	xterm*|rxvt*)
