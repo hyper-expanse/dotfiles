@@ -301,13 +301,13 @@ updateVim ()
 	mkdir --parents ${HOME}/.config/fontconfig/conf.d/
 
 	# Download the Powerline font glyphs.
-	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf ${HOME}/.fonts/
+	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf --directory-prefix=${HOME}/.fonts/
 
 	# Update our font cache.
 	fc-cache -fv ${HOME}/.fonts/
 
 	# Download the font configuration file.
-	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf ${HOME}/.config/fontconfig/conf.d/
+	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf --directory-prefix=${HOME}/.config/fontconfig/conf.d/
 
 	# Update Vim plugins.
 	vim +PluginClean! +PluginInstall! +qa
