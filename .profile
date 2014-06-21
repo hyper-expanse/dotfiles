@@ -21,6 +21,9 @@ export PATH="${HOME}/.local/bin:${PATH}"
 # Set the default console editor.
 export EDITOR=vim
 
+# Specify the langugae and encoding for our shell environment.
+export LANG=en_US.UTF8
+
 export TERM="${TERM}" # Export what our environment already provides.
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
