@@ -93,6 +93,11 @@ elif [ "${platform}" == 'Cygwin' ]; then
 	set bell-style none
 fi
 
+# Setup Bash prompt auto-completion for PIP; Python's package manager.
+if command -v pip &> /dev/null; then
+	eval "`pip completion --bash`"
+fi
+
 #! Compress a file or folder into one of many types of archive formats.
 # Compress a file or folder into one of many types of archive formats. Compression is based on the archive type specified.
 # This function is based on http://bijayrungta.com/extract-and-compress-files-from-command-line-in-linux

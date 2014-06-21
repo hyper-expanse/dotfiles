@@ -20,6 +20,3 @@ export PATH="${HOME}/.local/bin:${PATH}"
 
 # Set the default console editor.
 export EDITOR=vim
-
-# Setup Bash prompt auto-completion for PIP; Python's package manager.
-eval "`pip completion --bash`"
