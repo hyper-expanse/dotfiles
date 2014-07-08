@@ -272,7 +272,11 @@ setupPIP ()
 # Install and configure Python's virtual environment tool in the user's local environment.
 setupVirtualEnv ()
 {
-	pip install --user virtualenv
+	if command -v pip &> /dev/null; then
+		pip install --user virtualenv
+	else
+		echo "ERROR: `pip` is required for setting up virtualenv, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `setupVirtualEnv`."
+	fi
 }
 
 #! Update Vim.
