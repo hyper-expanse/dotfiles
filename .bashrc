@@ -86,6 +86,11 @@ if command -v pip &> /dev/null; then
 	eval "`pip completion --bash`"
 fi
 
+# Setup Bash prompt auto-completion for Git; a source code management tool.
+if [ -f "${HOME}/.local/etc/bash_completion.d/git-completion.bash" ]; then
+	source "${HOME}/.local/etc/bash_completion.d/git-completion.bash"
+fi
+
 #! Compress a file or folder into one of many types of archive formats.
 # Compress a file or folder into one of many types of archive formats. Compression is based on the archive type specified.
 # This function is based on http://bijayrungta.com/extract-and-compress-files-from-command-line-in-linux
