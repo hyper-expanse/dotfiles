@@ -309,3 +309,13 @@ updateVim ()
 	# Update Vim plugins.
 	vim +PluginClean! +PluginInstall! +qa
 }
+
+#! Update Git environment.
+# Update Git scripts used by the user's local environment. This includes doing the following:
+# 1) Download and install Git's bash auto-completion script so that it can be sourced by this .bashrc file.
+updateGit ()
+{
+	mkdir --parents "${HOME}/.local/etc/bash_completion.d/"
+
+	wget --quiet https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash --directory-prefix="${HOME}/.local/etc/bash_completion.d/"
+}
