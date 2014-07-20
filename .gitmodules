@@ -1,0 +1,3 @@
+[submodule "src/home"]
+	path = src/home
+	url = https://github.com/hbetts/dotfiles.git
