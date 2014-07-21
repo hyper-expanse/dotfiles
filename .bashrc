@@ -284,7 +284,7 @@ setupVirtualEnv ()
 	fi
 }
 
-#! Update Vim.
+#! Update Vim environment.
 # Update plugins associated with the user's local environment. This includes doing the following:
 # 1) Remove plugins from Vim's bundle directory that are no longer listed in the user's .vimrc configuration file.
 # 2) Install plugins listed in the user's .vimrc file that are not already installed.
