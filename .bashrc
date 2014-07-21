@@ -241,10 +241,18 @@ watch ()
 # Setup a local environment that contains all the tools and libraries needed for development work, and play.
 setupEnvironment ()
 {
+	# Clear out our local system directory before initiating a fresh install of our environment.
+	rm -fr "${HOME}/.local/" &> /dev/null
+
+	# Download, build, and install tools.
 	setupPIP
 	setupVirtualEnv
 
+	# Update scripts and application plugins.
+	updateGit
 	updateVim
+
+	source "${0}"
 }
 
 #! Setup pip, Python's package manager.
