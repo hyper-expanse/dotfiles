@@ -23,7 +23,7 @@ for directory  in `find . -maxdepth 1 -type d -print`; do
 	fi
 done
 
-# Source the newly installed environment scripts.
+# Source the newly installed profile script to setup the user's environment.
 source ${HOME}/.profile
 
 # Pull down the Vundle repo into Vim's Bundle directory so that it's available for installing, and managing, Vim plugins.
