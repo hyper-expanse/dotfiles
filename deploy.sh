@@ -38,8 +38,8 @@ if [ "$(type git 2> /dev/null)" ]; then
 
 	echo "> Installing Vim plugins through Vundle."
 
-	# Launch Vim to install the plugins listed in the user's .vimrc configuration file, and then make sure Vim terminates.
-	vim +PluginClean! +PluginInstall! +qa
+	# Install Vim plugins and their dependencies.
+	updateVim
 else
 	echo "> ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run the deploy script."
 fi
