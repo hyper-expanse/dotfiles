@@ -326,4 +326,6 @@ updateGit ()
 	mkdir --parents "${HOME}/.local/etc/bash_completion.d/"
 
 	wget --quiet https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash --directory-prefix="${HOME}/.local/etc/bash_completion.d/"
+
+	source "${HOME}/.local/etc/bash_completion.d/git-completion.bash"
 }
