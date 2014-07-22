@@ -245,25 +245,31 @@ setupEnvironment ()
 	rm -fr "${HOME}/.local/" &> /dev/null
 
 	# Download, build, and install tools.
+	# setupNode
 	setupPIP
 	setupVim
-	setupVirtualEnv
 
 	# Update scripts and application plugins.
 	updateGit
 	updateVim
 
 	source "${0}"
+
+	installNodePackages
+	installPythonPackages
 }
 
 #! Setup pip, Python's package manager.
 # Install and configure Python's package manager in the user's local environment.
 setupPIP ()
 {
+	# Delete any existing file so that `wget` will download the file from scratch.
+	rm /tmp/hutson-get-pip.py
+
 	echo "Downloading PIP installer."
 
 	# Download the PIP installer.
-	wget --quiet https://bootstrap.pypa.io/get-pip.py > /tmp/hutson-get-pip.py
+	wget --quiet https://bootstrap.pypa.io/get-pip.py -O /tmp/hutson-get-pip.py
 
 	# If the requested command fails, exit rather than attempt to execute further commands.
 	if [ "${?}" -gt 0 ]; then
@@ -271,6 +277,7 @@ setupPIP ()
 	fi
 
 	echo "Installing PIP user-wide."
+
 	python /tmp/hutson-get-pip.py --user
 
 	# If the requested command fails, exit rather than attempt to execute further commands.
@@ -301,18 +308,16 @@ setupVim ()
 	fi
 }
 
-#! Setup Python's virtual environment tool.
-# Install and configure Python's virtual environment tool in the user's local environment.
-setupVirtualEnv ()
+#! Update Git environment.
+# Update Git scripts used by the user's local environment. This includes doing the following:
+# 1) Download and install Git's bash auto-completion script so that it can be sourced by this .bashrc file.
+updateGit ()
 {
-	if command -v pip &> /dev/null; then
-		echo "Installing virtualenv."
+	mkdir --parents "${HOME}/.local/etc/bash_completion.d/"
 
-		# Install the virtualenv package.
-		pip install --user virtualenv
-	else
-		echo "ERROR: `pip` is required for setting up virtualenv, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `setupVirtualEnv`."
-	fi
+	wget --quiet https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash --directory-prefix="${HOME}/.local/etc/bash_completion.d/"
+
+	source "${HOME}/.local/etc/bash_completion.d/git-completion.bash"
 }
 
 #! Update Vim environment.
@@ -341,14 +346,30 @@ updateVim ()
 	vim +PluginClean! +PluginInstall! +qa
 }
 
-#! Update Git environment.
-# Update Git scripts used by the user's local environment. This includes doing the following:
-# 1) Download and install Git's bash auto-completion script so that it can be sourced by this .bashrc file.
-updateGit ()
+#! Install Nodei.JS packages.
+# Install Node.JS packages via `npm`.
+installNodePackages ()
 {
-	mkdir --parents "${HOME}/.local/etc/bash_completion.d/"
+	if command -v npm &> /dev/null; then
+		npm install -g gitbook
+		npm install -g jscs
+		npm install -g jshint
+		npm install -g npm
+	else
+		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
+	fi
+}
 
-	wget --quiet https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash --directory-prefix="${HOME}/.local/etc/bash_completion.d/"
-
-	source "${HOME}/.local/etc/bash_completion.d/git-completion.bash"
+#! Install Python packages.
+# Install Python packages via `pip`.
+installPythonPackages ()
+{
+	if command -v pip &> /dev/null; then
+		pip install --user pip --upgrade
+		pip install --user pylint --upgrade
+		pip install --user pep8 --upgrade
+		pip install --user virtualenv --upgrade
+	else
+		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
+	fi
 }
