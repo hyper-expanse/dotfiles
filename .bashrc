@@ -260,8 +260,9 @@ setupEnvironment ()
 # Install and configure Python's package manager in the user's local environment.
 setupPIP ()
 {
-	# Download the PIP installer.
 	echo "Downloading PIP installer."
+
+	# Download the PIP installer.
 	wget --quiet https://bootstrap.pypa.io/get-pip.py > /tmp/hutson-get-pip.py
 
 	# If the requested command fails, exit rather than attempt to execute further commands.
@@ -277,8 +278,9 @@ setupPIP ()
 		return
 	fi
 
-	# Upgrade the user-wide version of pip.
 	echo "Upgrading PIP to latest version."
+
+	# Upgrade the user-wide version of pip.
 	pip install --user pip --upgrade
 }
 
@@ -304,6 +306,9 @@ setupVim ()
 setupVirtualEnv ()
 {
 	if command -v pip &> /dev/null; then
+		echo "Installing virtualenv."
+
+		# Install the virtualenv package.
 		pip install --user virtualenv
 	else
 		echo "ERROR: `pip` is required for setting up virtualenv, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `setupVirtualEnv`."
