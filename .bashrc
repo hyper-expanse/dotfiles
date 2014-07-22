@@ -246,6 +246,7 @@ setupEnvironment ()
 
 	# Download, build, and install tools.
 	setupPIP
+	setupVim
 	setupVirtualEnv
 
 	# Update scripts and application plugins.
@@ -279,6 +280,23 @@ setupPIP ()
 	# Upgrade the user-wide version of pip.
 	echo "Upgrading PIP to latest version."
 	pip install --user pip --upgrade
+}
+
+#! Setup the command line editor Vim.
+# Install and configure Vim and the environment in which it will run.
+setupVim ()
+{
+	if command -v git &> /dev/null; then
+		echo "Cloning Vundle for Vim plugin management."
+
+		# Create the initial bundle directory that will be required for storing Vim plugins.
+		mkdir -p ~/.vim/bundle/vundle
+
+		# Clone the required Vundle plugin into the newly created bundle directory.
+		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle 2> /dev/null
+	else
+		echo "ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupVim`."
+	fi
 }
 
 #! Setup Python's virtual environment tool.
