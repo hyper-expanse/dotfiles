@@ -71,6 +71,3 @@
 
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
-
-	# Merge working branch into master branch.
-	merge-branch = "!git checkout master && git merge @{-1}"
