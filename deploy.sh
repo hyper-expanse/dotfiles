@@ -23,6 +23,10 @@ for directory  in `find . -maxdepth 1 -type d -print`; do
 	fi
 done
 
+# Symlink third-party scripts into appropriate directories.
+echo "> Symlinking third-party scripts into the user's home directory (${HOME})."
+ln --symbolic --force "$(pwd)/markdown2ctags/markdown2ctags.py" "${HOME}/.vim/markdown2ctags.py"
+
 # Source the newly installed profile script to setup the user's environment.
 source ${HOME}/.profile
 

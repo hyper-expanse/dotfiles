@@ -1250,6 +1250,22 @@ inoremap <silent> <F8> <ESC>:TagbarToggle<CR>i
 " Place the letter 'v' at the end causes the Tagbar to be turned on/off and for Vim to then return to visual mode.
 vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
 
+" Enable Tagbar support for Markdown files by configuring Tagbar to use a special script that's capable of generating the required Ctag information necessary for Tagbar to render a tree view of the current file's headings.
+let g:tagbar_type_markdown = {
+	\ 'ctagstype': 'markdown',
+	\ 'ctagsbin' : '~/.vim/markdown2ctags.py',
+	\ 'ctagsargs' : '-f - --sort=yes',
+	\ 'kinds' : [
+		\ 's:sections',
+		\ 'i:images'
+	\ ],
+	\ 'sro' : '|',
+	\ 'kind2scope' : {
+		\ 's' : 'section',
+	\ },
+	\ 'sort': 0,
+\ }
+
 "====================================================
 " Setup Tmuxline Plugin
 "
