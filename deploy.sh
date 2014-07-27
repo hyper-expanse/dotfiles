@@ -8,11 +8,10 @@
 
 echo "Deploying dotfiles..."
 
-# Symlink files to the user's home directory.
-echo "> Symlinking files into the user directory (~)."
-for file in `find . -type f -name '.*' -print`; do
-	rm ~/${file#./} &> /dev/null
-	ln -s `pwd`/${file#./} ~/${file#./}
+# Symlink files into the user's home directory.
+echo "> Symlinking files into the user's home directory (${HOME})."
+for file in `find . -maxdepth 1 -type f -name '.*' -print`; do
+	ln --symbolic --force "$(pwd)/${file#./}" "${HOME}/${file#./}"
 done
 
 # Symlink top-level directories to the user's home directory.
