@@ -344,6 +344,9 @@ updateVim ()
 
 	# Update Vim plugins.
 	vim +PluginClean! +PluginInstall! +qa
+
+	# Once the tern_for_vim plugin has been installed via the previous Vim plugin step we'll still need to download the plugin's required runtime dependencies. To accomplish this we jump into the plugin's directory and run `npm install`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
+	cd "${HOME}/.vim/bundle/tern_for_vim" && npm install
 }
 
 #! Install Nodei.JS packages.
