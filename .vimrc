@@ -135,11 +135,14 @@ call vundle#rc()
 Plugin 'https://github.com/gmarik/vundle'
 
 " All other plugins.
+Plugin 'https://github.com/othree/vim-autocomplpop'
 Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/gregsexton/gitv'
 Plugin 'https://github.com/claco/jasmine.vim'
 Plugin 'https://github.com/nanotech/jellybeans.vim'
 Plugin 'https://github.com/vim-scripts/jQuery'
+" Required by vim-autocomplpop.
+Plugin 'https://github.com/vim-scripts/L9'
 Plugin 'https://github.com/vim-scripts/OmniCppComplete'
 Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'https://github.com/majutsushi/tagbar'
@@ -747,6 +750,9 @@ vnoremap <silent> <C-D> <ESC><C-]>
 "
 " Useful mappings for insert mode.
 "====================================================
+
+" Map the <tab> key such that pressing <tab> while the auto-complete menu is displayed causes the selected item from the menu to iterate to the next item. This effectively causes the <tab> key to act as the next button (or down arrow key). The <tab> key substitutes for the existing support afforded by CTRL+n.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-g>u\<Tab>"
 
 "====================================================
 " Normal Mode
