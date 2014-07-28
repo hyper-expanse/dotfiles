@@ -241,20 +241,23 @@ watch ()
 # Setup a local environment that contains all the tools and libraries needed for development work, and play.
 setupEnvironment ()
 {
-	# Clear out our local system directory before initiating a fresh install of our environment.
+	# Clear out our local system directory.
 	rm -fr "${HOME}/.local/" &> /dev/null
 
+	# Clear out our Vim directory.
+	rm -fr "${HOME}/.vim/" &> /dev/null
+
 	# Download, build, and install tools.
-	# setupNode
 	setupPIP
 	setupVim
 
-	# Update scripts and application plugins.
+	# Update scripts and application plugins for specific applications.
 	updateGit
 	updateVim
 
 	source "${0}"
 
+	# Install and update general tools.
 	installNodePackages
 	installPythonPackages
 }
@@ -299,7 +302,7 @@ setupVim ()
 		echo "Cloning Vundle for Vim plugin management."
 
 		# Create the initial bundle directory that will be required for storing Vim plugins.
-		mkdir -p ~/.vim/bundle/vundle
+		mkdir --parents "${HOME}/.vim/bundle/vundle"
 
 		# Clone the required Vundle plugin into the newly created bundle directory.
 		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle 2> /dev/null
@@ -354,10 +357,18 @@ updateVim ()
 installNodePackages ()
 {
 	if command -v npm &> /dev/null; then
+		# Clear npm's cache so that the following packages are installed from npm's online repository rather than from a possibly stale local cache.
+		npm cache clean
+
+		# Update the version of `npm` installed in our environment.
+		npm install -g npm
+
+		# Required to render GitBook books.
 		npm install -g gitbook
+
+		# Required by vimrc to enable Syntastic checking for JavaScript files.
 		npm install -g jscs
 		npm install -g jshint
-		npm install -g npm
 
 		# Required by vimrc to enable Tagbar to properly parse JavaScript files for tag information.
 		npm install -g git://github.com/ramitos/jsctags.git
@@ -371,10 +382,15 @@ installNodePackages ()
 installPythonPackages ()
 {
 	if command -v pip &> /dev/null; then
+		# Update the version of `pip` installed in our environment.
 		pip install --user pip --upgrade
+
+		# Required to manage virtual Python environments.
+		pip install --user virtualenv --upgrade
+
+		# Required by vimrc to enable Syntastic checking for Python files.
 		pip install --user pylint --upgrade
 		pip install --user pep8 --upgrade
-		pip install --user virtualenv --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
