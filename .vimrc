@@ -1268,6 +1268,18 @@ let g:tagbar_type_markdown = {
 \ }
 
 "====================================================
+" Setup Tern-for-Vim Plugin
+"
+" Setup the tern_for_vim plugin to allow intelligent parsing of JavaScript code for extraction of meta information; such as function argument lists, argument types, object properties, etc.
+"====================================================
+
+" Display argument type hints when the cursor is left over a function identifier. Type information is displayed in the command/mode line at the bottom of Vim.
+let g:tern_show_argument_hints = 'on_hold'
+
+" Enable support for the key mappings defined by this plugin. These key mappings are available through the use of the <leader> key. For a full list of available key mappings please see: http://usevim.com/files/tern_keyboard.pdf
+let g:tern_map_keys = 1
+
+"====================================================
 " Setup Tmuxline Plugin
 "
 " Setup for Tmuxline to enable a Powerline line like status line for TMUX, but using Vim to manage the setup and configuration.
