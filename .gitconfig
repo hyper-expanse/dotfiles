@@ -7,6 +7,10 @@
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
 	editor = vim
 
+[pull]
+	# Automatically rebase local-only commits on top of commits fetched from the remotely tracked repository. This retains the existing structure of the remote's history, and causes local commits to be appended to the history in a linear fashion. This option avoids the default behavior of `git pull`, which fetches commits from the remote repository and "merges" them into the local branch.
+	rebase = true
+
 [push]
 	# 'Simple' instructs Git to push only the current branch to its upstream branch and make sure the upstream branch's name is the same as the local branch. To prevents pushing the incorrect branch to upstream or pushing a branch to the incorrect, name not matching, branch.
 	default = simple
