@@ -855,13 +855,6 @@ vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>
 " Setup for Omni Completion to facilitate auto-completion support and to further configure language-specific helper tools.
 "====================================================
 
-" Configure the auto-complete pop-up menu to automatically open and close.
-augroup autoCompleteMenu
-	autocmd!
-
-	autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-augroup END
-
 " Configure pop-up menu to auto-select based on order of options.
 set completeopt=menuone,menu,longest,preview
 
