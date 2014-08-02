@@ -309,6 +309,9 @@ setupVim ()
 	else
 		echo "ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupVim`."
 	fi
+
+	# Download Vim's runtime files into a local directory so that they can be used by Vim.
+	rsync --archive --compress --checksum --partial --progress --delete --delete-excluded --force --human-readable --exclude="dos" --exclude="spell" --verbose --recursive "ftp.nluug.nl::Vim/runtime/" "${HOME}/.vim/runtime"
 }
 
 #! Update Git environment.

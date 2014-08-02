@@ -13,6 +13,9 @@ export PATH="./node_modules/.bin:${PATH}"
 # Add our local binary directory to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
 export PATH="${HOME}/.local/bin:${PATH}"
 
+# Set Vim's runtime path so that it points to our local copy of Vim's runtime files (Runtime files are a collection of plugins, file type detection scripts, syntax highlighting scripts, etc, written by the maintainers of Vim, to be shipped along with the Vim binary.). Rather than relying on the runtime files installed as part of a system-wide installation of Vim, we download, and reference, our own local copy. That allows us to take advantage of the latest runtime files.
+export VIMRUNTIME="${HOME}/.vim/runtime/"
+
 # Set the default console editor.
 export EDITOR=vim
 
