@@ -1279,6 +1279,15 @@ let g:tern_map_keys = 1
 let g:tmuxline_preset = 'full'
 
 "====================================================
+" Setup VirtualEnv Plugin
+"
+" Setup for VirtualEnv to enable the ability to activate, and deactive, Python virtual environments through the virtualenv plugin.
+"====================================================
+
+" Instruct the virtualenv plugin to look within the local directory for folders housing a Python virtual environment. Virtual environment directories are those that were setup via `virtualenv` or `pyvenv`.
+let g:virtualenv_directory = './'
+
+"====================================================
 " Setup Colorscheme
 "
 " Setup Vim to recognize our terminal as having a particular background color, and then set our preferred color scheme (a.k.a theme).
