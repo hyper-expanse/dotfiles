@@ -922,6 +922,9 @@ augroup pythonSupport
 
 	" Enable Python Omni Complete on Python files.
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+	" Expand each tab insert into the number of spaces specified by the `shiftwidth` option.
+	autocmd FileType python setlocal expandtab
 augroup END
 
 " Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
