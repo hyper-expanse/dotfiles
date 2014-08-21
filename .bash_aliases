@@ -80,3 +80,6 @@ alias connect='tmux new-session -s OpenVPN "cd ~/Documents/OpenVPN/; sudo openvp
 
 # Run a custom backup script to backup the system to an external server.
 alias backup='bash ~/Resources/Scripts/backup.sh'
+
+# Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
+alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${HOME}/.local'
