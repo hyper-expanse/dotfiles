@@ -1049,7 +1049,11 @@ let g:airline_symbols.space = "\ua0"
 " Set the default behavior for the CtrlP plugin to search against files only (not against the buffers or MRU).
 let g:ctrlp_cmd = 'CtrlP'
 
-"|bin|tmp|node_modules|bower_components$',
+" Directory ignore list:
+" * .git/.hg/.svn - Source Code Management storage directories.
+" * node_modules - Directory to house Node modules.
+" * bower_components - Directory to house Bower components.
+" * dist/bin/build - Common directories used to house build artifacts.
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin|build)$',
 	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
