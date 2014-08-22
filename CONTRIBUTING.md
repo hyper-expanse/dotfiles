@@ -13,7 +13,7 @@ git clone https://github.com/hbetts/dotfiles.git
 To update the project from within the project's folder you can run the following command:
 
 ```bash
-git pull
+git pull --rebase
 ```
 
 ## Feature Requests
@@ -28,4 +28,4 @@ My configuration files and scripts aren't always perfect, but I strive to always
 
 Along with my desire to hear your feedback and suggestions, I'm also interested in accepting direct assistance in the form of new configuration options and scripts.
 
-You may file merge requests against my [GitHub repository](https://github.com/hbetts/dotfiles/pulls).
+Please feel free to file merge requests against my [GitHub repository](https://github.com/hbetts/dotfiles/pulls).
