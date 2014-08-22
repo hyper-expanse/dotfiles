@@ -17,16 +17,21 @@ alias ln='ln -i'
 # Enable case insensitivity for grep'ing.
 alias grep='grep -i'
 
-# Enable color support for various commands.
-if [ -x /usr/bin/dircolors ]; then
-	test -r ${HOME}/.dircolors && eval "$(dircolors -b ${HOME}/.dircolors)" || eval "$(dircolors -b)"
+# Enable color support for those GNU tools that support colorized output.
+if command -v dircolors &> /dev/null; then
+	# Check if user has a dircolors database (a file that maps file types, and file permissions, to colors). If the user has such a file, then instruct dircolors to use that file to map Bash color commands to the desired colors.
+	if [ -f "${HOME}/.dircolors" ]; then
+		eval "$(dircolors --bourne-shell "${HOME}/.dircolors")"
+	else
+		eval "$(dircolors --bourne-shell)"
+	fi
+
 	alias ls='ls --color=auto'
 	alias dir='dir --color=auto'
 	alias vdir='vdir --color=auto'
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
-
 fi
 
 # List content, including hidden files and folders, of a directory in long format.
