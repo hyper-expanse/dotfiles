@@ -19,7 +19,7 @@ alias grep='grep -i'
 
 # Enable color support for various commands.
 if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	test -r ${HOME}/.dircolors && eval "$(dircolors -b ${HOME}/.dircolors)" || eval "$(dircolors -b)"
 	alias ls='ls --color=auto'
 	alias dir='dir --color=auto'
 	alias vdir='vdir --color=auto'
@@ -37,7 +37,7 @@ alias root='sudo -i'
 alias su='sudo -i'
 
 # Clear out the bash history and clear the screen.
-alias scram='history -c; clear; /usr/bin/env rm -r ~/.vim/undo; /usr/bin/env rm -r ~/.vim/backups'
+alias scram='history -c; clear; /usr/bin/env rm -r ${HOME}/.vim/undo; /usr/bin/env rm -r ${HOME}/.vim/backups'
 
 # Find the top 5 largest files within the current, and sub, directories.
 alias findbig='find . -type f -exec ls -lha {} \; | sort --stable --parallel=2 -t" " -k5rh | head -5'
@@ -76,10 +76,10 @@ alias pastebinit='pastebinit -b http://paste.ubuntu.com'
 alias update='sudo apt-get update && sudo apt-get dist-upgrade --no-install-recommends'
 
 # Connect to the Hyper-Expanse OpenVPN access point.
-alias connect='tmux new-session -s OpenVPN "cd ~/Documents/OpenVPN/; sudo openvpn --config ~/Documents/OpenVPN/client.conf"'
+alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo openvpn --config ${HOME}/Documents/OpenVPN/client.conf"'
 
 # Run a custom backup script to backup the system to an external server.
-alias backup='bash ~/Resources/Scripts/backup.sh'
+alias backup='bash ${HOME}/Resources/Scripts/backup.sh'
 
 # Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${HOME}/.local'
