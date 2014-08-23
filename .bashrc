@@ -228,7 +228,8 @@ watch ()
 			return
 		fi
 
-		"${1}"
+		# Evaluate the expression passed to the watch command so that commands that include command line arguments can be properly executed.
+		eval "${1}"
 
 		# If the requested command fails, exit rather than loop again.
 		if [ "${?}" -gt 0 ]; then
