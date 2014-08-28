@@ -1,5 +1,7 @@
 # Transmission
 
+_Transmission_ is a bittorrent-based peer-to-peer file-sharing platform. This platform contains the tools needed to form a peer-to-peer network, share files, and manage resources. _Transmission_ is broken down into a core library providing the aforementioned functionality, along with a suite of human interfaces; such as QT and GTK+ based GUI interfaces and a command-line interface.
+
 ## Package Installation
 
 Packages:
