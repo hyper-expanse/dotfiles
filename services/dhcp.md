@@ -5,7 +5,7 @@ DHCP server allows for the automatic configuration of network interfaces on phys
 ## Package Installation
 
 Packages:
-• isc-dhcp-server: This is the server from the Internet Software Consortium's implementation of DHCP. For more information, visit http://www.isc.org.
+* isc-dhcp-server: This is the server from the Internet Software Consortium's implementation of DHCP. For more information, visit http://www.isc.org.
 
 ## Configure Firewall
 
