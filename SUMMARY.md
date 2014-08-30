@@ -3,6 +3,7 @@
 * [Operating Systems](os/README.md)
 	* [Android](os/android.md)
 	* [Debian](os/debian.md)
+		* [Security Hardening](os/debian/security-hardening.md)
 * [Variants](variants/README.md)
 	* [Personal Desktop](variants/personal-desktop.md)
 	* [Workstation](variants/workstation.md)
