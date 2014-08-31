@@ -40,7 +40,7 @@
 	lf = log --graph --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(magenta)<%an> %C(cyan)<%G?>%Creset'
 
 	# Standard log output with additional statistics indicating the number of lines added or removed.
-	ll = log --abbrev-commit --decorate --graph --show-signature --stat
+	ll = log --abbrev-commit --decorate --graph --show-signature --stat --pretty=fuller
 
 	# Show commits that are on the local branch and on the remote branch that don't exist on the other. By including the cherry-pick option commits that were pushed or pulled between branches (Even when out of order) will be excluded.
 	missing = log --graph  --left-right --cherry-pick --pretty=tformat:'%C(cyan)%h%Creset %C(bold yellow)%d%Creset %s %C(cyan)(%cr) %C(magenta)<%an> %C(cyan)<%G?>%Creset'
