@@ -97,3 +97,23 @@ remember=400
 ```
 
 The value of the `remember` parameter is the number of old passwords you want to store for a user. It turns out that there's an internal maximum of 400 previous passwords, so values higher than 400 are all equivalent to 400. Before you complain about this limit, consider that even if your site forces users to change passwords every 30 days, 400 previous passwords represents over 30 years of password history. This is probably sufficient for even the oldest of legacy systems.
+
+### Shell Auto-Logout
+
+It is an important security measure to insure that shell prompts are closed when not being used by a user. By configuring a user's shell to automatically log out after a pre-defined amount of idle time, the amount of time a malicious user could have to come upon the open shell is greatly reduced.
+
+Create the `/etc/profile.d/autologout.sh` file and add the following:
+
+```bash
+#!/usr/bin/env bash
+
+TMOUT=1800
+readonly TMOUT
+export TMOUT
+```
+
+Next, set the permissions of the file so that it can be pulled in as part of the login process:
+
+```bash
+sudo chmod 644 /etc/profile.d/autologout.sh
+```
