@@ -134,3 +134,37 @@ Finally, restart the SSH daemon:
 ```bash
 sudo /etc/init.d/ssh restart
 ```
+
+### User Home Folder Access
+
+Debian-based systems create world-readable home directories by default when creating accounts using `adduser`. This allows users on a shared system to access the files and folders inside of each other’s home directories. Access includes the ability to execute programs within the directories of other users, along with reading the contents of any file. This is a potential security vulnerability, giving users access to material they shouldn't. Therefore, we must change this default.
+
+Execute the following command to re-configure the `adduser` program:
+
+```bash
+sudo dpkg-reconfigure adduser
+```
+
+An interactive configuration screen will appear to configure the `adduser` settings.
+
+Select No for system-wide readable home directories.
+
+Next, we must secure all home directories that already exist on the system, removing world privileges, by executing the following command, replacing `[USERNAME]` with the name of the user's home directory:
+
+```bash
+sudo chmod -R o-rwx /home/[USERNAME]
+```
+
+Modify `/etc/adduser.conf`, and change the following property:
+
+```
+DIR_MODE=0751
+```
+
+To:
+
+```
+DIR_MODE=0750
+```
+
+Changing the default permission from `751` to `750` disables the default permission that allows a user's home directory to be world readable, or readable by all users of the system.
