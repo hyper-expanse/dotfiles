@@ -117,3 +117,20 @@ Next, set the permissions of the file so that it can be pulled in as part of the
 ```bash
 sudo chmod 644 /etc/profile.d/autologout.sh
 ```
+
+### SSH Auto-Logout
+
+The OpenSSH daemon allows administrators to set an idle timeout interval. After this interval has passed, any idle users will be automatically logged out, and their SSH connection terminated.
+
+Edit the `/etc/ssh/sshd_config` configuration file and add the following at the bottom of the file:
+
+```
+ClientAliveInterval 1800
+ClientAliveCountMax 0
+```
+
+Finally, restart the SSH daemon:
+
+```bash
+sudo /etc/init.d/ssh restart
+```
