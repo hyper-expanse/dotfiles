@@ -168,3 +168,25 @@ DIR_MODE=0750
 ```
 
 Changing the default permission from `751` to `750` disables the default permission that allows a user's home directory to be world readable, or readable by all users of the system.
+
+## Data Destruction
+
+Removing data beyond simple file deletion is the act of destroying the data in a manner that prevents or hinders retrieval or data remanence. Traditional means of deleting a file leave the contents of the file on the disk. Those contents are not destroyed until the operating system overwrites that physical location on the disk. Therefore, after the deletion of a file, there is no assurance that the contents of that file can not later be retrieved. Subsequently, the physical location on disk must be written to in a manner that make retrieval of that original file contents improbable.
+
+Therefore, using the application tool below for data removal is a secure and reliable means to permanently destroy data short of the physical destruction of the disk.
+
+### Package Installation
+
+Packages:
+* scrub
+
+### Data Destruction Process
+
+There are several ways that scrub can be used to make data on a disk nearly impossible to retrieve. As part of a daily routine, and for most information, the standard scrub defaults are sufficient. Those defaults can be used in the manner shown below. For further assurance read the help manual on scrub to learn of more thorough algorithms that can scrub data.
+
+To scrub a file, execute the following command:
+* scrub [FILE NAME]
+
+Additional commands:
+* To remove the file after scrubbing: -r
+* To scrub a file after it has already been scrubbed: -f
