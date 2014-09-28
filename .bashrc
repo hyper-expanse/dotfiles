@@ -310,9 +310,6 @@ setupVim ()
 	else
 		echo "ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupVim`."
 	fi
-
-	# Download Vim's runtime files into a local directory so that they can be used by Vim.
-	rsync --archive --compress --checksum --partial --progress --delete --delete-excluded --force --human-readable --exclude="dos" --exclude="spell" --verbose --recursive "ftp.nluug.nl::Vim/runtime/" "${HOME}/.vim/runtime"
 }
 
 #! Update Git environment.
@@ -354,6 +351,9 @@ updateVim ()
 
 	# Once the tern_for_vim plugin has been installed via the previous Vim plugin step we'll still need to download the plugin's required runtime dependencies. To accomplish this we jump into the plugin's directory and run `npm install`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
 	cd "${HOME}/.vim/bundle/tern_for_vim" && npm install
+
+	# Download Vim's runtime files into a local directory so that they can be used by Vim.
+	rsync --archive --compress --checksum --partial --progress --delete --delete-excluded --force --human-readable --exclude="dos" --exclude="spell" --verbose --recursive "ftp.nluug.nl::Vim/runtime/" "${HOME}/.vim/runtime"
 }
 
 #! Install Nodei.JS packages.
