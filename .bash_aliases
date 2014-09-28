@@ -91,3 +91,6 @@ alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${HOME}/.local'
 
 # Create a Python virtual environment using the Python 3 interpreter and the standard _env_ directory.
 alias createVirtualEnvironment='virtualenv --python=python3 env'
+
+# Activate the `env` Python virtual environment installed within the local directory.
+alias activateVirtualEnvironment='source ./env/bin/activate'
