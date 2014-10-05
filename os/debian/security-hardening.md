@@ -56,7 +56,7 @@ Insure users create a good password by enforcing an expectation on the quality o
 
 #### Package Installation
 
-Packages
+Packages:
 * libpam-cracklib
 
 #### Enabling pam_cracklib
