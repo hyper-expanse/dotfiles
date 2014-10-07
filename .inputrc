@@ -1,0 +1,2 @@
+# Disable console beeps that occur as alerts to gain operator attention.
+set bell-style none

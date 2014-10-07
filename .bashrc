@@ -71,16 +71,6 @@ fi
 # Enable options available from our ~/.prompt script:
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Display working directory's Git branch name.
 
-# Retrieve the name of our operating system platform.
-platform=`uname -o`
-
-# Disable console beeps that occur as alerts to gain operator attention.
-if [ "${platform}" == 'GNU/Linux' ]; then
-	setterm -bfreq 0
-elif [ "${platform}" == 'Cygwin' ]; then
-	set bell-style none
-fi
-
 # Setup Bash prompt auto-completion for PIP; Python's package manager.
 if command -v pip &> /dev/null; then
 	eval "`pip completion --bash`"
