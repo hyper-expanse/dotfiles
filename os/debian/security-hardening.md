@@ -220,3 +220,24 @@ session required	pam_umask.so umask=0027
 For added security it's best to disable any services on the local machine which are not being used.
 
 Comment out each line in `/etc/inetd.conf` using the character '\#'.
+
+## Update Host SSH Keys
+
+The host keys for the server need to be updated to use a larger key size for better cryptographic security.
+
+Sudo into the root account:
+
+```bash
+sudo su
+```
+
+Run the following two commands to generate new SSH keys for the host system:
+
+```bash
+ssh-keygen -t rsa -b 16384 -f /etc/ssh/ssh_host_rsa_key
+ssh-keygen -t dsa -b 1024 -f /etc/ssh/ssh_host_dsa_key
+```
+
+**Note:** When prompted for a password just press `Enter` to make the key passwordless.
+
+**Note:** DSA keys can only be as large as 1024 bits in length. This is a restriction imposed by FIPS 186-2 and enforced by OpenSSL (The manager of SSH keys).
