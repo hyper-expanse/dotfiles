@@ -190,3 +190,27 @@ To scrub a file, execute the following command:
 Additional commands:
 * To remove the file after scrubbing: -r
 * To scrub a file after it has already been scrubbed: -f
+
+## Default Permissions
+
+Files and directories are typically created on a Unix system with world readable permissions. That means any users on that system, besides the file's owner, can, by default, read the contents of newly created files, even if that user is not the owner, or part of the group assigned to the file.
+
+To mitigate the availablility of file contents to third-parties, we change the UMASK used by Unix systems when setting the default permissions on new files and directories.
+
+Edit `/etc/login.defs` and change the following line:
+
+From:
+```
+UMASK 022
+```
+
+To:
+```
+UMASK	027
+```
+
+Next we edit the PAM configuration file, `/etc/pam.d/common-session`, to force the UMASK value to accepted, by adding the following to bottom of the file:
+
+```
+session required	pam_umask.so umask=0027
+```
