@@ -214,3 +214,9 @@ Next we edit the PAM configuration file, `/etc/pam.d/common-session`, to force t
 ```
 session required	pam_umask.so umask=0027
 ```
+
+## Disable Unnecessary Services
+
+For added security it's best to disable any services on the local machine which are not being used.
+
+Comment out each line in `/etc/inetd.conf` using the character '\#'.
