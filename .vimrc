@@ -992,7 +992,7 @@ augroup markdownSupport
 	autocmd!
 
 	" Instruct Vim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because Vim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
-	autocmd BufRead,BufNewFile *.{md}   set filetype=markdown
+	autocmd BufRead,BufNewFile *.{md} set filetype=markdown
 	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
 augroup END
 
