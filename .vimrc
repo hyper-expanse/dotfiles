@@ -996,6 +996,15 @@ augroup markdownSupport
 	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
 augroup END
 
+" JSON SUPPORT
+
+augroup jsonSupport
+	autocmd!
+
+	" Instruct Vim to treat files ending in the following extension as JSON files. This must be done within our vimrc file because Vim's runtime files treat *.json files as JavaScript files; thereby applying unexpected syntax highlighting, and attempting to apply JavaScript style rules to JSON content (Which already has a well defined set of rules).
+	autocmd BufRead,BufNewFile *.{json} set filetype=json
+augroup END
+
 " OTHER SUPPORT.
 
 " Change the default auto-complete pop-up window color scheme from pink to a custom scheme using Black for the background, Cyan for each entry in the dropdown, and Green for the item currently under focus..
@@ -1225,6 +1234,11 @@ let g:syntastic_cpp_checkers = ['cppcheck']
 
 " Set our preferred static analysis chcker to JsHint, and style checker, the fallback checker, to jscs.
 let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+
+" JSON
+
+" Set our preferred JSON validator to JSONLint.
+let g:syntastic_json_checkers = [ 'jsonlint' ]
 
 " PYTHON
 

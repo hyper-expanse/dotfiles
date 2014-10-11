@@ -364,6 +364,9 @@ installNodePackages ()
 		npm install -g jscs
 		npm install -g jshint
 
+		# Required by vimrc to enable Syntastic checking for JSON files.
+		npm install -g jsonlint
+
 		# Required by vimrc to enable Tagbar to properly parse JavaScript files for tag information.
 		npm install -g git://github.com/ramitos/jsctags.git
 	else
