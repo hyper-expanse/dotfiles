@@ -253,6 +253,13 @@ setupEnvironment ()
 	installPythonPackages
 }
 
+#! Setup LinuxBrew, the Linux-clone of HomeBrew.
+# Install LinuxBrew locally so that we can download, build, and install tools from source.
+setupLinuxBrew ()
+{
+	git clone https://github.com/Homebrew/linuxbrew.git "${HOME}/.local"
+}
+
 #! Setup pip, Python's package manager.
 # Install and configure Python's package manager in the user's local environment.
 setupPIP ()
