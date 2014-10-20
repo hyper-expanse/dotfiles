@@ -253,6 +253,7 @@ updateEnvironment ()
 {
 	# Update scripts and application plugins for specific applications.
 	updateGit
+	updateLinuxBrew
 	updateVim
 
 	source "${0}"
@@ -328,6 +329,13 @@ updateGit ()
 	wget --quiet https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash --directory-prefix="${HOME}/.local/etc/bash_completion.d/"
 
 	source "${HOME}/.local/etc/bash_completion.d/git-completion.bash"
+}
+
+#! Update LinuxBrew environment.
+# Update the LinuxBrew installation; accomplished by re-running the setup function.
+updateLinuxBrew ()
+{
+	setupLinuxBrew
 }
 
 #! Update Vim environment.
