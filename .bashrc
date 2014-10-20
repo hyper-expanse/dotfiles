@@ -238,10 +238,19 @@ setupEnvironment ()
 	# Clear out our Vim directory.
 	rm -fr "${HOME}/.vim/" &> /dev/null
 
-	# Download, build, and install tools.
+	# Download, build, and install core development environment tools.
+	setupLinuxBrew
 	setupPIP
 	setupVim
 
+	# Update development environment.
+	updateEnvironment
+}
+
+#! Update environment.
+# Update our development environment by installing the latest version of our desired tools.
+updateEnvironment ()
+{
 	# Update scripts and application plugins for specific applications.
 	updateGit
 	updateVim
