@@ -1066,10 +1066,10 @@ let g:ctrlp_cmd = 'CtrlP'
 " * bower_components - Directory to house Bower components.
 " * dist/bin/build - Common directories used to house build artifacts.
 " * _book - Build artifact cache used by `gitbook`.
-" * env - The prefered Python virtual environment directory.
+" * venv - The prefered Python virtual environment directory.
 " * .tox - Cache directory used by `tox`.
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin|build|_book|env|\.tox)$',
+	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin|build|_book|venv|\.tox)$',
 	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
 	\ }
 
