@@ -232,11 +232,22 @@ watch ()
 # Setup a local environment that contains all the tools and libraries needed for development work, and play.
 setupEnvironment ()
 {
+	printf "\n> Removing ${HOME}/.local/ directory.\n"
+
 	# Clear out our local system directory.
-	rm -fr "${HOME}/.local/" &> /dev/null
+	if [ -d "${HOME}/.local/" ]; then
+		rm -fr "${HOME}/.local/" &> /dev/null
+	fi
+
+	printf "\n> Removing ${HOME}/.vim/ directory.\n"
 
 	# Clear out our Vim directory.
-	rm -fr "${HOME}/.vim/" &> /dev/null
+	if [ -d "${HOME}/.vim/" ]; then
+		rm -fr "${HOME}/.vim/" &> /dev/null
+	fi
+
+	# Create our local system directory before any setup steps require its existence.
+	mkdir "${HOME}/.local"
 
 	# Download, build, and install core development environment tools.
 	setupLinuxBrew
@@ -254,20 +265,45 @@ updateEnvironment ()
 	# Update scripts and application plugins for specific applications.
 	updateGit
 	updateLinuxBrew
-	updateVim
 
-	source "${0}"
+	source "${HOME}/.bashrc"
 
 	# Install and update general tools.
-	installNodePackages
-	installPythonPackages
+	installBrewPackages
+	#installNodePackages
+	#installPythonPackages
+
+	updateVim
 }
 
 #! Setup LinuxBrew, the Linux-clone of HomeBrew.
 # Install LinuxBrew locally so that we can download, build, and install tools from source.
 setupLinuxBrew ()
 {
-	git clone https://github.com/Homebrew/linuxbrew.git "${HOME}/.local"
+	if command -v git &> /dev/null; then
+		printf "\n> Installing LinuxBrew.\n"
+
+		local currentDirectory=`pwd`
+
+		cd "${HOME}/.local/"
+
+		# If the requested command fails, exit rather than attempt to execute further commands.
+		if [ "${?}" -gt 0 ]; then
+			return
+		fi
+
+		git init
+
+		git remote add origin https://github.com/Homebrew/linuxbrew.git
+
+		git fetch
+
+		git checkout --track origin/master
+
+		cd "${currentDirectory}"
+	else
+		printf "\n> ERROR: `git` is required for setting up LinuxBrew, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupLinxBrew`.\n"
+	fi
 }
 
 #! Setup pip, Python's package manager.
@@ -275,9 +311,11 @@ setupLinuxBrew ()
 setupPIP ()
 {
 	# Delete any existing file so that `wget` will download the file from scratch.
-	rm /tmp/hutson-get-pip.py
+	if [ -f "/tmp/hutson-get-pip.py" ]; then
+		rm "/tmp/hutson-get-pip.py"
+	fi
 
-	echo "Downloading PIP installer."
+	printf "\n> Downloading PIP installer.\n"
 
 	# Download the PIP installer.
 	wget --quiet https://bootstrap.pypa.io/get-pip.py -O /tmp/hutson-get-pip.py
@@ -287,7 +325,7 @@ setupPIP ()
 		return
 	fi
 
-	echo "Installing PIP user-wide."
+	printf "\n> Installing PIP user-wide.\n"
 
 	python /tmp/hutson-get-pip.py --user
 
@@ -295,11 +333,6 @@ setupPIP ()
 	if [ "${?}" -gt 0 ]; then
 		return
 	fi
-
-	echo "Upgrading PIP to latest version."
-
-	# Upgrade the user-wide version of pip.
-	pip install --user pip --upgrade
 }
 
 #! Setup the command line editor Vim.
@@ -307,15 +340,20 @@ setupPIP ()
 setupVim ()
 {
 	if command -v git &> /dev/null; then
-		echo "Cloning Vundle for Vim plugin management."
+		printf "\n> Cloning Vundle for Vim plugin management.\n"
 
 		# Create the initial bundle directory that will be required for storing Vim plugins.
 		mkdir --parents "${HOME}/.vim/bundle/vundle"
 
+		# If the requested command fails, exit rather than attempt to execute further commands.
+		if [ "${?}" -gt 0 ]; then
+			return
+		fi
+
 		# Clone the required Vundle plugin into the newly created bundle directory.
-		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle 2> /dev/null
+		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle --quiet --depth 1
 	else
-		echo "ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupVim`."
+		printf "\n> ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupVim`.\n"
 	fi
 }
 
@@ -324,18 +362,48 @@ setupVim ()
 # 1) Download and install Git's bash auto-completion script so that it can be sourced by this .bashrc file.
 updateGit ()
 {
+	printf "\n> Updating Git.\n"
+
 	mkdir --parents "${HOME}/.local/etc/bash_completion.d/"
 
+	# If the requested command fails, exit rather than attempt to execute further commands.
+	if [ "${?}" -gt 0 ]; then
+		return
+	fi
+
 	wget --quiet https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash --directory-prefix="${HOME}/.local/etc/bash_completion.d/"
+
+	# If the requested command fails, exit rather than attempt to execute further commands.
+	if [ "${?}" -gt 0 ]; then
+		return
+	fi
 
 	source "${HOME}/.local/etc/bash_completion.d/git-completion.bash"
 }
 
 #! Update LinuxBrew environment.
-# Update the LinuxBrew installation; accomplished by re-running the setup function.
+# Update the LinuxBrew installation. This includes doing the following:
+# 1) Pull down the latest commit from LinuxBrew's remote repository.
 updateLinuxBrew ()
 {
-	setupLinuxBrew
+	if command -v git &> /dev/null; then
+		printf "\n> Updating LinuxBrew.\n"
+
+		local currentDirectory=`pwd`
+
+		cd "${HOME}/.local/"
+
+		# If the requested command fails, exit rather than attempt to execute further commands.
+		if [ "${?}" -gt 0 ]; then
+			return
+		fi
+
+		git pull
+
+		cd "${currentDirectory}"
+	else
+		printf "\n> ERROR: `git` is required for updating LinuxBrew, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `updateLinuxBrew`.\n"
+	fi
 }
 
 #! Update Vim environment.
@@ -345,6 +413,8 @@ updateLinuxBrew ()
 # 3) Update plugins that are already installed on the system.
 updateVim ()
 {
+	printf "\n> Updating Vim.\n"
+
 	# Make a directory to hold the font file containing the special Powerline font glyphs.
 	mkdir --parents "${HOME}/.fonts/"
 
@@ -361,20 +431,48 @@ updateVim ()
 	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf --directory-prefix="${HOME}/.config/fontconfig/conf.d/"
 
 	# Update Vim plugins.
-	vim +PluginClean! +PluginInstall! +qa
+	if command -v vim &> /dev/null; then
+		vim +PluginClean! +PluginInstall! +qa
+	else
+		printf "\n> ERROR: `vim` is required for updating Vim's plugins, but it's not available in your PATH. Please install `vim` and ensure it's in your PATH. Then re-run `updateVim`.\n"
+	fi
 
 	# Once the tern_for_vim plugin has been installed via the previous Vim plugin step we'll still need to download the plugin's required runtime dependencies. To accomplish this we jump into the plugin's directory and run `npm install`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
-	cd "${HOME}/.vim/bundle/tern_for_vim" && npm install
+	if command -v npm &> /dev/null; then
+		local currentDirectory=`pwd`
+		cd "${HOME}/.vim/bundle/tern_for_vim" && npm install && cd ${currentDirectory}
+	else
+		printf "\n> ERROR: `npm` is required for installing Term runtime dependencies, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `updateVim`.\n"
+	fi
 
 	# Download Vim's runtime files into a local directory so that they can be used by Vim.
-	rsync --archive --compress --checksum --partial --progress --delete --delete-excluded --force --human-readable --exclude="dos" --exclude="spell" --verbose --recursive "ftp.nluug.nl::Vim/runtime/" "${HOME}/.vim/runtime"
+	rsync --archive --compress --checksum --partial --delete --delete-excluded --force --human-readable --exclude="dos" --exclude="spell" --recursive "ftp.nluug.nl::Vim/runtime/" "${HOME}/.vim/runtime"
 }
 
-#! Install Nodei.JS packages.
+#! Install packages via LinuxBrew.
+# Install packages via LinuxBrew's `brew` CLI tool.
+installBrewPackages()
+{
+	if command -v brew &> /dev/null; then
+		printf "\n> Installing Brew packages.\n"
+
+		brew uninstall vim
+		brew install --HEAD vim
+
+		brew uninstall node
+		brew install --HEAD node
+	else
+		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
+	fi
+}
+
+#! Install Node.JS packages.
 # Install Node.JS packages via `npm`.
 installNodePackages ()
 {
 	if command -v npm &> /dev/null; then
+		printf "\n> Installing Node packages.\n"
+
 		# Clear npm's cache so that the following packages are installed from npm's online repository rather than from a possibly stale local cache.
 		npm cache clean
 
@@ -403,6 +501,8 @@ installNodePackages ()
 installPythonPackages ()
 {
 	if command -v pip &> /dev/null; then
+		printf "\n> Installing Python packages.\n"
+
 		# Update the version of `pip` installed in our environment.
 		pip install --user pip --upgrade
 
