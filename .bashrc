@@ -269,9 +269,9 @@ updateEnvironment ()
 	source "${HOME}/.bashrc"
 
 	# Install and update general tools.
-	installBrewPackages
-	#installNodePackages
-	#installPythonPackages
+	#installBrewPackages
+	installNodePackages
+	installPythonPackages
 
 	updateVim
 }
