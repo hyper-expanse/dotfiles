@@ -31,3 +31,21 @@ Close the current "query" window.
 ```
 /query
 ```
+
+## Managing User Accounts
+
+### NickServ
+
+```
+/msg NickServ SET HIDEMAIL ON
+/msg NickServ SET NEVEROP ON
+/msg NickServ SET ENFORCE ON
+/msg NickServ SET PRIVATE ON
+```
+
+Register addition nicks with an existing account:
+
+```
+/nick [NICK]
+/msg NickServ group
+```
