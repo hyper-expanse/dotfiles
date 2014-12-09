@@ -269,7 +269,7 @@ updateEnvironment ()
 	source "${HOME}/.bashrc"
 
 	# Install and update general tools.
-	#installBrewPackages
+	installBrewPackages
 	installNodePackages
 	installPythonPackages
 
@@ -456,11 +456,30 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
-		brew uninstall vim
-		brew install --HEAD vim
+		local currentDirectory=`pwd`
 
-		brew uninstall node
-		brew install --HEAD node
+		# Determine the operating system architecture for use by build scripts where necessary.
+		if [ "`uname -m`" == "i686" ]; then
+			local architecture="x86";
+		else
+			local architecture="x64"
+		fi
+
+		# Download and install Vim.
+		brew reinstall vim --HEAD
+		if [ `uname -n` == "mini" ]; then
+			cd "${HOME}/.cache/Homebrew/vim--hg"
+			./configure --prefix="${HOME}/.local" --mandir="${HOME}/.local/share/man" --enable-multibyte --with-tlib=ncurses --enable-cscope --with-features=huge --with-compiledby=Homebrew --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-gui=no --without-x
+			make -j GetNumberOfCores
+			make install
+			cd ${currentDirectory}
+		fi
+
+		# Download and install NodeJS and npm.
+		wget "http://nodejs.org/dist/v0.10.33/node-v0.10.33-linux-${architecture}.tar.gz" --directory-prefix=/tmp
+		tar -xf "/tmp/node-v0.10.33-linux-${architecture}.tar.gz" -C .local/ --strip-components=1
+		rm "/tmp/node-v0.10.33-linux-${architecture}.tar.gz"
+
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
 	fi
