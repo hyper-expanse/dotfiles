@@ -10,6 +10,7 @@ export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and fold
 export PROMPT_ENABLE_SCREEN_INFORMATION=0 # Enable information about the current terminal multiplexer and multiplexer session.
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=0 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
 export PROMPT_ENABLE_SVN_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN) name for the repository stored in the current directory.
+export PROMPT_ENABLE_LOAD=1 # Enable the display of a system's current, total, utilization as a percentage.
 
 COLOR_OFF='\[\e[0m\]'	# Remove all color modifications.
 
@@ -109,14 +110,17 @@ LoadPrompt()
 	fi
 	PS1="${PS1}\H${B_BLACK})"
 
-	PS1="${PS1}-"
+	# If option is enabled, print the system's utilization.
+	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_LOAD} -eq 1 ] && \$(command -v bc &> /dev/null); then "
 
-	# Current 1 minute system load.
-	local load="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
-	local scale="100"
-	local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${NUMBER_OF_CORES}\" | bc)"
+		# Current 1 minute system load.
+		local load="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
+		local scale="100"
+		local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${NUMBER_OF_CORES}\" | bc)"
 
-	PS1="${PS1}(${CYAN}\$(echo \"${percentUtilization}%\")${B_BLACK})"
+		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; echo -n \"${percentUtilization}\"; echo -n \"%\"; printf '%s%s' '${B_BLACK}' ')';"
+
+	PS1="${PS1}fi)"
 
 	PS1="${PS1}-"
 
