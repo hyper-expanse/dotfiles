@@ -6,12 +6,23 @@
 # This script will deploy all dotfiles as symlinks to the user's home directory.
 #====================================================
 
+local directory=`pwd`
+
 echo "Deploying dotfiles..."
 
 # Symlink files into the user's home directory.
 echo "> Symlinking files into the user's home directory (${HOME})."
 for file in `find . -maxdepth 1 -type f -name '.*' -print`; do
-	ln --symbolic --force "$(pwd)/${file#./}" "${HOME}/${file#./}"
+
+	# Setup a symlink, per file, on Linux.
+	if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+		ln --symbolic --force "${directory}/${file#./}" "${HOME}/${file#./}"
+
+	# Setup a symlink, per file, on Windows
+	elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+		# Setup symlinks on Windows (as per https://stackoverflow.com/questions/18641864/git-bash-shell-fails-to-create-symbolic-links).
+		cmd <<< "mklink \"${directory//\//\\}\${file#./}\" \"${HOME//\//\\}\${file#./}\"" > /dev/null
+	fi
 done
 
 # Symlink top-level directories to the user's home directory.
