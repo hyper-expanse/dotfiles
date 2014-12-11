@@ -531,9 +531,6 @@ installPythonPackages ()
 		# Required by vimrc to enable Syntastic checking for Python files.
 		pip install --user pylint --upgrade
 		pip install --user pep8 --upgrade
-
-		# Required to build projects from project templates.
-		pip install --user cookiecutter --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
