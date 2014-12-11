@@ -510,6 +510,9 @@ installNodePackages ()
 
 		# Required by vimrc to enable Tagbar to properly parse JavaScript files for tag information.
 		npm install -g git://github.com/ramitos/jsctags.git
+
+		# `Foreman`-like tool for managing arbitrary processes within a local environment.
+		npm install -g foreman
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
