@@ -77,7 +77,7 @@ Packages:
 #### Desktop Applications
 
 Packages:
-* akregator: RSS feader. [KDE - Kontact] // TODO: Future replacement - quitess
+* akregator: RSS feader. [KDE - Kontact] // TODO: Future replacement - quiterss
 * ark: Archive utility. [KDE] // TODO: Future replacement - peazip-qt
 * basket: Note taking and management. [KDE] // TODO: Future replacement - basqet
 * calibre: E-book management library.
