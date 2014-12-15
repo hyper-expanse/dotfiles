@@ -40,10 +40,4 @@ ln --symbolic --force "$(pwd)/markdown2ctags/markdown2ctags.py" "${HOME}/.vim/ma
 # Source the newly installed profile script to setup the user's environment.
 source ${HOME}/.profile
 
-# Install Vim and its environment.
-setupVim
-
-# Install Vim plugins and their dependencies.
-updateVim
-
 echo "Finished deploying dotfiles. Your environment has been sourced and setup. Enjoy."
