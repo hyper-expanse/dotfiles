@@ -6,7 +6,7 @@
 # This script will deploy all dotfiles as symlinks to the user's home directory.
 #====================================================
 
-local directory=`pwd`
+DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 echo "Deploying dotfiles..."
 
@@ -16,19 +16,19 @@ for file in `find . -maxdepth 1 -type f -name '.*' -print`; do
 
 	# Setup a symlink, per file, on Linux.
 	if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-		ln --symbolic --force "${directory}/${file#./}" "${HOME}/${file#./}"
+		ln --symbolic --force "${DIRECTORY}/${file#./}" "${HOME}/${file#./}"
 
 	# Setup a symlink, per file, on Windows
 	elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
 		# Setup symlinks on Windows (as per https://stackoverflow.com/questions/18641864/git-bash-shell-fails-to-create-symbolic-links).
-		cmd <<< "mklink \"${directory//\//\\}\${file#./}\" \"${HOME//\//\\}\${file#./}\"" > /dev/null
+		cmd <<< "mklink \"${DIRECTORY//\//\\}\${file#./}\" \"${HOME//\//\\}\${file#./}\"" > /dev/null
 	fi
 done
 
 # Symlink top-level directories to the user's home directory.
 echo "> Symlinking directories not supported yet."
 for directory  in `find . -maxdepth 1 -type d -print`; do
-	if [ "${directory}" == './.git' -o "${directory}" == '.' ]; then
+	if [ "${DIRECTORY}" == './.git' -o "${DIRECTORY}" == '.' ]; then
 		continue
 	fi
 done
