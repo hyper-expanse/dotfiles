@@ -124,10 +124,8 @@ LoadPrompt()
 
 	PS1="${PS1}fi)"
 
-	PS1="${PS1}-"
-
 	# Number of jobs running in the background.
-	PS1="${PS1}(${CYAN}\j${B_BLACK})"
+	#PS1="${PS1}-(${CYAN}\j${B_BLACK})"
 
 	PS1="${PS1}-"
 
