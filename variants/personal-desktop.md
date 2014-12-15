@@ -20,7 +20,6 @@ Packages:
 * telepathy-gabble: Required to connect to Jabber networks, such as Google Talk.
 * telepathy-haze: Required to connecto to Jabber networks, such as Google Talk.
 * telepathy-logger: Required for proper instant messaging.
-* texlive
 
 ## Display Server
 
@@ -78,7 +77,7 @@ Packages:
 #### Desktop Applications
 
 Packages:
-* akregator: RSS feader. [KDE - Kontact]
+* akregator: RSS feader. [KDE - Kontact] // TODO: Future replacement - quitess
 * ark: Archive utility. [KDE] // TODO: Future replacement - peazip-qt
 * basket: Note taking and management. [KDE] // TODO: Future replacement - basqet
 * calibre: E-book management library.
@@ -115,7 +114,6 @@ Packages:
 // * sweeper: History and temporary file cleaner. [KDE]
 * smplayer: MPLayer front-end.
 * polit-kde-1: Required for proper mounting of encrypted external drives. [KDE]
-* texmaker: LaTex editor.
 * transmission-qt
 * unetbootin: Installer of Linux/BSD distributions to a partition or USB drive.
 * viladia: Front-end for Tor.
@@ -299,47 +297,7 @@ Script to update the Calibre library.
 calibredb add --one-book-per-directory -r generated/
 ```
 
-## RSS Feeds
-
-Good RSS feeds for keeping up-to-date with community events and technology-related security news.
-
-Community Feeds
-* Austin Government News: http://www.austintexas.gov/site/news/rss.xml
-
-Security Feeds
-* Darknet - The Darkside: http://feeds.feedburner.com/darknethackers
-* Schneier on Security: http://www.schneier.com/blog/index.rdf
-* Krebs on Security: http://krebsonsecurity.com/feed/
-
-Preferences
-* Default number of items per feed to save: 500
-* Default update interval: 1 hour
-
-## Media Player
-
-Regardless of the media player used, add the following content through the media player's existing mechanisms.
-
-### Podcasts
-
-A collection of podcasts and vodcasts.
-
-APM: A Prairie Home Companion's News from Lake Wobegon - http://americanpublicmedia.publicradio.org/podcasts/xml/prairie_home_companion/news_from_lake_wobegon.xml
-
-APM: Garrison Keillor's The Writer's Almanac - http://writersalmanac.publicradio.org/podcast/feed.php
-
-Network Security - http://mckeay.libsyn.com/rss
-
-FOSS - http://leo.am/podcasts/floss
-
-This Week in Law - http://leoville.tv/podcasts/twil.xml
-
-Stuff You Missed in History Class - http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss
-
-St Luke's United Methodist Church - https://s3.amazonaws.com/thecloudnetwork/398/sermons.xml
-
-Bullard First United Methodist Church - http://bullardfumc.org/feed/podcasts
-
-### Radio Stations
+## Radio Stations
 
 A collection of highly suggested radio stations to be added to Rhythmbox. The actual playlist URIs will need to be retrieved from the respective radio station websites. Radio stations given in the list below is also indicative of the names that should be used in Rhythmbox.
 * Absolute Classic Rock (Broadband)
@@ -357,17 +315,6 @@ A collection of highly suggested radio stations to be added to Rhythmbox. The ac
 Install the following plugins:
 * HTTPS Everywhere - Electronic Frontier Foundation
 
-## Games
-
-Games for the fun and entertainment on a Linux system.
-
-### Package Installation
-
-Packages:
-* freeciv-server
-* freeciv-client-sdl
-* wesnoth-1.11
-
 ## Taskbar Modifications
 
 Additional changes need to be made to the taskbar to enhance the working experience.
@@ -379,29 +326,6 @@ Then right click and add the following right before ``%U'' in the Command input 
 ```
 --incognito
 ```
-
-## Latex
-
-### TexMaker
-
-TexMaker is a tool, and authoring environment, for working with LaTex files.
-
-Need to change the 'Quick Build' option to use the 'User' commands':
-
-```bash
-latex -interaction=nonstopmode %.tex|bibtex %.aux|latex -interaction=nonstopmode %.tex|pdflatex -interaction=nonstopmode %.tex|evince %.pdf
-```
-
-### Libraries
-
-Along with a LaTex GUI editor, additional libraries are required to properly compile LaTex to other formats when LaTex tex files include functions offered by these libraries.
-
-Packages:
-* latex-xcolor
-* tex4ht
-* texlive-font-utils
-* texlive-latex-extra
-* texlive-science
 
 ## Performance Improvements
 
@@ -446,12 +370,6 @@ sudo dpkg --install ~/Downloads/[PACKAGE NAME]
 
 Packages:
 * libdvdcss2: To allow applications to access some of the more advanced features of the DVD format.
-
-## IRC
-
-### Nick Registration
-
-Another feature of some IRC servers, and service providers, is the ability to register a nickname such that it becomes the property of the person who registered it. To register a nickname with Freenode, following these instructions: http://freenode.net/faq.shtml#registering
 
 ## Space - OPTIONAL
 
