@@ -25,6 +25,9 @@ shopt -s histappend
 # Append command to the history after every display of the command prompt, instead of after terminating the session (the current shell).
 PROMPT_COMMAND='history -a'
 
+# Correct minor spelling errors in a `cd` command; such as transposed, missing, or extra, characters without the need for retyping.
+shopt -s cdspell
+
 # Check the window size after each command and, if necessary update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
