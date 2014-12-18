@@ -12,18 +12,28 @@ case "${-}" in
 	*) return;;
 esac
 
-# Don't put duplicate lines or lines starting with space in the history.
+
+# HISTORY
+
+# Don't push duplicate lines, or lines starting with space, in the history. The second ignore condition allows you to execute commands with a leading space, thereby instructing Bash to not place them into history.
 HISTCONTROL=ignoreboth
 
-# For setting history length see HISTSIZE and HISTFILESIZE in bash(1).
-HISTSIZE=1000
-HISTFILESIZE=2000
+# For setting history length see HISTSIZE and HISTFILESIZE.
+HISTSIZE=32768
+HISTFILESIZE=$HISTSIZE
+
+# Include date and timestamps in history output.
+HISTTIMEFORMAT='%F %T '
+
+# Ignore certain commands given by the user, for the sake of history, such that they don't show up in Bash history. Some commands, such as ls, are typically rudimentary, and therefore, aren't helpful to cache.
+HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
 # Append command to the bash command history file instead of overwriting it.
 shopt -s histappend
 
 # Append command to the history after every display of the command prompt, instead of after terminating the session (the current shell).
 PROMPT_COMMAND='history -a'
+
 
 # Correct minor spelling errors in a `cd` command; such as transposed, missing, or extra, characters without the need for retyping.
 shopt -s cdspell
