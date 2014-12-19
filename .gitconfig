@@ -7,6 +7,12 @@
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
 	editor = vim
 
+	# Global ignore list of files I would never want to push into a repository that I would be working with.
+	excludesfile = ~/.gitignore
+
+	# Apply a global set of attributes to a repository if that repository does not contain its own attributes file.
+	attributesfile = ~/.gitattributes
+
 [pull]
 	# Automatically rebase local-only commits on top of commits fetched from the remotely tracked repository. This retains the existing structure of the remote's history, and causes local commits to be appended to the history in a linear fashion. This option avoids the default behavior of `git pull`, which fetches commits from the remote repository and "merges" them into the local branch.
 	rebase = true
