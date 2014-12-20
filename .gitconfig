@@ -44,6 +44,12 @@
 	# Instruct Git to use the vimdiff tool when using git's `mergetool` command.
 	tool = vimdiff
 
+	# Specify the style for Git to use when writing out conflicted hunks to a working tree file upon a merge. A diff3 style will show the changes made on one side of a merge, along with the change made on the other side, along with the original text both sides have modified.
+	conflictstyle = diff3
+
+	# Tell Git to run a virtual check-out and check-in of all three stages of a file when resolving a three-way merge to normalize the files to avoid differences caused by changes in a repository's attributes.
+	renormalize = true
+
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
 	l = log --abbrev-commit --decorate --graph --oneline
