@@ -41,7 +41,7 @@
 	prune = true
 
 [merge]
-	# Set the merge resolution tool to use on merges.
+	# Instruct Git to use the vimdiff tool when using git's `mergetool` command.
 	tool = vimdiff
 
 [alias]
