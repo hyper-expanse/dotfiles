@@ -13,10 +13,10 @@ export PATH="./node_modules/.bin:${PATH}"
 # Add our local binary directory to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
 export PATH="${HOME}/.local/bin:${PATH}"
 
-# Add out local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
+# Add our local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
 export MANPATH="${HOME}/.local/share/man:${MANPATH}"
 
-# Add out local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
+# Add our local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
 export INFOPATH="${HOME}/.local/share/info:${INFOPATH}"
 
 # Set Vim's runtime path so that it points to our local copy of Vim's runtime files (Runtime files are a collection of plugins, file type detection scripts, syntax highlighting scripts, etc, written by the maintainers of Vim, to be shipped along with the Vim binary.). Rather than relying on the runtime files installed as part of a system-wide installation of Vim, we download, and reference, our own local copy. That allows us to take advantage of the latest runtime files.
