@@ -455,7 +455,7 @@ updateVim ()
 		local currentDirectory=`pwd`
 		cd "${HOME}/.vim/bundle/tern_for_vim" && npm install && cd ${currentDirectory}
 	else
-		printf "\n> ERROR: `npm` is required for installing Term runtime dependencies, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `updateVim`.\n"
+		printf "\n> ERROR: `npm` is required for installing Tern runtime dependencies, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `updateVim`.\n"
 	fi
 
 	# Download Vim's runtime files into a local directory so that they can be used by Vim.
