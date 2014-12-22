@@ -495,6 +495,9 @@ updateBrewPackages ()
 		brew upgrade
 
 		brew reinstall vim --HEAD
+
+		# Cleanup LinuxBrew installation.
+		brew cleanup -s --force
 	else
 		echo "ERROR: `brew` is required for updating brew packages, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateBrewPackages`."
 	fi
