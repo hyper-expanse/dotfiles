@@ -19,6 +19,9 @@ export MANPATH="${HOME}/.local/share/man:${MANPATH}"
 # Add our local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
 export INFOPATH="${HOME}/.local/share/info:${INFOPATH}"
 
+# Add our local `rbenv` script directory to a tool specific environmental variable.
+export RBENV_ROOT="${HOME}/.local/var/rbenv"
+
 # Set Vim's runtime path so that it points to our local copy of Vim's runtime files (Runtime files are a collection of plugins, file type detection scripts, syntax highlighting scripts, etc, written by the maintainers of Vim, to be shipped along with the Vim binary.). Rather than relying on the runtime files installed as part of a system-wide installation of Vim, we download, and reference, our own local copy. That allows us to take advantage of the latest runtime files.
 export VIMRUNTIME="${HOME}/.vim/runtime/"
 
@@ -43,6 +46,9 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 		export TERM=xterm-256color
 	fi
 fi
+
+# Enable command line auto-completion for the `rbenv` tool.
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Source the Bash configuration file to load environment variables required by each shell.
 if [ -f "${HOME}/.bashrc" ]; then
