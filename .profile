@@ -19,6 +19,10 @@ export MANPATH="${HOME}/.local/share/man:${MANPATH}"
 # Set Vim's runtime path so that it points to our local copy of Vim's runtime files (Runtime files are a collection of plugins, file type detection scripts, syntax highlighting scripts, etc, written by the maintainers of Vim, to be shipped along with the Vim binary.). Rather than relying on the runtime files installed as part of a system-wide installation of Vim, we download, and reference, our own local copy. That allows us to take advantage of the latest runtime files.
 export VIMRUNTIME="${HOME}/.vim/runtime/"
 
+# Provide the path to a temporary directory that may contain executable scripts so that Homebrew may use that directory for storing, and executing, installation scripts. Though Linuxbrew will use the system's temp directory by default that directory may not be executable, depending on the security measures in place on the local system.
+export HOMEBREW_TEMP="${HOME}/.local/tmp"
+mkdir -p "${HOME}/.local/tmp"
+
 # Set the default console editor.
 export EDITOR=vim
 
