@@ -267,8 +267,15 @@ setupEnvironment ()
 	setupPIP
 	setupVim
 
-	# Update development environment.
-	updateEnvironment
+	# Install scripts and application plugins for specific applications.
+	updateGit
+
+	# Install general tools.
+	installBrewPackages
+	installNodePackages
+	installPythonPackages
+
+	updateVim
 }
 
 #! Update environment.
@@ -281,8 +288,8 @@ updateEnvironment ()
 
 	source "${HOME}/.bashrc"
 
-	# Install and update general tools.
-	installBrewPackages
+	# Update general tools.
+	updateBrewPackages
 	installNodePackages
 	installPythonPackages
 
@@ -399,23 +406,12 @@ updateGit ()
 # 1) Pull down the latest commit from LinuxBrew's remote repository.
 updateLinuxBrew ()
 {
-	if command -v git &> /dev/null; then
+	if command -v brew &> /dev/null; then
 		printf "\n> Updating LinuxBrew.\n"
 
-		local currentDirectory=`pwd`
-
-		cd "${HOME}/.local/"
-
-		# If the requested command fails, exit rather than attempt to execute further commands.
-		if [ "${?}" -gt 0 ]; then
-			return
-		fi
-
-		git pull
-
-		cd "${currentDirectory}"
+		brew update
 	else
-		printf "\n> ERROR: `git` is required for updating LinuxBrew, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `updateLinuxBrew`.\n"
+		echo "ERROR: `brew` is required for updating the LinuxBrew installation, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateLinkBrew`."
 	fi
 }
 
@@ -457,9 +453,6 @@ updateVim ()
 	else
 		printf "\n> ERROR: `npm` is required for installing Tern runtime dependencies, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `updateVim`.\n"
 	fi
-
-	# Download Vim's runtime files into a local directory so that they can be used by Vim.
-	rsync --archive --compress --checksum --partial --delete --delete-excluded --force --human-readable --exclude="dos" --exclude="spell" --recursive "ftp.nluug.nl::Vim/runtime/" "${HOME}/.vim/runtime"
 }
 
 #! Install packages via LinuxBrew.
@@ -469,7 +462,12 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
-		local currentDirectory=`pwd`
+		# Download and install rbenv, a CLI tool for managing Ruby interpreter versions within the current shell environment.
+		brew install rbenv
+
+		# Download and install Vim, an awesome IDE.
+		brew install vim --HEAD
+		brew link vim
 
 		# Determine the operating system architecture for use by build scripts where necessary.
 		if [ "`uname -m`" == "i686" ]; then
@@ -478,23 +476,27 @@ installBrewPackages()
 			local architecture="x64"
 		fi
 
-		# Download and install Vim.
-		brew reinstall vim --HEAD
-		if [ `uname -n` == "mini" ]; then
-			cd "${HOME}/.cache/Homebrew/vim--hg"
-			./configure --prefix="${HOME}/.local" --mandir="${HOME}/.local/share/man" --enable-multibyte --with-tlib=ncurses --enable-cscope --with-features=huge --with-compiledby=Homebrew --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-gui=no --without-x
-			make -j GetNumberOfCores
-			make install
-			cd ${currentDirectory}
-		fi
-
 		# Download and install NodeJS and npm.
 		wget "http://nodejs.org/dist/v0.10.33/node-v0.10.33-linux-${architecture}.tar.gz" --directory-prefix=/tmp
 		tar -xf "/tmp/node-v0.10.33-linux-${architecture}.tar.gz" -C .local/ --strip-components=1
 		rm "/tmp/node-v0.10.33-linux-${architecture}.tar.gz"
-
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
+	fi
+}
+
+#! Update brew packages via LinuxBrew.
+# Update previously installed brew packages via LinuxBrew's `brew` CLI tool.
+updateBrewPackages ()
+{
+	if command -v brew &> /dev/null; then
+		printf "\n> Updating Brew packages.\n"
+
+		brew upgrade
+
+		brew reinstall vim --HEAD
+	else
+		echo "ERROR: `brew` is required for updating brew packages, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateBrewPackages`."
 	fi
 }
 
