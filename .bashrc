@@ -531,6 +531,9 @@ installNodePackages ()
 
 		# `Foreman`-like tool for managing arbitrary processes within a local environment.
 		npm install -g foreman
+
+		# CLI tool required to run Yeoman generators that scaffold projects.
+		npm install -g yo
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
