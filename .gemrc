@@ -1,0 +1,2 @@
+# Disable generating documentation while installing Ruby gems.
+gem: --no-document
