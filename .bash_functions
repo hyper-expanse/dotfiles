@@ -413,7 +413,7 @@ installBrewPackages()
 			tar -xf "/tmp/node-v0.10.33-linux-${architecture}.tar.gz" -C .local/ --strip-components=1
 			rm "/tmp/node-v0.10.33-linux-${architecture}.tar.gz"
 		else
-			brew install node --with-npm
+			brew install node --with-npm --with-completion
 		fi
 
 	else
