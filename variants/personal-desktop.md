@@ -5,14 +5,11 @@
 Packages:
 * clamav
 * clamav-daemon
-* elinks
-* flac
 * gir1.2-farstream-0.1: Audio/Video communications framework: GObject-Introspection. (Required for GTalk in Telepathy)
 * gstreamer0.10-ffmpeg: FFmpeg plugin for GStreamer. (Required for GTalk in Telepathy)
 * gstreamer1.0-plugins-bad: GStreamer plugins from the ``bad'' set. (Required for GTalk in Telepathy)
 * gstreamer1.0-plugins-ugly: GStreamer plugins from the ``ugly'' set. (Required for GTalk in Telepathy)
 * hunspell-en-us
-* mplayer2
 * network-manager-vpnc
 * network-manager-openvpn
 * openvpn
