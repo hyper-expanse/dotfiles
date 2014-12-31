@@ -18,8 +18,11 @@
 	rebase = true
 
 [push]
-	# 'Simple' instructs Git to push only the current branch to its upstream branch and make sure the upstream branch's name is the same as the local branch. To prevents pushing the incorrect branch to upstream or pushing a branch to the incorrect, name not matching, branch.
-	default = simple
+	# 'Simple' instructs Git to push only the current branch to its upstream branch (the upstream branch for which the local branch is "tracking"), and to make sure the upstream branch name is the same as the local branch. This helps us avoid pushing the incorrect branch to upstream or pushing a branch to the incorrect, name not matching, branch.
+	#default = simple
+
+	# 'Upstream' instructs Git to push only the current branch to its upstream branch (the upstream branch for which the local branch is "tracking"). This helps us avoid pushing the incorrect branch to upstream.
+	default = upstream
 
 [color]
 	# By enabling git's UI color option git will color its output if the output goes to a terminal. Output will not be colored for other output modes such as piping to files or other commands. ui=true enables color output for color.branch, color.diff, color.interactive, and color.status.
