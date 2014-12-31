@@ -62,11 +62,6 @@ Desktop environments based on the QT widget libraries.
 
 In the last section, \autoref{sec:personal-desktop-desktop-environments-qt-based-desktop-environments-desktop-applications}, we provide a list of applications which are built using either the QT widget libraries or a superset of QT and KDE libraries.
 
-#### Razor-Qt
-
-Packages:
-* razor-qt: Lightweight desktop environment, all components.
-
 #### KDE
 
 In addition to providing the fundamental components required to offer a functional desktop environment, the kde-plasma-desktop package also include basic necessities such as a file manager, a password manager, along with other essential applicationsi. However, kde-plasma-desktop does NOT come with a large number of basic applications such as video and music player. Instead we leave it up to the user to choose what basic applications they want on their system.
