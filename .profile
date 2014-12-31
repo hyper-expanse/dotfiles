@@ -50,9 +50,6 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	fi
 fi
 
-# Enable command line auto-completion for the `rbenv` tool.
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
 # Source the Bash configuration file to load environment variables required by each shell.
 if [ -f "${HOME}/.bashrc" ]; then
 	source "${HOME}/.bashrc"
