@@ -32,6 +32,9 @@ export VIMRUNTIME="${HOME}/.vim/runtime/"
 mkdir -p "${PREFIX}/tmp"
 export HOMEBREW_TEMP="${PREFIX}/tmp"
 
+# Export an additional environmental variable for our Linuxbrew temp directory for use by `ruby-build`.
+export TMPDIR="${HOMEBREW_TEMP}"
+
 # Set the default console editor.
 export EDITOR=vim
 
