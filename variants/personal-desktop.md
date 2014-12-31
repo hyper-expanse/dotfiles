@@ -116,7 +116,6 @@ Packages:
 * polit-kde-1: Required for proper mounting of encrypted external drives. [KDE]
 * transmission-qt
 * unetbootin: Installer of Linux/BSD distributions to a partition or USB drive.
-* viladia: Front-end for Tor.
 * virtuoso-server
 
 ### GTK-based
