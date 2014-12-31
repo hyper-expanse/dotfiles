@@ -365,6 +365,9 @@ installBrewPackages()
 		# Install openssl, which is required by various other brew builds.
 		brew install openssl
 
+		# Install ncurses, which is required by various other brew builds.
+		brew install ncurses
+
 		# Download and install wget.
 		brew install wget
 
@@ -385,12 +388,17 @@ installBrewPackages()
 		brew install tig
 
 		# Download and install htop, a human-readable version of top.
-		brew install ncurses
 		brew install htop
 
 		# Download and install git, a distributed source code management tool. Must include curl as a dependency to correctly compile versions of git on Linux systems.
 		brew install git --with-brewed-curl
 		brew link git
+
+		# Download and install elinks, a command line browser.
+		brew install elinks
+
+		# Download and install flac, a command line tool for re-encoding audio files into Flac format.
+		brew install flac
 
 		# Download and install NodeJS and npm.
 		if [ `uname -n` == "mini" ]; then
