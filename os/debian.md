@@ -336,10 +336,32 @@ Packages
 
 ## Personal Dotfiles
 
+A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
+
 ### Installation
 
+To start, the dotfiles repository needs to be cloned to the local system within a directory in the user's folder.
+
 ```bash
-git clone git@github.com:hbetts/dotfiles.git ${HOME}/.dotfiles
+git clone https://github.com/hbetts/dotfiles.git ${HOME}/.dotfiles
+```
+
+Once the dotfiles repository has been cloned to a local directory we need to symlink the dotfiles into their proper locations at the root of the user's folder.
+
+```bash
+sh "${HOME}/.dotfiles/deploy.sh"
+```
+
+The profile script will need to be sourced, just once, to expose the scripts contained within the dotfiles repository. To source the profile script run the following command:
+
+```bash
+source "${HOME}/.profile"
+```
+
+Now all our dotfile scripts are exposed within our current shell. We need to finish our setup by running our `setupEnvironment` script. This script will download, build, install, and configure all the tools we want in our local shell environment.
+
+```bash
+setupEnvironment
 ```
 
 ## SSH Filesystem Configuration}
