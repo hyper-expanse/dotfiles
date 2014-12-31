@@ -160,17 +160,15 @@ Packages:
 * backupninja
 * debsecan
 * duplicity
+* git
 * gnupg2
-* htop
 * libmtp-runtime: Required by udev for retrieving sensor information from the system.
-* ncdu
 * ntp
 * openssl
 * p7zip-full
 * rsync
 * smartmontools
 * snmpd
-* tmux
 
 ## Schedule Automatic System Updates
 
