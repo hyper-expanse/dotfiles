@@ -174,6 +174,9 @@ setupEnvironment ()
 	# Create our local system directory before any setup steps require its existence.
 	mkdir "${HOME}/.local"
 
+	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
+	mkdir "${HOME}/.local/tmp"
+
 	# Create our Vim directory before any setup steps require its existence.
 	mkdir "${HOME}/.vim"
 
@@ -225,11 +228,12 @@ setupLinuxbrew ()
 
 		git init
 
-		git remote add origin https://github.com/Homebrew/linuxbrew.git
+		#git remote add origin https://github.com/Homebrew/linuxbrew.git
+		git remote add origin https://github.com/hbetts/linuxbrew.git
 
-		git fetch
+		git fetch --depth=1
 
-		git checkout --track origin/master
+		git checkout -b openssl-on-32bit --track origin/openssl-on-32bit
 
 		cd "${currentDirectory}"
 	else
