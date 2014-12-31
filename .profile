@@ -14,23 +14,23 @@ export PREFIX="${HOME}/.local"
 export PATH="./node_modules/.bin:${PATH}"
 
 # Add our local binary directory to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
-export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${PREFIX}/bin:${PATH}"
 
 # Add our local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
-export MANPATH="${HOME}/.local/share/man:${MANPATH}"
+export MANPATH="${PREFIX}/share/man:${MANPATH}"
 
 # Add our local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
-export INFOPATH="${HOME}/.local/share/info:${INFOPATH}"
+export INFOPATH="${PREFIX}/share/info:${INFOPATH}"
 
 # Add our local `rbenv` script directory to a tool specific environmental variable.
-export RBENV_ROOT="${HOME}/.local/var/rbenv"
+export RBENV_ROOT="${PREFIX}/var/rbenv"
 
 # Set Vim's runtime path so that it points to our local copy of Vim's runtime files (Runtime files are a collection of plugins, file type detection scripts, syntax highlighting scripts, etc, written by the maintainers of Vim, to be shipped along with the Vim binary.). Rather than relying on the runtime files installed as part of a system-wide installation of Vim, we download, and reference, our own local copy. That allows us to take advantage of the latest runtime files.
 export VIMRUNTIME="${HOME}/.vim/runtime/"
 
 # Provide the path to a temporary directory that may contain executable scripts so that Homebrew may use that directory for storing, and executing, installation scripts. Though Linuxbrew will use the system's temp directory by default that directory may not be executable, depending on the security measures in place on the local system.
-export HOMEBREW_TEMP="${HOME}/.local/tmp"
-mkdir -p "${HOME}/.local/tmp"
+mkdir -p "${PREFIX}/tmp"
+export HOMEBREW_TEMP="${PREFIX}/tmp"
 
 # Set the default console editor.
 export EDITOR=vim
