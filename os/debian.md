@@ -414,11 +414,9 @@ snmpwalk -v 3 -u authOnlyUser -l authPriv -a SHA -A [PASSPHRASE] -x AES -X [PASS
 
 ## Terminal Multiplexer (tmux)
 
-### Configuration
-
 Configuring tmux establishes the behavior of the tmux tool for managing multiplexed shells.
 
-Use the configuration file, `${HOME}/.tmux.conf`, from the personal dotfiles project.
+Configuration is managed by the `${HOME}/.tmux.conf` file from the personal dotfiles repository.
 
 ## Nano
 
