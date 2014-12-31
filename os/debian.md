@@ -456,7 +456,7 @@ set wordbounds
 include "/usr/share/nano/[FILE NAME]"
 ```
 
-## Vim
+## Terminal Text Editor (vim)
 
 As a powerful text editor Vim gives the user the power to leverage the VIM environment to edit text as easily as a GUI-based text editor but with the additional power of a full Integrated Development Environment.
 
@@ -466,14 +466,13 @@ As a powerful text editor Vim gives the user the power to leverage the VIM envir
 
 To configure Vim as a fully functional text editor and integrated development environment we must install pre-written Vim scripts that bring additional functionality into the editor. These scripts are downloaded from public repositories and unpacked into the Vim configuration folder. A generic approach is taken whenever possible, but in some instances installation instructions have been included for specific operating systems.
 
-Packages
-* vim-nox: A heavier version of Vim, with all the features contained within the standard 'vim' package, but also with support for all the major scripting languages.
+We do not install Vim from the Debian repository, but instead, rely upon the version of Vim installed through Linxuxbrew via the `brew install vim --head` command baked into our `setupEnvironment` script.
 
-### Default Configuration Settings
+### Configuration
 
 To begin we setup a default Vim configuration file to provide some standard features and behaviors that could be leveraged by software developers.
 
-Use the configuration file, `${HOME}/.vimrc`, that comes with the personal dotfiles project.
+Configuration is managed by the `${HOME}/.vimrc` file from the personal dotfiles repository.
 
 ### Omni Complete
 
