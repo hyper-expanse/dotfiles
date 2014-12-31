@@ -599,60 +599,6 @@ Change the permissions on the scripts in the backup.d folder so that only root c
 sudo chmod 600 -R /etc/backup.d
 ```
 
-# Network Anonymity
-
-## Tor
-
-### Package Installation
-
-Packages:
-* tor
-* tor-arm: Command line application for managing the Tor daemon.
-
-### Configuration
-
-First we need to generate a hashed password for securing the Tor Control port. To generate this password execute the following command, replacing [PASSWORD] with a pseudo-random password.
-
-```bash
-sudo tor --hash-password [PASSWORD]
-```
-
-**Note:** Temporarily record the hashed password which should appear just before the next command prompt.
-
-Open the Tor configuration file so that the Tor daemon can be configured to accept requests from external application for control:
-
-```bash
-sudo nano /etc/tor/torrc
-```
-
-Enable support for external control by changing the following property:
-
-From:
-
-```
-#ControlPort 9051
-```
-
-To:
-
-```
-ControlPort 9051
-```
-
-Set the password for the Tor Control port by uncommenting the following line and replacing the string that follows "HashedControlPassword".
-
-Uncomment:
-
-```
-#HashedControlPassword [HASHED PASSWORD]
-```
-
-Lastly, restart the Tor daemon to allow the configuration change to take effect:
-
-```bash
-sudo /etc/init.d/tor restart
-```
-
 # Performance Improvements
 
 ## Disable Services
