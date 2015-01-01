@@ -368,6 +368,9 @@ installBrewPackages()
 		# Install ncurses, which is required by various other brew builds.
 		brew install ncurses
 
+		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
+		brew install bash-completion
+
 		# Download and install wget.
 		brew install wget
 
