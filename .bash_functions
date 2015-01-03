@@ -171,14 +171,8 @@ setupEnvironment ()
 		rm -fr "${HOME}/.vim/" &> /dev/null
 	fi
 
-	# Create our local system directory before any setup steps require its existence.
-	mkdir "${HOME}/.local"
-
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
-	mkdir "${HOME}/.local/tmp"
-
-	# Create our Vim directory before any setup steps require its existence.
-	mkdir "${HOME}/.vim"
+	mkdir --parents "${HOME}/.local/tmp"
 
 	# Download, build, and install core development environment tools.
 	setupLinuxbrew
@@ -216,6 +210,9 @@ setupLinuxbrew ()
 {
 	if command -v git &> /dev/null; then
 		printf "\n> Installing Linuxbrew.\n"
+
+		# Create a local binary directory before any setup steps require its existence.
+		mkdir --parents "${HOME}/.local/bin"
 
 		local currentDirectory=`pwd`
 
