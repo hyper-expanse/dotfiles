@@ -228,8 +228,7 @@ setupLinuxbrew ()
 
 		git init
 
-		#git remote add origin https://github.com/Homebrew/linuxbrew.git
-		git remote add origin https://github.com/hbetts/linuxbrew.git
+		git remote add origin https://github.com/Homebrew/linuxbrew.git
 
 		git fetch --depth=1
 
