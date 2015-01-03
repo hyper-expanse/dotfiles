@@ -399,8 +399,10 @@ installBrewPackages()
 		brew install ruby-build
 
 		# Download and install Vim, an awesome IDE.
-		brew install vim --HEAD
-		brew link vim
+		if [ `uname -n` == "mini" ]; then
+			brew install vim --HEAD
+			brew link vim
+		fi
 
 		# Download and install Tmux, a terminal multiplexer.
 		brew install tmux
