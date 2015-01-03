@@ -400,7 +400,6 @@ installBrewPackages()
 		# Download and install Vim, an awesome IDE.
 		if [ `uname -n` == "mini" ]; then
 			brew install vim --HEAD
-			brew link vim
 		fi
 
 		# Download and install Tmux, a terminal multiplexer.
@@ -414,7 +413,6 @@ installBrewPackages()
 
 		# Download and install git, a distributed source code management tool. Must include curl as a dependency to correctly compile versions of git on Linux systems.
 		brew install git --with-brewed-curl
-		brew link git
 
 		# Download and install elinks, a command line browser.
 		brew install elinks
@@ -423,20 +421,18 @@ installBrewPackages()
 		brew install flac
 
 		# Download and install NodeJS and npm.
-		#if [ `uname -n` == "mini" ]; then
-			# Determine the operating system architecture for use by build scripts where necessary.
-			if [ "`uname -m`" == "i686" ]; then
-				local architecture="x86";
-			else
-				local architecture="x64"
-			fi
+		# Alternative: brew install node --with-npm --with-completion
+		#
+		# Determine the operating system architecture for use by build scripts where necessary.
+		if [ "`uname -m`" == "i686" ]; then
+			local architecture="x86";
+		else
+			local architecture="x64"
+		fi
 
-			wget "http://nodejs.org/dist/v0.10.33/node-v0.10.33-linux-${architecture}.tar.gz" --directory-prefix=/tmp
-			tar -xf "/tmp/node-v0.10.33-linux-${architecture}.tar.gz" -C .local/ --strip-components=1
-			rm "/tmp/node-v0.10.33-linux-${architecture}.tar.gz"
-		#else
-		#	brew install node --with-npm --with-completion
-		#fi
+		wget "http://nodejs.org/dist/v0.10.33/node-v0.10.33-linux-${architecture}.tar.gz" --directory-prefix=/tmp
+		tar -xf "/tmp/node-v0.10.33-linux-${architecture}.tar.gz" -C .local/ --strip-components=1
+		rm "/tmp/node-v0.10.33-linux-${architecture}.tar.gz"
 
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
