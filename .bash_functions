@@ -229,7 +229,7 @@ setupLinuxbrew ()
 
 		git fetch --depth=1
 
-		git checkout -b openssl-on-32bit --track origin/openssl-on-32bit
+		git checkout -b master --track origin/master
 
 		cd "${currentDirectory}"
 
