@@ -235,7 +235,7 @@ setupLinuxbrew ()
 
 		# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
 		local uname=`uname -a`
-		local debian="debian"
+		local debian="Debian"
 		if [ "${uname/$debian}" = "${uname}" ] ; then
 			printf "\n--> Linking compilers into prefix binary directory."
 
