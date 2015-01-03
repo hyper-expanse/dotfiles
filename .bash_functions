@@ -420,6 +420,9 @@ installBrewPackages()
 		# Download and install flac, a command line tool for re-encoding audio files into Flac format.
 		brew install flac
 
+		# Download and install ncdu, a command line tool for displaying disk usage information.
+		brew install ncdu
+
 		# Download and install NodeJS and npm.
 		# Alternative: brew install node --with-npm --with-completion
 		#
