@@ -381,6 +381,7 @@ installBrewPackages()
 		## END
 
 		# Install openssl, which is required by various other brew builds.
+		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl
 
 		# Install ncurses, which is required by various other brew builds.
