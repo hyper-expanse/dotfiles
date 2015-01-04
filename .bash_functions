@@ -430,6 +430,11 @@ installBrewPackages()
 			brew install mpv
 		fi
 
+		# Download and install weechat, a command-line multi-protocol chat client.
+		if [ `uname -n` == "gateway" ]; then
+			brew install weechat
+		fi
+
 		# Download and install NodeJS and npm.
 		# Alternative: brew install node --with-npm --with-completion
 		#
