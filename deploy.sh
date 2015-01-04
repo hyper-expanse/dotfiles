@@ -8,22 +8,23 @@
 
 echo "Deploying dotfiles..."
 
+# Make sure any submodules have been pulled down (in case the user did not clone this repository using `--recursive`).
+git submodule update --init --recursive &> /dev/null
+
 # Symlink files into the user's home directory.
 echo "> Symlinking files into the user's home directory (${HOME})."
 for file in `find . -maxdepth 1 -type f -name '.*' -print`; do
 	ln --symbolic --force "$(pwd)/${file#./}" "${HOME}/${file#./}"
 done
 
-# Symlink top-level directories to the user's home directory.
-echo "> Symlinking directories not supported yet."
-for directory  in `find . -maxdepth 1 -type d -print`; do
-	if [ "${DIRECTORY}" == './.git' -o "${DIRECTORY}" == '.' ]; then
-		continue
-	fi
-done
+# Symlink SSH files.
+echo "> Symlinking SSH files into the SSH directory (${HOME}/.ssh)."
+mkdir --parents "${HOME}/.ssh"
+ln --symbolic --force "$(pwd)/.ssh/config" "${HOME}/.ssh/config"
 
-# Symlink third-party scripts into appropriate directories.
+# Symlink third-party scripts into the appropriate directories.
 echo "> Symlinking third-party scripts into the user's home directory (${HOME})."
+mkdir --parents "${HOME}/.vim"
 ln --symbolic --force "$(pwd)/markdown2ctags/markdown2ctags.py" "${HOME}/.vim/markdown2ctags.py"
 
 # Source the newly installed profile script to setup the user's environment.
