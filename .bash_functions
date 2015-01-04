@@ -383,7 +383,7 @@ installBrewPackages()
 
 		# Install ncurses, which is required by various other brew builds.
 		brew install ncurses
-		ln -s "${PREFIX}/include/ncursesw/*.h" "${PREFIX}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
+		ln -s ${PREFIX}/include/ncursesw/*.h "${PREFIX}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
