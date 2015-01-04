@@ -423,6 +423,13 @@ installBrewPackages()
 		# Download and install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
 
+		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
+		if [ `uname -n` == "mini" ]; then
+			brew tap mpv-player/mpv
+			brew install --HEAD mpv-player/mpv/libass-ct
+			brew install mpv
+		fi
+
 		# Download and install NodeJS and npm.
 		# Alternative: brew install node --with-npm --with-completion
 		#
