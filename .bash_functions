@@ -381,9 +381,12 @@ installBrewPackages()
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl
 
-		# Install ncurses, which is required by various other brew builds.
+		# Install ncurses, which is required by various other brew builds. (git)
 		brew install ncurses
 		ln -s ${PREFIX}/include/ncursesw/*.h "${PREFIX}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
+
+		# Install expat, as the header files are required by various other brew builds (git).
+		brew install expat
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
