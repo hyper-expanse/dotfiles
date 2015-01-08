@@ -14,6 +14,13 @@ export PROMPT_ENABLE_LOAD=1 # Enable the display of a system's current, total, u
 # Prompt options that only have an effect after re-sourcing the prompt script.
 export PROMPT_ENABLE_SCREEN_INFORMATION=0 # Enable information about the current terminal multiplexer and multiplexer session.
 
+# If `bc` is not in the user's PATH do not display load percentage.
+if command -v bc &> /dev/null; then
+	export PROMPT_ENABLE_LOAD=1
+else
+	export PROMPT_ENABLE_LOAD=0
+fi
+
 COLOR_OFF='\[\e[0m\]'	# Remove all color modifications.
 
 COLUMN_FIX='\[\033[G\]'	# Forces the Bash prompt to always go to the first column. Resolves the issue where text is sometimes off by two characters as a result of control characters such as ^C.
