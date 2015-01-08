@@ -385,6 +385,9 @@ installBrewPackages()
 		brew install ncurses
 		ln -s ${PREFIX}/include/ncursesw/*.h "${PREFIX}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
 
+		# Install python (2.7), which is required by various other brew builds. (vim)
+		brew install python --with-brewed-openssl
+
 		# Install expat, as the header files are required by various other brew builds (git).
 		brew install expat
 
@@ -401,8 +404,8 @@ installBrewPackages()
 		brew install ruby-build
 
 		# Download and install Vim, an awesome IDE.
-		if [ `uname -n` == "mini" ]; then
-			brew install vim --HEAD
+		if [ `uname -n` != "gateway" ]; then
+			brew install vim
 		fi
 
 		# Download and install Tmux, a terminal multiplexer.
@@ -465,8 +468,6 @@ updateBrewPackages ()
 		printf "\n> Updating Brew packages.\n"
 
 		brew upgrade
-
-		brew reinstall vim --HEAD
 
 		# Cleanup Linuxbrew installation.
 		brew cleanup -s --force
