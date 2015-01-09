@@ -386,7 +386,7 @@ installBrewPackages()
 		ln -s ${PREFIX}/include/ncursesw/*.h "${PREFIX}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
 
 		# Install python (2.7), which is required by various other brew builds. (vim)
-		brew install python --with-brewed-openssl
+		brew install python
 
 		# Install expat, as the header files are required by various other brew builds (git).
 		brew install expat
