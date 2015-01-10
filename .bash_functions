@@ -371,11 +371,14 @@ installBrewPackages()
 		# A collection of useful core libraries and utility programs.
 		brew tap homebrew/dupes
 
-		# Install a compiler toolchain.
-		brew install linux-headers # Temporary until remaining toolchain is setup properly.
+		# COMPILER: Install a compiler toolchain.
+
+		# Temporary until remaining toolchain is setup properly.
+		brew install linux-headers
 
 		brew install zlib
-		## END
+
+		## COMPILER END
 
 		# Install openssl, which is required by various other brew builds.
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
@@ -437,11 +440,11 @@ installBrewPackages()
 		brew install ncdu
 
 		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
-		if [ `uname -n` == "mini" ]; then
-			brew tap mpv-player/mpv
-			brew install --HEAD mpv-player/mpv/libass-ct
-			brew install mpv
-		fi
+		#if [ `uname -n` == "mini" ]; then
+			#brew tap mpv-player/mpv
+			#brew install --HEAD mpv-player/mpv/libass-ct
+			#brew install mpv
+		#fi
 
 		# Download and install weechat, a command-line multi-protocol chat client.
 		if [ `uname -n` == "gateway" ]; then
