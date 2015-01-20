@@ -140,14 +140,6 @@ These packages can be installed regardless of the Desktop Environment that is in
 Packages:
 * bibus
 
-## X11 Display Configuration
-
-Follow the instructions laid out in this section for dual-screen setups.
-
-Create the following display configuration file for setting up the proper display settings:
-
-\lstinputlisting{src/etc/X11/xorg.conf}
-
 ## Network Manager
 
 The Debian Network Manager is not configured to start automatically and manage the network interfaces. Therefore, we must first configure the Network Manager to manage all network interfaces, and then we must start the Network Manager daemon.
