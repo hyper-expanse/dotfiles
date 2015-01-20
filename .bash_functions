@@ -441,9 +441,10 @@ installBrewPackages()
 
 		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 		#if [ `uname -n` == "mini" ]; then
-			#brew tap mpv-player/mpv
-			#brew install --HEAD mpv-player/mpv/libass-ct
-			#brew install mpv
+			brew install readline --env=inherit
+			brew tap mpv-player/mpv
+			brew install --HEAD mpv-player/mpv/libass-ct
+			brew install mpv
 		#fi
 
 		# Download and install weechat, a command-line multi-protocol chat client.
@@ -517,6 +518,9 @@ installNodePackages ()
 
 		# CLI tool required to run Yeoman generators that scaffold projects.
 		npm install -g yo
+
+		# CLI tool for bootstrapping Ember applications.
+		npm install -g ember-cli
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
