@@ -1,0 +1,25 @@
+{
+  "name": "hyper-expanse-configuration",
+  "version": "1.0.0",
+  "description": "Configuration guide for the Hyper-Expanse network.",
+  "main": "README.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hbetts/hyper-expanse-configuration.git"
+  },
+  "keywords": [
+    "hyper-expanse"
+  ],
+  "author": "Hutson Betts",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/hbetts/hyper-expanse-configuration/issues"
+  },
+  "homepage": "https://github.com/hbetts/hyper-expanse-configuration",
+  "dependencies": {
+    "gitbook": "^1.5.0"
+  }
+}
