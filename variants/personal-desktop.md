@@ -178,7 +178,7 @@ Create the KDE executable script, ~/.kde/env/gpg-agent.sh, that will start a GPG
 
 \lstinputlisting{src/home/.kde/env/gpg-agent.sh}
 
-Mark the file as executable:
+Make sure the file is marked as executable:
 
 ```bash
 chmod +x ~/.kde/env/gpg-agent.sh
@@ -188,7 +188,7 @@ Create the KDE executable script that will terminate the GPG Agent when logging 
 
 \lstinputlisting{src/home/.kde/shutdown/gpg-agent.sh}
 
-Mark the file as executable:
+Make sure the file is marked as executable:
 
 ```bash
 chmod +x ~/.kde/shutdown/gpg-agent.sh
