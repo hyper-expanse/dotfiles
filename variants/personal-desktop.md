@@ -162,13 +162,9 @@ GNUPG allows for the creation and management of encryption keys following the pu
 
 Remove all default key servers using GNUPG's graphical interface (which will be be determined by the desktop environment used) as they don't provide a secure means to request keys from a public key server.
 
-Create the .gnupg/gpg.conf configuratio file required by GPG clients:
+Create the `~/.gnupg/gpg.conf` configuration file required by GPG clients (Available from my [dotfiles]() project).
 
-\lstinputlisting{src/home/.gnupg/gpg.conf}
-
-Next, create the configuration file, ~/.gnupg/gpg-agent.conf, for the GPG Agent:
-
-\lstinputlisting{src/home/.gnu/gpg-agent.conf}
+Next, create the configuration file `~/.gnupg/gpg-agent.conf` for the GPG Agent (Available from my [dotfiles]() project).
 
 ### KDE Configuration
 
