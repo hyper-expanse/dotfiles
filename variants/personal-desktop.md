@@ -23,7 +23,7 @@ Packages:
 Packages:
 * xorg: This metapackage provides the components for a standalone workstation running the X Window System.
 
-## Display Manaer
+## Display Manager
 
 Packages:
 * lightdm: A light weight display manager providing a greeter screen, login functionality, and remote desktop support.
