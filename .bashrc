@@ -31,8 +31,9 @@ HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 # Append command to the bash command history file instead of overwriting it.
 shopt -s histappend
 
-# Append command to the history file after every display of the command prompt, instead of after terminating the session (the current shell). Further more, reload the contents of the history file into the history list (kept in memory). By reloading the history file after appending commands to the file, we can load history saved by other sessions currently running.
-PROMPT_COMMAND='history -a; history -r'
+# Append command to the history file after every display of the command prompt, instead of after terminating the session (the current shell).
+# We no longer reload the contents of the history file into the history list (which is kept in memory). By reloading the history file (history -r) after appending commands to the file, we could have loaded history saved by other sessions currently running. However, that can cause commands from multiple sessions to intermix, making it difficult to re-produce your actions within the current session by following the command history in a linear fashion.
+PROMPT_COMMAND='history -a'
 
 # END HISTORY
 
