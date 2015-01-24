@@ -237,7 +237,8 @@ setupLinuxbrew ()
 
 		git remote add origin https://github.com/Homebrew/linuxbrew.git
 
-		git fetch --depth=1
+		# Performance could be improved by setting `--depth=1`, limiting history to one commit, but any performance gains from restricting the amount of history fetched would be lost once the user runs `brew update` (which fetches all history). Since it's more likely that the user will update an existing LinuxBrew installation than re-install LinuxBrew, we fetch the history upfront.
+		git fetch
 
 		git checkout -b master --track origin/master
 
