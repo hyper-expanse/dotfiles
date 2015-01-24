@@ -164,6 +164,13 @@ setupEnvironment ()
 		rm -fr "${HOME}/.local/" &> /dev/null
 	fi
 
+	printf "\n> Removing ${HOME}/.tmux/ directory.\n"
+
+	# Clear out our Tmux directory.
+	if [ -d "${HOME}/.tmux/" ]; then
+		rm -fr "${HOME}/.tmux/" &> /dev/null
+	fi
+
 	printf "\n> Removing ${HOME}/.vim/ directory.\n"
 
 	# Clear out our Vim directory.
@@ -177,6 +184,7 @@ setupEnvironment ()
 	# Download, build, and install core development environment tools.
 	setupLinuxbrew
 	setupPIP
+	setupTmux
 	setupVim
 
 	# Install general tools.
@@ -184,6 +192,7 @@ setupEnvironment ()
 	installNodePackages
 	installPythonPackages
 
+	updateTmux
 	updateVim
 }
 
@@ -201,6 +210,7 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 
+	UpdateTmux
 	updateVim
 }
 
@@ -285,6 +295,28 @@ setupPIP ()
 	fi
 }
 
+#! Setup the terminal multiplexer Tmux.
+# Install and configure Tmux and the environment in which it will run.
+setupTmux ()
+{
+	if command -v git &> /dev/null; then
+		printf "\n> Cloning TPM for Tmux plugin management.\n"
+
+		# Create the initial plugin directory that will be required for storing Tmux plugins.
+		mkdir --parents "${HOME}/.tmux/plugins/tpm"
+
+		# If the requested command fails, exit rather than attempt to execute further commands.
+		if [ "${?}" -gt 0 ]; then
+			return
+		fi
+
+		# Clone the required TPM plugin into the newly created plugin directory.
+		git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm --quiet --depth 1
+	else
+		printf "\n> ERROR: `git` is required for setting up TPM, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupTmux`.\n"
+	fi
+}
+
 #! Setup the command line editor Vim.
 # Install and configure Vim and the environment in which it will run.
 setupVim ()
@@ -319,6 +351,28 @@ updateLinuxbrew ()
 	else
 		echo "ERROR: `brew` is required for updating the Linuxbrew installation, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateLinkBrew`."
 	fi
+}
+
+#! Update Tmux environment.
+# Update plugins associated with the user's local environment. This includes doing the following:
+# 1) Remove plugins from Tmux's plugin directory that are no longer listed in the user's .tmux.conf configuration file.
+# 2) Install plugins listed in the user's .tmux.conf file that are not already installed.
+# 3) Update plugins that are already installed on the system.
+updateTmux ()
+{
+	printf "\n> Updating Tmux.\n"
+
+	# Start a server, but don't attach to it.
+	tmux start-server
+
+	# Create a new session on the server, but don't attach to it either.
+	tmux new-session -d
+
+	# Install Tmux plugins.
+	bash "${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh"
+
+	# Kill the previously created Tmux server.
+	tmux kill-server
 }
 
 #! Update Vim environment.
