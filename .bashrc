@@ -25,8 +25,8 @@ HISTFILESIZE=$HISTSIZE
 # Include date and timestamps in history output.
 HISTTIMEFORMAT='%h %d %H:%M:%S> '
 
-# Ignore certain commands given by the user, for the sake of history, such that they don't show up in Bash history. Some commands, such as ls, are typically rudimentary, and therefore, aren't helpful to cache.
-HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
+# Ignore certain commands given by the user, for the sake of history, such that they don't show up in Bash history.
+HISTIGNORE="cd:cd -:pwd;exit:date:* --help"
 
 # Append command to the bash command history file instead of overwriting it.
 shopt -s histappend
