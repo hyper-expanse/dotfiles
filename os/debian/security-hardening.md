@@ -4,6 +4,24 @@ Hardening a system is an important process to conduct for all newly provisioned 
 
 This configuration guide walks through the process of securing a standard Debian installation by installing various security tools, instituting "best practice" changes to the default settings of pre-installed services, and insuring the latest protocols are utilized. This guide, however, does not guarantee that a system is impervious to a security breach, nor does it account for the human factor in system security. Rather, it simply looks at implementing the best standard of security on a system while leaving the maintenance of security to institutional policies.
 
+## Server Configuration
+
+Each server can be configured to further enhance the security of that system. Configuration changes are typically related to kernel options which can prevent certain activities from occurring on the server, to system properties such as the default permissions on files, folders, and executable.
+
+### Kernel Configuration
+
+The standard Linux kernel is packages with a set of default options which could make a server vulnerable to third-party exploitation. Those options, however, can be changed and reloaded after a system restart. Custom kernel options should be placed into files within the `/etc/sysctl.d/` folder.
+
+Create a new file at `/etc/sysctl.d/security.conf` and insert the following kernel options:
+
+[src/etc/sysctl.d/security.conf](os/debian/src/security.conf)
+
+Lastly, tell the kernel to load the new settings:
+
+```bash
+sudo sysctl -p /etc/sysctl.d/security.conf
+```
+
 ## Account Security
 
 Account security involves the creation and management of user accounts on a system in a manner that insures the security and integrity of that system. Account security has two aspects which must be handled; first, protecting the access to accounts on a system, and second, insuring that an account is used in a manner that is appropriate given institutional policies.
