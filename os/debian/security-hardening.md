@@ -22,6 +22,56 @@ Lastly, tell the kernel to load the new settings:
 sudo sysctl -p /etc/sysctl.d/security.conf
 ```
 
+### Restricting Task Scheduling
+
+Current Linux systems include four mechanisms for users to schedule one-time and regular tasks. Such tasks, when used maliciously, could be used to maintain open backdoors, exhaust system resources, etc. Therefore, restricting who's authorized to use the scheduling system could prevent malicious use by un-authorized, or compromised users.
+
+Here's a list of those task scheduling systems:
+* at: Runs a task once, at a specific time in the future.
+* batch: Runs a particular task when the system load drops below a specified value.
+* cron: Runs tasks at specific times according to a schedule.
+* anacron: Periodically runs specified tasks when the system is available.
+
+The `atd` service manages both `at` and `batch`. The `cron` and `anacron` task scheduling systems each use a separate service.
+
+### at and batch Restriction
+
+To restrict user access to the at and batch scheduling systems, create a file called `/etc/at.allow`. If this file exists, at and batch limit access to specific users. Only those users listed in the file may schedule tasks with at and batch.
+
+To create a list of authorized accounts, create the following file:
+
+```bash
+sudo touch /etc/at.allow
+```
+
+Edit `/etc/at.allow` and add the following user(s):
+
+```bash
+root
+```
+
+If an `/etc/at.allow` file exists then no user may access `at` or `batch` unless their account is explicitly listed in that file.
+
+Each facility checks for an `at.allow` file before reading `at.deny`.
+
+### cron Restriction
+
+To restrict user access to the cron scheduling system, create a file called `/etc/cron.allow`. If this file exists, cron limits access to specific users. Only those users listed in the file may schedule tasks with cron.
+
+To create a list of authorized accounts, create the following file:
+
+```bash
+sudo touch /etc/cron.allow
+```
+
+Edit `/etc/cron.allow` and add the following user(s):
+
+```bash
+root
+```
+
+If a `/etc/cron.deny` file exists it provides the reverse of cron.allow. It enables all users to access cron, except those whose usernames are listed in `cron.deny`.
+
 ## Account Security
 
 Account security involves the creation and management of user accounts on a system in a manner that insures the security and integrity of that system. Account security has two aspects which must be handled; first, protecting the access to accounts on a system, and second, insuring that an account is used in a manner that is appropriate given institutional policies.
