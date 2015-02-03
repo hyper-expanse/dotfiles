@@ -158,7 +158,6 @@ Once all software updates have been installed, reboot the system. This will ensu
 Packages:
 * apt-listbugs
 * backupninja
-* debsecan
 * duplicity
 * git
 * gnupg2

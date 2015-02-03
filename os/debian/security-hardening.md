@@ -237,6 +237,33 @@ DIR_MODE=0750
 
 Changing the default permission from `751` to `750` disables the default permission that allows a user's home directory to be world readable, or readable by all users of the system.
 
+## Debian Vulnerability Scanner
+
+Debian provides a vulnerability scanner that will determine if there are any security updates available for packages that are installed on the current system. By default the Debian Vulnerability Scanner (debsecan) configures a cron job that causes debsecan to e-mail a report every night to the root account with a list of vulnerable packages installed on the system along with a list of packages for which updates are available. This default behavior is sufficient to inform the administrator of vulnerability with packages, but lacks fine tunning that can be achieved through additional configuration.
+
+### Package Installation
+
+Packages:
+* desecan
+
+### Configuration
+
+Modify the configuration file, `/etc/default/debsecan`, for `debsecan` so that the version of Debian is specified:
+
+Change:
+
+```
+SUITE=GENERIC
+```
+
+To:
+
+```
+SUITE=[DEBIAN VERSION]
+```
+
+Replacing [DEBIAN VERSION] with the version of Debian installed. For example, if running the unstable version of Debian, replace [DEBIAN VERSION] with `SID`.
+
 ## Data Destruction
 
 Removing data beyond simple file deletion is the act of destroying the data in a manner that prevents or hinders retrieval or data remanence. Traditional means of deleting a file leave the contents of the file on the disk. Those contents are not destroyed until the operating system overwrites that physical location on the disk. Therefore, after the deletion of a file, there is no assurance that the contents of that file can not later be retrieved. Subsequently, the physical location on disk must be written to in a manner that make retrieval of that original file contents improbable.
