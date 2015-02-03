@@ -14,7 +14,7 @@ The standard Linux kernel is packages with a set of default options which could 
 
 Create a new file at `/etc/sysctl.d/security.conf` and insert the following kernel options:
 
-[src/etc/sysctl.d/security.conf](os/debian/src/security.conf)
+[src/etc/sysctl.d/security.conf](src/etc/sysctl.d/security.conf)
 
 Lastly, tell the kernel to load the new settings:
 
