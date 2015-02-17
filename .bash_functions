@@ -583,6 +583,12 @@ installNodePackages ()
 
 		# CLI tool for bootstrapping Ember applications.
 		npm install -g ember-cli
+
+		# Developer tools for debugging NodeJS applications.
+		npm install -g node-inspector
+
+		# Workshop on using npm to manage, and publish, packages.
+		npm install -g how-to-npm
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
