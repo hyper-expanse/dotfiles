@@ -11,7 +11,8 @@
 	excludesfile = ~/.gitignore
 
 	# Apply a global set of attributes to a repository if that repository does not contain its own attributes file.
-	attributesfile = ~/.gitattributes
+	# Disable option to prevent mangling a Git repository in a way unintended by the author of that repository.
+	# attributesfile = ~/.gitattributes
 
 [pull]
 	# Automatically rebase local-only commits on top of commits fetched from the remotely tracked repository. This retains the existing structure of the remote's history, and causes local commits to be appended to the history in a linear fashion. This option avoids the default behavior of `git pull`, which fetches commits from the remote repository and "merges" them into the local branch.
