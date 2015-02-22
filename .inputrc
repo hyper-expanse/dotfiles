@@ -2,9 +2,9 @@
 set bell-style none
 
 # Set key-bindings to match that of Vim.
-set editing-mode vi
-set keymap vi
-set -o vi
+# set editing-mode vi
+# set keymap vi
+# set -o vi
 
 # If set to On, a character denoting a file's type, as reported by the stat system call, is appended to the file name when listing possible completions.
 set visible-stats on
