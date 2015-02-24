@@ -63,9 +63,10 @@ if [ -f "${HOME}/.prompt" ]; then
 fi
 
 # Setup Bash prompt auto-completion for PIP; Python's package manager.
-if command -v pip &> /dev/null; then
-	eval "$(pip completion --bash)"
-fi
+# This step is incredibly slow to execute.
+#if command -v pip &> /dev/null; then
+#	eval "$(pip completion --bash)"
+#fi
 
 # Enable command line auto-completion for the `rbenv` tool.
 if command -v rbenv &> /dev/null; then
