@@ -138,7 +138,6 @@ Plugin 'https://github.com/gmarik/vundle'
 Plugin 'https://github.com/othree/vim-autocomplpop'
 Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/gregsexton/gitv'
-Plugin 'https://github.com/claco/jasmine.vim'
 Plugin 'https://github.com/nanotech/jellybeans.vim'
 Plugin 'https://github.com/vim-scripts/jQuery'
 " Required by vim-autocomplpop.
@@ -1128,16 +1127,6 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
-
-"====================================================
-" Setup Jasmine Plugin
-"
-" Setup for Jasmine allowing Jasmine templates to be used when creating new Jasmine Spec files, for snippets that allow for basic Jasmine auto-completion, and for Jasmine syntax highlighting.
-"====================================================
-
-" Must set these directories manually. If not the Jasmine plugin will attempt to use Pathogen commands to resolve the plugin path. Because we use Vundle instead of Pathogen, Pathogen commands do not exist. If we specify the path manually the calls to Pathogen are bypassed.
-let g:jasmine_snippets_directory = '~/.vim/bundle/jasmine.vim/snippets'
-let g:jasmine_templates_directory = '~/.vim/bundle/jasmine.vim/templates'
 
 "====================================================
 " Setup JavaScript Plugin
