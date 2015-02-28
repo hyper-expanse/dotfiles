@@ -157,7 +157,6 @@ Plugin 'https://github.com/pangloss/vim-javascript'
 Plugin 'https://github.com/jelera/vim-javascript-syntax'
 Plugin 'https://github.com/heavenshell/vim-jsdoc'
 Plugin 'https://github.com/elzr/vim-json'
-Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 Plugin 'https://github.com/dbakker/vim-lint'
 Plugin 'https://github.com/phleet/vim-mercenary'
 Plugin 'https://github.com/kana/vim-scratch'
@@ -1170,24 +1169,6 @@ augroup END
 
 " Disable concealment of double quotes within JSON files.
 let g:vim_json_syntax_conceal = 0
-
-"====================================================
-" Setup LaTex Plugin
-"
-" Setup for working with LaTex files including proper syntax highlighting, reference mapping, and TeX compilation.
-"====================================================
-
-" Windows users must have 'shellslash' set so that latex can be called correctly.
-set shellslash
-
-" Grep will sometimes skip displaying the file name if you search in a singe file. This will confuse Latex-Suite. Therefore we set grep to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-
-" Starting with Vim 7, the filetype of empty .tex files defaults to 'plaintext' instead of 'tex', which results in vim-latex not being loaded. The following changes the default filetype back to 'tex'.
-let g:tex_flavor = 'latex'
-
-" If you write your \label's as \label{fig:something}, then if you type in \ref{fig: and press <C-n> you will automatically cycle through all the figure labels.
-set iskeyword+=:
 
 "====================================================
 " Setup Scratch Plugin
