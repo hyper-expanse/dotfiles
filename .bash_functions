@@ -497,6 +497,7 @@ installBrewPackages()
 		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 		#if [ `uname -n` == "mini" ]; then
 			brew install readline --env=inherit
+			brew reinstall libffi --env=inherit
 			brew tap mpv-player/mpv
 			brew install --HEAD mpv-player/mpv/libass-ct
 			brew install mpv
