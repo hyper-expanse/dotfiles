@@ -152,7 +152,6 @@ Plugin 'https://github.com/bling/vim-airline'
 Plugin 'https://github.com/derekwyatt/vim-fswitch'
 Plugin 'https://github.com/tpope/vim-fugitive'
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
-Plugin 'https://github.com/pangloss/vim-javascript'
 Plugin 'https://github.com/jelera/vim-javascript-syntax'
 Plugin 'https://github.com/heavenshell/vim-jsdoc'
 Plugin 'https://github.com/elzr/vim-json'
@@ -1135,14 +1134,17 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
 "====================================================
-" Setup JavaScript Plugin
+" Setup JavaScript Syntax Plugin
 "
-" Setup for working with JavaScript files including proper syntax highlighting, reference mapping, and proper indentions.
+" Setup for JavaScript Syntax plugin to place special color highlighting to the left of code to indicate indentation level.
 "====================================================
 
-let g:html_indent_inctags = "html,body,head,tbody" " Indent elements within the following HTML tags.
-let g:html_indent_script1 = "inc" " Indent script contents.
-let g:html_indent_style1 = "inc" " Style contents within script tags.
+" Enable JavaScript code folding using the vim-javascript-syntax plugin.
+augroup javascriptFolding
+	autocmd!
+
+	autocmd FileType javascript call JavaScriptFold()
+augroup END
 
 "====================================================
 " Setup JQuery Plugin
