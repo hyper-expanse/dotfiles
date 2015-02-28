@@ -1163,6 +1163,15 @@ augroup jquerySupport
 augroup END
 
 "====================================================
+" Setup JSON Plugin
+"
+" Setup for working with JSON files, including proper syntax highlighting and error detection.
+"====================================================
+
+" Disable concealment of double quotes within JSON files.
+let g:vim_json_syntax_conceal = 0
+
+"====================================================
 " Setup LaTex Plugin
 "
 " Setup for working with LaTex files including proper syntax highlighting, reference mapping, and TeX compilation.
