@@ -1122,10 +1122,16 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 "====================================================
 " Setup Indent Guide Plugin
 "
-" Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentional level.
+" Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentation level.
 "====================================================
 
+" Enable the indent guide plugin on Vim startup. This will cause indentations to be highlighted automatically when opening up a file into a Vim buffer.
+let g:indent_guides_enable_on_vim_startup = 0
+
+" Indicate which indentation level to begin showing guides.
 let g:indent_guides_start_level = 2
+
+" Set the width of the indent guide to be one space in width. Only applies when indentation consists of spaces.
 let g:indent_guides_guide_size = 1
 
 "====================================================
