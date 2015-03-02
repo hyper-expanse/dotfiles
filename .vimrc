@@ -164,7 +164,6 @@ Plugin 'https://github.com/MarcWeber/vim-addon-mw-utils'
 " Required by vim-snipmate.
 Plugin 'https://github.com/tomtom/tlib_vim'
 Plugin 'https://github.com/tmux-plugins/vim-tmux'
-Plugin 'https://github.com/jmcantrell/vim-virtualenv'
 Plugin 'https://github.com/benmills/vimux'
 
 "====================================================
@@ -1306,15 +1305,6 @@ let g:tern_map_keys = 1
 
 " Choose one of the built-in status line presets available from the Tmuxline plugin. In this case I have chosen Tmuxline's 'full' preset that includes most available data points; such as open windows, date, time, and host.
 let g:tmuxline_preset = 'full'
-
-"====================================================
-" Setup VirtualEnv Plugin
-"
-" Setup for VirtualEnv to enable the ability to activate, and deactive, Python virtual environments through the virtualenv plugin.
-"====================================================
-
-" Instruct the virtualenv plugin to look within the local directory for folders housing a Python virtual environment. Virtual environment directories are those that were setup via `virtualenv` or `pyvenv`.
-let g:virtualenv_directory = './'
 
 "====================================================
 " Setup Colorscheme
