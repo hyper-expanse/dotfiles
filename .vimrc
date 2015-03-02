@@ -163,8 +163,6 @@ Plugin 'https://github.com/mhinz/vim-signify'
 Plugin 'https://github.com/MarcWeber/vim-addon-mw-utils'
 " Required by vim-snipmate.
 Plugin 'https://github.com/tomtom/tlib_vim'
-Plugin 'https://github.com/garbas/vim-snipmate'
-Plugin 'https://github.com/honza/vim-snippets'
 Plugin 'https://github.com/tmux-plugins/vim-tmux'
 Plugin 'https://github.com/jmcantrell/vim-virtualenv'
 Plugin 'https://github.com/benmills/vimux'
