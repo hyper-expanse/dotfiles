@@ -1147,6 +1147,18 @@ augroup javascriptFolding
 augroup END
 
 "====================================================
+" Setup JsDoc Plugin
+"
+" Setup for JsDoc plugin to build documentation for a function based on context information and user input.
+"====================================================
+
+" Allow interactive prompting for input.
+let g:jsdoc_allow_input_prompt = 1
+
+" Turn on detecting a function starting with an underscore as a private function.
+let g:jsdoc_underscore_private = 1
+
+"====================================================
 " Setup JQuery Plugin
 "
 " Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
