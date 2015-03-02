@@ -22,6 +22,14 @@ bash deploy.sh
 
 **Note:** Directories in this repository will not be symlinked, nor will the files contained within them. You will need to symlink those files yourself.
 
+## Vim Shortcuts
+
+### vim-jsdoc
+
+> Generate JsDoc comment block above function signature.
+
+`:JsDoc` or `CTRL + l` on function signature line.
+
 ## Contributing
 
 Read [CONTRIBUTING](CONTRIBUTING.md).
