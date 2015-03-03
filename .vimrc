@@ -5,6 +5,31 @@
 "====================================================
 
 "====================================================
+" Plugin Guide
+"
+" ctrlp.vim
+" > Fuzzy file matching.
+"
+" `CTRL + p`
+"
+" gitv
+" > Git repository viewer.
+"
+" `:Gitv`
+"
+" vim-indent-guides
+" > Visually display indentation levels.
+"
+" `<Leader>ig`
+"
+" vim-jsdoc
+" > Generate JsDoc comment block above function signature.
+"
+" `:JsDoc` or `CTRL + l` on function signature line.
+"
+"====================================================
+
+"====================================================
 " Environment State
 "
 " Capture the state of Vim's working environment (Such as the operating system, and its environmental variables, on which Vim is executing) so that various options can be enabled, or disabled, to optimize the user's experience.
@@ -135,36 +160,32 @@ call vundle#rc()
 Plugin 'https://github.com/gmarik/vundle'
 
 " All other plugins.
-Plugin 'https://github.com/othree/vim-autocomplpop'
-Plugin 'https://github.com/kien/ctrlp.vim'
-Plugin 'https://github.com/gregsexton/gitv'
-Plugin 'https://github.com/nanotech/jellybeans.vim'
-Plugin 'https://github.com/vim-scripts/jQuery'
-" Required by vim-autocomplpop.
-Plugin 'https://github.com/vim-scripts/L9'
-Plugin 'https://github.com/vim-scripts/OmniCppComplete'
-Plugin 'https://github.com/scrooloose/syntastic'
-Plugin 'https://github.com/majutsushi/tagbar'
-Plugin 'https://github.com/marijnh/tern_for_vim'
-Plugin 'https://github.com/edkolev/tmuxline.vim'
-Plugin 'https://github.com/mbbill/undotree'
-Plugin 'https://github.com/bling/vim-airline'
-Plugin 'https://github.com/derekwyatt/vim-fswitch'
-Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
-Plugin 'https://github.com/jelera/vim-javascript-syntax'
-Plugin 'https://github.com/heavenshell/vim-jsdoc'
-Plugin 'https://github.com/elzr/vim-json'
-Plugin 'https://github.com/dbakker/vim-lint'
-Plugin 'https://github.com/phleet/vim-mercenary'
-Plugin 'https://github.com/kana/vim-scratch'
-Plugin 'https://github.com/mhinz/vim-signify'
-" Required by vim-snipmate.
-Plugin 'https://github.com/MarcWeber/vim-addon-mw-utils'
-" Required by vim-snipmate.
-Plugin 'https://github.com/tomtom/tlib_vim'
-Plugin 'https://github.com/tmux-plugins/vim-tmux'
-Plugin 'https://github.com/benmills/vimux'
+Plugin 'https://github.com/othree/vim-autocomplpop.git'
+	" Required by vim-autocomplpop.
+	Plugin 'https://github.com/vim-scripts/L9.git'
+Plugin 'https://github.com/kien/ctrlp.vim.git'
+Plugin 'https://github.com/gregsexton/gitv.git'
+Plugin 'https://github.com/nanotech/jellybeans.vim.git'
+Plugin 'https://github.com/vim-scripts/jQuery.git'
+Plugin 'https://github.com/vim-scripts/OmniCppComplete.git'
+Plugin 'https://github.com/scrooloose/syntastic.git'
+Plugin 'https://github.com/majutsushi/tagbar.git'
+Plugin 'https://github.com/marijnh/tern_for_vim.git'
+Plugin 'https://github.com/edkolev/tmuxline.vim.git'
+Plugin 'https://github.com/mbbill/undotree.git'
+Plugin 'https://github.com/bling/vim-airline.git'
+Plugin 'https://github.com/derekwyatt/vim-fswitch.git'
+Plugin 'https://github.com/tpope/vim-fugitive.git'
+Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Plugin 'https://github.com/jelera/vim-javascript-syntax.git'
+Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
+Plugin 'https://github.com/elzr/vim-json.git'
+Plugin 'https://github.com/dbakker/vim-lint.git'
+Plugin 'https://github.com/phleet/vim-mercenary.git'
+Plugin 'https://github.com/kana/vim-scratch.git'
+Plugin 'https://github.com/mhinz/vim-signify.git'
+Plugin 'https://github.com/tmux-plugins/vim-tmux.git'
+Plugin 'https://github.com/benmills/vimux.git'
 
 "====================================================
 " User Interface
@@ -1027,30 +1048,10 @@ vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 "====================================================
 
 "====================================================
-" Setup Vim-Airline Plugin
-"
-" Setup for a vim-airline environment so that the environment will look and behave in the desired way.
-"====================================================
-
-" Enable vim-airline's buffer status bar. This buffer status bar will appear at the very top of Vim, similiar to where the multibufexpl plugin would appear.
-let g:airline#extensions#tabline#enabled = 1
-
-" Automatically populate the `g:airline_symbols` dictionary with the correct font glyphs used as the special symbols for vim-airline's status bar.
-let g:airline_powerline_fonts = 1
-
-" Correct a spacing issue that may occur with fonts loaded via the fontconfig approach.
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-
-"====================================================
 " Setup CtrlP Plugin
 "
 " Setup for a tool that allows for fuzzy matching on file names within the current directory, or parent directory containing a repository directory, or against opened buffers, or MRU (Most Recently Used) files.
 "====================================================
-
-" Default mapping for CtrlP is <C-P>.
 
 " Set the default behavior for the CtrlP plugin to search against files only (not against the buffers or MRU).
 let g:ctrlp_cmd = 'CtrlP'
@@ -1078,6 +1079,36 @@ let g:ctrlp_max_files = 10000
 
 " Set the option to require CtrlP to scan for dotfiles and dotdirs.
 let g:ctrlp_show_hidden = 1
+
+"====================================================
+" Setup JQuery Plugin
+"
+" Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
+"====================================================
+
+augroup jquerySupport
+	autocmd!
+
+	autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+augroup END
+
+"====================================================
+" Setup Vim-Airline Plugin
+"
+" Setup for a vim-airline environment so that the environment will look and behave in the desired way.
+"====================================================
+
+" Enable vim-airline's buffer status bar. This buffer status bar will appear at the very top of Vim, similiar to where the multibufexpl plugin would appear.
+let g:airline#extensions#tabline#enabled = 1
+
+" Automatically populate the `g:airline_symbols` dictionary with the correct font glyphs used as the special symbols for vim-airline's status bar.
+let g:airline_powerline_fonts = 1
+
+" Correct a spacing issue that may occur with fonts loaded via the fontconfig approach.
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 
 "====================================================
 " Setup FSwitch Plugin
@@ -1160,18 +1191,6 @@ let g:jsdoc_underscore_private = 1
 
 " Support ECMAScript 6 function definition syntax.
 let g:jsdoc_allow_shorthand = 1
-
-"====================================================
-" Setup JQuery Plugin
-"
-" Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
-"====================================================
-
-augroup jquerySupport
-	autocmd!
-
-	autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-augroup END
 
 "====================================================
 " Setup JSON Plugin
