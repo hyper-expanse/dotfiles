@@ -22,13 +22,17 @@ bash deploy.sh
 
 **Note:** Directories in this repository will not be symlinked, nor will the files contained within them. You will need to symlink those files yourself.
 
-## Vim Shortcuts
+## Cheat sheats
 
-### vim-jsdoc
+Tmux
 
-> Generate JsDoc comment block above function signature.
+* http://stevehhh.com/tmux-quick-reference/
+* https://gist.github.com/afair/3489752
 
-`:JsDoc` or `CTRL + l` on function signature line.
+Vim
+
+* http://tnerual.eriogerg.free.fr/vim.html
+* http://michael.peopleofhonoronly.com/vim/
 
 ## Contributing
 
