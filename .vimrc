@@ -1116,7 +1116,7 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 " Others...
 
 "====================================================
-" Setup Indent Guide Plugin
+" Setup Indent Guides Plugin
 "
 " Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentation level.
 "====================================================
