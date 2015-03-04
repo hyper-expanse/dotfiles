@@ -1184,7 +1184,7 @@ augroup END
 let g:jsdoc_allow_input_prompt = 1
 
 " Turn on access tags such as `@private` and `@public`.
-let g:jsdoc_access_descriptions = 1
+let g:jsdoc_access_descriptions = 2
 
 " Turn on detecting a function starting with an underscore as a private function.
 let g:jsdoc_underscore_private = 1
