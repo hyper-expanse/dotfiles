@@ -81,7 +81,7 @@ if has('multi_byte')
 	set fileencodings=ucs-bom,utf-8,latin1 " Set the sequence of encodings to be used as a heuristic when reading an existing file. The first encoding that matches will be used.
 endif
 
-" Set the system's default shell as Vim's default shell to be used when executing commands within a shell.
+" Set the system's default shell as Vim's default shell. This will be used by Vim when executing commands within a shell.
 set shell=/bin/sh
 
 " Configure Vim to remember certain information between instances.
@@ -160,9 +160,6 @@ call vundle#rc()
 Plugin 'https://github.com/gmarik/vundle'
 
 " All other plugins.
-Plugin 'https://github.com/othree/vim-autocomplpop.git'
-	" Required by vim-autocomplpop.
-	Plugin 'https://github.com/vim-scripts/L9.git'
 Plugin 'https://github.com/kien/ctrlp.vim.git'
 Plugin 'https://github.com/gregsexton/gitv.git'
 Plugin 'https://github.com/nanotech/jellybeans.vim.git'
@@ -174,6 +171,9 @@ Plugin 'https://github.com/marijnh/tern_for_vim.git'
 Plugin 'https://github.com/edkolev/tmuxline.vim.git'
 Plugin 'https://github.com/mbbill/undotree.git'
 Plugin 'https://github.com/bling/vim-airline.git'
+Plugin 'https://github.com/othree/vim-autocomplpop.git'
+	" Required by vim-autocomplpop.
+	Plugin 'https://github.com/vim-scripts/L9.git'
 Plugin 'https://github.com/derekwyatt/vim-fswitch.git'
 Plugin 'https://github.com/tpope/vim-fugitive.git'
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
