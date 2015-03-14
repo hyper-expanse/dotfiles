@@ -494,6 +494,9 @@ installBrewPackages()
 		# Download and install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
 
+		# Download and install ctags, a command line tool for indexing source code files, and outputting the indexed content to a file for use by various text editors.
+		brew install ctags
+
 		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 		#if [ `uname -n` == "mini" ]; then
 			brew install readline --env=inherit
