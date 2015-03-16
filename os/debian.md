@@ -483,13 +483,6 @@ Omni Complete for C++ auto completion must be added to Vim as it is not part of 
 
 The latest version of the Omni CPP Complete script is pulled from the vim-scripts Github repository through the inclusion of the Vundle 'Plugin' statement in the vimrc file.
 
-#### Package Installation
-
-To build tag files for Omni Complete to aford auto completion, you will need the exubert-ctag tool.
-
-Packages
-* exuberant-ctags
-
 #### C++ Source Code
 
 We need to download a modified version of the C++ STL header files so that a Ctags tag database can be generated.
@@ -506,7 +499,7 @@ Then rename the extracted folder, "cpp_src", to "stl_src":
 Navigate into the tags folder:
 * cd ~/.vim/tags
 
-Lastly, run Ctags to build the tags database:
+Lastly, run Ctags (which should have been installed via `brew install ctags`) to build the tags database:
 * ctags -R --sort=foldcase --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++ -f stl stl_src
 
 **Note:** On Windows use the downloaded Ctags executable to build the Ctags database. Do NOT use the Ctags application that comes with Cygwin.
