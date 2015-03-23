@@ -189,7 +189,6 @@ setupEnvironment ()
 
 	# Install general tools.
 	installBrewPackages
-	installNodePackages
 	installPythonPackages
 
 	updateTmux
@@ -468,6 +467,34 @@ installBrewPackages()
 
 		## RUBY END
 
+		# NODE
+			# We call `installNodePackages` after installing each version of Node so as to install our global Node modules within the `node_modules` directory associated with the currently enabled version of Node. This is necessary since some Node modules must be built against the currently enabled version of Node. Therefore they can't be installed in a global directory shared by all installed versions of Node.
+
+			# Download and install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
+			brew install nvm
+
+			# Execute `nvm` script to configure our local environment to work with `nvm`.
+			if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
+				source "$(brew --prefix nvm)/nvm.sh"
+			fi
+
+			# Install the latest stable version of Node.
+			nvm install stable
+			installNodePackages
+
+			# Install version v0.10 of Node (which at the time of writing is the old stable version of Node, and the version of Node which most packages were developed, and tested, against last.
+			nvm install v0.10
+			installNodePackages
+
+			# Install the latest version of IO.JS (The Node fork).
+			nvm install iojs
+			installNodePackages
+
+			# Set stable as our default Node version.
+			nvm use stable
+
+		## NODE END
+
 		# Download and install Vim, an awesome IDE.
 		if [ `uname -n` != "gateway" ]; then
 			brew install vim
@@ -517,21 +544,6 @@ installBrewPackages()
 
 			brew install weechat
 		fi
-
-		# Download and install NodeJS and npm.
-		# Alternative: brew install node --with-npm --with-completion
-		#
-		# Determine the operating system architecture for use by build scripts where necessary.
-		if [ "`uname -m`" == "i686" ]; then
-			local architecture="x86";
-		else
-			local architecture="x64"
-		fi
-
-		wget "http://nodejs.org/dist/v0.10.33/node-v0.10.33-linux-${architecture}.tar.gz" --directory-prefix=/tmp
-		tar -xf "/tmp/node-v0.10.33-linux-${architecture}.tar.gz" -C .local/ --strip-components=1
-		rm "/tmp/node-v0.10.33-linux-${architecture}.tar.gz"
-
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
 	fi

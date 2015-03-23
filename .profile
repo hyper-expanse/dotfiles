@@ -8,26 +8,29 @@
 #====================================================
 
 # Set the path to our prefix directory containing our local build, and development, environment. This may be used by third-party tools as well as our own Bash scripts.
-export PREFIX="${HOME}/.local"
+export PREFIX_DIRECTORY="${HOME}/.local"
 
 # Add local Node.js module directory to the beginning of our PATH so that Node.js modules pulled down by a project, through, say, NPM and package.json, can be used rather than any global Node.js modules on the system, or in the user's local bin directory. This will ensure project builds use their desired versions of Node.js modules.
 export PATH="./node_modules/.bin:${PATH}"
 
 # Add our local binary directory to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
-export PATH="${PREFIX}/bin:${PATH}"
+export PATH="${PREFIX_DIRECTORY}/bin:${PATH}"
 
 # Add our local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
-export MANPATH="${PREFIX}/share/man:${MANPATH}"
+export MANPATH="${PREFIX_DIRECTORY}/share/man:${MANPATH}"
 
 # Add our local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
-export INFOPATH="${PREFIX}/share/info:${INFOPATH}"
+export INFOPATH="${PREFIX_DIRECTORY}/share/info:${INFOPATH}"
 
 # Add our local `rbenv` script directory to a tool specific environmental variable.
-export RBENV_ROOT="${PREFIX}/var/rbenv"
+export RBENV_ROOT="${PREFIX_DIRECTORY}/var/rbenv"
+
+# Specify the directory where `nvm` should install various versions of node and npm packages.
+export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 
 # Provide the path to a temporary directory that may contain executable scripts so that Homebrew may use that directory for storing, and executing, installation scripts. Though Linuxbrew will use the system's temp directory by default that directory may not be executable, depending on the security measures in place on the local system.
-mkdir -p "${PREFIX}/tmp"
-export HOMEBREW_TEMP="${PREFIX}/tmp"
+mkdir -p "${PREFIX_DIRECTORY}/tmp"
+export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 
 # Export an additional environmental variable for our Linuxbrew temp directory for use by `ruby-build`.
 export TMPDIR="${HOMEBREW_TEMP}"

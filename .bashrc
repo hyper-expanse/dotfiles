@@ -73,6 +73,11 @@ if command -v rbenv &> /dev/null; then
 	eval "$(rbenv init -)"
 fi
 
+# Execute `nvm` script to configure our local environment to work with `nvm`.
+if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
+	source "$(brew --prefix nvm)/nvm.sh"
+fi
+
 # Enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
 	if [ -f /usr/share/bash-completion/bash_completion ]; then
