@@ -538,7 +538,7 @@ installBrewPackages()
 			# Required for building cmake, which itself is required for building weechat.
 			brew install bzip2
 
-			# Seems this package isn't capable of accuretly determining the OS architecture. Therefore we must pass in a flag that sets the that architecture.
+			# Seems this package isn't capable of accurately determining the OS architecture. Therefore we must pass in a flag that sets the that architecture.
 			# Reference: https://github.com/larsimmisch/homebrew-avr/issues/14
 			brew install gmp --32-bit
 
