@@ -456,14 +456,14 @@ installBrewPackages()
 
 		# RUBY
 
-		# Download and install rbenv, a CLI tool for managing Ruby interpreter versions within the current shell environment.
-		brew install rbenv
+			# Download and install rbenv, a CLI tool for managing Ruby interpreter versions within the current shell environment.
+			brew install rbenv
 
-		# Download and install ruby-build, a tool for building and installing different versions of the Ruby interpreter.
-		brew install ruby-build
+			# Download and install ruby-build, a tool for building and installing different versions of the Ruby interpreter.
+			brew install ruby-build
 
-		# Download and install rbenv-gem-rehash, a plugin for rbenv that automatically runs `rbenv reash` every time you install or uninstall a gem. This ensures newly installed gem executables are visible to `rbenv`.
-		brew install rbenv-gem-rehash
+			# Download and install rbenv-gem-rehash, a plugin for rbenv that automatically runs `rbenv reash` every time you install or uninstall a gem. This ensures newly installed gem executables are visible to `rbenv`.
+			brew install rbenv-gem-rehash
 
 		## RUBY END
 
