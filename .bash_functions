@@ -524,6 +524,14 @@ installBrewPackages()
 		# Download and install ctags, a command line tool for indexing source code files, and outputting the indexed content to a file for use by various text editors.
 		brew install ctags
 
+		# Download and install scrub, a command line tool for securely deleting files.
+		brew install scrub
+
+		# Download and install cmake, a command line build tool.
+		if [ `uname -n` == "mini" ]; then
+			brew install cmake
+		fi
+
 		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 		if [ `uname -n` == "mini" ]; then
 			brew install readline --env=inherit
