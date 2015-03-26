@@ -1,10 +1,5 @@
 # Workstation
 
-## Package Installation
-
-Packages:
-* wakeonlan
-
 ## Python
 
 ### Virtualenv
