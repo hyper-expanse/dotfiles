@@ -87,7 +87,7 @@ alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo 
 alias backup='bash ${HOME}/Resources/Scripts/backup.sh'
 
 # Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
-alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${HOME}/.local'
+alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY}'
 
 # Create a Python virtual environment using the Python 3 interpreter and the standard _env_ directory.
 alias createVirtualEnvironment='virtualenv --python=python3 venv'
