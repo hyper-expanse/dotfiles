@@ -250,15 +250,15 @@ setupLinuxbrew ()
 			printf "\n--> Linking compilers into prefix binary directory."
 
 			if command -v gcc &> /dev/null; then
-				ln -s $(which gcc) ${PREFIX}/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
+				ln -s $(which gcc) ${PREFIX_DIRECTORY}/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
 			fi
 
 			if command -v g++ &> /dev/null; then
-				ln -s $(which g++) ${PREFIX}/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
+				ln -s $(which g++) ${PREFIX_DIRECTORY}/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 			fi
 
 			if command -v gfortran &> /dev/null; then
-				ln -s $(which gfortran) ${PREFIX}/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
+				ln -s $(which gfortran) ${PREFIX_DIRECTORY}/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
 			fi
 		fi
 	else
@@ -440,7 +440,7 @@ installBrewPackages()
 
 		# Install ncurses, which is required by various other brew builds. (git)
 		brew install ncurses
-		ln -s ${PREFIX}/include/ncursesw/*.h "${PREFIX}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
+		ln -s ${PREFIX_DIRECTORY}/include/ncursesw/*.h "${PREFIX_DIRECTORY}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
 
 		# Install python (2.7), which is required by various other brew builds. (vim)
 		brew install python
