@@ -326,7 +326,6 @@ Disable the following services, thereby preventing them from loading at boot tim
 ```bash
 sudo update-rc.d -f clamav-daemon disable
 sudo update-rc.d -f snmpd disable
-sudo update-rc.d -f tor disable
 ```
 
 ## DVD Managements
