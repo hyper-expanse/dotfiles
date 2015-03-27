@@ -495,11 +495,6 @@ installBrewPackages()
 
 		## NODE END
 
-		# Download and install Vim, an awesome IDE.
-		if [ `uname -n` != "gateway" ]; then
-			brew install vim
-		fi
-
 		# Download and install Tmux, a terminal multiplexer.
 		brew install tmux
 
@@ -527,18 +522,30 @@ installBrewPackages()
 		# Download and install scrub, a command line tool for securely deleting files.
 		brew install scrub
 
-		# Download and install cmake, a command line build tool.
-		if [ `uname -n` == "mini" ]; then
-			brew install cmake
+		# Download and install Vim, an awesome IDE.
+		if [ `uname -n` != "gateway" ]; then
+			brew install vim
 		fi
 
-		# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 		if [ `uname -n` == "mini" ]; then
+			# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 			brew install readline --env=inherit
 			brew reinstall libffi --env=inherit
 			brew tap mpv-player/mpv
 			brew install --HEAD mpv-player/mpv/libass-ct
 			brew install mpv
+
+			# Cross-platform, open-source, build system.
+			brew install cmake
+
+			# GNU data recovery tool.
+			brew install ddrescue
+
+			# Tool for ripping DVD's from the command line.
+			brew install dvdbackup
+
+			# Allows applications to access some of the more advanced features of the DVD format.
+			brew install libdvdcss
 		fi
 
 		# Download and install weechat, a command-line multi-protocol chat client.
@@ -550,6 +557,7 @@ installBrewPackages()
 			# Reference: https://github.com/larsimmisch/homebrew-avr/issues/14
 			brew install gmp --32-bit
 
+			# ncurses-based IRC client.
 			brew install weechat
 		fi
 	else
