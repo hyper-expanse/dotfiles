@@ -328,26 +328,9 @@ sudo update-rc.d -f clamav-daemon disable
 sudo update-rc.d -f snmpd disable
 ```
 
-## DVD Managements
+## DVD Management
 
-### Package Installation
-
-Packages:
-* gddrescue: GNU data recovery tool.
-* dvdbackup: Tool to rip DVD's from the command line.
-
-### libdvdcss Package
-
-Download the latest version of the libdvdcss Debian package from the following website to the ~/Download folder:
-
-http://www.videolan.org/developers/libdvdcss.html
-
-```bash
-sudo dpkg --install ~/Downloads/[PACKAGE NAME]
-```
-
-Packages:
-* libdvdcss2: To allow applications to access some of the more advanced features of the DVD format.
+Guide for ripping DVD's to an image file.
 
 ## Space - OPTIONAL
 
@@ -358,17 +341,3 @@ Optional applications that focus on space.
 Packages:
 * celestia
 * stellarium
-
-## Numerical Analysis - OPTIONAL
-
-### Package Installation
-
-Packages:
-* maxima
-* python-matplotlib
-* python-numpy
-* python-scipy
-* python-sympy
-* python-rpy2
-* python-xlrd
-* r-recommended
