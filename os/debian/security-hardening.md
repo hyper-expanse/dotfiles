@@ -72,6 +72,47 @@ root
 
 If a `/etc/cron.deny` file exists it provides the reverse of cron.allow. It enables all users to access cron, except those whose usernames are listed in `cron.deny`.
 
+### Grub Bootloader Configuration
+
+By default, the boot loader interface is accessible to anyone with physical access to the console: anyone can select and edit any menu entry, and anyone can get direct access to a GRUB shell prompt. However, encrypted password protection using PBKDF2 is available. By enabling a password for Grub, users must enter the password prior to gaining access to the edit menu for boot prompts. As an additional layer of security, Grub allows for those passphrases to be encrypted on the system.
+
+To generate an encrypted password for use by Grub Bootloader:
+
+```bash
+grub-mkpasswd-pbkdf2
+```
+
+The format for an encrypted password entry, placed at the bottom of the file, in `/etc/grub.d/00_header` would look similar to:
+
+```
+cat << EOF
+set superusers=``root''
+password_pbkdf2 root [GRUB-MKPASSWD-PBKDF2 ENCODED PASSPHRASE]
+EOF
+```
+
+Now we must modify the Grub script file that builds the menu options so that it does not require us to authenticate unless we're modifying the actual Grub configuration options. To do this, edit `/etc/grub.d/10_linux`, and change the following line:
+
+From:
+
+```
+CLASS=``--class gnu-linux --class gnu --class os''
+```
+
+To:
+
+```
+CLASS=``--class gnu-linux --class gnu --class os --unrestricted''
+```
+
+**Note:** The addition of `--unrestricted` is the important part.
+
+Lastly, execute the following to re-build the Grub menu:
+
+```bash
+sudo update-grub2
+```
+
 ## Account Security
 
 Account security involves the creation and management of user accounts on a system in a manner that insures the security and integrity of that system. Account security has two aspects which must be handled; first, protecting the access to accounts on a system, and second, insuring that an account is used in a manner that is appropriate given institutional policies.
