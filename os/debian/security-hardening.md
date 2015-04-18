@@ -113,6 +113,22 @@ Lastly, execute the following to re-build the Grub menu:
 sudo update-grub2
 ```
 
+### Grub Bootloader Recovery Protection
+
+For every normal boot option listed within the Grub boot menu, there is a corresponding option for a recovery boot. A recovery boot loads only the minimal services required to provide a functional operating system in which the root user of the system can access a command prompt. However, when the account for the root user had been disabled (A good security practice in of itself), the recovery boot option will allow the user to log into the root account automatically without any password requirement. This could allow an unauthorized person to access the system if they gain remote access to the Grub menu, or physical access to the keyboard of that server. To protect against access to the root account through Grub we will disable the generation of recovery boot options within the Grub boot menu. Even  without recovery mode, the normal boot options can be modified for recovery purposes by using 'E', though editing them will require the root account configured in the previous Grub configuration step.
+
+Uncomment the following line within `/etc/default/grub`:
+
+```
+GRUB_DISABLE_RECOVERY=``true''
+```
+
+Lastly, execute the following to re-build the Grub menu:
+
+```bash
+sudo update-grub2
+```
+
 ## Account Security
 
 Account security involves the creation and management of user accounts on a system in a manner that insures the security and integrity of that system. Account security has two aspects which must be handled; first, protecting the access to accounts on a system, and second, insuring that an account is used in a manner that is appropriate given institutional policies.
