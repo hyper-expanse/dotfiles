@@ -129,6 +129,34 @@ Lastly, execute the following to re-build the Grub menu:
 sudo update-grub2
 ```
 
+### Mount Protection
+
+Each partition on a Linux system can be mounted to a directory relative to the root directory. When mounting a partition, the principle of lease privileges should be followed by restricting the permissions and activities that can be carried out on the mounted partition. This is achieved by mounting each partition with the most restrictive mount options available without impacting required functionality.
+
+#### Mount Options
+
+* nodev: Do not interpret character or block special devices on the file system.
+* nosuid: Do not allow set-user-identifier or set-group-identifier bits to take effect.
+* noexec: Do not allow direct execution of any binaries on the mounted filesystem.
+
+#### Recommended Application
+
+| Partition | nodev | nosuid | noexec |
+| /boot     | Yes   | Yes    | Yes    |
+| /home     | Yes   | Yes    | Yes (Only if code will not be executed out of the home directories.) |
+| /tmp      | Yes   | Yes    | Yes (Only if packages will not be build from scratch on this system.) |
+| /usr      | No    | No     | No     |
+| /var      | No    | No     | No     |
+| /var/tmp  | Yes   | Yes    | Yes    |
+
+#### Application
+
+Edit the mount configuration file, `/etc/fstab`, and apply the appropriate permission mentioned in _Recommended Application_ section by appending the permissions to the `<options>` column for each mounted partition:
+
+```bash
+sudo nano /etc/fstab
+```
+
 ## Account Security
 
 Account security involves the creation and management of user accounts on a system in a manner that insures the security and integrity of that system. Account security has two aspects which must be handled; first, protecting the access to accounts on a system, and second, insuring that an account is used in a manner that is appropriate given institutional policies.
