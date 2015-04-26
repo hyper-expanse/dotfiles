@@ -522,6 +522,15 @@ installBrewPackages()
 			brew install mpv
 
 			# Cross-platform, open-source, build system.
+			# The following error occurs during the Sphinx installation processes
+			# ==> python -c import setuptools... --no-user-cfg install --prefix=/home/hutson/.local/tmp/cmake20150425-10547-12uf80b/cmake-3.2.2/sphinx --single-
+			# --record=installed.txt
+			#
+			# Traceback (most recent call last):
+			#   File "<string>", line 1, in <module>
+			#   ImportError: No module named setuptools...
+			#
+			# Issue is documented here: https://github.com/Homebrew/homebrew/issues/36831
 			brew install cmake
 
 			# GNU data recovery tool.
