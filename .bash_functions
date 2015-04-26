@@ -217,52 +217,37 @@ updateEnvironment ()
 # Install Linuxbrew locally so that we can download, build, and install tools from source.
 setupLinuxbrew ()
 {
-	if command -v git &> /dev/null; then
-		printf "\n> Installing Linuxbrew.\n"
+	printf "\n> Installing Linuxbrew.\n"
 
-		# Create a local binary directory before any setup steps require its existence.
-		mkdir --parents "${HOME}/.local/bin"
+	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of LinuxBrew into the `.local/` directory.
+	mkdir --parents "${HOME}/.local/bin"
 
-		local currentDirectory=`pwd`
+	# Download an archive version of the #master branch of LinuxBrew to the local system for future extraction. We download an archive version of LinuxBrew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using LinuxBrew).
+	wget https://github.com/Homebrew/linuxbrew/tarball/master -O "/tmp/linuxbrew.tar.gz"
 
-		cd "${HOME}/.local/"
+	# Extract archive file into local system directory.
+	tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
 
-		# If the requested command fails, exit rather than attempt to execute further commands.
-		if [ "${?}" -gt 0 ]; then
-			return
+	# Cleanup.
+	rm "/tmp/linuxbrew.tar.gz"
+
+	# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
+	local uname=`uname -a`
+	local debian="Debian"
+	if [ "${uname/$debian}" = "${uname}" ] ; then
+		printf "\n--> Linking compilers into prefix binary directory."
+
+		if command -v gcc &> /dev/null; then
+			ln -s $(which gcc) ${PREFIX_DIRECTORY}/bin/gcc-$(gcc -dumpversion | cut -d. -f1,2)
 		fi
 
-		git init
-
-		git remote add origin https://github.com/Homebrew/linuxbrew.git
-
-		# Performance could be improved by setting `--depth=1`, limiting history to one commit, but any performance gains from restricting the amount of history fetched would be lost once the user runs `brew update` (which fetches all history). Since it's more likely that the user will update an existing LinuxBrew installation than re-install LinuxBrew, we fetch the history upfront.
-		git fetch
-
-		git checkout -b master --track origin/master
-
-		cd "${currentDirectory}"
-
-		# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
-		local uname=`uname -a`
-		local debian="Debian"
-		if [ "${uname/$debian}" = "${uname}" ] ; then
-			printf "\n--> Linking compilers into prefix binary directory."
-
-			if command -v gcc &> /dev/null; then
-				ln -s $(which gcc) ${PREFIX_DIRECTORY}/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
-			fi
-
-			if command -v g++ &> /dev/null; then
-				ln -s $(which g++) ${PREFIX_DIRECTORY}/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
-			fi
-
-			if command -v gfortran &> /dev/null; then
-				ln -s $(which gfortran) ${PREFIX_DIRECTORY}/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
-			fi
+		if command -v g++ &> /dev/null; then
+			ln -s $(which g++) ${PREFIX_DIRECTORY}/bin/g++-$(g++ -dumpversion | cut -d. -f1,2)
 		fi
-	else
-		printf "\n> ERROR: `git` is required for setting up Linuxbrew, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupLinxBrew`.\n"
+
+		if command -v gfortran &> /dev/null; then
+			ln -s $(which gfortran) ${PREFIX_DIRECTORY}/bin/gfortran-$(gfortran -dumpversion | cut -d. -f1,2)
+		fi
 	fi
 }
 
