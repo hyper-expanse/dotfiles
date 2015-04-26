@@ -471,10 +471,6 @@ installBrewPackages()
 			nvm install v0.10
 			installNodePackages
 
-			# Install the latest version of IO.JS (The Node fork).
-			nvm install iojs
-			installNodePackages
-
 			# Set stable as our default Node version.
 			nvm use stable
 
