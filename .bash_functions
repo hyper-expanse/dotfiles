@@ -412,14 +412,14 @@ installBrewPackages()
 
 		# COMPILER: Install a compiler toolchain.
 
-		# Temporary until remaining toolchain is setup properly.
-		brew install linux-headers
+			# Temporary until remaining toolchain is setup properly.
+			brew install linux-headers
 
-		brew install zlib
+			brew install zlib
 
 		## COMPILER END
 
-		# Install openssl, which is required by various other brew builds.
+		# Install openssl, which is required by various other brew builds. (git, python)
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl
 
@@ -508,10 +508,8 @@ installBrewPackages()
 		# Download and install scrub, a command line tool for securely deleting files.
 		brew install scrub
 
-		# Download and install Vim, an awesome IDE.
-		if [ `uname -n` != "gateway" ]; then
-			brew install vim
-		fi
+		# Cross-platform, open-source, build system.
+		brew install cmake
 
 		if [ `uname -n` == "mini" ]; then
 			# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
@@ -520,18 +518,6 @@ installBrewPackages()
 			brew tap mpv-player/mpv
 			brew install --HEAD mpv-player/mpv/libass-ct
 			brew install mpv
-
-			# Cross-platform, open-source, build system.
-			# The following error occurs during the Sphinx installation processes
-			# ==> python -c import setuptools... --no-user-cfg install --prefix=/home/hutson/.local/tmp/cmake20150425-10547-12uf80b/cmake-3.2.2/sphinx --single-
-			# --record=installed.txt
-			#
-			# Traceback (most recent call last):
-			#   File "<string>", line 1, in <module>
-			#   ImportError: No module named setuptools...
-			#
-			# Issue is documented here: https://github.com/Homebrew/homebrew/issues/36831
-			brew install cmake
 
 			# GNU data recovery tool.
 			brew install ddrescue
