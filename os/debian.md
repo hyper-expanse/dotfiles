@@ -62,31 +62,33 @@ Create a physical volume to store our LVM setup.
 
 Next select _Configure the Logical Volume Manager_.
 
-Create a volume group:
-* Name: Schema
-* Select the Free Space device.
+When prompted, create a Volume Group using `vg_[HOSTNAME]` as the name, replacing `[HOSTNAME]` with the hostname of the system. For the Volume Group, select the Free Space device.
 
-For each of the following volumes select _Create logical volume_, then select the _Schema_ volume group:
+We will now take the newly created Volume Group and create several logical volumes that are mapped to directories within the file system. FOr each of the following directory mappings select _Create logical volume_, then select the `vg_[HOSTNAME]` volume group:
+
 * /
-	* Name: root
+	* Name: lv_root
 	* Size: 20 GB
 * /home
-	* Name: home
+	* Name: lv_home
 	* Size: 10 GB - 100 GB
 * /tmp
-	* Name: tmp
+	* Name: lv_tmp
 	* Size: 1 GB
 * /usr
-	* Name: usr
-	* Size: 9 GB
+	* Name: lv_usr
+	* Size: 10 GB
 * /var
-	* Name: var
-	* Size: 3 GB (100GB for the Gateway Server)
+	* Name: lv_var
+	* Size: 3 GB
 * /var/tmp
-	* Name: var_tmp
+	* Name: lv_var_tmp
+	* Size: 1 GB
+* N/A
+	* Name: lv_swap
 	* Size: 1 GB
 
-Select _Finish_ to move on.
+Once all logical volumes have been created select _Finish_ to move on.
 
 Configure the Logical Volumes in the following manner:
 * root
@@ -101,6 +103,8 @@ Configure the Logical Volumes in the following manner:
 	* File-system: ext4
 * var\_tmp
 	* File-system: ext4
+* lv_swap
+	* File-system: swap
 
 Select the _Finish ..._ option.
 
