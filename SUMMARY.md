@@ -11,4 +11,5 @@
 	* [Workstation](variants/workstation.md)
 * [Services](services/README.md)
 	* [DHCP](services/dhcp.md)
+	* [OpenVPN](services/openvpn.md)
 	* [Transmission](services/transmission.md)
