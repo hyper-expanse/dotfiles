@@ -542,19 +542,6 @@ installBrewPackages()
 			# Allows applications to access some of the more advanced features of the DVD format.
 			brew install libdvdcss
 		fi
-
-		# Download and install weechat, a command-line multi-protocol chat client.
-		if [ `uname -n` == "gateway" ]; then
-			# Required for building cmake, which itself is required for building weechat.
-			brew install bzip2
-
-			# Seems this package isn't capable of accurately determining the OS architecture. Therefore we must pass in a flag that sets the that architecture.
-			# Reference: https://github.com/larsimmisch/homebrew-avr/issues/14
-			brew install gmp --32-bit
-
-			# ncurses-based IRC client.
-			brew install weechat
-		fi
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
 	fi
