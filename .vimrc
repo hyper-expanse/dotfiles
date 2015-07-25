@@ -112,7 +112,7 @@ set printoptions=paper:A4,syntax:y
 " Location to store Vim temporary files.
 set directory=~/.vim/temp
 
-" Set the default language to use for spell checking.
+" Set the default language to use for spell checking. `spelllang` is a comma separated list of word lists. Word lists are of the form LANGUAGE_REGION. The LANGUAGE segment may include a specification, such as `-rare` to indicate rare words in that language.
 setlocal spelllang=en_us
 
 " Create a directory if it doesn't already exist.
