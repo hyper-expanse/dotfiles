@@ -268,6 +268,14 @@ set showmatch
 " Specify how many tenths of a second to blink when matching brackets.
 set mat=2
 
+" Sets title of the shell's containing window to be the value of `titlestring`, if that variable is not empty, or to `filename [+=-] (path) - VIM`.
+" - File cannot be modified.
+" + File has been modified
+" = File is read-only.
+" =+ File is read-only and has been modified.
+" Only works in terminals that support setting the window title.
+set title
+
 " Disable error bells.
 set noerrorbells
 set novisualbell
