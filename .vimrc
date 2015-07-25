@@ -1315,7 +1315,7 @@ let g:tagbar_type_markdown = {
 "====================================================
 " Setup Tern-for-Vim Plugin
 "
-" Setup the tern_for_vim plugin to allow intelligent parsing of JavaScript code for extraction of meta information; such as function argument lists, argument types, object properties, etc.
+" Setup the `tern_for_vim` plugin to allow intelligent parsing of JavaScript code for extraction of meta information; such as function argument lists, argument types, object properties, etc.
 "====================================================
 
 " Display argument type hints when the cursor is left over a function identifier. Type information is displayed in the command/mode line at the bottom of Vim.
