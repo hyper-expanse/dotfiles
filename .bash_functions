@@ -209,7 +209,7 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 
-	UpdateTmux
+	updateTmux
 	updateVim
 }
 
