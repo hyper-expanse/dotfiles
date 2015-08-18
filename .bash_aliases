@@ -78,7 +78,7 @@ alias psmem='ps aux | sort --stable --parallel=2 -k4rh | head -n 5'
 alias pastebinit='pastebinit -b http://paste.ubuntu.com'
 
 # Update a system, global packages and the like, through the use of a single command.
-alias update='sudo aptitude update && sudo aptitude full-upgrade'
+alias update='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
 
 # Connect to the Hyper-Expanse OpenVPN access point.
 alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo openvpn --config ${HOME}/Documents/OpenVPN/client.conf"'
