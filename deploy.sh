@@ -22,6 +22,12 @@ echo "> Symlinking SSH files into the SSH directory (${HOME}/.ssh)."
 mkdir --parents "${HOME}/.ssh"
 ln --symbolic --force "$(pwd)/.ssh/config" "${HOME}/.ssh/config"
 
+# Symlink GNUPG files.
+echo "> Symlinking GNUPG files into GNUPG directory (${HOME}/.gnupg)."
+mkdir --parents "${HOME}/.gnupg"
+ln --symbolic --force "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
+ln --symbolic --force "$(pwd)/.gnupg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
+
 # Symlink third-party scripts into the appropriate directories.
 echo "> Symlinking third-party scripts into the user's home directory (${HOME})."
 mkdir --parents "${HOME}/.vim"
