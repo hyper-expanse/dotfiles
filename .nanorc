@@ -1,0 +1,18 @@
+set autoindent
+unset backup
+set backwards
+set casesensitive
+set const
+set cut
+unset historylog
+unset morespace
+set mouse
+unset noconvert
+unset nonewlines
+set nowrap
+set smarthome
+set smooth
+set regexp
+set tabsize 4
+unset tabstospaces
+set wordbounds
