@@ -407,7 +407,7 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
-		# A collection of useful core libraries and utility programs.
+		# A collection of useful core libraries and utility programs. The `dupes` project contains brew recipes for tools and libraries that are, by default, already on OSX systems. Because we work on a Linux system, we need to add the `dupes` project to our brew installation.
 		brew tap homebrew/dupes
 
 		# COMPILER: Install a compiler toolchain.
