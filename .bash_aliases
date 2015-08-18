@@ -94,3 +94,6 @@ alias createVirtualEnvironment='virtualenv --python=python3 venv'
 
 # Activate the `env` Python virtual environment installed within the local directory.
 alias activateVirtualEnvironment='source ./venv/bin/activate'
+
+# Instruct Celibre to add each sub-directory of the designated directory as a book to the Calibre book database.
+alias addBookDirectories='calibredb add --one-book-per-directory -r'
