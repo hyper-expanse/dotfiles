@@ -1,7 +1,7 @@
 [user]
 	name = Hutson Betts
 	email = hutson@hyper-expanse.net
-	signingkey = A0B0007D
+	signingkey = FDD86D62
 
 [core]
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
