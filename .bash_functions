@@ -511,6 +511,9 @@ installBrewPackages()
 		# Cross-platform, open-source, build system.
 		brew install cmake
 
+		# Download and install Vim, an awesome IDE.
+		brew install vim
+
 		if [ `uname -n` == "startopia" ]; then
 
 			# GNU data recovery tool.
