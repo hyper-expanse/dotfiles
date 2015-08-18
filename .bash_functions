@@ -512,12 +512,6 @@ installBrewPackages()
 		brew install cmake
 
 		if [ `uname -n` == "startopia" ]; then
-			# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
-			brew install readline --env=inherit
-			brew reinstall libffi --env=inherit
-			brew tap mpv-player/mpv
-			brew install --HEAD mpv-player/mpv/libass-ct
-			brew install mpv
 
 			# GNU data recovery tool.
 			brew install ddrescue
