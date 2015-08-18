@@ -511,7 +511,7 @@ installBrewPackages()
 		# Cross-platform, open-source, build system.
 		brew install cmake
 
-		if [ `uname -n` == "mini" ]; then
+		if [ `uname -n` == "startopia" ]; then
 			# Download and install mpv, a multi-codec non-gui video player based on mplayer and mplayer2.
 			brew install readline --env=inherit
 			brew reinstall libffi --env=inherit
