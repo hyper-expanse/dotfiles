@@ -540,7 +540,11 @@ updateBrewPackages ()
 	if command -v brew &> /dev/null; then
 		printf "\n> Updating Brew packages.\n"
 
-		brew upgrade
+		# Update the brew installation.
+		brew update
+
+		# Upgrade all Brew-installed packages.
+		brew upgrade --all
 
 		# Cleanup Linuxbrew installation.
 		brew cleanup -s --force
