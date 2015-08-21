@@ -491,7 +491,7 @@ installBrewPackages()
 		brew install htop
 
 		# Download and install git, a distributed source code management tool. Must include curl as a dependency to correctly compile versions of git on Linux systems.
-		brew install git --with-brewed-curl
+		brew install git --with-brewed-curl --with-brewed-openssl
 
 		# Download and install elinks, a command line browser.
 		brew install elinks
