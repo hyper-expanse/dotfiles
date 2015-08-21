@@ -423,7 +423,7 @@ installBrewPackages()
 			brew install readline --env=inherit
 		fi
 
-		# Install python (2.7), which is required by various other brew builds. (vim)
+		# Install python (2.7), as the header files are required by various other brew builds. (vim)
 		brew install python
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
