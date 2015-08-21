@@ -414,6 +414,11 @@ installBrewPackages()
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl
 
+		# Install tcl, which is required by various other brew builds. (git)
+		# Installing `git` directly without this special step leads to `X11/Xlib.h: No such file or directory`.
+		# The suggested solution is documented here: https://github.com/Homebrew/linuxbrew/issues/369#issuecomment-97549087
+		brew install tcl-tk --without-tk
+
 		# Install python (2.7), as the header files are required by various other brew builds. (vim)
 		brew install python
 
