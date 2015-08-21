@@ -454,11 +454,11 @@ installBrewPackages()
 
 			# Install the latest stable version of Node.
 			nvm install stable
-			installNodePackages
-
-			# Install version v0.10 of Node (which at the time of writing is the old stable version of Node, and the version of Node which most packages were developed, and tested, against last.
-			nvm install v0.10
-			installNodePackages
+			if [ "${?}" -gt 0]; then
+				echo "nvm failed to install stable version of Node."
+			else
+				installNodePackages
+			fi
 
 			# Set stable as our default Node version.
 			nvm use stable
