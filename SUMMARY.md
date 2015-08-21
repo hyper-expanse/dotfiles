@@ -13,3 +13,6 @@
 	* [DHCP](services/dhcp.md)
 	* [OpenVPN](services/openvpn.md)
 	* [Transmission](services/transmission.md)
+* [Tips]
+    * [Networking](tips/networking.md)
+    * [Security Policies](tips/security-policies.md)
