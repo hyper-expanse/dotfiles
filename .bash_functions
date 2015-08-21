@@ -410,15 +410,6 @@ installBrewPackages()
 		# A collection of useful core libraries and utility programs. The `dupes` project contains brew recipes for tools and libraries that are, by default, already on OSX systems. Because we work on a Linux system, we need to add the `dupes` project to our brew installation.
 		brew tap homebrew/dupes
 
-		# COMPILER: Install a compiler toolchain.
-
-			# Temporary until remaining toolchain is setup properly.
-			brew install linux-headers
-
-			brew install zlib
-
-		## COMPILER END
-
 		# Install openssl, which is required by various other brew builds. (git, python)
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl
