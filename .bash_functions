@@ -414,15 +414,6 @@ installBrewPackages()
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl
 
-		# Install ncurses, which is required by various other brew builds. (git)
-		brew install ncurses
-		ln -s ${PREFIX_DIRECTORY}/include/ncursesw/*.h "${PREFIX_DIRECTORY}/include/" # tmux compilation fails "out of the box" with Linuxbrew because the ncurses header files are not available in the `include/` directory. To correct the issue we symlink the header files directly into the `include/` folder.
-
-		# readline is required by python installation, but readline build fails on older Debian systems, such as gateway. Therefore we use the `env` option to enable successful build.
-		if [ `uname -n` == "gateway" ]; then
-			brew install readline --env=inherit
-		fi
-
 		# Install python (2.7), as the header files are required by various other brew builds. (vim)
 		brew install python
 
