@@ -190,10 +190,3 @@ A collection of highly suggested radio stations to be added to Rhythmbox. The ac
 * KUT 1 - News/Talk
 * KUT 2 - Music
 * ThistleRadio - Celtic
-
-## Browser
-
-### Plugins
-
-Install the following plugins:
-* HTTPS Everywhere - Electronic Frontier Foundation
