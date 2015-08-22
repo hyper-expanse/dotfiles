@@ -161,7 +161,7 @@ Once all software updates have been installed, reboot the system. This will ensu
 
 ## Additional System Packages
 
-The following additional packages should be installed onto your system. To install them, run `aptitude install [PACKAGE]`.
+The following additional packages should be installed onto your system. To install them, run `sudo aptitude install [PACKAGE]`.
 
 Packages:
 * apt-listbugs: Will display a list of known issues with packages before they're installed by `aptitude install/full-upgrade`.
