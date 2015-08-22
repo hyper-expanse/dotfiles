@@ -36,7 +36,7 @@ The `atd` service manages both `at` and `batch`. The `cron` and `anacron` task s
 
 ### at and batch Restriction
 
-To restrict user access to the at and batch scheduling systems, create a file called `/etc/at.allow`. If this file exists, at and batch limit access to specific users. Only those users listed in the file may schedule tasks with at and batch.
+To restrict user access to the `at` and `batch` scheduling systems, create a file called `/etc/at.allow`. If this file exists, at and batch limit access to specific users. Only those users listed in the file may schedule tasks with at and batch.
 
 To create a list of authorized accounts, create the following file:
 
@@ -56,7 +56,7 @@ Each facility checks for an `at.allow` file before reading `at.deny`.
 
 ### cron Restriction
 
-To restrict user access to the cron scheduling system, create a file called `/etc/cron.allow`. If this file exists, cron limits access to specific users. Only those users listed in the file may schedule tasks with cron.
+To restrict user access to the `cron` scheduling system, create a file called `/etc/cron.allow`. If this file exists, cron limits access to specific users. Only those users listed in the file may schedule tasks with cron.
 
 To create a list of authorized accounts, create the following file:
 
@@ -71,63 +71,6 @@ root
 ```
 
 If a `/etc/cron.deny` file exists it provides the reverse of cron.allow. It enables all users to access cron, except those whose usernames are listed in `cron.deny`.
-
-### Grub Bootloader Configuration
-
-By default, the boot loader interface is accessible to anyone with physical access to the console: anyone can select and edit any menu entry, and anyone can get direct access to a GRUB shell prompt. However, encrypted password protection using PBKDF2 is available. By enabling a password for Grub, users must enter the password prior to gaining access to the edit menu for boot prompts. As an additional layer of security, Grub allows for those passphrases to be encrypted on the system.
-
-To generate an encrypted password for use by Grub Bootloader:
-
-```bash
-grub-mkpasswd-pbkdf2
-```
-
-The format for an encrypted password entry, placed at the bottom of the file, in `/etc/grub.d/00_header` would look similar to:
-
-```
-cat << EOF
-set superusers=``root''
-password_pbkdf2 root [GRUB-MKPASSWD-PBKDF2 ENCODED PASSPHRASE]
-EOF
-```
-
-Now we must modify the Grub script file that builds the menu options so that it does not require us to authenticate unless we're modifying the actual Grub configuration options. To do this, edit `/etc/grub.d/10_linux`, and change the following line:
-
-From:
-
-```
-CLASS=``--class gnu-linux --class gnu --class os''
-```
-
-To:
-
-```
-CLASS=``--class gnu-linux --class gnu --class os --unrestricted''
-```
-
-**Note:** The addition of `--unrestricted` is the important part.
-
-Lastly, execute the following to re-build the Grub menu:
-
-```bash
-sudo update-grub2
-```
-
-### Grub Bootloader Recovery Protection
-
-For every normal boot option listed within the Grub boot menu, there is a corresponding option for a recovery boot. A recovery boot loads only the minimal services required to provide a functional operating system in which the root user of the system can access a command prompt. However, when the account for the root user had been disabled (A good security practice in of itself), the recovery boot option will allow the user to log into the root account automatically without any password requirement. This could allow an unauthorized person to access the system if they gain remote access to the Grub menu, or physical access to the keyboard of that server. To protect against access to the root account through Grub we will disable the generation of recovery boot options within the Grub boot menu. Even  without recovery mode, the normal boot options can be modified for recovery purposes by using 'E', though editing them will require the root account configured in the previous Grub configuration step.
-
-Uncomment the following line within `/etc/default/grub`:
-
-```
-GRUB_DISABLE_RECOVERY=``true''
-```
-
-Lastly, execute the following to re-build the Grub menu:
-
-```bash
-sudo update-grub2
-```
 
 ### Mount Protection
 
@@ -170,12 +113,6 @@ Edit the following file, `/etc/login.defs`, and change the options so that they 
 	* `PASS_MAX_DAYS 180`
 * `PASS_MIN_DAYS` is how long a user is forced to live with their new password before their allowed to change it again.
 	* `PASS_MIN_DAYS 1`
-* `PASS_WARN_AGE` is the number of days before the password expiration date that the user is warned that their password is about to expire.
-	* `PASS_WARN_AGE 7`
-* `LOGIN_RETRIES` is the number of attempts a user has to enter their password before the account is locked. Once an account is locked, it can only be unlocked by an administrator.
-	* `LOGIN_RETRIES 5`
-* `ENCRYPT_METHOD` is the method used to encrypt the user's password.
-	* `ENCRYPT_METHOD SHA512`
 
 Edit the following file, `/etc/default/useradd`, uncomment the following line and insure the line looks like the one below:
 
@@ -186,9 +123,6 @@ INACTIVE=10
 Meaning of each value:
 * `PASS_MAX_DAYS`: Passwords must expire after 180 days, thereby requiring a new password to be set.
 * `PASS_MIN_DAYS`: Passwords may be changed only once per day at most as indicated by the 1 days between changes.
-* `PASS_WARN_AGE`: A password expiration warning should be given each time a user logs into their account, beginning 7 days prior to the expiration date.
-* `LOGIN_RETRIES`: Number of attempts a user has to enter their password before the account is locked. Once an account is locked, it can only be unlocked by an administrator.
-* `ENCRYPT_METHOD`: The has algorithm used to encrypt the user's password for storage into the in-system password database.
 * `INACTIVE`: Accounts should be locked as a result of inactivity 10 days after the password expires. This action requires an administrator to re-activate the account.
 
 To look at the current state of a user's password expiration information:
@@ -250,26 +184,6 @@ remember=400
 ```
 
 The value of the `remember` parameter is the number of old passwords you want to store for a user. It turns out that there's an internal maximum of 400 previous passwords, so values higher than 400 are all equivalent to 400. Before you complain about this limit, consider that even if your site forces users to change passwords every 30 days, 400 previous passwords represents over 30 years of password history. This is probably sufficient for even the oldest of legacy systems.
-
-### Shell Auto-Logout
-
-It is an important security measure to insure that shell prompts are closed when not being used by a user. By configuring a user's shell to automatically log out after a pre-defined amount of idle time, the amount of time a malicious user could have to come upon the open shell is greatly reduced.
-
-Create the `/etc/profile.d/autologout.sh` file and add the following:
-
-```bash
-#!/usr/bin/env bash
-
-TMOUT=1800
-readonly TMOUT
-export TMOUT
-```
-
-Next, set the permissions of the file so that it can be pulled in as part of the login process:
-
-```bash
-sudo chmod 644 /etc/profile.d/autologout.sh
-```
 
 ### SSH Auto-Logout
 
@@ -349,28 +263,6 @@ SUITE=[DEBIAN VERSION]
 
 Replacing [DEBIAN VERSION] with the version of Debian installed. For example, if running the unstable version of Debian, replace [DEBIAN VERSION] with `SID`.
 
-## Data Destruction
-
-Removing data beyond simple file deletion is the act of destroying the data in a manner that prevents or hinders retrieval or data remanence. Traditional means of deleting a file leave the contents of the file on the disk. Those contents are not destroyed until the operating system overwrites that physical location on the disk. Therefore, after the deletion of a file, there is no assurance that the contents of that file can not later be retrieved. Subsequently, the physical location on disk must be written to in a manner that make retrieval of that original file contents improbable.
-
-Therefore, using the application tool below for data removal is a secure and reliable means to permanently destroy data short of the physical destruction of the disk.
-
-### Package Installation
-
-Packages:
-* scrub
-
-### Data Destruction Process
-
-There are several ways that scrub can be used to make data on a disk nearly impossible to retrieve. As part of a daily routine, and for most information, the standard scrub defaults are sufficient. Those defaults can be used in the manner shown below. For further assurance read the help manual on scrub to learn of more thorough algorithms that can scrub data.
-
-To scrub a file, execute the following command:
-* scrub [FILE NAME]
-
-Additional commands:
-* To remove the file after scrubbing: -r
-* To scrub a file after it has already been scrubbed: -f
-
 ## Default Permissions
 
 Files and directories are typically created on a Unix system with world readable permissions. That means any users on that system, besides the file's owner, can, by default, read the contents of newly created files, even if that user is not the owner, or part of the group assigned to the file.
@@ -395,12 +287,6 @@ Next we edit the PAM configuration file, `/etc/pam.d/common-session`, to force t
 session required	pam_umask.so umask=0027
 ```
 
-## Disable Unnecessary Services
-
-For added security it's best to disable any services on the local machine which are not being used.
-
-Comment out each line in `/etc/inetd.conf` using the character '\#'.
-
 ## Update Host SSH Keys
 
 The host keys for the server need to be updated to use a larger key size for better cryptographic security.
@@ -421,18 +307,3 @@ ssh-keygen -t dsa -b 1024 -f /etc/ssh/ssh_host_dsa_key
 **Note:** When prompted for a password just press `Enter` to make the key passwordless.
 
 **Note:** DSA keys can only be as large as 1024 bits in length. This is a restriction imposed by FIPS 186-2 and enforced by OpenSSL (The manager of SSH keys).
-
-## Security Policies
-
-### SSH
-
-* Key length: 16384
-* Expiration: 5 years
-* Add a note to SSH key: `[NETWORK NAME] FULL NAME <EMAIL> - DATE CREATED`
-
-### SSL
-
-* Key length: 8096
-* Expiration:
-* CA: 10 years
-* Server: 1 year

@@ -1,0 +1,15 @@
+Package: *
+Pin: release o=Debian,a=stable
+Pin-Priority: 700
+
+Package: linux-image-4.1.0-1-amd64
+Pin release o=Debian,a=unstable
+Pin-Priority: 600
+
+Package: firmware-iwlwifi
+Pin release o=Debian,a=unstable
+Pin-Priority: 600
+
+Package: firmware-linux
+Pin release o=Debian,a=unstable
+Pin-Priority: 600
