@@ -124,15 +124,6 @@ After creating and configuring a key, create a revocation certificate so that th
 gpg --output revoke.asc --gen-revoke <keyid>
 ```
 
-## Office Suite
-
-Better than OpenOffice and LibreOffice alternatives since Calligra is written in C++, and only depends on QT and KDE libraries, rather than a Java Runtime Environment.
-
-### Package Installation
-
-Packages:
-* calligra
-
 ## Mail Setup
 
 ### Spam Filter Setup - OPTIONAL
