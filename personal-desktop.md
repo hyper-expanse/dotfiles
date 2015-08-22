@@ -201,13 +201,3 @@ Install the following plugins:
 ## DVD Management
 
 Guide for ripping DVD's to an image file.
-
-## Space - OPTIONAL
-
-Optional applications that focus on space.
-
-### Package Installation
-
-Packages:
-* celestia
-* stellarium
