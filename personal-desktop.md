@@ -197,7 +197,3 @@ A collection of highly suggested radio stations to be added to Rhythmbox. The ac
 
 Install the following plugins:
 * HTTPS Everywhere - Electronic Frontier Foundation
-
-## DVD Management
-
-Guide for ripping DVD's to an image file.
