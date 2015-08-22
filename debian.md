@@ -159,6 +159,8 @@ Choose _Y_ to begin installation of package updates.
 
 Once all software updates have been installed, reboot the system. This will ensure only the latest versions of applications are running.
 
+> Please remember to update your system on a regular basis (such as once a day). The same `update` and `full-upgrade` steps must be carried out in each case.
+
 ## Additional System Packages
 
 The following additional packages should be installed onto your system. To install them, run `sudo aptitude install [PACKAGE]`.
