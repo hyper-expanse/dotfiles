@@ -107,11 +107,6 @@ Create the `~/.gnupg/gpg.conf` configuration file required by GPG clients (Avail
 
 Next, create the configuration file `~/.gnupg/gpg-agent.conf` for the GPG Agent (Available from my [dotfiles]() project).
 
-#### Package Installation
-
-Packages:
-* pinentry-qt4
-
 ### Generating Key
 
 Set all newly created keys with an expiration date 10 years in the future. Set all sub-keys with an expiration date 1 year in the future and then set a calendar event as a reminder when the sub-key needs to be renewed.
