@@ -7,10 +7,6 @@ Packages:
 * openvpn
 * spamassasin
 
-## Sounds
-
-* pulseaudio
-
 ## Display Server
 
 Packages:
@@ -64,6 +60,16 @@ Packages:
 * krecipes: Recipes manager [KDE]
 * kwalletmanager: Secure password waller manager. [KDE]
 * transmission-qt
+
+## Sounds
+
+Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
+
+To install `pulseaudio`:
+
+```bash
+sudo aptitude install pulseaudio
+```
 
 ## Network Manager
 
