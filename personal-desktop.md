@@ -124,34 +124,6 @@ After creating and configuring a key, create a revocation certificate so that th
 gpg --output revoke.asc --gen-revoke <keyid>
 ```
 
-## Mail Setup
-
-### Spam Filter Setup - OPTIONAL
-
-Spamassassin is responsible for filtering e-mail when requested by an e-mail client. It learns a set of filtering rules as established by user filtered junk mail.
-
-**Note:** This section only needs to be followed if the mail application used will be using Spamassassin in daemon-mode rather than directly. Kmail uses Spamassassin directly, and therefore this section is not required.
-
-Edit `/etc/default/spamassassin` and set the zeros, `0`, to ones, `1`.
-
-Start the SpamAssassin service:
-
-```bash
-sudo /etc/init.d/spamassassin start
-```
-
-### ClamAV Filter Setup - OPTIONAL
-
-ClamAV can be used for scanning e-mail attachments for standard Windows virus' based on virus signatures.
-
-**Note:** This section only needs to be followed if the mail application used will be using ClamAV in daemon-mode rather than directly. Kmail uses ClamAV directly, and therefore this section is not required.
-
-Create a filtering script at `~/.clamav-filter`:
-
-\lstinputlisting{src/home/.clamav-filter}
-
-Add a message filter to Evolution that filters all e-mail by this script and moves detected viruses (a return of 1) to a Virus folder.
-
 ## KeePassX
 
 KeePassX is a tool for storing key/pair values securely in an encrypted vault.
