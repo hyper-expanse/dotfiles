@@ -198,18 +198,6 @@ A collection of highly suggested radio stations to be added to Rhythmbox. The ac
 Install the following plugins:
 * HTTPS Everywhere - Electronic Frontier Foundation
 
-## Taskbar Modifications
-
-Additional changes need to be made to the taskbar to enhance the working experience.
-
-Add Chromium to the task bar.
-
-Then right click and add the following right before ``%U'' in the Command input option:
-
-```
---incognito
-```
-
 ## DVD Management
 
 Guide for ripping DVD's to an image file.
