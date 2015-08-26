@@ -185,7 +185,6 @@ setupEnvironment ()
 	setupLinuxbrew
 	setupPIP
 	setupTmux
-	setupVim
 
 	# Install general tools.
 	installBrewPackages
@@ -302,28 +301,6 @@ setupTmux ()
 	fi
 }
 
-#! Setup the command line editor Vim.
-# Install and configure Vim and the environment in which it will run.
-setupVim ()
-{
-	if command -v git &> /dev/null; then
-		printf "\n> Cloning Vundle for Vim plugin management.\n"
-
-		# Create the initial bundle directory that will be required for storing Vim plugins.
-		mkdir --parents "${HOME}/.vim/bundle/vundle"
-
-		# If the requested command fails, exit rather than attempt to execute further commands.
-		if [ "${?}" -gt 0 ]; then
-			return
-		fi
-
-		# Clone the required Vundle plugin into the newly created bundle directory.
-		git clone https://github.com/gmarik/Vundle.vim.git ${HOME}/.vim/bundle/vundle --quiet --depth 1
-	else
-		printf "\n> ERROR: `git` is required for setting up Vundle, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupVim`.\n"
-	fi
-}
-
 #! Update Linuxbrew environment.
 # Update the Linuxbrew installation. This includes doing the following:
 # 1) Pull down the latest commit from Linuxbrew's remote repository.
@@ -386,17 +363,9 @@ updateVim ()
 
 	# Update Vim plugins.
 	if command -v vim &> /dev/null; then
-		vim +PluginClean! +PluginInstall! +qa
+		vim +PlugUpgrade +PlugClean! +PlugUpdate +qa
 	else
 		printf "\n> ERROR: `vim` is required for updating Vim's plugins, but it's not available in your PATH. Please install `vim` and ensure it's in your PATH. Then re-run `updateVim`.\n"
-	fi
-
-	# Once the tern_for_vim plugin has been installed via the previous Vim plugin step we'll still need to download the plugin's required runtime dependencies. To accomplish this we jump into the plugin's directory and run `npm install`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
-	if command -v npm &> /dev/null; then
-		local currentDirectory=`pwd`
-		cd "${HOME}/.vim/bundle/tern_for_vim" && npm install && cd ${currentDirectory}
-	else
-		printf "\n> ERROR: `npm` is required for installing Tern runtime dependencies, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `updateVim`.\n"
 	fi
 }
 

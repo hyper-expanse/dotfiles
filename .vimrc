@@ -57,8 +57,8 @@ set autoread
 " Set 'nocompatible' to prevent backwards compatibility with Vi, thereby enabling features specific to Vim.
 set nocompatible
 
-" Disable filetype detection as per Vundle's requirements.
-filetype off
+" Enable filetype detection (via file name and content inspection).
+filetype on
 
 " Enable filetype for the inclusion of plugins that are file type specific.
 filetype plugin on
@@ -131,7 +131,6 @@ function! EnsureDirectoryExists(directory)
 		" Ensure `mkdir` exists on the system or otherwise we can't create the directory automatically.
 		if exists('*mkdir')
 			call mkdir(l:path,'p')
-			echomsg "Created directory: " . l:path
 		else
 			echoerr "Please create directory: " . l:path
 		endif
@@ -141,51 +140,53 @@ function! EnsureDirectoryExists(directory)
 endfunction
 
 "====================================================
-" Setup Vundle Plugin
+" Setup vim-plug Plugin
 "
-" Setup the Vundle plugin so that it's aware of external plugins we're interested in incorporating into our Vim instance. Vundle will manage those plugins by pulling in updates and placing them in the appropriate Vim directory.
+" Setup the vim-plug plugin so that it's aware of external plugins we're interested in incorporating into our Vim instance. vim-plug will manage those plugins by pulling in updates and placing them in the appropriate Vim directory.
 "
-" Note: Vundle-managed plugins MUST be listed before any configuration steps involving these plugins can take place.
+" Note: Plugins MUST be listed before any configuration steps involving these plugins can take place.
 "====================================================
 
-" Add Vundle to Vim's runtime PATH.
-if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/vundle/
+" We must ensure that the `autoload` directory exists within our `~/.vim` directory for the installation of `vim-plug` to work. If the `autoload` directory does not exist prior to invoking `curl`, `curl` will fail to download the file, as `curl` is not setup to create missing directories in the destination path.
+call EnsureDirectoryExists($HOME . '/.vim/autoload')
+if empty(glob('~/.vim/autoload/plug.vim'))
+	" If vim-plug has not been downloaded into Vim's autoload directory, go ahead and invoke `curl` to download vim-plug.
+	silent execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-" Initialize Vundle.
-call vundle#rc()
+call plug#begin()
 
-" Main Vundle plugin repository.
-Plugin 'https://github.com/gmarik/vundle'
+Plug 'https://github.com/kien/ctrlp.vim.git'
+Plug 'https://github.com/gregsexton/gitv.git'
+Plug 'https://github.com/nanotech/jellybeans.vim.git'
+Plug 'https://github.com/vim-scripts/jQuery.git'
+Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
+Plug 'https://github.com/scrooloose/syntastic.git'
+Plug 'https://github.com/majutsushi/tagbar.git'
+Plug 'https://github.com/edkolev/tmuxline.vim.git'
+Plug 'https://github.com/mbbill/undotree.git'
+Plug 'https://github.com/bling/vim-airline.git'
+Plug 'https://github.com/vim-scripts/L9.git' | Plug 'https://github.com/othree/vim-autocomplpop.git'
+Plug 'https://github.com/derekwyatt/vim-fswitch.git'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Plug 'https://github.com/jelera/vim-javascript-syntax.git'
+Plug 'https://github.com/heavenshell/vim-jsdoc.git'
+Plug 'https://github.com/elzr/vim-json.git'
+Plug 'https://github.com/dbakker/vim-lint.git'
+Plug 'https://github.com/phleet/vim-mercenary.git'
+Plug 'https://github.com/kana/vim-scratch.git'
+Plug 'https://github.com/mhinz/vim-signify.git'
+Plug 'https://github.com/tmux-plugins/vim-tmux.git'
+Plug 'https://github.com/benmills/vimux.git'
 
-" All other plugins.
-Plugin 'https://github.com/kien/ctrlp.vim.git'
-Plugin 'https://github.com/gregsexton/gitv.git'
-Plugin 'https://github.com/nanotech/jellybeans.vim.git'
-Plugin 'https://github.com/vim-scripts/jQuery.git'
-Plugin 'https://github.com/vim-scripts/OmniCppComplete.git'
-Plugin 'https://github.com/scrooloose/syntastic.git'
-Plugin 'https://github.com/majutsushi/tagbar.git'
-Plugin 'https://github.com/marijnh/tern_for_vim.git'
-Plugin 'https://github.com/edkolev/tmuxline.vim.git'
-Plugin 'https://github.com/mbbill/undotree.git'
-Plugin 'https://github.com/bling/vim-airline.git'
-Plugin 'https://github.com/othree/vim-autocomplpop.git'
-	" Required by vim-autocomplpop.
-	Plugin 'https://github.com/vim-scripts/L9.git'
-Plugin 'https://github.com/derekwyatt/vim-fswitch.git'
-Plugin 'https://github.com/tpope/vim-fugitive.git'
-Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
-Plugin 'https://github.com/jelera/vim-javascript-syntax.git'
-Plugin 'https://github.com/heavenshell/vim-jsdoc.git'
-Plugin 'https://github.com/elzr/vim-json.git'
-Plugin 'https://github.com/dbakker/vim-lint.git'
-Plugin 'https://github.com/phleet/vim-mercenary.git'
-Plugin 'https://github.com/kana/vim-scratch.git'
-Plugin 'https://github.com/mhinz/vim-signify.git'
-Plugin 'https://github.com/tmux-plugins/vim-tmux.git'
-Plugin 'https://github.com/benmills/vimux.git'
+" JavaScript Plugins
+
+" We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
+Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
+
+" Add plugins to Vim's `runtimepath`.
+call plug#end()
 
 "====================================================
 " User Interface
@@ -1050,12 +1051,6 @@ inoremap <silent> <F5> <ESC>:call UpdateTags()<CR>i
 vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 
 "====================================================
-" Setup Vundle-based Plugins
-"
-" Each section below is designated to setting up and configuring a specific plugin pulled in by Vundle.
-"====================================================
-
-"====================================================
 " Setup CtrlP Plugin
 "
 " Setup for a tool that allows for fuzzy matching on file names within the current directory, or parent directory containing a repository directory, or against opened buffers, or MRU (Most Recently Used) files.
@@ -1344,8 +1339,8 @@ let g:tmuxline_preset = 'full'
 " Inform Vim to expect a dark terminal background. This will cause Vim to compensate by altering the color scheme.
 set background=dark
 
-" Set Vim's color scheme.
-colorscheme jellybeans
+" Set Vim's color scheme. We purposely silence any failure notification if the desired colorscheme can't be loaded by Vim. If Vim is unable to load the desired colorscheme, it will be quite apparent to the user. By silencing error messages we gain the ability to automate tasks, such as installing plugins for the first time, that would otherwise block if an error message was displayed because the desired colorscheme wasn't available.
+silent! colorscheme jellybeans
 
 "====================================================
 " Spellcheck Highlighting
