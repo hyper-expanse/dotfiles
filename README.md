@@ -11,16 +11,20 @@ Installation is as simple as copying these files into your home directory, or cl
 Clone the repository to a suitable location:
 
 ```bash
-git clone https://github.com/hbetts/dotfiles.git
+git clone https://github.com/hbetts/dotfiles.git ${HOME}/.dotfiles
 ```
 
 Navigate into the directory containing the cloned repository. Once there, run the deployment script to symlink the files into your home directory. The symbolic links will have names matching the names of the files in the repository.
 
 ```bash
-bash deploy.sh
+sh deploy.sh"
 ```
 
-**Note:** Directories in this repository will not be symlinked, nor will the files contained within them. You will need to symlink those files yourself.
+Once deployed the `${HOME}/.profile` script will need to be sourced, just once, to expose the scripts contained within the dotfiles repository. To source the profile script run the following command:
+
+```bash
+setupEnvironment
+```
 
 ## Cheat sheats
 
