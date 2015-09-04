@@ -83,9 +83,6 @@ alias update='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitud
 # Connect to the Hyper-Expanse OpenVPN access point.
 alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo openvpn --config ${HOME}/Documents/OpenVPN/client.conf"'
 
-# Run a custom backup script to backup the system to an external server.
-alias backup='bash ${HOME}/Resources/Scripts/backup.sh'
-
 # Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY}'
 
