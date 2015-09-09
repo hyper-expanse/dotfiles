@@ -517,7 +517,7 @@ installNodePackages ()
 		npm install -g npm
 
 		# Required to render GitBook books.
-		npm install -g gitbook
+		npm install -g gitbook-cli
 
 		# Required by vimrc to enable Syntastic checking for JavaScript files.
 		npm install -g jscs
