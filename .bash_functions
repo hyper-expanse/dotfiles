@@ -535,9 +535,6 @@ installNodePackages ()
 		# CLI tool required to run Yeoman generators that scaffold projects.
 		npm install -g yo
 
-		# CLI tool for bootstrapping Ember applications.
-		npm install -g ember-cli
-
 		# Developer tools for debugging NodeJS applications.
 		npm install -g node-inspector
 
