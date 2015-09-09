@@ -522,6 +522,7 @@ installNodePackages ()
 		# Required by vimrc to enable Syntastic checking for JavaScript files.
 		npm install -g jscs
 		npm install -g jshint
+		npm install -g eslint
 
 		# Required by vimrc to enable Syntastic checking for JSON files.
 		npm install -g jsonlint
