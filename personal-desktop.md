@@ -151,4 +151,4 @@ A collection of highly suggested radio stations to be added to Rhythmbox. The ac
 * KHCB: Christian Radio (16k/11 khz)
 * KUT 1 - News/Talk
 * KUT 2 - Music
-* ThistleRadio - Celtic
+* Thistle Radio - Celtic - [Online Stream Information](http://somafm.com/thistle/)
