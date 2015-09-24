@@ -61,6 +61,7 @@ Packages:
 * korganizer: Calendar and personal organizer. [KDE- Kontact]
 * krecipes: Recipes manager [KDE]
 * kwalletmanager: Secure password waller manager. [KDE]
+* luckybackup: File backup utility.
 * okular: PDF viewer.
 * transmission-qt
 
