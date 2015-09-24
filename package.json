@@ -2,9 +2,9 @@
   "name": "hyper-expanse-configuration",
   "version": "1.0.0",
   "description": "Configuration guide for the Hyper-Expanse network.",
-  "main": "README.md",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gitbook build ./",
+    "start": "gitbook serve ./ -p ${PORT:-8000}"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/hbetts/hyper-expanse-configuration",
   "dependencies": {
-    "gitbook": "^1.5.0"
+    "gitbook-cli": "^0.3.6"
   }
 }
