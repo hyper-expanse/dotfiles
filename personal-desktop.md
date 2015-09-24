@@ -63,7 +63,7 @@ Packages:
 * kwalletmanager: Secure password waller manager. [KDE]
 * luckybackup: File backup utility.
 * okular: PDF viewer.
-* transmission-qt
+* transmission-qt: Qt front-end for the transmission instant messaging framework.
 
 ## Sounds
 
