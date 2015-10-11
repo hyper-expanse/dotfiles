@@ -516,9 +516,6 @@ installNodePackages ()
 		# Update the version of `npm` installed in our environment.
 		npm install -g npm
 
-		# Required to render GitBook books.
-		npm install -g gitbook-cli
-
 		# Required by vimrc to enable Syntastic checking for JavaScript files.
 		npm install -g jscs
 		npm install -g jshint
@@ -538,9 +535,6 @@ installNodePackages ()
 
 		# Developer tools for debugging NodeJS applications.
 		npm install -g node-inspector
-
-		# Workshop on using npm to manage, and publish, packages.
-		npm install -g how-to-npm
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
