@@ -92,3 +92,6 @@
 
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
+
+	# Setup the local working directory by checking out the master branch, and then reseting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `upstream` remote. If you rely on the default behavior, but the local working directory does not have an `upstream` remote, then this command will fail.
+	setup = "!sh -c 'git checkout master && git fetch ${1:-upstream} && git reset --hard ${1:-upstream}/master && git clean -Xdf' -"
