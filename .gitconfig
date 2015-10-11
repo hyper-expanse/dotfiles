@@ -88,7 +88,8 @@
 	# * stash clear - Clear the stash, deleting any stashed changes for this repository.
 	# * clean -X - Remove all files ignored by Git through the use of Git's `.gitignore` file. Useful for cleaning out build artifacts.
 	# * gc - Compress file revisions (which will reduce disk space consumption and improve performance), and remove unreachable objects. The `--aggressive` option is used to instruct Git to be more aggressive in cleaning, at the expense of more time.
-	cleanup = "!git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive"
+	# * branch --merged - Remove all local, and remote, branches that have been successfully merged into the current checked out local branch.
+	cleanup = "!git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v '*' | grep -v master | xargs -n 1 -I _branch sh -c 'git branch -D _branch; git push origin :refs/heads/_branch;'"
 
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
