@@ -178,7 +178,6 @@ Plug 'https://github.com/phleet/vim-mercenary.git'
 Plug 'https://github.com/kana/vim-scratch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'https://github.com/tmux-plugins/vim-tmux.git'
-Plug 'https://github.com/benmills/vimux.git'
 
 " JavaScript Plugins
 
