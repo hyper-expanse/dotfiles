@@ -31,6 +31,7 @@
 " > Proper syntax highlighting of .tmux.conf, and `man tmux` integration.
 "
 " `K` will jump to exact location in `man tmux` for the word under the cursor.
+" `g!` executes line as a tmux command.
 "
 "====================================================
 
