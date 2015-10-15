@@ -306,8 +306,8 @@ set scrolloff=3
 " Disable the highlighting of the column on which the cursor currently resides. When enabled, this feature is useful for the purpose of aligning text, but it's a performance hindrance.
 set nocursorcolumn
 
-" Disable the highlighting of the line, row, on which the cursor currently resides. When enabled, this feature is only useful for quickly determining the line on which the cursor resides in a large body of text.
-set nocursorline
+" Enable the highlighting of the row on which the cursor resides, along with highlighting the row's row number.
+set cursorline
 
 " Set the minimum number of lines to search around the cursor's position to derive the appropriate syntax highlighting.
 syntax sync minlines=256
