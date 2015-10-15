@@ -1056,7 +1056,7 @@ inoremap <silent> <F5> <ESC>:call UpdateTags()<CR>i
 vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 
 "====================================================
-" Setup CtrlP Plugin
+" Setup ctrlp Plugin
 "
 " Setup for a tool that allows for fuzzy matching on file names within the current directory, or parent directory containing a repository directory, or against opened buffers, or MRU (Most Recently Used) files.
 "====================================================
@@ -1089,7 +1089,7 @@ let g:ctrlp_max_files = 10000
 let g:ctrlp_show_hidden = 1
 
 "====================================================
-" Setup JQuery Plugin
+" Setup jQuery Plugin
 "
 " Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
 "====================================================
@@ -1101,7 +1101,7 @@ augroup jquerySupport
 augroup END
 
 "====================================================
-" Setup Vim-Airline Plugin
+" Setup vim-airline Plugin
 "
 " Setup for a vim-airline environment so that the environment will look and behave in the desired way.
 "====================================================
@@ -1119,7 +1119,7 @@ endif
 let g:airline_symbols.space = "\ua0"
 
 "====================================================
-" Setup FSwitch Plugin
+" Setup vim-fswitch Plugin
 "
 " Setup for an integrated tool that can switch between companion files, such as *.cxx and *.h. Furthermore, it allows for the quick creation of companion files, when they don't already exist, in a pre-defined location.
 "====================================================
@@ -1143,7 +1143,7 @@ map <silent> <F2> <ESC>:FSSplitRight<CR>
 map! <silent> <F2> <ESC>:FSSplitRight<CR>
 
 "====================================================
-" Setup Fugitive Plugin
+" Setup vim-fugitive Plugin
 "
 " Setup for an integrated git tool that allows for the management (clone, checkout, branch, add, .etc) of git repositories from within Vim.
 "====================================================
@@ -1155,7 +1155,7 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 " Others...
 
 "====================================================
-" Setup Indent Guides Plugin
+" Setup vim-indent-guides Plugin
 "
 " Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentation level.
 "====================================================
@@ -1170,7 +1170,7 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
 "====================================================
-" Setup JavaScript Syntax Plugin
+" Setup vim-javascript-syntax Plugin
 "
 " Setup for JavaScript Syntax plugin to place special color highlighting to the left of code to indicate indentation level.
 "====================================================
@@ -1183,7 +1183,7 @@ augroup javascriptFolding
 augroup END
 
 "====================================================
-" Setup JsDoc Plugin
+" Setup vim-jsdoc Plugin
 "
 " Setup for JsDoc plugin to build documentation for a function based on context information and user input.
 "====================================================
@@ -1201,7 +1201,7 @@ let g:jsdoc_underscore_private = 1
 let g:jsdoc_allow_shorthand = 1
 
 "====================================================
-" Setup JSON Plugin
+" Setup vim-json Plugin
 "
 " Setup for working with JSON files, including proper syntax highlighting and error detection.
 "====================================================
@@ -1210,7 +1210,7 @@ let g:jsdoc_allow_shorthand = 1
 let g:vim_json_syntax_conceal = 0
 
 "====================================================
-" Setup Scratch Plugin
+" Setup vim-scratch Plugin
 "
 " Setup for a scratch utility that generates scratch buffers, un-savable buffers, on request.
 "====================================================
@@ -1225,7 +1225,7 @@ let g:vim_json_syntax_conceal = 0
 "	:q
 
 "====================================================
-" Setup Signify Plugin
+" Setup vim-signify Plugin
 "
 " Setup for the Signify plugin that adds the +, -, and ~ characters in the "gutter", a.k.a left sidebar, of Vim to indicate when lines have been added, removed, or modified as compared against a file managed by a VCS.
 "====================================================
@@ -1253,7 +1253,7 @@ let g:signify_sign_change = '~'
 let g:signify_diffoptions = { 'git': 'HEAD' }
 
 "====================================================
-" Setup Syntastic Plugin
+" Setup syntastic Plugin
 "
 " Setup for the Syntastic plugin so that it knows how to behave for each software language filetype. Additional configuration can be included in this section to, for example, specify the tool that should be used to check a particular filetype for lint issues.
 "====================================================
@@ -1284,7 +1284,7 @@ let g:syntastic_python_checkers = ['pep8', 'pylint']
 let g:syntastic_yaml_checkers = ['jsyaml']
 
 "====================================================
-" Setup Tagbar Plugin
+" Setup tagbar Plugin
 "
 " Setup for Tagbar allowing a sidebar to display Ctags relevant to the current file.
 "====================================================
@@ -1313,7 +1313,7 @@ let g:tagbar_type_markdown = {
 \ }
 
 "====================================================
-" Setup Tern-for-Vim Plugin
+" Setup tern_for_vim Plugin
 "
 " Setup the `tern_for_vim` plugin to allow intelligent parsing of JavaScript code for extraction of meta information; such as function argument lists, argument types, object properties, etc.
 "====================================================
@@ -1325,7 +1325,7 @@ let g:tern_show_argument_hints = 'on_hold'
 let g:tern_map_keys = 1
 
 "====================================================
-" Setup Tmuxline Plugin
+" Setup tmuxline Plugin
 "
 " Setup for Tmuxline to enable a Powerline line like status line for TMUX, but using Vim to manage the setup and configuration.
 "====================================================
