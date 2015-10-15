@@ -27,6 +27,11 @@
 "
 " `:JsDoc` or `CTRL + l` on function signature line.
 "
+" vim-tmux
+" > Proper syntax highlighting of .tmux.conf, and `man tmux` integration.
+"
+" `K` will jump to exact location in `man tmux` for the word under the cursor.
+"
 "====================================================
 
 "====================================================
