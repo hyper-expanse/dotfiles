@@ -406,14 +406,14 @@ endif
 set autoindent
 "set cindent "< Probably should not use 'smartindent', a.k.a. 'cindent', with filetype indent feature enabled. Should only be set manually, enabled, when filetype-based indention is not adequate. 'cindent' is only appropriate for c-style languages.
 
-" Set width of a tab in terms of columns.
-set tabstop=4
+" Number of spaces Vim should use to visually represent a TAB character when encountered within a file.
+set tabstop=2
 
-" Set indents width in terms of columns.
-set shiftwidth=4
+" Number of spaces Vim should use when autoindenting a new line of text, or when using the `<<` and `>>` operations (Such as pressing > or < while text is selected to change the indentation of the text). Also used by `cindent` when that option is enabled.
+set shiftwidth=2
 
-" Instruct the backspace key to treat this number of spaces as a tab. This allows for a single backspace to go back this many white space characters.
-set softtabstop=4
+" Number of spaces Vim should insert when TAB is pressed, and the number of spaces Vim should remove when the <backspace> is pressed. This allows for a single backspace to go back this many white space characters.
+set softtabstop=2
 
 " Enable smart use of tabs.
 set smarttab
@@ -421,7 +421,7 @@ set smarttab
 " Copy the structure of the existing lines indent when autoindenting a new line.
 set copyindent
 
-" Causes spaces to be inserted in place of tabs when the Tab key is pressed. To disable this behavior and enable the insertion of tabs when the Tab key is pressed, comment out this option.
+" Causes spaces to be inserted in place of tabs when the TAB key is pressed. To disable this behavior and enable the insertion of tabs when the Tab key is pressed, comment out this option.
 "set expandtab
 
 " Enable special display options to show tabs and end-of-line characters within a non-GUI window. Tabs are represented using '>-' and a sequence of '-'s that will fill out to match the proper width of a tab. End-of-line is represented by a dollar sign '$'. Displaying tabs as '>-' and end-of-lines as '$'. Trailing white space is represented by '~'. Must be toggled by a mapping to ':set list!'.
@@ -777,7 +777,7 @@ vnoremap <silent> <C-D> <ESC><C-]>
 " Useful mappings for insert mode.
 "====================================================
 
-" Map the <tab> key such that pressing <tab> while the auto-complete menu is displayed causes the selected item from the menu to iterate to the next item. This effectively causes the <tab> key to act as the next button (or down arrow key). The <tab> key substitutes for the existing support afforded by CTRL+n.
+" Map the TAB key such that pressing TAB while the auto-complete menu is displayed causes the selected item from the menu to iterate to the next item. This effectively causes the TAB key to act as the next button (or down arrow key). The TAB key substitutes for the existing support afforded by CTRL+n.
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-g>u\<Tab>"
 
 "====================================================
