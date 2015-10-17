@@ -58,6 +58,7 @@ Packages:
 * kmail: Full featured graphical email client. [KDE - Kontact]
 * kmix: Volume control and mixer. [KDE]
 * kmymoney: KMyMoney is the Personal Finance Manager. [KDE]
+* konversation: GUI IRC client. [KDE]
 * korganizer: Calendar and personal organizer. [KDE- Kontact]
 * krecipes: Recipes manager [KDE]
 * kwalletmanager: Secure password waller manager. [KDE]
