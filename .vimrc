@@ -427,7 +427,11 @@ set smarttab
 set copyindent
 
 " Causes spaces to be inserted in place of tabs when the TAB key is pressed. To disable this behavior and enable the insertion of tabs when the Tab key is pressed, comment out this option.
-"set expandtab
+augroup expand
+	autocmd!
+
+	autocmd Filetype javascript setlocal expandtab
+augroup END
 
 " Enable special display options to show tabs and end-of-line characters within a non-GUI window. Tabs are represented using '>-' and a sequence of '-'s that will fill out to match the proper width of a tab. End-of-line is represented by a dollar sign '$'. Displaying tabs as '>-' and end-of-lines as '$'. Trailing white space is represented by '~'. Must be toggled by a mapping to ':set list!'.
 set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
