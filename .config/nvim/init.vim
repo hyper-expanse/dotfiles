@@ -165,7 +165,6 @@ call plug#begin()
 Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'https://github.com/gregsexton/gitv.git'
 Plug 'https://github.com/nanotech/jellybeans.vim.git'
-Plug 'https://github.com/vim-scripts/jQuery.git'
 Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
@@ -1083,18 +1082,6 @@ let g:ctrlp_max_files = 10000
 
 " Set the option to require CtrlP to scan for dotfiles and dotdirs.
 let g:ctrlp_show_hidden = 1
-
-"====================================================
-" Setup jQuery Plugin
-"
-" Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
-"====================================================
-
-augroup jquerySupport
-	autocmd!
-
-	autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-augroup END
 
 "====================================================
 " Setup vim-airline Plugin
