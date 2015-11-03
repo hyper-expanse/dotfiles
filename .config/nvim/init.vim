@@ -360,7 +360,9 @@ call EnsureDirectoryExists($HOME . '/.vim/backups')
 "====================================================
 
 " Setup Vim to use the operating system's native clipboard for all copy and paste operations. This will allow content to be copied and pasted between Vim and other system applications.
-if has('clipboard')
+if has('nvim')
+	" Noop
+elseif has('clipboard')
 	" Set Vim to use the system clipboard, available through the * registry, by default for all copy and paste operations.
 	set clipboard=unnamed
 elseif has('xterm_clipboard')
