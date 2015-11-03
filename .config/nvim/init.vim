@@ -428,13 +428,6 @@ set smarttab
 " Copy the structure of the existing lines indent when autoindenting a new line.
 set copyindent
 
-" Causes spaces to be inserted in place of tabs when the TAB key is pressed. To disable this behavior and enable the insertion of tabs when the Tab key is pressed, comment out this option.
-augroup expand
-	autocmd!
-
-	autocmd Filetype javascript setlocal expandtab
-augroup END
-
 " Enable special display options to show tabs and end-of-line characters within a non-GUI window. Tabs are represented using '>-' and a sequence of '-'s that will fill out to match the proper width of a tab. End-of-line is represented by a dollar sign '$'. Displaying tabs as '>-' and end-of-lines as '$'. Trailing white space is represented by '~'. Must be toggled by a mapping to ':set list!'.
 set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 
@@ -494,6 +487,15 @@ set statusline+=\ [%{strlen(&fenc)?&fenc:'none'}]	" File encoding, such as [utf-
 set statusline+=\ [%{strlen(&ff)?&ff:'unknown'}]	" File format, such as [unix] or [dos].
 set statusline+=\ [Column:\ %3v]	" Virtual column number that is independent of the total byte count of all characters up to that point. Padd with up to 3 invisible characters.
 set statusline+=\ [Line:\ %4l\/%L]	" Current line number out of '%L' lines in the current buffer. Pass with up to 4 invisible characters.
+
+"====================================================
+" Per-language Setup
+"
+" Scripts for configuring behavior on a per-language basis.
+"====================================================
+
+" Source JavaScript configuration.
+source ~/.config/nvim/javascript.vim
 
 "====================================================
 " Helper Functions
@@ -991,18 +993,6 @@ augroup phpSupport
 
 	" Instruct Vim to treat *.phtml files as PHP source code files.
 	autocmd BufNewFile,BufRead *.phtml set syntax=php
-augroup END
-
-" JAVASCRIPT SUPPORT.
-
-augroup javascriptSupport
-	autocmd!
-
-	" Enable JavaScript Omni Complete on JavaScript files.
-	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-
-	" Set the initial fold level for JavaScript files to level 2, rather than the default of maximum folding, a.k.a. level 1. Most JavaScript files begin with `define([], function () {});`. That syntax would, under the default fold level, cause the entire file to be folded into a single line. That level of folding hides everything meaningful, such as functions and objects defined within the confines of a `define` wrapper.
-	autocmd FileType javascript set foldlevel=2
 augroup END
 
 " HTML SUPPORT.
