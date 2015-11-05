@@ -26,14 +26,14 @@ Once deployed the `${HOME}/.profile` script will need to be sourced, just once, 
 setupEnvironment
 ```
 
-## Cheat sheats
+## Guides
 
-Tmux
+### Tmux
 
-* http://stevehhh.com/tmux-quick-reference/
-* https://gist.github.com/afair/3489752
+* General reference for Tmux: http://stevehhh.com/tmux-quick-reference/
+* TMUX Cheat Sheet: https://gist.github.com/afair/3489752
 
-Vim
+### Vim
 
 * http://tnerual.eriogerg.free.fr/vim.html
 * http://michael.peopleofhonoronly.com/vim/
