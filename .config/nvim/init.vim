@@ -496,6 +496,9 @@ set statusline+=\ [Line:\ %4l\/%L]	" Current line number out of '%L' lines in th
 " Source JavaScript configuration.
 source ~/.config/nvim/javascript.vim
 
+" Source JSON configuration.
+source ~/.config/nvim/json.vim
+
 "====================================================
 " Helper Functions
 "
@@ -1020,15 +1023,6 @@ augroup markdownSupport
 	" Instruct Vim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because Vim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
 	autocmd BufRead,BufNewFile *.{md} set filetype=markdown
 	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
-augroup END
-
-" JSON SUPPORT
-
-augroup jsonSupport
-	autocmd!
-
-	" Instruct Vim to treat files ending in the following extension as JSON files. This must be done within our vimrc file because Vim's runtime files treat *.json files as JavaScript files; thereby applying unexpected syntax highlighting, and attempting to apply JavaScript style rules to JSON content (Which already has a well defined set of rules).
-	autocmd BufRead,BufNewFile *.{json} set filetype=json
 augroup END
 
 " OTHER SUPPORT.

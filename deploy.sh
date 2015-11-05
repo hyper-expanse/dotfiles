@@ -33,6 +33,7 @@ echo "> Symlinking NeoVim/Vim files into config directory (${HOME}/.config/nvim)
 mkdir --parents "${HOME}/.config/nvim"
 ln --symbolic --force "$(pwd)/.config/nvim/init.vim" "${HOME}/.config/nvim/init.vim"
 ln --symbolic --force "$(pwd)/.config/nvim/javascript.vim" "${HOME}/.config/nvim/javascript.vim"
+ln --symbolic --force "$(pwd)/.config/nvim/json.vim" "${HOME}/.config/nvim/json.vim"
 ln --symbolic --force "$(pwd)/.config/nvim/init.vim" "${HOME}/.vimrc"
 
 # Symlink third-party scripts into the appropriate directories.
