@@ -36,7 +36,7 @@ augroup END
 "====================================================
 
 " Enable JavaScript code folding using the vim-javascript-syntax plugin.
-augroup javascriptFolding
+augroup javascript-folding
 	autocmd!
 
 	autocmd FileType javascript call JavaScriptFold()
