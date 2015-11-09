@@ -13,3 +13,19 @@ augroup json-fold
 	" Set the initial fold level for JSON files to level 2.
 	autocmd FileType json set foldlevel=1
 augroup END
+
+"====================================================
+" Setup vim-json Plugin
+"
+" Setup for working with JSON files, including proper syntax highlighting and error detection.
+"====================================================
+
+" Disable concealment of double quotes within JSON files.
+let g:vim_json_syntax_conceal = 0
+
+"====================================================
+" Setup syntastic Plugin
+"====================================================
+
+" Set our preferred JSON validator to JSONLint.
+let g:syntastic_json_checkers = [ 'jsonlint' ]

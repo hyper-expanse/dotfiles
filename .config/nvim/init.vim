@@ -1163,15 +1163,6 @@ let g:jsdoc_underscore_private = 1
 let g:jsdoc_allow_shorthand = 1
 
 "====================================================
-" Setup vim-json Plugin
-"
-" Setup for working with JSON files, including proper syntax highlighting and error detection.
-"====================================================
-
-" Disable concealment of double quotes within JSON files.
-let g:vim_json_syntax_conceal = 0
-
-"====================================================
 " Setup vim-scratch Plugin
 "
 " Setup for a scratch utility that generates scratch buffers, un-savable buffers, on request.
@@ -1224,11 +1215,6 @@ let g:signify_diffoptions = { 'git': 'HEAD' }
 
 " Set our preferred lint checker to CppChecker.
 let g:syntastic_cpp_checkers = ['cppcheck']
-
-" JSON
-
-" Set our preferred JSON validator to JSONLint.
-let g:syntastic_json_checkers = [ 'jsonlint' ]
 
 " PYTHON
 
