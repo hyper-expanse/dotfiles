@@ -184,8 +184,6 @@ Plug 'https://github.com/kana/vim-scratch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'https://github.com/tmux-plugins/vim-tmux.git'
 
-" JavaScript Plugins
-
 " We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
 Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
 
@@ -878,7 +876,7 @@ augroup programmingLanguageComments
 
 	autocmd FileType haskell,vhdl,ada let b:comment_leader = '-- '
 	autocmd FileType vim let b:comment_leader = '" '
-	autocmd FileType c,cpp,java,javascript,php let b:comment_leader = '// '
+	autocmd FileType c,cpp,java,php let b:comment_leader = '// '
 	autocmd FileType fql,fqlut let b:comment_leader = '\\ '
 	autocmd FileType sh,make let b:comment_leader = '# '
 	autocmd FileType tex let b:comment_leader = '% '
@@ -1147,19 +1145,6 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
 "====================================================
-" Setup vim-javascript-syntax Plugin
-"
-" Setup for JavaScript Syntax plugin to place special color highlighting to the left of code to indicate indentation level.
-"====================================================
-
-" Enable JavaScript code folding using the vim-javascript-syntax plugin.
-augroup javascriptFolding
-	autocmd!
-
-	autocmd FileType javascript call JavaScriptFold()
-augroup END
-
-"====================================================
 " Setup vim-jsdoc Plugin
 "
 " Setup for JsDoc plugin to build documentation for a function based on context information and user input.
@@ -1240,11 +1225,6 @@ let g:signify_diffoptions = { 'git': 'HEAD' }
 " Set our preferred lint checker to CppChecker.
 let g:syntastic_cpp_checkers = ['cppcheck']
 
-" JavaScript
-
-" Set our preferred static analysis chcker to JsHint, and style checker, the fallback checker, to jscs.
-let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-
 " JSON
 
 " Set our preferred JSON validator to JSONLint.
@@ -1288,18 +1268,6 @@ let g:tagbar_type_markdown = {
 	\ },
 	\ 'sort': 0,
 \ }
-
-"====================================================
-" Setup tern_for_vim Plugin
-"
-" Setup the `tern_for_vim` plugin to allow intelligent parsing of JavaScript code for extraction of meta information; such as function argument lists, argument types, object properties, etc.
-"====================================================
-
-" Display argument type hints when the cursor is left over a function identifier. Type information is displayed in the command/mode line at the bottom of Vim.
-let g:tern_show_argument_hints = 'on_hold'
-
-" Enable support for the key mappings defined by this plugin. These key mappings are available through the use of the <leader> key. For a full list of available key mappings please see: http://usevim.com/files/tern_keyboard.pdf
-let g:tern_map_keys = 1
 
 "====================================================
 " Setup tmuxline Plugin
