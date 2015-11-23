@@ -147,7 +147,7 @@ Navigate to Extras -> Settings and use the following settings:
 
 ## Radio Stations
 
-A collection of highly suggested radio stations to be added to Rhythmbox. The actual playlist URIs will need to be retrieved from the respective radio station websites. Radio stations given in the list below is also indicative of the names that should be used in Rhythmbox.
+A collection of high quality, and highly recommended, radio stations. Playlists will need to be retrieved from their respective radio station websites.
 
 * Jazz 24 - Jazz Music
 * KHCB - Christian Radio (16k/11 khz)
