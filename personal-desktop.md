@@ -150,7 +150,7 @@ Navigate to Extras -> Settings and use the following settings:
 A collection of highly suggested radio stations to be added to Rhythmbox. The actual playlist URIs will need to be retrieved from the respective radio station websites. Radio stations given in the list below is also indicative of the names that should be used in Rhythmbox.
 
 * Jazz 24 - Jazz Music
-* KHCB: Christian Radio (16k/11 khz)
+* KHCB - Christian Radio (16k/11 khz)
 * KUT 1 - News/Talk
 * KUT 2 - Music
-* Thistle Radio - Celtic - [Online Stream Information](http://somafm.com/thistle/)
+* Thistle Radio - Celtic Music - [Online Stream Information](http://somafm.com/thistle/)
