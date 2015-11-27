@@ -437,9 +437,6 @@ installBrewPackages()
 		# Download and install Tmux, a terminal multiplexer.
 		brew install tmux
 
-		# Download and install tig, a ncurses-based tool for visualizing a Git repository.
-		brew install tig
-
 		# Download and install htop, a human-readable version of top.
 		brew install htop
 
