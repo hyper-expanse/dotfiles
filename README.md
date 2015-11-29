@@ -23,7 +23,7 @@ sh deploy.sh"
 Once deployed the `${HOME}/.profile` script will need to be sourced, just once, to expose the scripts contained within the dotfiles repository. To source the profile script run the following command:
 
 ```bash
-setupEnvironment
+source ~/.profile
 ```
 
 ## Guides
