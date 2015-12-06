@@ -71,8 +71,8 @@
 	# List all aliases stored in the user's Git configuration file. In addition to the aliases, display their values.
 	aliases = "!git config -l | grep alias | cut -c 7-"
 
-	# Update the current working branch to include the latest changes from the master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the master branch.
-	update = "!git fetch origin && git rebase origin/master"
+	# Update the current working branch to include the latest changes from the specified remote's master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the remote's master branch. If the name of a remote is not provided to the alias the command will default to the `upstream` remote. If you rely on the default behavior, but the local working directory does not have an `upstream` remote, then this command will fail.
+	update = "!sh -c 'git fetch ${1:-upstream} && git rebase ${1:-upstream}/master' -"
 
 	# Show a diff in which individual word changes are inter-mingled with one another. Word additions are shown in green, word deletions are shown in red. This is in contrast to showing changes as line additions or deletions.
 	cdiff = diff --color-words
