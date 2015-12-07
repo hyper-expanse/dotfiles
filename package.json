@@ -14,12 +14,12 @@
     "hyper-expanse"
   ],
   "author": "Hutson Betts",
-  "license": "Apache",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/hbetts/hyper-expanse-configuration/issues"
   },
   "homepage": "https://github.com/hbetts/hyper-expanse-configuration",
   "dependencies": {
-    "gitbook-cli": "^0.3.6"
+    "gitbook-cli": "^1.0.1"
   }
 }
