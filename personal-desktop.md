@@ -50,6 +50,7 @@ Packages:
 * clementine: Music player and library manager.
 * gramps [GTK]
 * gwenview: Image viewer.
+* k3b: A CD/DVD ripper and burner. [KDE]
 * kaddressbook: Address book and contact data manager. [KDE - Kontact]
 * kate: K Advance Text Editor. [KDE]
 * kcalc: Simple and scientific calculator. [KDE]
