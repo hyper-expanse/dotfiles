@@ -41,6 +41,8 @@ Lastly, to support connecting to virtual prive networks we'll need two additiona
 
 ### Desktop Applications
 
+A list of common applications to fullfill various _life_ type workflows is provided below.
+
 Packages:
 * quiterss: RSS reader.
 * ark [KDE] // TODO: Future replacement - peazip-qt
