@@ -98,7 +98,7 @@ sudo /etc/init.d/network-manager restart
 
 ## LinuxBrew
 
-Navigate to the LinuxBrew homepage and install all the required packages for your Linux distribution.
+Navigate to the [LinuxBrew](https://github.com/Homebrew/linuxbrew) and install all the required packages for your Linux distribution.
 
 ## Personal Dotfiles
 
