@@ -1,5 +1,7 @@
 # Personal Desktop
 
+This chapter covers setting up a graphical desktop environment over a bare Debian operating system. My desktop of choice is based on the wonderful [KDE](https://www.kde.org/) desktop environment. The sections in this chapter will walk you through installing the desktop environment itself, to installing office suite applications.
+
 ## Package Installation
 
 Before extending our system with a full desktop environment we need to install a few basic packages. These packages will be used by desktop applications that we'll install To install them, run `sudo aptitude install [PACKAGE]`.
