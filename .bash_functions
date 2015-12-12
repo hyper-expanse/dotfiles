@@ -443,6 +443,12 @@ installBrewPackages()
 		# Download and install git, a distributed source code management tool. Must include curl as a dependency to correctly compile versions of git on Linux systems.
 		brew install git --with-brewed-curl --with-brewed-openssl
 
+		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
+		brew install git-lfs
+
+		# Enable the Large File Storage extension.
+		git lfs install
+
 		# Download and install elinks, a command line browser.
 		brew install elinks
 

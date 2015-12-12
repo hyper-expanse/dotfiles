@@ -102,3 +102,7 @@
 
 	# Reset the index of the current directory to the previous commit, but do not modify the contents of the working tree. This will cause any changes not committed, or changes included in the reverted commit, to be left in the working directory as modifications that are not staged for commit.
 	undo = reset --mixed HEAD~1
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
