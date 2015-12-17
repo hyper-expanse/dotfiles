@@ -541,6 +541,9 @@ installNodePackages ()
 
 		# Required to setup `cz` alias for Git that enforces commit message standards.
 		npm install -g commitizen
+
+		# Required for scaffolding and building Angular 2 applications and components.
+		npm install -g angular-cli
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
