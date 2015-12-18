@@ -76,7 +76,7 @@ Packages:
 
 Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
 
-To install `pulseaudio`:
+To install `pulseaudio` run the following command:
 
 ```bash
 sudo aptitude install pulseaudio
