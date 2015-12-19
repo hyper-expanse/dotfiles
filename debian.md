@@ -1,5 +1,7 @@
 # Debian
 
+This chapter describes how to setup a Debian 8 system for daily use.
+
 ## Requirements
 
 List of requirements to install Debian 8 (Stable).
