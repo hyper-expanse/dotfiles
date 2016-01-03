@@ -2,6 +2,8 @@
 
 This chapter covers setting up a graphical desktop environment over a bare Debian operating system. My desktop of choice is based on the wonderful [KDE](https://www.kde.org/) desktop environment. The sections in this chapter will walk you through installing the desktop environment itself, to installing office suite applications.
 
+Furthermore the contents of this chapter were based on what it took to get Debian working on a Dell XPS 13 laptop.
+
 ## Package Installation
 
 Before extending our system with a full desktop environment we need to install a few basic packages. These packages will be used by desktop applications that we'll install To install them, run `sudo aptitude install [PACKAGE]`.
@@ -11,10 +13,31 @@ Packages:
 * openvpn
 * spamassasin
 
+## Latest Kernel
+
+In this section we cover how to upgrade a Debian stable installation to use the latest kernel from Debian's stable backport repository.
+
+_Pending..._
+
 ## Display Server
 
 Packages:
 * xorg: This metapackage provides the components for a standalone workstation running the X Window System.
+
+### Setting Up Intel Graphics
+
+To work with the Intel graphics chip built into XPS 13 laptops we need to install the latest `xserver-xorg-video-intel` package from the Debian stable backport repository:
+
+```bash
+sudo aptitude install -t jessie-backports xserver-xorg-video-intel
+```
+
+**Note:** `xserver-xorg-video-intel` was installed as a dependency of another `xorg` package, but needs to be upgraded to the version that corresponds with the latest backported Linux kernel that was installed on the system as part of the _Latest Kernel_ section.
+
+To help facilitate future debugging of graphic driver issues, install the following package:
+* mesa-utils
+
+`mesa-utils` includes a command line tool called `glxinfo` that can display information about the OpenGL and GLX implementations employed by the running X display server. (For example, executing `glxinfo | grep OpenGL` will provide information on whether your system is using OpenGL for rendering.)
 
 ## Window Manager
 
