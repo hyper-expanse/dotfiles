@@ -139,9 +139,13 @@ First the default apt-get sources list should be updated to include additional D
 
 [/etc/apt/sources.list](src/etc/apt/sources.list)
 
-In addition to the list of repositories, we need to prioritize which packages should be installed from which repositories. These priorities are provided in the `preferences.d` directory of `apt/`. Create a file, `/etc/apt/preferences.d/kernel`, with the following content:
+In addition to updating the list of repositories, we need to prioritize from which repository a package should be installed. These priorities are captured as files in the `preferences.d` directory of `/etc/apt/`. Create a file named 'stable' in the `/etc/apt/preferences.d/` directory with the following content:
 
-[/etc/apt/preferences.d/kernel](src/etc/apt/preferences.d/kernel)
+```
+Package: *
+Pin: release o=Debian,a=stable
+Pin-Priority: 700
+```
 
 We will be using Debian's [aptitude](https://wiki.debian.org/Aptitude) package manager (based on Debian's `apt-get` package manager).
 

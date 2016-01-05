@@ -11,20 +11,17 @@ log=/var/log/apt-updates
 
 # Begin executing commands.
 echo "*******************************************" >> $log
-echo "[Apt Updates]: $utcdate Z" >> $log
+echo "[Aptitude Updates]: $utcdate Z" >> $log
 echo "*******************************************" >> $log
 
 # Update our list of repository packages
-apt-get update >> $log
+aptitude update >> $log
 
-# Install all updated packages except for distribution updates. Assume yes where applicable (-y), show upgradable packages (-u), and do not install recommended packages but only those that are required (--no-install-recommends).
-apt-get dist-upgrade -u -y --no-install-recommends -q >> $log
+# Install all package updates where the update does not require the removal of another package. Assume yes where applicable (--assume-yes) and do not install recommended packages but only those that are required (--no-install-recommends).
+aptitude safe-upgrade --assume-yes --without-recommends >> $log
 
-# Auto remove old packages and dependencies which are no longer needed.
-apt-get autoremove -y >> $log
-
-# Clean up cache files. Assume yes where applicable (-y).
-apt-get clean -y >> $log
+# Clean up cache files. Assume yes where applicable (--assume-yes).
+aptitude clean --assume-yes >> $log
 
 # Calculate and log total execution time.
 end=$(date +%s)
