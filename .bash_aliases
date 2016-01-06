@@ -74,6 +74,9 @@ alias pscpu='ps aux | sort --stable --parallel=2 -k3rh | head -n 5'
 # Quickly find and print the top five processes consuming memory.
 alias psmem='ps aux | sort --stable --parallel=2 -k4rh | head -n 5'
 
+# Show a tree view of all processes owned by the current user.
+alias processes='ps xf'
+
 # Set a default pastebin website for the pastebinit utility.
 alias pastebinit='pastebinit -b http://paste.ubuntu.com'
 
