@@ -80,8 +80,14 @@ alias processes='ps xf'
 # Set a default pastebin website for the pastebinit utility.
 alias pastebinit='pastebinit -b http://paste.ubuntu.com'
 
-# Update a system, global packages and the like, through the use of a single command.
-alias update='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
+# Update system packages and local packages through the use of a single command.
+alias update='updateSystem && updateLocal'
+
+# Update system packages.
+alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
+
+# Update local packages and tools.
+alias updateLocal='brew update && brew upgrade --all && vim +PlugUpgrade +PlugUpdate +PlugClean +qa && ~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all && ~/.tmux/plugins/tpm/bin/clean_plugins'
 
 # Connect to the Hyper-Expanse OpenVPN access point.
 alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo openvpn --config ${HOME}/Documents/OpenVPN/client.conf"'
