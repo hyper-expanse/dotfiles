@@ -171,23 +171,25 @@ setupEnvironment ()
 		rm -fr "${HOME}/.tmux/" &> /dev/null
 	fi
 
-	printf "\n> Removing ${HOME}/.vim/ directory.\n"
+	printf "\n> Removing ${XDG_DATA_HOME}/nvim/ directory.\n"
 
-	# Clear out our Vim directory.
-	if [ -d "${HOME}/.vim/" ]; then
-		rm -fr "${HOME}/.vim/" &> /dev/null
+	# Clear out our neovim directory.
+	if [ -d "${XDG_DATA_HOME}/nvim/" ]; then
+		rm -fr "${XDG_DATA_HOME}/nvim/" &> /dev/null
 	fi
 
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
 	mkdir --parents "${HOME}/.local/tmp"
 
-	# Download, build, and install core development environment tools.
+	# Setup Linuxbrew.
 	setupLinuxbrew
+	installBrewPackages
+
+	# Download, build, and install core development environment tools.
 	setupPIP
 	setupTmux
 
 	# Install general tools.
-	installBrewPackages
 	installPythonPackages
 
 	updateTmux
@@ -198,11 +200,11 @@ setupEnvironment ()
 # Update our development environment by installing the latest version of our desired tools.
 updateEnvironment ()
 {
-	# Update scripts and application plugins for specific applications.
+	# Update Linuxbrew.
 	updateLinuxbrew
+	updateBrewPackages
 
 	# Update general tools.
-	updateBrewPackages
 	installNodePackages
 	installPythonPackages
 
