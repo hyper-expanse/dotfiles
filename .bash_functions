@@ -404,16 +404,16 @@ installBrewPackages()
 				source "$(brew --prefix nvm)/nvm.sh"
 			fi
 
-			# Install the latest stable version of Node.
-			nvm install stable
+			# Install the latest LTS version of Node.
+			nvm install 4
 			if [ "${?}" -gt 0]; then
 				echo "nvm failed to install stable version of Node."
 			else
 				installNodePackages
 			fi
 
-			# Set stable as our default Node version.
-			nvm use stable
+			# Set stable as our LTS Node version.
+			nvm use 4
 
 		## NODE END
 
