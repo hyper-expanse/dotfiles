@@ -585,20 +585,6 @@ function! ToggleHex()
 	let &modifiable = l:oldmodifiable
 endfunction
 
-" Open the URI that is currently underneath the cursor in a browser.
-function! Browser ()
-	let line = getline('.')
-	let line = matchstr(line, "http[^   ]*")
-
-	" In Windows use Google Chrome.
-	if has('win32')
-		execute "!C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --incognito " . line
-	" In a Unix like environment use a text-based browser such as Elinks.
-	elseif has('unix')
-		execute "!elinks " . line
-	endif
-endfunction
-
 " Automatically insert header guards into new C++ header files.
 function! InsertHeaderGuard()
 	let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")

@@ -437,9 +437,6 @@ installBrewPackages()
 		# Enable the Large File Storage extension.
 		git lfs install
 
-		# Download and install elinks, a command line browser.
-		brew install elinks
-
 		# Download and install flac, a command line tool for re-encoding audio files into Flac format.
 		brew install flac
 
