@@ -493,9 +493,6 @@ installNodePackages ()
 	if command -v npm &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
-		# Clear npm's cache so that the following packages are installed from npm's online repository rather than from a possibly stale local cache.
-		npm cache clean
-
 		# Update the version of `npm` installed in our environment.
 		npm install -g npm
 
