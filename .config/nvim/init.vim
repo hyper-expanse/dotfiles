@@ -54,15 +54,6 @@ if has('vim_starting')
 	set all&
 endif
 
-" Set how many lines of history Vim must remember.
-set history=1000
-
-" Set to automatically check and read a file that has changed from the outside of this Vim instance.
-set autoread
-
-" Set 'nocompatible' to prevent backwards compatibility with Vi, thereby enabling features specific to Vim.
-set nocompatible
-
 " Enable filetype detection (via file name and content inspection).
 filetype on
 
@@ -75,48 +66,15 @@ filetype indent on
 " Use Unix as the standard file type when saving a buffer back to file. This will cause Unix line terminators, \n, to be used for deliminating a file's newlines.
 set fileformat=unix
 
-" Check for built-in support for multi-byte character sets such as UTF-8.
-if has('multi_byte')
-	" If our keyboard encoding is not set, store the current file encoding value within the keyboard terminal variable.
-	if &termencoding == ""
-		let &termencoding = &encoding
-	endif
-
-	set encoding=utf-8 " Set the default encoding for how Vim represents characters internally.
-	setglobal fileencoding=utf-8 " Set the encoding for a particular file (local to the buffer).
-	set fileencodings=ucs-bom,utf-8,latin1 " Set the sequence of encodings to be used as a heuristic when reading an existing file. The first encoding that matches will be used.
-endif
-
-" Set the system's default shell as Vim's default shell. This will be used by Vim when executing commands within a shell.
-set shell=/bin/sh
-
-" Configure Vim to remember certain information between instances.
-" '10 : Marks will be remembered for up to 10 previously edited files.
-" "100 : Save up to 100 lines for each register.
-" :20 : Save up to 20 lines of command-line history.
-" % : Save and restore the buffer list.
-" n... : Location to save the viminfo files.
-set viminfo='10,\"100,:20,%,n~/.vim/viminfo
-
 " Disable modeline support within Vim. Modeline support within Vim has constantly introduced security vulnerabilities into the Vim editor. By disabling this feature any chance of a future vulnerability interfering with the use of Vim, or the operating system on which it runs, is mitigated. As for functionality, modelines are configuration lines contained within text files that instruct Vim how to behave when reading those files into a buffer.
 set nomodeline " Turn off modeline parsing altogether.
 set modelines=0 " Set the number of modelines Vim parses, when reading a file, to zero.
-
-" When running Vim outside of an SSH session indicate to Vim that we have a fast terminal connection. If running over an SSH connection then disable the ttyfast option. ttyfast instructs Vim to send more characters to the screen for re-drawing rather than using insert/delete line commands.
-if !s:isSSH
-	set ttyfast
-else
-	set nottyfast
-endif
 
 " Set printing options such as syntax and the output paper size.
 set printoptions=paper:A4,syntax:y
 
 " Allow the terminal cursor to move freely, even past the end of a line. BAD IDEA.
 "set virtualedit=all
-
-" Location to store Vim temporary files.
-set directory=~/.vim/temp
 
 " Set the default language to use for spell checking. `spelllang` is a comma separated list of word lists. Word lists are of the form LANGUAGE_REGION. The LANGUAGE segment may include a specification, such as `-rare` to indicate rare words in that language.
 setlocal spelllang=en_us
@@ -154,13 +112,13 @@ endfunction
 "====================================================
 
 " We must ensure that the `autoload` directory exists within our `~/.vim` directory for the installation of `vim-plug` to work. If the `autoload` directory does not exist prior to invoking `curl`, `curl` will fail to download the file, as `curl` is not setup to create missing directories in the destination path.
-call EnsureDirectoryExists($HOME . '/.vim/autoload')
-if empty(glob('~/.vim/autoload/plug.vim'))
+call EnsureDirectoryExists($XDG_DATA_HOME . '/nvim/site/autoload')
+if empty(glob($XDG_DATA_HOME . '/nvim/site/autoload/plug.vim'))
 	" If vim-plug has not been downloaded into Vim's autoload directory, go ahead and invoke `curl` to download vim-plug.
-	silent execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+	silent execute '!curl -fLo ' . $XDG_DATA_HOME . '/nvim/site/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-call plug#begin()
+call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 
 Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'https://github.com/gregsexton/gitv.git'
@@ -200,7 +158,6 @@ call plug#end()
 syntax enable
 
 " Enable better command-line completion.
-set wildmenu " Enables a menu at the bottom of the window.
 set wildmode=list:longest,full " Allows the completion of commands on the command line via the tab button.
 
 " Ignore certain backup and compiled files based on file extensions when using tab completion.
@@ -214,18 +171,9 @@ set showcmd
 " Try not to split words across multiple lines when a line wraps.
 set linebreak
 
-" Highlight search results.
-set hlsearch
-
-" Make search behave like search in modern browsers by initiating a partial search while typing in a search pattern, thereby finding the first occurrence of the search pattern as a sub-string within the file content.
-set incsearch
-
 " Use case insensitive search, except when using capital letters.
 set ignorecase " Case insensitive search.
 set smartcase " Enable case-sensitive search when the search phrase contains capital letters.
-
-" Allow backspacing over autoindent, line breaks, and start of insert action.
-set backspace=indent,eol,start
 
 " Allows moving left when at the beginning of a line, or right when at the end of the line. When the end of the line has been reached, the cursor will progress to the next line, either up or down, depending on the direction of movement. < and > are left and right arrow keys, respectively, in normal and visual modes, and [ and ] are arrow keys, respectively, in insert mode.
 set whichwrap+=<,>,h,l,[,]
@@ -239,9 +187,6 @@ set rulerformat=%40(%t%y:\ %l,%c%V\ \(%o\)\ %p%%%)
 
 " Instead of failing a command because of unsaved changes raise a dialogue asking if you wish to save changed files.
 set confirm
-
-" Enable use of the mouse for all Vim modes: Normal, Insert, Visual, and Command-line.
-set mouse=a
 
 " Set the command window height to one line. This leaves a single line underneath the status line for command output. This could cause issues with commands that return more output than can fit on that one line. In those cases you may be prompted with the following statement 'press <Enter> to continue', which will require physical intervention on your part. However, this seems like a reasonable compromise as the reduction of the command output lines to only one line saves valuable real estate by avoiding unused white space. One way to offset the 'press <Enter>' prompting is to use the 'shortmess' option to reduce command output.
 set cmdheight=1
@@ -282,25 +227,6 @@ set title
 " Disable error bells.
 set noerrorbells
 set novisualbell
-
-" Set default values for a GVim instance, the GUI version if Vim.
-if has('gui_running')
-	set columns=120 " Width of GVim window.
-	set lines=40 " Height of GVim window.
-
-	" Disable all GUI toolbars so that only a simple window frame containing the Vim instance is shown.
-	set browsedir=buffer
-	set guioptions-=M
-	set guioptions-=m
-	set guioptions-=T
-
-	" Set GUI font options based on the operating system.
-	if has('win32') || has ('win64')
-		set guifont=Monospace\ 10
-	elseif has('unix')
-		set guifont=DejaVu\ Sans\ Mono\ 10
-	endif
-endif
 
 " Start scrolling when we're 3 lines from the bottom of the current window.
 set scrolloff=3
@@ -351,23 +277,6 @@ set backupdir=~/.vim/backups
 call EnsureDirectoryExists($HOME . '/.vim/backups')
 
 "====================================================
-" Clipboard
-"
-" These options manage settings associated with Vim's built-in clipboard support that allows copying between Vim instances and other applications. This is possible by leveraging the System's clipboard.
-"====================================================
-
-" Setup Vim to use the operating system's native clipboard for all copy and paste operations. This will allow content to be copied and pasted between Vim and other system applications.
-if has('nvim')
-	" Noop
-elseif has('clipboard')
-	" Set Vim to use the system clipboard, available through the * registry, by default for all copy and paste operations.
-	set clipboard=unnamed
-elseif has('xterm_clipboard')
-	" Set Vim to use the X11 clipboard, available through the + registry, by default for all copy and paste operations.
-	set clipboard=unnamedplus
-endif
-
-"====================================================
 " Doxygen
 "
 " These options manage settings associated with Vim's built-in support for Doxygen.
@@ -407,7 +316,6 @@ endif
 "====================================================
 
 " When opening a new line and no filetype-specific indenting is enabled, keep the same indent as the line you're currently on.
-set autoindent
 "set cindent "< Probably should not use 'smartindent', a.k.a. 'cindent', with filetype indent feature enabled. Should only be set manually, enabled, when filetype-based indention is not adequate. 'cindent' is only appropriate for c-style languages.
 
 " Number of spaces Vim should use to visually represent a TAB character when encountered within a file.
@@ -418,9 +326,6 @@ set shiftwidth=2
 
 " Number of spaces Vim should insert when TAB is pressed, and the number of spaces Vim should remove when the <backspace> is pressed. This allows for a single backspace to go back this many white space characters.
 set softtabstop=2
-
-" Enable smart use of tabs.
-set smarttab
 
 " Copy the structure of the existing lines indent when autoindenting a new line.
 set copyindent
@@ -469,9 +374,6 @@ let g:netrw_preview = 0
 "
 " These options and commands manage settings associated with the status bar at the bottom of the Vim editor.
 "====================================================
-
-" Always display the status line, even if only one window is displayed.
-set laststatus=2
 
 " Format the status line.
 set statusline=%F			" Full path of the file.
@@ -735,11 +637,6 @@ if &term =~ '^screen'
 	execute "set <xDown>=\e[1;*B"
 	execute "set <xRight>=\e[1;*C"
 	execute "set <xLeft>=\e[1;*D"
-
-	" Enable extended mouse reporting mode while within a Screen or TMUX session. By enabling extended mouse reporting mode for Screen and TMUX sessions, mouse click-and-drag works on Vim splits as expected.
-	" The ttymouse option changes what 'mouse codes' Vim will recognize. Setting this option to 'xterm2' is required when operating Vim within terminal multiplexers.
-	" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
-	set ttymouse=xterm2
 endif
 
 " Start a browser instance loading the URI that is underneath the cursor.
@@ -897,9 +794,6 @@ vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>
 " Configure pop-up menu to auto-select based on order of options.
 set completeopt=menuone,menu,longest,preview
 
-" Set the default tag file to equal the name of the file that is generated as a result of the UpdateTags() function. If a tag file not exist within the directory containing the file that is being edited by Vim then it is simply not used. No negative effects occur.
-set tags+=./tags
-
 " Use binary search to search a tags file for matching patterns. Assumes the tags file was sorted on ASCII byte value. If no match is found during an initial search, Vim will switch to a linear search and re-scan the tags file. OPTIMIZATION: Requires tags files to be sorted by Ctags using the 'foldcase' option and requires Vim to have 'ignorecase' option set. Optimization will insure all matching tags are found, while still supporting binary search. See ":help tagbsearch".
 set tagbsearch
 
@@ -1027,10 +921,10 @@ augroup END
 
 " Change the default auto-complete pop-up window color scheme from pink to a custom scheme using Black for the background, Cyan for each entry in the dropdown, and Green for the item currently under focus..
 highlight clear
-highlight Pmenu ctermfg=Cyan ctermbg=Black guifg=Cyan guibg=Black gui=bold
-highlight PmenuSel ctermfg=Green ctermbg=Black guifg=Green guibg=Black gui=bold
-highlight PmenuSbar ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
-highlight PmenuThumb ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
+highlight Pmenu ctermfg=Cyan ctermbg=Black
+highlight PmenuSel ctermfg=Green ctermbg=Black
+highlight PmenuSbar ctermfg=White ctermbg=Green
+highlight PmenuThumb ctermfg=White ctermbg=Green
 
 " Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that Vim was opened.
 function! UpdateTags()
@@ -1242,7 +1136,7 @@ vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
 " Enable Tagbar support for Markdown files by configuring Tagbar to use a special script that's capable of generating the required Ctag information necessary for Tagbar to render a tree view of the current file's headings.
 let g:tagbar_type_markdown = {
 	\ 'ctagstype': 'markdown',
-	\ 'ctagsbin' : '~/.vim/markdown2ctags.py',
+	\ 'ctagsbin' : $XDG_DATA_HOME . '/nvim/markdown2ctags.py',
 	\ 'ctagsargs' : '-f - --sort=yes',
 	\ 'kinds' : [
 		\ 's:sections',

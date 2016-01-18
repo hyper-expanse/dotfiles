@@ -191,7 +191,7 @@ setupEnvironment ()
 	installPythonPackages
 
 	updateTmux
-	updateVim
+	updateNeovim
 }
 
 #! Update environment.
@@ -209,7 +209,7 @@ updateEnvironment ()
 	installPythonPackages
 
 	updateTmux
-	updateVim
+	updateNeovim
 }
 
 #! Setup Linuxbrew, the Linux-clone of HomeBrew.
@@ -248,6 +248,12 @@ setupLinuxbrew ()
 			ln -s $(which gfortran) ${PREFIX_DIRECTORY}/bin/gfortran-$(gfortran -dumpversion | cut -d. -f1,2)
 		fi
 	fi
+
+	# A collection of useful core libraries and utility programs. The `dupes` project contains brew recipes for tools and libraries that are, by default, already on OSX systems. Because we work on a Linux system, we need to add the `dupes` project to our brew installation.
+	brew tap homebrew/dupes
+
+	# Tap for the neovim text editor.
+	brew tap neovim/neovim
 }
 
 #! Setup pip, Python's package manager.
@@ -337,14 +343,14 @@ updateTmux ()
 	tmux kill-server
 }
 
-#! Update Vim environment.
+#! Update neovim environment.
 # Update plugins associated with the user's local environment. This includes doing the following:
-# 1) Remove plugins from Vim's bundle directory that are no longer listed in the user's .vimrc configuration file.
-# 2) Install plugins listed in the user's .vimrc file that are not already installed.
+# 1) Remove plugins from neovim's bundle directory that are no longer listed in the user's configuration file.
+# 2) Install plugins listed in the user's configuration file that are not already installed.
 # 3) Update plugins that are already installed on the system.
-updateVim ()
+updateNeovim ()
 {
-	printf "\n> Updating Vim.\n"
+	printf "\n> Updating neovim.\n"
 
 	# Make a directory to hold the font file containing the special Powerline font glyphs.
 	mkdir --parents "${HOME}/.fonts/"
@@ -361,11 +367,11 @@ updateVim ()
 	# Download the font configuration file.
 	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf --directory-prefix="${HOME}/.config/fontconfig/conf.d/"
 
-	# Update Vim plugins.
-	if command -v vim &> /dev/null; then
-		vim +PlugUpgrade +PlugClean! +PlugUpdate +qa
+	# Update neovim plugins.
+	if command -v nvim &> /dev/null; then
+		nvim +PlugUpgrade +PlugClean! +PlugUpdate +qa
 	else
-		printf "\n> ERROR: `vim` is required for updating Vim's plugins, but it's not available in your PATH. Please install `vim` and ensure it's in your PATH. Then re-run `updateVim`.\n"
+		printf "\n> ERROR: `nvim` is required for updating neovim's plugins, but it's not available in your PATH. Please install `nvim` and ensure it's in your PATH. Then re-run `updateNeovim`.\n"
 	fi
 }
 
@@ -376,19 +382,11 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
-		# A collection of useful core libraries and utility programs. The `dupes` project contains brew recipes for tools and libraries that are, by default, already on OSX systems. Because we work on a Linux system, we need to add the `dupes` project to our brew installation.
-		brew tap homebrew/dupes
-
-		# Install openssl, which is required by various other brew builds. (git, python)
+		# Install openssl, which is required by various other brew builds. (git)
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
-		brew install openssl
+		brew install openssl # (git)
 
-		# Install tcl, which is required by various other brew builds. (git)
-		# Installing `git` directly without this special step leads to `X11/Xlib.h: No such file or directory`.
-		# The suggested solution is documented here: https://github.com/Homebrew/linuxbrew/issues/369#issuecomment-97549087
-		brew install tcl-tk --without-tk
-
-		# Install python (2.7), as the header files are required by various other brew builds. (vim)
+		# Install python (2.7), as the header files are required by natively-built pip packages.
 		brew install python
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
@@ -396,19 +394,6 @@ installBrewPackages()
 
 		# Download and install wget.
 		brew install wget
-
-		# RUBY
-
-			# Download and install rbenv, a CLI tool for managing Ruby interpreter versions within the current shell environment.
-			brew install rbenv
-
-			# Download and install ruby-build, a tool for building and installing different versions of the Ruby interpreter.
-			brew install ruby-build
-
-			# Download and install rbenv-gem-rehash, a plugin for rbenv that automatically runs `rbenv reash` every time you install or uninstall a gem. This ensures newly installed gem executables are visible to `rbenv`.
-			brew install rbenv-gem-rehash
-
-		## RUBY END
 
 		# NODE
 			# We call `installNodePackages` after installing each version of Node so as to install our global Node modules within the `node_modules` directory associated with the currently enabled version of Node. This is necessary since some Node modules must be built against the currently enabled version of Node. Therefore they can't be installed in a global directory shared by all installed versions of Node.
@@ -433,6 +418,9 @@ installBrewPackages()
 			nvm use stable
 
 		## NODE END
+
+		# Download and install neovim, a terminal text editor.
+		brew install neovim
 
 		# Download and install Tmux, a terminal multiplexer.
 		brew install tmux
@@ -466,9 +454,6 @@ installBrewPackages()
 
 		# Cross-platform, open-source, build system.
 		brew install cmake
-
-		# Download and install Vim, an awesome IDE.
-		brew install vim
 
 		if [ `uname -n` == "startopia" ]; then
 
@@ -519,15 +504,15 @@ installNodePackages ()
 		# Update the version of `npm` installed in our environment.
 		npm install -g npm
 
-		# Required by vimrc to enable Syntastic checking for JavaScript files.
+		# Required to enable Syntastic checking for JavaScript files.
 		npm install -g jscs
 		npm install -g jshint
 		npm install -g eslint
 
-		# Required by vimrc to enable Syntastic checking for JSON files.
+		# Required to enable Syntastic checking for JSON files.
 		npm install -g jsonlint
 
-		# Required by vimrc to enable Tagbar to properly parse JavaScript files for tag information.
+		# Required to enable Tagbar to properly parse JavaScript files for tag information.
 		npm install -g git://github.com/ramitos/jsctags.git
 
 		# `Foreman`-like tool for managing arbitrary processes within a local environment.
@@ -562,9 +547,12 @@ installPythonPackages ()
 		# Required to manage virtual Python environments.
 		pip install --user virtualenv --upgrade
 
-		# Required by vimrc to enable Syntastic checking for Python files.
+		# Required to enable Syntastic checking for Python files.
 		pip install --user pylint --upgrade
 		pip install --user pep8 --upgrade
+
+		# Required by neovim to support vim Python packages in neovim.
+		pip install --user neovim --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi

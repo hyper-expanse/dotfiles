@@ -51,6 +51,10 @@
 	# Tell Git to run a virtual check-out and check-in of all three stages of a file when resolving a three-way merge to normalize the files to avoid differences caused by changes in a repository's attributes.
 	renormalize = true
 
+[mergetool "vimdiff"]
+	# Specify the path to the merge tool. Though we specified `vimdiff` earlier, `vimdiff` does not refer to the binary called by `git`, but rather a script that passes arguments to a binary defined by `merge_tool_path`. Below we change the path to the binary that `git`'s `vimdiff` script calls. The binary we use is for Neovim.
+	path = nvim
+
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
 	l = log --abbrev-commit --decorate --graph --oneline

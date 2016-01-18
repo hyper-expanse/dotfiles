@@ -6,6 +6,16 @@
 # This script will deploy all dotfiles as symlinks to the user's home directory.
 #====================================================
 
+# If the XDG configuration home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
+if [ -z "${XDG_CONFIG_HOME}" ]; then
+	export XDG_CONFIG_HOME="${HOME}/.config"
+fi
+
+# If the XDG data home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
+if [ -z "${XDG_DATA_HOME}" ]; then
+	export XDG_DATA_HOME="${PREFIX_DIRECTORY}/share"
+fi
+
 echo "Deploying dotfiles..."
 
 # Make sure any submodules have been pulled down (in case the user did not clone this repository using `--recursive`).
@@ -28,18 +38,14 @@ mkdir --parents "${HOME}/.gnupg"
 ln --symbolic --force "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 ln --symbolic --force "$(pwd)/.gnupg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 
-# Symlink NeoVim/Vim files.
-echo "> Symlinking NeoVim/Vim files into config directory (${HOME}/.config/nvim)."
-mkdir --parents "${HOME}/.config/nvim"
-ln --symbolic --force "$(pwd)/.config/nvim/init.vim" "${HOME}/.config/nvim/init.vim"
-ln --symbolic --force "$(pwd)/.config/nvim/javascript.vim" "${HOME}/.config/nvim/javascript.vim"
-ln --symbolic --force "$(pwd)/.config/nvim/json.vim" "${HOME}/.config/nvim/json.vim"
-ln --symbolic --force "$(pwd)/.config/nvim/init.vim" "${HOME}/.vimrc"
+# Symlink Neovim files.
+echo "> Symlinking Neovim files into the config directory (${XDG_CONFIG_HOME}/nvim)."
+ln --symbolic --force "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}"
 
 # Symlink third-party scripts into the appropriate directories.
-echo "> Symlinking third-party scripts into the user's home directory (${HOME})."
-mkdir --parents "${HOME}/.vim"
-ln --symbolic --force "$(pwd)/markdown2ctags/markdown2ctags.py" "${HOME}/.vim/markdown2ctags.py"
+echo "> Symlinking third-party scripts into the data directory (${XDG_DATA_HOME})."
+mkdir --parents "${XDG_DATA_HOME}/nvim"
+ln --symbolic --force "$(pwd)/markdown2ctags/markdown2ctags.py" "${XDG_DATA_HOME}/nvim/markdown2ctags.py"
 
 # Source the newly installed profile script to setup the user's environment.
 source "${HOME}/.profile"

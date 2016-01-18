@@ -68,11 +68,6 @@ fi
 #	eval "$(pip completion --bash)"
 #fi
 
-# Enable command line auto-completion for the `rbenv` tool.
-if command -v rbenv &> /dev/null; then
-	eval "$(rbenv init -)"
-fi
-
 # Execute `nvm` script to configure our local environment to work with `nvm`.
 if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
 	source "$(brew --prefix nvm)/nvm.sh"

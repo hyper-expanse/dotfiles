@@ -32,11 +32,8 @@ export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 mkdir -p "${PREFIX_DIRECTORY}/tmp"
 export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 
-# Export an additional environmental variable for our Linuxbrew temp directory for use by `ruby-build`.
-export TMPDIR="${HOMEBREW_TEMP}"
-
 # Set the default console editor.
-export EDITOR=vim
+export EDITOR=nvim
 
 # Specify the langugae and encoding for our shell environment.
 export LANG=en_US.UTF8
@@ -52,6 +49,19 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 		export TERM=xterm-256color
 	fi
 fi
+
+# If the XDG configuration home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
+if [ -z "${XDG_CONFIG_HOME}" ]; then
+	export XDG_CONFIG_HOME="${HOME}/.config"
+fi
+
+# If the XDG data home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
+if [ -z "${XDG_DATA_HOME}" ]; then
+	export XDG_DATA_HOME="${PREFIX_DIRECTORY}/share"
+fi
+
+# Add our local XDG data directory to the list of directories considered to contain application data by the XDG specification.
+export XDG_DATA_DIRS="${XDG_DATA_DIRS}:${XDG_DATA_HOME}"
 
 # Set color for man pages viewed in `less`, such that they are easier to read.
 export LESS_TERMCAP_mb=$'\E[01;36m'
