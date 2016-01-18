@@ -402,20 +402,11 @@ installBrewPackages()
 			brew install nvm
 
 			# Execute `nvm` script to configure our local environment to work with `nvm`.
-			if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
-				source "$(brew --prefix nvm)/nvm.sh"
-			fi
+			source "$(brew --prefix nvm)/nvm.sh"
 
 			# Install the latest LTS version of Node.
 			nvm install 4
-			if [ "${?}" -gt 0]; then
-				echo "nvm failed to install stable version of Node."
-			else
-				installNodePackages
-			fi
-
-			# Set stable as our LTS Node version.
-			nvm use 4
+			installNodePackages
 
 		## NODE END
 
