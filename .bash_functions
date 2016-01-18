@@ -201,8 +201,6 @@ updateEnvironment ()
 	# Update scripts and application plugins for specific applications.
 	updateLinuxbrew
 
-	source "${HOME}/.bashrc"
-
 	# Update general tools.
 	updateBrewPackages
 	installNodePackages
