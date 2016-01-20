@@ -5,7 +5,7 @@
 
 [core]
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
-	editor = vim
+	editor = nvim
 
 	# Global ignore list of files I would never want to push into a repository that I would be working with.
 	excludesfile = ~/.gitignore
