@@ -42,7 +42,7 @@ alias root='sudo -i'
 alias su='sudo -i'
 
 # Clear out the bash history and clear the screen.
-alias scram='history -c; clear; /usr/bin/env rm -r ${HOME}/.vim/undo; /usr/bin/env rm -r ${HOME}/.vim/backups'
+alias scram='history -c; clear; /usr/bin/env rm -r ${HOME}/.local/share/nvim/shada/'
 
 # Find the top 5 largest files within the current, and sub, directories.
 alias findbig='find . -type f -exec ls -lha {} \; | sort --stable --parallel=2 -t" " -k5rh | head -5'
@@ -87,7 +87,7 @@ alias update='updateSystem && updateLocal'
 alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
 
 # Update local packages and tools.
-alias updateLocal='brew update && brew upgrade --all && vim +PlugUpgrade +PlugUpdate +PlugClean +qa && ~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all && ~/.tmux/plugins/tpm/bin/clean_plugins'
+alias updateLocal='brew update && brew upgrade --all && nvim +PlugUpgrade +PlugUpdate +PlugClean +qa && ~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all && ~/.tmux/plugins/tpm/bin/clean_plugins'
 
 # Connect to the Hyper-Expanse OpenVPN access point.
 alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo openvpn --config ${HOME}/Documents/OpenVPN/client.conf"'
