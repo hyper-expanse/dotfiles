@@ -77,9 +77,6 @@ alias psmem='ps aux | sort --stable --parallel=2 -k4rh | head -n 5'
 # Show a tree view of all processes owned by the current user.
 alias processes='ps xf'
 
-# Set a default pastebin website for the pastebinit utility.
-alias pastebinit='pastebinit -b http://paste.ubuntu.com'
-
 # Update system packages and local packages through the use of a single command.
 alias update='updateSystem && updateLocal'
 
@@ -88,9 +85,6 @@ alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo a
 
 # Update local packages and tools.
 alias updateLocal='brew update && brew upgrade --all && nvim +PlugUpgrade +PlugUpdate +PlugClean +qa && ~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all && ~/.tmux/plugins/tpm/bin/clean_plugins'
-
-# Connect to the Hyper-Expanse OpenVPN access point.
-alias connect='tmux new-session -s OpenVPN "cd ${HOME}/Documents/OpenVPN/; sudo openvpn --config ${HOME}/Documents/OpenVPN/client.conf"'
 
 # Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY}'
