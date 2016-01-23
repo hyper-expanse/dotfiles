@@ -19,9 +19,6 @@ export MANPATH="${PREFIX_DIRECTORY}/share/man:${MANPATH}"
 # Add our local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
 export INFOPATH="${PREFIX_DIRECTORY}/share/info:${INFOPATH}"
 
-# Add our local `rbenv` script directory to a tool specific environmental variable.
-export RBENV_ROOT="${PREFIX_DIRECTORY}/var/rbenv"
-
 # Specify the directory where `nvm` should install various versions of node and npm packages.
 export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 
