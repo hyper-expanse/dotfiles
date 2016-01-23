@@ -57,15 +57,6 @@ fi
 # Add our local XDG data directory to the list of directories considered to contain application data by the XDG specification.
 export XDG_DATA_DIRS="${XDG_DATA_DIRS}:${XDG_DATA_HOME}"
 
-# Set color for man pages viewed in `less`, such that they are easier to read.
-export LESS_TERMCAP_mb=$'\E[01;36m'
-export LESS_TERMCAP_md=$'\E[01;36m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-
 # Source the Bash configuration file to load environment variables required by each shell.
 if [ -f "${HOME}/.bashrc" ]; then
 	source "${HOME}/.bashrc"
