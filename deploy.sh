@@ -42,6 +42,10 @@ ln --symbolic --force "$(pwd)/.gnupg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.c
 echo "> Symlinking Neovim files into the config directory (${XDG_CONFIG_HOME}/nvim)."
 ln --symbolic --force "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}"
 
+# Symlink tmux files.
+echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
+ln --symbolic --force "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}"
+
 # Symlink third-party scripts into the appropriate directories.
 echo "> Symlinking third-party scripts into the data directory (${XDG_DATA_HOME})."
 mkdir --parents "${XDG_DATA_HOME}/nvim"
