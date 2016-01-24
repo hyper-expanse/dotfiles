@@ -361,6 +361,9 @@ let g:netrw_liststyle = 3
 " Place the file preview window in a horizontal split window. A file can be previewed by pressing 'P'.
 let g:netrw_preview = 0
 
+" Do not record netrw history. This avoids the creation of an `.netrwhist` file in the neovim configuration directory under `~/.config`.
+let g:netrw_dirhistmax = 0
+
 "====================================================
 " Status Line
 "
