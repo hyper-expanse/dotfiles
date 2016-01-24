@@ -36,14 +36,6 @@
 "====================================================
 
 "====================================================
-" Environment State
-"
-" Capture the state of Vim's working environment (Such as the operating system, and its environmental variables, on which Vim is executing) so that various options can be enabled, or disabled, to optimize the user's experience.
-"====================================================
-
-let s:isSSH = !empty($SSH_TTY)
-
-"====================================================
 " General Features
 "
 " These options enable several useful baseline features for improving Vim functionality.
