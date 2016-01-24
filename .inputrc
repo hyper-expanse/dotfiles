@@ -1,9 +1,6 @@
 # Disable console beeps that occur as alerts to gain operator attention.
 set bell-style none
 
-# If set to On, a character denoting a file's type, as reported by the stat system call, is appended to the file name when listing possible completions.
-set visible-stats on
-
 # If set to On, words with more than one possible completion are listed instead of ringing the bell (requires pressing Tab once, rather than twice).
 set show-all-if-ambiguous on
 
