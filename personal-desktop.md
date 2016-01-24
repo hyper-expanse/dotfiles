@@ -105,7 +105,6 @@ Packages:
 * kmymoney: KMyMoney is the Personal Finance Manager. [KDE]
 * konversation: GUI IRC client. [KDE]
 * korganizer: Calendar and personal organizer. [KDE- Kontact]
-* krecipes: Recipes manager [KDE]
 * ksnapshot: Screenshot capture tool. [KDE]
 * kwalletmanager: Secure password waller manager. [KDE]
 * luckybackup: File backup utility.
