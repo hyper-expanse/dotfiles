@@ -242,12 +242,6 @@ set nobackup " Do not keep a backup of a file after overwriting the file.
 set nowritebackup " Do not automatically create a write backup before overwriting a file.
 set noswapfile " No temporary swap files.
 
-" Set the default location to store backup files.
-set backupdir=~/.vim/backups
-
-" The backup directory, used to store copies of files before they're modified, must exist for backup files to be created. If it does not exist backup files will not get created.
-call EnsureDirectoryExists($HOME . '/.vim/backups')
-
 "====================================================
 " Doxygen
 "
