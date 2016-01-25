@@ -42,7 +42,7 @@ alias root='sudo -i'
 alias su='sudo -i'
 
 # Clear out the bash history and clear the screen.
-alias scram='history -c; clear; /usr/bin/env rm -r ${HOME}/.local/share/nvim/shada/'
+alias scram='history -c; clear; /usr/bin/env rm -r ${XDG_DATA_HOME}/nvim/shada/ ${XDG_DATA_HOME}/nvim/undo/'
 
 # Find the top 5 largest files within the current, and sub, directories.
 alias findbig='find . -type f -exec ls -lha {} \; | sort --stable --parallel=2 -t" " -k5rh | head -5'
