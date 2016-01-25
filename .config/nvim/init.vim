@@ -12,11 +12,6 @@
 "
 " `CTRL + p`
 "
-" gitv
-" > Git repository viewer.
-"
-" `:Gitv`
-"
 " vim-indent-guides
 " > Visually display indentation levels.
 "
@@ -102,13 +97,11 @@ endif
 call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 
 Plug 'https://github.com/kien/ctrlp.vim.git'
-Plug 'https://github.com/gregsexton/gitv.git'
 Plug 'https://github.com/nanotech/jellybeans.vim.git'
 Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
 Plug 'https://github.com/edkolev/tmuxline.vim.git'
-Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git'
 Plug 'https://github.com/vim-scripts/L9.git' | Plug 'https://github.com/othree/vim-autocomplpop.git'
 Plug 'https://github.com/derekwyatt/vim-fswitch.git'
@@ -118,8 +111,6 @@ Plug 'https://github.com/jelera/vim-javascript-syntax.git'
 Plug 'https://github.com/heavenshell/vim-jsdoc.git'
 Plug 'https://github.com/elzr/vim-json.git'
 Plug 'https://github.com/dbakker/vim-lint.git'
-Plug 'https://github.com/phleet/vim-mercenary.git'
-Plug 'https://github.com/kana/vim-scratch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'https://github.com/tmux-plugins/vim-tmux.git'
 
@@ -1025,21 +1016,6 @@ let g:jsdoc_underscore_private = 1
 
 " Support ECMAScript 6 function definition syntax.
 let g:jsdoc_allow_shorthand = 1
-
-"====================================================
-" Setup vim-scratch Plugin
-"
-" Setup for a scratch utility that generates scratch buffers, un-savable buffers, on request.
-"====================================================
-
-" Only one scratch buffer can exist per Vim instance. Once invoked, the scratch buffer, and its contents, will not be lost until the current Vim instance is closed.
-
-" To open a new scratch buffer, or existing scratch buffer, in a split window:
-"	:ScratchOpen
-" To close the scratch buffer:
-"	:ScratchClose
-" Closing a scratch buffer can also be done using ':q' as with any buffer.
-"	:q
 
 "====================================================
 " Setup vim-signify Plugin
