@@ -55,6 +55,12 @@
 	# Specify the path to the merge tool. Though we specified `vimdiff` earlier, `vimdiff` does not refer to the binary called by `git`, but rather a script that passes arguments to a binary defined by `merge_tool_path`. Below we change the path to the binary that `git`'s `vimdiff` script calls. The binary we use is for Neovim.
 	path = nvim
 
+# Enable large-file support using the large-file support (LFS) plugin for git.
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
 	l = log --abbrev-commit --decorate --graph --oneline
@@ -106,7 +112,3 @@
 
 	# Reset the index of the current directory to the previous commit, but do not modify the contents of the working tree. This will cause any changes not committed, or changes included in the reverted commit, to be left in the working directory as modifications that are not staged for commit.
 	undo = reset --mixed HEAD~1
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
