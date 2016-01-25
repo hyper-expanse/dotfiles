@@ -259,12 +259,6 @@ let g:load_doxygen_syntax = 1
 
 " If the option is available, turn on persistent undo history. This causes all changes to a file to be written to a cache file in the specified undodir directory. This undo history can then be loaded back again by Vim the next time the file is opened.
 if has('persistent_undo')
-	" Set the directory to use for storing undo cache files.
-	set undodir=~/.vim/undo
-
-	" The undo directory, used to store undo cache files, must exist for undo cache files to be created. If it does not exist undo cache files will not get created.
-	call EnsureDirectoryExists($HOME . '/.vim/undo')
-
 	" Turn on persistent undo history.
 	set undofile
 
