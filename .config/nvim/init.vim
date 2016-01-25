@@ -103,7 +103,6 @@ Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
 Plug 'https://github.com/edkolev/tmuxline.vim.git'
 Plug 'https://github.com/vim-airline/vim-airline.git'
-Plug 'https://github.com/vim-scripts/L9.git' | Plug 'https://github.com/othree/vim-autocomplpop.git'
 Plug 'https://github.com/derekwyatt/vim-fswitch.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
@@ -188,14 +187,6 @@ set showmatch
 " Specify how many tenths of a second to blink when matching brackets.
 set mat=2
 
-" Sets title of the shell's containing window to be the value of `titlestring`, if that variable is not empty, or to `filename [+=-] (path) - VIM`.
-" - File cannot be modified.
-" + File has been modified
-" = File is read-only.
-" =+ File is read-only and has been modified.
-" Only works in terminals that support setting the window title.
-set title
-
 " Disable error bells.
 set noerrorbells
 set novisualbell
@@ -275,10 +266,7 @@ endif
 " These options manage settings associated with tabs and automatically indenting new lines.
 "====================================================
 
-" When opening a new line and no filetype-specific indenting is enabled, keep the same indent as the line you're currently on.
-"set cindent "< Probably should not use 'smartindent', a.k.a. 'cindent', with filetype indent feature enabled. Should only be set manually, enabled, when filetype-based indention is not adequate. 'cindent' is only appropriate for c-style languages.
-
-" Number of spaces Vim should use to visually represent a TAB character when encountered within a file.
+" Number of spaces neovim should use to visually represent a TAB character when encountered within a file.
 set tabstop=2
 
 " Number of spaces Vim should use when autoindenting a new line of text, or when using the `<<` and `>>` operations (Such as pressing > or < while text is selected to change the indentation of the text). Also used by `cindent` when that option is enabled.
