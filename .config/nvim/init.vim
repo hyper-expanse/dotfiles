@@ -41,11 +41,6 @@
 " These options enable several useful baseline features for improving Vim functionality.
 "====================================================
 
-if has('vim_starting')
-	" Ensure that Vim always starts with its defaults rather than those imposed by the current system.
-	set all&
-endif
-
 " Enable filetype detection (via file name and content inspection).
 filetype on
 
@@ -61,12 +56,6 @@ set fileformat=unix
 " Disable modeline support within Vim. Modeline support within Vim has constantly introduced security vulnerabilities into the Vim editor. By disabling this feature any chance of a future vulnerability interfering with the use of Vim, or the operating system on which it runs, is mitigated. As for functionality, modelines are configuration lines contained within text files that instruct Vim how to behave when reading those files into a buffer.
 set nomodeline " Turn off modeline parsing altogether.
 set modelines=0 " Set the number of modelines Vim parses, when reading a file, to zero.
-
-" Set printing options such as syntax and the output paper size.
-set printoptions=paper:A4,syntax:y
-
-" Allow the terminal cursor to move freely, even past the end of a line. BAD IDEA.
-"set virtualedit=all
 
 " Set the default language to use for spell checking. `spelllang` is a comma separated list of word lists. Word lists are of the form LANGUAGE_REGION. The LANGUAGE segment may include a specification, such as `-rare` to indicate rare words in that language.
 setlocal spelllang=en_us
