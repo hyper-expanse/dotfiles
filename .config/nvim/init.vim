@@ -1,7 +1,7 @@
 "====================================================
-" Vim Configuration
+" neovim Configuration
 "
-" This script provides useful Vim configuration settings.
+" This script provides useful neovim configuration settings.
 "====================================================
 
 "====================================================
@@ -33,7 +33,7 @@
 "====================================================
 " General Features
 "
-" These options enable several useful baseline features for improving Vim functionality.
+" These options enable several useful baseline features for improving neovim functionality.
 "====================================================
 
 " Enable filetype detection (via file name and content inspection).
@@ -48,16 +48,16 @@ filetype indent on
 " Use Unix as the standard file type when saving a buffer back to file. This will cause Unix line terminators, \n, to be used for deliminating a file's newlines.
 set fileformat=unix
 
-" Disable modeline support within Vim. Modeline support within Vim has constantly introduced security vulnerabilities into the Vim editor. By disabling this feature any chance of a future vulnerability interfering with the use of Vim, or the operating system on which it runs, is mitigated. As for functionality, modelines are configuration lines contained within text files that instruct Vim how to behave when reading those files into a buffer.
+" Disable modeline support within Vim. Modeline support within Vim has constantly introduced security vulnerabilities into the Vim editor. By disabling this feature any chance of a future vulnerability interfering with the use of Vim, neovim, or the operating system on which it runs, is mitigated. As for functionality, modelines are configuration lines contained within text files that instruct neovim how to behave when reading those files into a buffer.
 set nomodeline " Turn off modeline parsing altogether.
-set modelines=0 " Set the number of modelines Vim parses, when reading a file, to zero.
+set modelines=0 " Set the number of modelines neovim parses, when reading a file, to zero.
 
 " Set the default language to use for spell checking. `spelllang` is a comma separated list of word lists. Word lists are of the form LANGUAGE_REGION. The LANGUAGE segment may include a specification, such as `-rare` to indicate rare words in that language.
 setlocal spelllang=en_us
 
 " Create a directory if it doesn't already exist.
 function! EnsureDirectoryExists(directory)
-	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore Vim's suffixes and wildignore options..
+	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore neovim's suffixes and wildignore options..
 	let l:path = expand(substitute(a:directory, '\s\+', '', 'g'), 1)
 
 	" Ensure the expanded path is non-empty. An empty l:path may be caused if path expansion in previous step fails. For that reason we should return the original directory in hopes that it's useful for debugging.
@@ -82,7 +82,7 @@ endfunction
 "====================================================
 " Setup vim-plug Plugin
 "
-" Setup the vim-plug plugin so that it's aware of external plugins we're interested in incorporating into our Vim instance. vim-plug will manage those plugins by pulling in updates and placing them in the appropriate Vim directory.
+" Setup the vim-plug plugin so that it's aware of external plugins we're interested in incorporating into our neovim instance. vim-plug will manage those plugins by pulling in updates and placing them in the appropriate neovim directory.
 "
 " Note: Plugins MUST be listed before any configuration steps involving these plugins can take place.
 "====================================================
@@ -90,7 +90,7 @@ endfunction
 " We must ensure that the `autoload` directory exists within our `~/.vim` directory for the installation of `vim-plug` to work. If the `autoload` directory does not exist prior to invoking `curl`, `curl` will fail to download the file, as `curl` is not setup to create missing directories in the destination path.
 call EnsureDirectoryExists($XDG_DATA_HOME . '/nvim/site/autoload')
 if empty(glob($XDG_DATA_HOME . '/nvim/site/autoload/plug.vim'))
-	" If vim-plug has not been downloaded into Vim's autoload directory, go ahead and invoke `curl` to download vim-plug.
+	" If vim-plug has not been downloaded into neovim's autoload directory, go ahead and invoke `curl` to download vim-plug.
 	silent execute '!curl -fLo ' . $XDG_DATA_HOME . '/nvim/site/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
@@ -117,7 +117,7 @@ Plug 'https://github.com/tmux-plugins/vim-tmux.git', { 'for': 'tmux' }
 " We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
 Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
 
-" Add plugins to Vim's `runtimepath`.
+" Add plugins to neovim's `runtimepath`.
 call plug#end()
 
 "====================================================
@@ -126,7 +126,7 @@ call plug#end()
 " These options alter the graphical layout and visual color of the interface, and alter how file contents are rendered.
 "====================================================
 
-" Enable Vim's syntax highlighting support. Specifically we call 'syntax enable' rather than 'syntax on'. Using 'enable' will instruct Vim to keep the current color settings rather than overruling those settings with Vim's defaults.
+" Enable neovim's syntax highlighting support. Specifically we call 'syntax enable' rather than 'syntax on'. Using 'enable' will instruct neovim to keep the current color settings rather than overruling those settings with neovim's defaults.
 syntax enable
 
 " Enable better command-line completion.
@@ -163,7 +163,7 @@ set confirm
 " Set the command window height to one line. This leaves a single line underneath the status line for command output. This could cause issues with commands that return more output than can fit on that one line. In those cases you may be prompted with the following statement 'press <Enter> to continue', which will require physical intervention on your part. However, this seems like a reasonable compromise as the reduction of the command output lines to only one line saves valuable real estate by avoiding unused white space. One way to offset the 'press <Enter>' prompting is to use the 'shortmess' option to reduce command output.
 set cmdheight=1
 
-" Use abbreviations when posting status messages to the command output line (The line right beneth Vim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. Furthermore, we append the 't' option to 'shortmess' so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
+" Use abbreviations when posting status messages to the command output line (The line right beneth neovim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. Furthermore, we append the 't' option to 'shortmess' so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
 set shortmess=at
 
 " Display line numbers on the left with a column width of 4.
@@ -204,7 +204,7 @@ set cursorline
 " Set the minimum number of lines to search around the cursor's position to derive the appropriate syntax highlighting.
 syntax sync minlines=256
 
-" Instruct Vim to offer corrections in a pop-up on right-click of the mouse.
+" Instruct neovim to offer corrections in a pop-up on right-click of the mouse.
 set mousemodel=popup
 
 " Do not display line numbers when viewing a help file.
@@ -214,7 +214,7 @@ augroup helpFile
 	autocmd FileType helpfile set nonumber
 augroup END
 
-" Configure Vim's formatting options used by Vim to automatically for a line of text. Formatting not applied when 'paste' is enabled.
+" Configure neovim's formatting options used by neovim to automatically for a line of text. Formatting not applied when 'paste' is enabled.
 " Options:
 " j - Where it makes sense, remove a comment leader when joining lines.
 " l - Do not break existing long lines when entering insert mode.
@@ -226,10 +226,10 @@ set formatoptions+=jlnro
 "====================================================
 " Backups
 "
-" These options manage settings associated with how backups are handled by Vim.
+" These options manage settings associated with how backups are handled by neovim.
 "====================================================
 
-" Turn off backups for files that are being edited by Vim.
+" Turn off backups for files that are being edited by neovim.
 set nobackup " Do not keep a backup of a file after overwriting the file.
 set nowritebackup " Do not automatically create a write backup before overwriting a file.
 set noswapfile " No temporary swap files.
@@ -237,19 +237,19 @@ set noswapfile " No temporary swap files.
 "====================================================
 " Doxygen
 "
-" These options manage settings associated with Vim's built-in support for Doxygen.
+" These options manage settings associated with neovim's built-in support for Doxygen.
 "====================================================
 
-" Autoload Doxygen highlighting. This allows Vim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
+" Autoload Doxygen highlighting. This allows neovim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
 let g:load_doxygen_syntax = 1
 
 "====================================================
 " Undo
 "
-" These options manage settings associated with how undo history is retained by Vim.
+" These options manage settings associated with how undo history is retained by neovim.
 "====================================================
 
-" If the option is available, turn on persistent undo history. This causes all changes to a file to be written to a cache file in the specified undodir directory. This undo history can then be loaded back again by Vim the next time the file is opened.
+" If the option is available, turn on persistent undo history. This causes all changes to a file to be written to a cache file in the specified undodir directory. This undo history can then be loaded back again by neovim the next time the file is opened.
 if has('persistent_undo')
 	" Turn on persistent undo history.
 	set undofile
@@ -270,10 +270,10 @@ endif
 " Number of spaces neovim should use to visually represent a TAB character when encountered within a file.
 set tabstop=2
 
-" Number of spaces Vim should use when autoindenting a new line of text, or when using the `<<` and `>>` operations (Such as pressing > or < while text is selected to change the indentation of the text). Also used by `cindent` when that option is enabled.
+" Number of spaces neovim should use when autoindenting a new line of text, or when using the `<<` and `>>` operations (Such as pressing > or < while text is selected to change the indentation of the text). Also used by `cindent` when that option is enabled.
 set shiftwidth=2
 
-" Number of spaces Vim should insert when TAB is pressed, and the number of spaces Vim should remove when the <backspace> is pressed. This allows for a single backspace to go back this many white space characters.
+" Number of spaces neovim should insert when TAB is pressed, and the number of spaces neovim should remove when the <backspace> is pressed. This allows for a single backspace to go back this many white space characters.
 set softtabstop=2
 
 " Copy the structure of the existing lines indent when autoindenting a new line.
@@ -294,16 +294,16 @@ set foldmethod=syntax
 "====================================================
 " Difference Mode
 "
-" These options manage settings associated with Vim wile operating in difference mode, displaying differences between two similar files.
+" These options manage settings associated with neovim wile operating in difference mode, displaying differences between two similar files.
 "====================================================
 
 " Set the default difference display option such that filler lines are shown to keep text synchronized between two windows and use 6 lines of context between a change and a fold that contains unchanged lines.
 set diffopt=filler,context:6
 
 "====================================================
-" Vim Explorer
+" neovim Explorer
 "
-" These options configure Vim's built-in file system explorer so that it behaves in a manner that meets user expectations. This includes showing files in a tree view so that entire projects can be seen at once.
+" These options configure neovim's built-in file system explorer so that it behaves in a manner that meets user expectations. This includes showing files in a tree view so that entire projects can be seen at once.
 "====================================================
 
 " Will cause files selected in the Explorer window to be opened in the most recently used buffer window (Causing the previous buffer to be pushed into the background).
@@ -324,7 +324,7 @@ let g:netrw_dirhistmax = 0
 "====================================================
 " Status Line
 "
-" These options and commands manage settings associated with the status bar at the bottom of the Vim editor.
+" These options and commands manage settings associated with the status bar at the bottom of the neovim editor.
 "====================================================
 
 " Format the status line.
@@ -556,20 +556,20 @@ endfunction
 let mapleader = ","
 let g:mapleader = ","
 
-" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any Vim mode will enter command mode.
+" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
 map ; :
 
-" Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of Vim's enabled auto-indent features.
+" Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of neovim's enabled auto-indent features.
 set pastetoggle=<F11>
 
 " Manage spell check by supporting mappings that turn spell check on and off.
 nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
-" Placing the letter 'i' at the end causes Vim to then return to insert mode after toggling the spell checker.
+" Placing the letter 'i' at the end causes neovim to then return to insert mode after toggling the spell checker.
 inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
-" Placing the letter 'v' at the end causes Vim to then return to visual mode after toggling the spell checker.
+" Placing the letter 'v' at the end causes neovim to then return to visual mode after toggling the spell checker.
 vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
 
-" Re-map screen-256color key sequences for [Alt,CTRL,SHIFT]+[ARROW KEYS] to the appropriate control keys. This accounts for the fact that these key sequences are not automatically handled by Vim when running Vim inside of a screen application such as tmux. Vim is notified that the terminal it is running inside of is a 'screen', or 'screen-256color' terminal by either tmux or screen terminal multiplexers.
+" Re-map screen-256color key sequences for [Alt,CTRL,SHIFT]+[ARROW KEYS] to the appropriate control keys. This accounts for the fact that these key sequences are not automatically handled by neovim when running neovim inside of a screen application such as tmux. neovim is notified that the terminal it is running inside of is a 'screen', or 'screen-256color' terminal by either tmux or screen terminal multiplexers.
 if &term =~ '^screen'
 	execute "set <xUp>=\e[1;*A"
 	execute "set <xDown>=\e[1;*B"
@@ -584,23 +584,23 @@ vnoremap <silent> <C-U> <ESC>:call Browser()<CR>
 
 " Enable Hex editing mode.
 nnoremap <silent> <C-H> <ESC>:call ToggleHex()<CR>
-" Placing the letter 'i' at the end causes Vim to return to insert mode after toggling hex mode.
+" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling hex mode.
 inoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
-" Placing the letter 'v' at the end causes Vim to return to visual mode after toggling hex mode.
+" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling hex mode.
 vnoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
 
 " Enable the displaying of whitespace characters, including tab characters.
 nnoremap <silent> <F6> <ESC>:set list!<CR>
-" Placing the letter 'i' at the end causes Vim to return to insert mode after toggling list mode.
+" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling list mode.
 inoremap <silent> <F6> <ESC>:set list!<CR>i
-" Placing the letter 'v' at the end causes Vim to return to visual mode after toggling list mode.
+" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling list mode.
 vnoremap <silent> <F6> <ESC>:set list!<CR>v
 
-" Instruct Vim to generate syntax highlight for the entire buffer, beginning from the start of the buffer.
+" Instruct neovim to generate syntax highlight for the entire buffer, beginning from the start of the buffer.
 nnoremap <silent> <F12> <Esc>:syntax sync fromstart<CR>
-" Placing the letter 'i' at the end causes Vim to return to insert mode after toggling syntax highlighting.
+" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling syntax highlighting.
 inoremap <silent> <F12> <ESC>:syntax sync fromstart<CR>i
-" Placing the letter 'v' at the end causes Vim to return to visual mode after toggling syntax highlighting.
+" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling syntax highlighting.
 vnoremap <silent> <F12> <ESC>:syntax sync from start<CR>v
 
 " Toggle all folds either open if one or more are closed.
@@ -608,7 +608,7 @@ nnoremap <F9> zR
 inoremap <F9> <C-O>zR
 vnoremap <F9> zR
 
-" Go to the definition of the text that lays below the cursor. This will cause Vim to load the file containing the definition of say a function or variable.
+" Go to the definition of the text that lays below the cursor. This will cause neovim to load the file containing the definition of say a function or variable.
 nnoremap <silent> <C-D> <ESC><C-]>
 inoremap <silent> <C-D> <ESC><C-]>
 vnoremap <silent> <C-D> <ESC><C-]>
@@ -644,7 +644,7 @@ nnoremap <C-space> ?
 " Remove the Window's ^M character when the encoding is messed up.
 nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
 
-" Support switching between Vim splits using ALT and the arrow keys.
+" Support switching between neovim splits using ALT and the arrow keys.
 nnoremap <silent> <A-Up> :wincmd k<CR>
 nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
@@ -732,15 +732,15 @@ vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>
 " Configure pop-up menu to auto-select based on order of options.
 set completeopt=menuone,menu,longest,preview
 
-" Use binary search to search a tags file for matching patterns. Assumes the tags file was sorted on ASCII byte value. If no match is found during an initial search, Vim will switch to a linear search and re-scan the tags file. OPTIMIZATION: Requires tags files to be sorted by Ctags using the 'foldcase' option and requires Vim to have 'ignorecase' option set. Optimization will insure all matching tags are found, while still supporting binary search. See ":help tagbsearch".
+" Use binary search to search a tags file for matching patterns. Assumes the tags file was sorted on ASCII byte value. If no match is found during an initial search, neovim will switch to a linear search and re-scan the tags file. OPTIMIZATION: Requires tags files to be sorted by Ctags using the 'foldcase' option and requires neovim to have 'ignorecase' option set. Optimization will insure all matching tags are found, while still supporting binary search. See ":help tagbsearch".
 set tagbsearch
 
-" Enable a Vim option to remember which tags were jumped to, and from where. The tagstack list shows the tags that were jumped to and the cursor position right before the jump.
+" Enable a neovim option to remember which tags were jumped to, and from where. The tagstack list shows the tags that were jumped to and the cursor position right before the jump.
 set tagstack
 
 " GENERIC LANGUAGE SUPPORT
 
-" Enable default auto complete support in Vim. Will force Vim to select the appropriate auto complete tool based on filetype.
+" Enable default auto complete support in neovim. Will force neovim to select the appropriate auto complete tool based on filetype.
 set omnifunc=syntaxcomplete#Complete
 
 " C SUPPORT.
@@ -823,7 +823,7 @@ let ruby_space_errors = 1
 augroup phpSupport
 	autocmd!
 
-	" Instruct Vim to treat *.phtml files as PHP source code files.
+	" Instruct neovim to treat *.phtml files as PHP source code files.
 	autocmd BufNewFile,BufRead *.phtml set syntax=php
 augroup END
 
@@ -850,7 +850,7 @@ augroup END
 augroup markdownSupport
 	autocmd!
 
-	" Instruct Vim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because Vim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
+	" Instruct neovim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because neovim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
 	autocmd BufRead,BufNewFile *.{md} set filetype=markdown
 	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
 augroup END
@@ -864,7 +864,7 @@ highlight PmenuSel ctermfg=Green ctermbg=Black
 highlight PmenuSbar ctermfg=White ctermbg=Green
 highlight PmenuThumb ctermfg=White ctermbg=Green
 
-" Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that Vim was opened.
+" Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that neovim was opened.
 function! UpdateTags()
 	execute ":silent !ctags --recurse=yes --sort=foldcase --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+fq ./"
 	execute ":redraw!"
@@ -913,7 +913,7 @@ let g:ctrlp_show_hidden = 1
 " Setup for a vim-airline environment so that the environment will look and behave in the desired way.
 "====================================================
 
-" Enable vim-airline's buffer status bar. This buffer status bar will appear at the very top of Vim, similiar to where the multibufexpl plugin would appear.
+" Enable vim-airline's buffer status bar. This buffer status bar will appear at the very top of neovim, similiar to where the multibufexpl plugin would appear.
 let g:airline#extensions#tabline#enabled = 1
 
 " Automatically populate the `g:airline_symbols` dictionary with the correct font glyphs used as the special symbols for vim-airline's status bar.
@@ -952,7 +952,7 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 "====================================================
 " Setup vim-fugitive Plugin
 "
-" Setup for an integrated git tool that allows for the management (clone, checkout, branch, add, .etc) of git repositories from within Vim.
+" Setup for an integrated git tool that allows for the management (clone, checkout, branch, add, .etc) of git repositories from within neovim.
 "====================================================
 
 " Use the following commands like that their counter parts in Git would be used:
@@ -967,7 +967,7 @@ map! <silent> <F2> <ESC>:FSSplitRight<CR>
 " Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentation level.
 "====================================================
 
-" Enable the indent guide plugin on Vim startup. This will cause indentations to be highlighted automatically when opening up a file into a Vim buffer.
+" Enable the indent guide plugin on neovim startup. This will cause indentations to be highlighted automatically when opening up a file into a neovim buffer.
 let g:indent_guides_enable_on_vim_startup = 0
 
 " Indicate which indentation level to begin showing guides.
@@ -997,11 +997,11 @@ let g:jsdoc_allow_shorthand = 1
 "====================================================
 " Setup vim-signify Plugin
 "
-" Setup for the Signify plugin that adds the +, -, and ~ characters in the "gutter", a.k.a left sidebar, of Vim to indicate when lines have been added, removed, or modified as compared against a file managed by a VCS.
+" Setup for the Signify plugin that adds the +, -, and ~ characters in the "gutter", a.k.a left sidebar, of neovim to indicate when lines have been added, removed, or modified as compared against a file managed by a VCS.
 "====================================================
 
-" Instruct the Signify plugin to only check for these version control systems upon loading a file into a Vim buffer. Restricting the list of version control systems to check for will improve the performance of the Signify plugin (by preventing Signify from checking the loaded buffer against every version control system). Also note that this list is a priority list. Version control support is checked in the order of those items in the list.
-let g:signify_vcs_list = ['git', 'hg']
+" Instruct the Signify plugin to only check for these version control systems upon loading a file into a neovim buffer. Restricting the list of version control systems to check for will improve the performance of the Signify plugin (by preventing Signify from checking the loaded buffer against every version control system). Also note that this list is a priority list. Version control support is checked in the order of those items in the list.
+let g:signify_vcs_list = ['git']
 
 " Mapping for jumping around in a buffer between next, or previous, change hunks.
 let g:signify_mapping_next_hunk = '<leader>gj'
@@ -1010,10 +1010,10 @@ let g:signify_mapping_prev_hunk = '<leader>gk'
 " Toggles the Signify plugin for the current buffer only.
 let g:signify_mapping_toggle = '<leader>gt'
 
-" Don't overwrite existing signs placed into the left sidebar by other Vim plugins.
+" Don't overwrite existing signs placed into the left sidebar by other neovim plugins.
 let g:signify_sign_overwrite = 0
 
-" Update signs when Vim is given focus.
+" Update signs when neovim is given focus.
 let g:signify_update_on_focusgained = 0
 
 " Use alternative signs for various states of a line under version control.
@@ -1051,9 +1051,9 @@ let g:syntastic_yaml_checkers = ['jsyaml']
 
 " Toggle the Tagbar window on or off in normal and insert modes.
 nnoremap <silent> <F8> <ESC>:TagbarToggle<CR>
-" Placing the letter 'i' at the end causes the Tagbar to be turned on/off and for Vim to then return to insert mode.
+" Placing the letter 'i' at the end causes the Tagbar to be turned on/off and for neovim to then return to insert mode.
 inoremap <silent> <F8> <ESC>:TagbarToggle<CR>i
-" Place the letter 'v' at the end causes the Tagbar to be turned on/off and for Vim to then return to visual mode.
+" Place the letter 'v' at the end causes the Tagbar to be turned on/off and for neovim to then return to visual mode.
 vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
 
 " Enable Tagbar support for Markdown files by configuring Tagbar to use a special script that's capable of generating the required Ctag information necessary for Tagbar to render a tree view of the current file's headings.
@@ -1075,7 +1075,7 @@ let g:tagbar_type_markdown = {
 "====================================================
 " Setup tmuxline Plugin
 "
-" Setup for Tmuxline to enable a Powerline line like status line for TMUX, but using Vim to manage the setup and configuration.
+" Setup for Tmuxline to enable a Powerline line like status line for TMUX, but using neovim to manage the setup and configuration.
 "====================================================
 
 " Choose one of the built-in status line presets available from the Tmuxline plugin. In this case I have chosen Tmuxline's 'full' preset that includes most available data points; such as open windows, date, time, and host.
@@ -1084,21 +1084,21 @@ let g:tmuxline_preset = 'full'
 "====================================================
 " Setup Colorscheme
 "
-" Setup Vim to recognize our terminal as having a particular background color, and then set our preferred color scheme (a.k.a theme).
+" Setup neovim to recognize our terminal as having a particular background color, and then set our preferred color scheme (a.k.a theme).
 "
-" Note: This setup step must be last so that the color scheme is setup properly. If configured earlier, some setting in this configuration file will cause Vim to revert to its default color scheme (or worse, you'll get a collision of multiple color schemes.).
+" Note: This setup step must be last so that the color scheme is setup properly. If configured earlier, some setting in this configuration file will cause neovim to revert to its default color scheme (or worse, you'll get a collision of multiple color schemes.).
 "====================================================
 
-" Inform Vim to expect a dark terminal background. This will cause Vim to compensate by altering the color scheme.
+" Inform neovim to expect a dark terminal background. This will cause neovim to compensate by altering the color scheme.
 set background=dark
 
-" Set Vim's color scheme. We purposely silence any failure notification if the desired colorscheme can't be loaded by Vim. If Vim is unable to load the desired colorscheme, it will be quite apparent to the user. By silencing error messages we gain the ability to automate tasks, such as installing plugins for the first time, that would otherwise block if an error message was displayed because the desired colorscheme wasn't available.
+" Set neovim's color scheme. We purposely silence any failure notification if the desired colorscheme can't be loaded by neovim. If neovim is unable to load the desired colorscheme, it will be quite apparent to the user. By silencing error messages we gain the ability to automate tasks, such as installing plugins for the first time, that would otherwise block if an error message was displayed because the desired colorscheme wasn't available.
 silent! colorscheme jellybeans
 
 "====================================================
 " Spellcheck Highlighting
 "
-" Setup Vim to use our own highlighting rules for words not recognized by Vim based on the `spelllang` setting. These highlight rules must be set _after_ a theme has been selected using `colorscheme`.
+" Setup neovim to use our own highlighting rules for words not recognized by neovim based on the `spelllang` setting. These highlight rules must be set _after_ a theme has been selected using `colorscheme`.
 "
 " SpellBad: word not recognized
 " SpellCap: word not capitalized
@@ -1112,7 +1112,7 @@ highlight clear SpellCap
 highlight clear SpellRare
 highlight clear SpellLocal
 
-" Set our own highlighting rules for Vim's spell checking.
+" Set our own highlighting rules for neovim's spell checking.
 " We use `undercurl` to use squiggles under highlighted words when that option is available (gvim only). Otherwise words are simply underlined.
 highlight SpellBad   term=undercurl cterm=undercurl ctermfg=Red
 highlight SpellCap   term=undercurl cterm=undercurl ctermfg=Yellow
