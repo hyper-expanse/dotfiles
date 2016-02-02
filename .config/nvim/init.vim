@@ -541,13 +541,6 @@ inoremap <silent> <F6> <ESC>:set list!<CR>i
 " Placing the letter 'v' at the end causes neovim to return to visual mode after toggling list mode.
 vnoremap <silent> <F6> <ESC>:set list!<CR>v
 
-" Instruct neovim to generate syntax highlight for the entire buffer, beginning from the start of the buffer.
-nnoremap <silent> <F12> <Esc>:syntax sync fromstart<CR>
-" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling syntax highlighting.
-inoremap <silent> <F12> <ESC>:syntax sync fromstart<CR>i
-" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling syntax highlighting.
-vnoremap <silent> <F12> <ESC>:syntax sync from start<CR>v
-
 " Toggle all folds either open if one or more are closed.
 nnoremap <F9> zR
 inoremap <F9> <C-O>zR
@@ -557,12 +550,6 @@ vnoremap <F9> zR
 nnoremap <silent> <C-D> <ESC><C-]>
 inoremap <silent> <C-D> <ESC><C-]>
 vnoremap <silent> <C-D> <ESC><C-]>
-
-"====================================================
-" Command-line Mode
-"
-" Useful mappings for command-line mode.
-"====================================================
 
 "====================================================
 " Insert Mode
@@ -957,11 +944,6 @@ let g:syntastic_cpp_checkers = ['cppcheck']
 
 " Set our preferred lint checker to PEP8, with a fallback to PyLint if the PEP8 checker fails to find any issues.
 let g:syntastic_python_checkers = ['pep8', 'pylint']
-
-" YAML
-
-" Set our preferred lint checker to JSYAML.
-let g:syntastic_yaml_checkers = ['jsyaml']
 
 "====================================================
 " Setup tagbar Plugin
