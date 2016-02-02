@@ -787,22 +787,6 @@ augroup END
 " Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
 let python_space_errors = 1
 
-" RUBY SUPPORT.
-
-augroup rubySupport
-	autocmd!
-
-	" Enable Ruby Omni Complete on Ruby and eRuby files.
-	autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-augroup END
-
-let g:rubycomplete_buffer_loading = 1		" Show buffer/rails/global members.
-let g:rubycomplete_rails = 1				" Enable Ruby on Rails support.
-let g:rubycomplete_classes_in_global = 1	" Show classes in global completions.
-
-" Enable the display of space errors for Ruby files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-let ruby_space_errors = 1
-
 " PHP SUPPORT.
 
 augroup phpSupport
