@@ -160,8 +160,8 @@ set rulerformat=%40(%t%y:\ %l,%c%V\ \(%o\)\ %p%%%)
 " Instead of failing a command because of unsaved changes raise a dialogue asking if you wish to save changed files.
 set confirm
 
-" Use abbreviations when posting status messages to the command output line (The line right beneth neovim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. Furthermore, we append the 't' option to 'shortmess' so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
-set shortmess=at
+" Use abbreviations when posting status messages to the command output line (The line right beneth neovim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. We append the 's' option to disable the 'search hit BOTTOM' text. Furthermore, we append the 't' option so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
+set shortmess=ast
 
 " Display line numbers on the left with a column width of 4.
 set number
