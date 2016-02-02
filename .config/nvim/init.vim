@@ -935,6 +935,11 @@ let g:signify_diffoptions = { 'git': 'HEAD' }
 " Setup for the Syntastic plugin so that it knows how to behave for each software language filetype. Additional configuration can be included in this section to, for example, specify the tool that should be used to check a particular filetype for lint issues.
 "====================================================
 
+" JavaScript
+
+" Set our preferred lint checkers to JSCS and JSHint.
+let g:syntastic_javascript_checkers = ['jscs', 'jshint']
+
 " C++
 
 " Set our preferred lint checker to CppChecker.
