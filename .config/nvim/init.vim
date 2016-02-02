@@ -179,24 +179,11 @@ set lazyredraw
 " Show matching brackets when text indicator is over them.
 set showmatch
 
-" Specify how many tenths of a second to blink when matching brackets.
-set mat=2
-
-" Disable error bells.
-set noerrorbells
-set novisualbell
-
 " Start scrolling when we're 3 lines from the bottom of the current window.
 set scrolloff=3
 
-" Disable the highlighting of the column on which the cursor currently resides. When enabled, this feature is useful for the purpose of aligning text, but it's a performance hindrance.
-set nocursorcolumn
-
 " Enable the highlighting of the row on which the cursor resides, along with highlighting the row's row number.
 set cursorline
-
-" Set the minimum number of lines to search around the cursor's position to derive the appropriate syntax highlighting.
-syntax sync minlines=256
 
 " Instruct neovim to offer corrections in a pop-up on right-click of the mouse.
 set mousemodel=popup
@@ -296,24 +283,6 @@ let g:netrw_preview = 0
 
 " Do not record netrw history. This avoids the creation of an `.netrwhist` file in the neovim configuration directory under `~/.config`.
 let g:netrw_dirhistmax = 0
-
-"====================================================
-" Status Line
-"
-" These options and commands manage settings associated with the status bar at the bottom of the neovim editor.
-"====================================================
-
-" Format the status line.
-set statusline=%F			" Full path of the file.
-set statusline+=\ %m		" Display [+] if the current buffer has been modified.
-set statusline+=\ %r		" Show [RO] for read-only files.
-set statusline+=%=			" Right align the following status line text.
-set statusline+=\ %{fugitive#statusline()}	" Fugitive plugin for pulling in Git repo information.
-set statusline+=\ %y		" File type, such as [cpp] or [bash].
-set statusline+=\ [%{strlen(&fenc)?&fenc:'none'}]	" File encoding, such as [utf-8] or [latin1].
-set statusline+=\ [%{strlen(&ff)?&ff:'unknown'}]	" File format, such as [unix] or [dos].
-set statusline+=\ [Column:\ %3v]	" Virtual column number that is independent of the total byte count of all characters up to that point. Padd with up to 3 invisible characters.
-set statusline+=\ [Line:\ %4l\/%L]	" Current line number out of '%L' lines in the current buffer. Pass with up to 4 invisible characters.
 
 "====================================================
 " Per-language Setup
