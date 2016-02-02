@@ -55,6 +55,9 @@ set modelines=0 " Set the number of modelines neovim parses, when reading a file
 " Set the default language to use for spell checking. `spelllang` is a comma separated list of word lists. Word lists are of the form LANGUAGE_REGION. The LANGUAGE segment may include a specification, such as `-rare` to indicate rare words in that language.
 setlocal spelllang=en_us
 
+" Turn on persistent undo history. This causes all changes to a file to be written to a cache file in the specified undodir directory. This undo history can then be loaded back again by neovim the next time the file is opened.
+set undofile
+
 " Create a directory if it doesn't already exist.
 function! EnsureDirectoryExists(directory)
 	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore neovim's suffixes and wildignore options..
@@ -242,24 +245,6 @@ set noswapfile " No temporary swap files.
 
 " Autoload Doxygen highlighting. This allows neovim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
 let g:load_doxygen_syntax = 1
-
-"====================================================
-" Undo
-"
-" These options manage settings associated with how undo history is retained by neovim.
-"====================================================
-
-" If the option is available, turn on persistent undo history. This causes all changes to a file to be written to a cache file in the specified undodir directory. This undo history can then be loaded back again by neovim the next time the file is opened.
-if has('persistent_undo')
-	" Turn on persistent undo history.
-	set undofile
-
-	" Set the maximum number of undos that should be kept in history.
-	set undolevels=100
-
-	" Set the maximum number of lines to save for undo on a buffer reload. Allows the current contents of a buffer to be saved when reloading the buffer so that the buffer reload can be undone.
-	set undoreload=1000
-endif
 
 "====================================================
 " Tabs and Indents
