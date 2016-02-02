@@ -787,15 +787,6 @@ augroup END
 " Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
 let python_space_errors = 1
 
-" PHP SUPPORT.
-
-augroup phpSupport
-	autocmd!
-
-	" Instruct neovim to treat *.phtml files as PHP source code files.
-	autocmd BufNewFile,BufRead *.phtml set syntax=php
-augroup END
-
 " HTML SUPPORT.
 
 augroup htmlSupport
