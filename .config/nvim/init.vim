@@ -98,21 +98,21 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 
 Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'https://github.com/nanotech/jellybeans.vim.git'
-Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
+Plug 'https://github.com/vim-scripts/OmniCppComplete.git', { 'for': 'cpp' }
 Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
 Plug 'https://github.com/edkolev/tmuxline.vim.git'
 Plug 'https://github.com/vim-airline/vim-airline.git'
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
-Plug 'https://github.com/derekwyatt/vim-fswitch.git'
+Plug 'https://github.com/derekwyatt/vim-fswitch.git', { 'for': 'cpp' }
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
-Plug 'https://github.com/jelera/vim-javascript-syntax.git'
-Plug 'https://github.com/heavenshell/vim-jsdoc.git'
-Plug 'https://github.com/elzr/vim-json.git'
-Plug 'https://github.com/dbakker/vim-lint.git'
+Plug 'https://github.com/jelera/vim-javascript-syntax.git', { 'for': 'javascript' }
+Plug 'https://github.com/heavenshell/vim-jsdoc.git', { 'for': 'javascript' }
+Plug 'https://github.com/elzr/vim-json.git', { 'for': 'json' }
+Plug 'https://github.com/dbakker/vim-lint.git', { 'for': 'vim' }
 Plug 'https://github.com/mhinz/vim-signify.git'
-Plug 'https://github.com/tmux-plugins/vim-tmux.git'
+Plug 'https://github.com/tmux-plugins/vim-tmux.git', { 'for': 'tmux' }
 
 " We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
 Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
