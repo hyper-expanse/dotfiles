@@ -337,7 +337,13 @@ updateTmux ()
 	tmux new-session -d
 
 	# Install Tmux plugins.
-	bash "${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh"
+	bash "${HOME}/.tmux/plugins/tpm/bin/install_plugins"
+
+	# Update previously installed Tmux plugins.
+	bash "${HOME}/.tmux/plugins/tpm/bin/update_plugins" all
+
+	# Remove any installed plugins that are not listed in the `tmux.conf` file.
+	bash "${HOME}/.tmux/plugins/tpm/bin/clean_plugins"
 
 	# Kill the previously created Tmux server.
 	tmux kill-server

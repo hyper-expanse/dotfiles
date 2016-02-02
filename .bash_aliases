@@ -84,7 +84,7 @@ alias update='updateSystem && updateLocal'
 alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
 
 # Update local packages and tools.
-alias updateLocal='brew update && brew upgrade --all && nvim +PlugUpgrade +PlugUpdate +PlugClean +qa && ~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all && ~/.tmux/plugins/tpm/bin/clean_plugins'
+alias updateLocal='updateBrewPackages && updateNeovim && updateTmux && installNodePackages && installPythonPackages'
 
 # Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY}'
