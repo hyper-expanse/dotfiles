@@ -140,9 +140,6 @@ set wildignore=*.swp,*.bak,*.tmp,*~
 set wildignore+=*.zip,*.7z,*.gzip,*.gz
 set wildignore+=*.jpg,*.png,*.gif,*.avi,*.mov,*.mpeg
 
-" Show partial commands in the last line of the screen.
-set showcmd
-
 " Try not to split words across multiple lines when a line wraps.
 set linebreak
 
@@ -163,9 +160,6 @@ set rulerformat=%40(%t%y:\ %l,%c%V\ \(%o\)\ %p%%%)
 " Instead of failing a command because of unsaved changes raise a dialogue asking if you wish to save changed files.
 set confirm
 
-" Set the command window height to one line. This leaves a single line underneath the status line for command output. This could cause issues with commands that return more output than can fit on that one line. In those cases you may be prompted with the following statement 'press <Enter> to continue', which will require physical intervention on your part. However, this seems like a reasonable compromise as the reduction of the command output lines to only one line saves valuable real estate by avoiding unused white space. One way to offset the 'press <Enter>' prompting is to use the 'shortmess' option to reduce command output.
-set cmdheight=1
-
 " Use abbreviations when posting status messages to the command output line (The line right beneth neovim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. Furthermore, we append the 't' option to 'shortmess' so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
 set shortmess=at
 
@@ -181,9 +175,6 @@ set hidden
 
 " Don't redraw while executing macros, thereby improving performance.
 set lazyredraw
-
-" Turn on the 'magic' behaviour thereby enabling regular expressions.
-set magic
 
 " Show matching brackets when text indicator is over them.
 set showmatch
