@@ -18,8 +18,8 @@ augroup END
 augroup javascript-fold
 	autocmd!
 
-	" Set the initial fold level for JavaScript files to level 2. Most JavaScript files begin with `define([], function () {});`. That syntax would, under the default fold level, cause the entire file to be folded into a single line. That level of folding hides everything meaningful, such as functions and objects defined within the confines of a `define` wrapper.
-	autocmd FileType javascript set foldlevel=2
+	" Set the fold level to a high number to effectively disable code folding.
+	autocmd FileType javascript set foldlevel=10000
 augroup END
 
 " Define comment delimiter.
