@@ -884,24 +884,6 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
 "====================================================
-" Setup vim-jsdoc Plugin
-"
-" Setup for JsDoc plugin to build documentation for a function based on context information and user input.
-"====================================================
-
-" Allow interactive prompting for input.
-let g:jsdoc_allow_input_prompt = 1
-
-" Turn on access tags such as `@private` and `@public`.
-let g:jsdoc_access_descriptions = 2
-
-" Turn on detecting a function starting with an underscore as a private function.
-let g:jsdoc_underscore_private = 1
-
-" Support ECMAScript 6 function definition syntax.
-let g:jsdoc_allow_shorthand = 1
-
-"====================================================
 " Setup vim-signify Plugin
 "
 " Setup for the Signify plugin that adds the +, -, and ~ characters in the "gutter", a.k.a left sidebar, of neovim to indicate when lines have been added, removed, or modified as compared against a file managed by a VCS.
@@ -934,11 +916,6 @@ let g:signify_diffoptions = { 'git': 'HEAD' }
 "
 " Setup for the Syntastic plugin so that it knows how to behave for each software language filetype. Additional configuration can be included in this section to, for example, specify the tool that should be used to check a particular filetype for lint issues.
 "====================================================
-
-" JavaScript
-
-" Set our preferred lint checkers to JSCS and JSHint.
-let g:syntastic_javascript_checkers = ['jscs', 'jshint']
 
 " C++
 
