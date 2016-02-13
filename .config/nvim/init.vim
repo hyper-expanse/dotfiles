@@ -285,6 +285,24 @@ let g:netrw_preview = 0
 let g:netrw_dirhistmax = 0
 
 "====================================================
+" Block Commenting
+"
+" These options and commands support commenting and uncommenting large source code blocks based on language.
+"====================================================
+
+" Map filetypes to comment delimiters.
+augroup programmingLanguageComments
+	autocmd!
+
+	autocmd FileType haskell,vhdl,ada let b:comment_leader = '-- '
+	autocmd FileType vim let b:comment_leader = '" '
+	autocmd FileType c,cpp,java,php let b:comment_leader = '// '
+	autocmd FileType fql,fqlut let b:comment_leader = '\\ '
+	autocmd FileType sh,make let b:comment_leader = '# '
+	autocmd FileType tex let b:comment_leader = '% '
+augroup END
+
+"====================================================
 " Per-language Setup
 "
 " Scripts for configuring behavior on a per-language basis.
@@ -295,6 +313,110 @@ source ~/.config/nvim/javascript.vim
 
 " Source JSON configuration.
 source ~/.config/nvim/json.vim
+
+"====================================================
+" Key Mappings
+"
+" Key mappings to enable access to built-in features of neovim.
+"====================================================
+
+" Set a map leader so that extra key combinations can be used for quick operations.
+let mapleader = ","
+let g:mapleader = ","
+
+" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
+map ; :
+
+" Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of neovim's enabled auto-indent features.
+set pastetoggle=<F11>
+
+" Manage spell check by supporting mappings that turn spell check on and off.
+nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
+" Placing the letter 'i' at the end causes neovim to then return to insert mode after toggling the spell checker.
+inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
+" Placing the letter 'v' at the end causes neovim to then return to visual mode after toggling the spell checker.
+vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
+
+" Re-map screen-256color key sequences for [Alt,CTRL,SHIFT]+[ARROW KEYS] to the appropriate control keys. This accounts for the fact that these key sequences are not automatically handled by neovim when running neovim inside of a screen application such as tmux. neovim is notified that the terminal it is running inside of is a 'screen', or 'screen-256color' terminal by either tmux or screen terminal multiplexers.
+if &term =~ '^screen'
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
+endif
+
+" Start a browser instance loading the URI that is underneath the cursor.
+nnoremap <silent> <C-U> <ESC>:call Browser()<CR>
+inoremap <silent> <C-U> <ESC>:call Browser()<CR>
+vnoremap <silent> <C-U> <ESC>:call Browser()<CR>
+
+" Enable Hex editing mode.
+nnoremap <silent> <C-H> <ESC>:call ToggleHex()<CR>
+" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling hex mode.
+inoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
+" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling hex mode.
+vnoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
+
+" Enable the displaying of whitespace characters, including tab characters.
+nnoremap <silent> <F6> <ESC>:set list!<CR>
+" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling list mode.
+inoremap <silent> <F6> <ESC>:set list!<CR>i
+" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling list mode.
+vnoremap <silent> <F6> <ESC>:set list!<CR>v
+
+" Toggle all folds either open if one or more are closed.
+nnoremap <F9> zR
+inoremap <F9> <C-O>zR
+vnoremap <F9> zR
+
+" Go to the definition of the text that lays below the cursor. This will cause neovim to load the file containing the definition of say a function or variable.
+nnoremap <silent> <C-D> <ESC><C-]>
+inoremap <silent> <C-D> <ESC><C-]>
+vnoremap <silent> <C-D> <ESC><C-]>
+
+" Map <space> to /, for forward searching, and CTRL+<space> to ?, for backwards searching.
+nnoremap <space> /
+nnoremap <C-space> ?
+
+" Remove the Window's ^M character when the encoding is messed up.
+nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
+
+" Support switching between neovim splits using ALT and the arrow keys.
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
+
+" Support the swapping of buffers between two windows. We support two options, using either the <leader> or a function key. <F3> Marks a buffer for movement and <F4> selects the second buffer of the swap pair and then executes the swap.
+nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
+nnoremap <silent> <F3> :call MarkWindowSwap()<CR>
+nnoremap <silent> <F4> :call DoWindowSwap()<CR>
+
+" Resize current window by +/- 3 rows/columns using CTRL and the arrow keys.
+nnoremap <silent> <C-Up> :resize +3<CR>
+nnoremap <silent> <C-Down> :resize -3<CR>
+nnoremap <silent> <C-Right> :vertical resize +3<CR>
+nnoremap <silent> <C-Left> :vertical resize -3<CR>
+
+" Search and replace the selected text.
+vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+
+" Pressing * or # while in normal mode searches for the current selection. '*' searches forward while '#' searches backwards.
+vnoremap <silent> 8 :call VisualSelection('f')<CR>
+vnoremap <silent> 3 :call VisualSelection('b')<CR>
+
+" Enable Hex editing mode.
+vnoremap <C-H> :<C-U>ToggleHex()<CR>
+
+" Pressing backspace will delete the character to the left of the cursor.
+vnoremap <backspace> d
+
+" Define comment functions to map comment to 'cc' and uncomment to 'uc' in visual and normal mode.
+nnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
+vnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
+nnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
+vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
 
 "====================================================
 " Helper Functions
@@ -490,170 +612,6 @@ function! InsertHeaderGuard()
 	execute "normal! Go#endif"
 	normal! kk
 endfunction
-
-"====================================================
-" Multi-Mode Mappings
-"
-" General options are define such that they are available within all operating modes. Also a collection of mappings usable within two or more modes are defined.
-"====================================================
-
-" Set a map leader so that extra key combinations can be used for quick operations.
-let mapleader = ","
-let g:mapleader = ","
-
-" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
-map ; :
-
-" Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of neovim's enabled auto-indent features.
-set pastetoggle=<F11>
-
-" Manage spell check by supporting mappings that turn spell check on and off.
-nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
-" Placing the letter 'i' at the end causes neovim to then return to insert mode after toggling the spell checker.
-inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
-" Placing the letter 'v' at the end causes neovim to then return to visual mode after toggling the spell checker.
-vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
-
-" Re-map screen-256color key sequences for [Alt,CTRL,SHIFT]+[ARROW KEYS] to the appropriate control keys. This accounts for the fact that these key sequences are not automatically handled by neovim when running neovim inside of a screen application such as tmux. neovim is notified that the terminal it is running inside of is a 'screen', or 'screen-256color' terminal by either tmux or screen terminal multiplexers.
-if &term =~ '^screen'
-	execute "set <xUp>=\e[1;*A"
-	execute "set <xDown>=\e[1;*B"
-	execute "set <xRight>=\e[1;*C"
-	execute "set <xLeft>=\e[1;*D"
-endif
-
-" Start a browser instance loading the URI that is underneath the cursor.
-nnoremap <silent> <C-U> <ESC>:call Browser()<CR>
-inoremap <silent> <C-U> <ESC>:call Browser()<CR>
-vnoremap <silent> <C-U> <ESC>:call Browser()<CR>
-
-" Enable Hex editing mode.
-nnoremap <silent> <C-H> <ESC>:call ToggleHex()<CR>
-" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling hex mode.
-inoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
-" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling hex mode.
-vnoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
-
-" Enable the displaying of whitespace characters, including tab characters.
-nnoremap <silent> <F6> <ESC>:set list!<CR>
-" Placing the letter 'i' at the end causes neovim to return to insert mode after toggling list mode.
-inoremap <silent> <F6> <ESC>:set list!<CR>i
-" Placing the letter 'v' at the end causes neovim to return to visual mode after toggling list mode.
-vnoremap <silent> <F6> <ESC>:set list!<CR>v
-
-" Toggle all folds either open if one or more are closed.
-nnoremap <F9> zR
-inoremap <F9> <C-O>zR
-vnoremap <F9> zR
-
-" Go to the definition of the text that lays below the cursor. This will cause neovim to load the file containing the definition of say a function or variable.
-nnoremap <silent> <C-D> <ESC><C-]>
-inoremap <silent> <C-D> <ESC><C-]>
-vnoremap <silent> <C-D> <ESC><C-]>
-
-"====================================================
-" Insert Mode
-"
-" Useful mappings for insert mode.
-"====================================================
-
-" Map the TAB key such that pressing TAB while the auto-complete menu is displayed causes the selected item from the menu to iterate to the next item. This effectively causes the TAB key to act as the next button (or down arrow key). The TAB key substitutes for the existing support afforded by CTRL+n.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-g>u\<Tab>"
-
-"====================================================
-" Normal Mode
-"
-" Useful mappings for normal mode.
-"====================================================
-
-" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy, which is the default.
-nnoremap Y y$
-
-" Map <space> to /, for forward searching, and CTRL+<space> to ?, for backwards searching.
-nnoremap <space> /
-nnoremap <C-space> ?
-
-" Remove the Window's ^M character when the encoding is messed up.
-nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
-
-" Support switching between neovim splits using ALT and the arrow keys.
-nnoremap <silent> <A-Up> :wincmd k<CR>
-nnoremap <silent> <A-Down> :wincmd j<CR>
-nnoremap <silent> <A-Left> :wincmd h<CR>
-nnoremap <silent> <A-Right> :wincmd l<CR>
-
-" Support the swapping of buffers between two windows. We support two options, using either the <leader> or a function key. <F3> Marks a buffer for movement and <F4> selects the second buffer of the swap pair and then executes the swap.
-nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
-nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
-nnoremap <silent> <F3> :call MarkWindowSwap()<CR>
-nnoremap <silent> <F4> :call DoWindowSwap()<CR>
-
-" Resize current window by +/- 3 rows/columns using CTRL and the arrow keys.
-nnoremap <silent> <C-Up> :resize +3<CR>
-nnoremap <silent> <C-Down> :resize -3<CR>
-nnoremap <silent> <C-Right> :vertical resize +3<CR>
-nnoremap <silent> <C-Left> :vertical resize -3<CR>
-
-" Pressing CTRL-A selects all text within the current buffer.
-nnoremap <C-A> gggH<C-O>G
-
-"====================================================
-" Select Mode
-"
-" Useful mappings for select mode.
-"====================================================
-
-" Pressing CTRL-C and CTRL-Insert copies the selected text.
-snoremap <C-C> <C-O>"+y
-
-"====================================================
-" Visual Mode
-"
-" Useful mappings for visual mode.
-"====================================================
-
-" Search and replace the selected text.
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-
-" Pressing * or # while in normal mode searches for the current selection. '*' searches forward while '#' searches backwards.
-vnoremap <silent> 8 :call VisualSelection('f')<CR>
-vnoremap <silent> 3 :call VisualSelection('b')<CR>
-
-" Pressing gv uses vimgrep after the selected text.
-vnoremap <silent> gv :call VisualSelection('gv')<CR>
-
-" Enable Hex editing mode.
-vnoremap <C-H> :<C-U>ToggleHex()<CR>
-
-" Pressing backspace will delete the character to the left of the cursor.
-vnoremap <backspace> d
-
-" Pressing CTRL-A selects all text within the current buffer.
-vnoremap <C-A> ggVG
-
-"====================================================
-" Block Commenting
-"
-" These options and commands support commenting and uncommenting large source code blocks based on language.
-"====================================================
-
-" Map filetypes to comment delimiters.
-augroup programmingLanguageComments
-	autocmd!
-
-	autocmd FileType haskell,vhdl,ada let b:comment_leader = '-- '
-	autocmd FileType vim let b:comment_leader = '" '
-	autocmd FileType c,cpp,java,php let b:comment_leader = '// '
-	autocmd FileType fql,fqlut let b:comment_leader = '\\ '
-	autocmd FileType sh,make let b:comment_leader = '# '
-	autocmd FileType tex let b:comment_leader = '% '
-augroup END
-
-" Define comment functions to map comment to 'cc' and uncomment to 'uc' in visual and normal mode.
-nnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
-vnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
-nnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
-vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
 
 "====================================================
 " Setup Omni Complete Plugin and Other Language Tools
