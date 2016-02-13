@@ -327,9 +327,6 @@ let g:mapleader = ","
 " Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
 map ; :
 
-" Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of neovim's enabled auto-indent features.
-set pastetoggle=<F11>
-
 " Manage spell check by supporting mappings that turn spell check on and off.
 nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
 " Placing the letter 'i' at the end causes neovim to then return to insert mode after toggling the spell checker.
@@ -408,9 +405,6 @@ vnoremap <silent> 3 :call VisualSelection('b')<CR>
 
 " Enable Hex editing mode.
 vnoremap <C-H> :<C-U>ToggleHex()<CR>
-
-" Pressing backspace will delete the character to the left of the cursor.
-vnoremap <backspace> d
 
 " Define comment functions to map comment to 'cc' and uncomment to 'uc' in visual and normal mode.
 nnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
