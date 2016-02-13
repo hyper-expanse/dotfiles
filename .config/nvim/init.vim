@@ -322,7 +322,6 @@ source ~/.config/nvim/json.vim
 
 " Set a map leader so that extra key combinations can be used for quick operations.
 let mapleader = ","
-let g:mapleader = ","
 
 " Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
 map ; :
