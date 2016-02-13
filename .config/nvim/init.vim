@@ -326,6 +326,13 @@ let mapleader = ","
 " Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
 map ; :
 
+" Provide shortcuts for cycling between buffers.
+nnoremap <silent> <A-n> :bnext<CR>
+nnoremap <silent> <A-p> :bprevious<CR>
+
+" Provide shortcut for listing buffers.
+nnoremap <silent> <leader>bl :ls<CR>
+
 " Manage spell check by supporting mappings that turn spell check on and off.
 nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
 " Placing the letter 'i' at the end causes neovim to then return to insert mode after toggling the spell checker.
