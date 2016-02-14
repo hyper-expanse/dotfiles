@@ -323,7 +323,7 @@ source ~/.config/nvim/json.vim
 " Set a map leader so that extra key combinations can be used for quick operations.
 let mapleader = ","
 
-" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
+" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT> + ; to enter command mode. Instead, with this map, pressing the semicolon key in any neovim mode will enter command mode.
 map ; :
 
 " Provide shortcuts for cycling between buffers.
@@ -332,6 +332,28 @@ nnoremap <silent> <A-p> :bprevious<CR>
 
 " Provide shortcut for listing buffers.
 nnoremap <silent> <leader>bl :ls<CR>
+
+" Shortcut for exiting Terminal mode, and entering Normal mode, all within a Terminal windows.
+tnoremap <Leader>e <C-\><C-n>
+
+" Support switching between neovim splits using ALT and the arrow keys.
+" TODO: Remove these shortcuts at some point.
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
+
+" Support switching between neovim splits using ALT and the standard navigation keys.
+nnoremap <silent> <A-k> :wincmd k<CR>
+nnoremap <silent> <A-j> :wincmd j<CR>
+nnoremap <silent> <A-h> :wincmd h<CR>
+nnoremap <silent> <A-l> :wincmd l<CR>
+
+" Resize current window by +/- 3 rows/columns using CTRL and the arrow keys.
+nnoremap <silent> <C-Up> :resize +3<CR>
+nnoremap <silent> <C-Down> :resize -3<CR>
+nnoremap <silent> <C-Right> :vertical resize +3<CR>
+nnoremap <silent> <C-Left> :vertical resize -3<CR>
 
 " Manage spell check by supporting mappings that turn spell check on and off.
 nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
@@ -384,23 +406,11 @@ nnoremap <C-space> ?
 " Remove the Window's ^M character when the encoding is messed up.
 nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
 
-" Support switching between neovim splits using ALT and the arrow keys.
-nnoremap <silent> <A-Up> :wincmd k<CR>
-nnoremap <silent> <A-Down> :wincmd j<CR>
-nnoremap <silent> <A-Left> :wincmd h<CR>
-nnoremap <silent> <A-Right> :wincmd l<CR>
-
 " Support the swapping of buffers between two windows. We support two options, using either the <leader> or a function key. <F3> Marks a buffer for movement and <F4> selects the second buffer of the swap pair and then executes the swap.
 nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nnoremap <silent> <leader>pw :call DoWindowSwap()<CR>
 nnoremap <silent> <F3> :call MarkWindowSwap()<CR>
 nnoremap <silent> <F4> :call DoWindowSwap()<CR>
-
-" Resize current window by +/- 3 rows/columns using CTRL and the arrow keys.
-nnoremap <silent> <C-Up> :resize +3<CR>
-nnoremap <silent> <C-Down> :resize -3<CR>
-nnoremap <silent> <C-Right> :vertical resize +3<CR>
-nnoremap <silent> <C-Left> :vertical resize -3<CR>
 
 " Search and replace the selected text.
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
@@ -786,7 +796,7 @@ let g:airline_powerline_fonts = 1
 
 " Correct a spacing issue that may occur with fonts loaded via the fontconfig approach.
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
