@@ -311,6 +311,9 @@ augroup END
 " Source JavaScript configuration.
 source ~/.config/nvim/javascript.vim
 
+" Source Python configuration.
+source ~/.config/nvim/python.vim
+
 " Source JSON configuration.
 source ~/.config/nvim/json.vim
 
@@ -687,21 +690,6 @@ let c_space_errors = 1
 " Highlight strings inside C comments. Therefore, the use of "string" inside of a C comment will cause the entire "string" to receive a special highlighting color.
 let c_comment_strings = 1
 
-" PYTHON SUPPORT.
-
-augroup pythonSupport
-	autocmd!
-
-	" Enable Python Omni Complete on Python files.
-	autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-	" Expand each tab insert into the number of spaces specified by the `shiftwidth` option.
-	autocmd FileType python setlocal expandtab
-augroup END
-
-" Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-let python_space_errors = 1
-
 " HTML SUPPORT.
 
 augroup htmlSupport
@@ -889,11 +877,6 @@ let g:signify_diffoptions = { 'git': 'HEAD' }
 
 " Set our preferred lint checker to CppChecker.
 let g:syntastic_cpp_checkers = ['cppcheck']
-
-" PYTHON
-
-" Set our preferred lint checker to PEP8, with a fallback to PyLint if the PEP8 checker fails to find any issues.
-let g:syntastic_python_checkers = ['pep8', 'pylint']
 
 "====================================================
 " Setup tagbar Plugin
