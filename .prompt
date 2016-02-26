@@ -9,14 +9,13 @@
 export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
 export PROMPT_ENABLE_SVN_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN) name for the repository stored in the current directory.
-export PROMPT_ENABLE_LOAD=1 # Enable the display of a system's current, total, utilization as a percentage.
 
 # Prompt options that only have an effect after re-sourcing the prompt script.
 export PROMPT_ENABLE_SCREEN_INFORMATION=0 # Enable information about the current terminal multiplexer and multiplexer session.
 
 # If `bc` is not in the user's PATH do not display load percentage.
 if command -v bc &> /dev/null; then
-	export PROMPT_ENABLE_LOAD=1
+	export PROMPT_ENABLE_LOAD=1 # Enable the display of a system's current, total, utilization as a percentage.
 else
 	export PROMPT_ENABLE_LOAD=0
 fi
