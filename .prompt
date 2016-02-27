@@ -8,10 +8,6 @@
 
 export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
-export PROMPT_ENABLE_SVN_REPO_IDENTIFICATION=0 # Enable the display of a repository's (SVN) name for the repository stored in the current directory.
-
-# Prompt options that only have an effect after re-sourcing the prompt script.
-export PROMPT_ENABLE_SCREEN_INFORMATION=0 # Enable information about the current terminal multiplexer and multiplexer session.
 
 # If `bc` is not in the user's PATH do not display load percentage.
 if command -v bc &> /dev/null; then
@@ -52,23 +48,6 @@ I_Cyan='\[\033[0;94m\]'		# Cyan.
 ParseGitBranch()
 {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/git::\1/' | tr -d '\n'
-}
-
-ParseSVNURL()
-{
-	svn info 2>/dev/null | grep -e '^URL*' | sed -e 's#^URL: *\(.*\)#\1#g '
-}
-
-ParseSVNRepositoryRoot()
-{
-	svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
-}
-
-#! Retrieve the SVN repository name.
-# Retrieve the name of the SVN repository in the current directory, if a SVN checkout exists in the current directory.
-ParseSVNCheckout()
-{
-	ParseSVNURL | sed -e 's#^'"$(ParseSVNRepositoryRoot)"'##g' | awk -F / '{print "svn::"$1 "/" $2}'
 }
 
 #! Retrieve the number of unique proessor cores.
