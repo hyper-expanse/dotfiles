@@ -114,21 +114,6 @@ LoadPrompt()
 	# Current datetime.
 	PS1="${PS1}(${CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
 
-	if [ "${PROMPT_ENABLE_SCREEN_INFORMATION}" -eq 1 ]; then
-
-		# Indicate whether we're currently within a terminal multiplexer session; 'S' = Screen or 'T' = TMUX.
-		if [ ! -z "${STY}" ] || [ ! -z "${TMUX}" ]; then
-			PS1="${PS1}-("
-
-			if [ ! -z "${STY}" ]; then
-				PS1="${PS1}${CYAN}s${B_BLACK})"
-			elif [ ! -z "${TMUX}" ]; then
-				local window=$(tmux display-message -p | awk '{ gsub("\\[|\\]", ""); print $1 }')
-				PS1="${PS1}${CYAN}t-${window}${B_BLACK})"
-			fi
-		fi
-	fi
-
 	# Begin a new command prompt line.
 	PS1="${PS1}\n"
 
