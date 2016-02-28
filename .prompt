@@ -149,13 +149,6 @@ LoadPrompt()
 
 	PS1="${PS1}fi)"
 
-	# If option is enabled, print the working directory's SVN checkout name.
-	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_SVN_REPO_IDENTIFICATION} -eq 1 ]; then "
-
-		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; ParseSVNCheckout; printf '%s%s' '${B_BLACK}' ')';"
-
-	PS1="${PS1}fi)"
-
 	# Add input indicator before the user's input prompt.
 	PS1="${PS1}${B_BLACK}--> "
 
