@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# todo
+# * Print the previous return code if it's a failure.
+# * Print bash history number (so that I can type !512)
+
 #====================================================
 # Custom Bash Shell Prompt
 #
@@ -111,14 +115,14 @@ LoadPrompt()
 
 	PS1="${PS1}-"
 
-	# Current datetime.
-	PS1="${PS1}(${CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
+	# Current working directory.
+	PS1="${PS1}${B_BLACK}(${CYAN}\w${B_BLACK})"
 
 	# Begin a new command prompt line.
 	PS1="${PS1}\n"
 
-	# Current working directory.
-	PS1="${PS1}${B_BLACK}(${CYAN}\w${B_BLACK})"
+	# Current datetime.
+	PS1="${PS1}(${CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
 
 	# If option is enabled, print the number of files in the current directory, and their total size.
 	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_FILE_INFORMATION} -eq 1 ]; then "
