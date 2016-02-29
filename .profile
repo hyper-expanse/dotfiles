@@ -32,7 +32,7 @@ export HOMEBREW_BUILD_FROM_SOURCE=1
 # Set the default console editor.
 export EDITOR=nvim
 
-# Specify the langugae and encoding for our shell environment.
+# Specify the language and encoding for our shell environment.
 export LANG=en_US.UTF8
 
 export TERM="${TERM}" # Export what our environment already provides.
