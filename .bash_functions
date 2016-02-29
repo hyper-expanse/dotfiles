@@ -222,7 +222,7 @@ setupLinuxbrew ()
 	mkdir --parents "${HOME}/.local/bin"
 
 	# Download an archive version of the #master branch of LinuxBrew to the local system for future extraction. We download an archive version of LinuxBrew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using LinuxBrew).
-	wget https://github.com/Homebrew/linuxbrew/tarball/master -O "/tmp/linuxbrew.tar.gz"
+	wget https://github.com/Linuxbrew/linuxbrew/tarball/master -O "/tmp/linuxbrew.tar.gz"
 
 	# Extract archive file into local system directory.
 	tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
