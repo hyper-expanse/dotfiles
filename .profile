@@ -26,6 +26,9 @@ export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 mkdir -p "${PREFIX_DIRECTORY}/tmp"
 export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 
+# Instruct Linuxbrew to build package from source. By default Linuxbrew installed pre-compiled binaries and libraries for packages, rather than compiling the packages from source. By setting this environmental variable we instruct Linuxbrew to always compile from source.
+export HOMEBREW_BUILD_FROM_SOURCE=1
+
 # Set the default console editor.
 export EDITOR=nvim
 
