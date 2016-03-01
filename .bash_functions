@@ -520,6 +520,12 @@ installNodePackages ()
 
 		# Required for scaffolding and building Angular 2 applications and components.
 		npm install -g angular-cli
+
+		# Required for running a project based on the gulp task runner.
+		npm install -g gulp-cli
+
+		# Required for running a project based on the grunt task runner.
+		npm install -g grunt-cli
 	else
 		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
