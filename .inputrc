@@ -7,8 +7,8 @@ set show-all-if-ambiguous on
 # If set to On, readline does not insert characters from the completion that match characters after point in the word being completed, so portions of the word following the cursor are not duplicated. Mak[e]file !=> Makefilefile
 set skip-completed-text on
 
-# Search forward through bash history for a string of characters between the start of the current line and the cursor point.
+# Press DOWN arrow to search forward through bash history for a string of characters between the start of the current line and the cursor point.
 "\e[B": history-search-forward
 
-# Search backward through bash history for a string of characters between the start of the current line and the cursor point.
+# Press UP arrow to search backward through bash history for a string of characters between the start of the current line and the cursor point.
 "\e[A": history-search-backward
