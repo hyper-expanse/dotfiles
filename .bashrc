@@ -23,7 +23,7 @@ HISTSIZE=32768
 HISTFILESIZE=$HISTSIZE
 
 # Include date and timestamps in history output.
-HISTTIMEFORMAT='%h %d %H:%M:%S> '
+HISTTIMEFORMAT='%F %T '
 
 # Ignore certain commands given by the user, for the sake of history, such that they don't show up in Bash history.
 HISTIGNORE="ls:bg:fg:history"
