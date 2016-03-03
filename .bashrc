@@ -15,7 +15,7 @@ esac
 
 # BEGIN HISTORY
 
-# Don't push duplicate lines, or lines starting with space, in the history. The second ignore condition allows you to execute commands with a leading space, thereby instructing Bash to not place them into history.
+# Don't push duplicate lines, or lines starting with a space, in the history. The second ignore condition allows you to execute commands with a leading space, thereby instructing Bash to not place them into history.
 HISTCONTROL=ignoreboth
 
 # For setting history length see HISTSIZE and HISTFILESIZE.
@@ -26,7 +26,7 @@ HISTFILESIZE=$HISTSIZE
 HISTTIMEFORMAT='%h %d %H:%M:%S> '
 
 # Ignore certain commands given by the user, for the sake of history, such that they don't show up in Bash history.
-HISTIGNORE="cd:cd -:pwd;exit:date:* --help"
+HISTIGNORE="ls:bg:fg:history"
 
 # Append command to the bash command history file instead of overwriting it.
 shopt -s histappend
