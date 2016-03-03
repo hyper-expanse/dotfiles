@@ -26,7 +26,7 @@ HISTFILESIZE=$HISTSIZE
 HISTTIMEFORMAT='%F %T '
 
 # Ignore certain commands given by the user, for the sake of history, such that they don't show up in Bash history.
-HISTIGNORE="ls:bg:fg:history"
+HISTIGNORE="ls:bg:fg:history:exit"
 
 # Append command to the bash command history file instead of overwriting it.
 shopt -s histappend
