@@ -41,6 +41,10 @@ PROMPT_COMMAND='history -a'
 # Correct minor spelling errors in a `cd` command; such as transposed, missing, or extra, characters without the need for retyping.
 shopt -s cdspell
 
+# Correct minor spelling errors in when completing a directory path; such as transposed, missing, or extra, characters without the need for retyping.
+shopt -s dirspell
+shopt -s direxpand
+
 # Check the window size after each command and, if necessary update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
