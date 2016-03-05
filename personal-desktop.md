@@ -169,6 +169,28 @@ After creating and configuring a key, create a revocation certificate so that th
 gpg --output revoke.asc --gen-revoke <keyid>
 ```
 
+## Steam for Gaming
+
+[Steam](http://store.steampowered.com/) is a content delivery platform, well known for distributing video games for Windows, OSX, and Linux.
+
+Debian [offers a guide](https://wiki.debian.org/Steam) on how to install Steam.
+
+For our purposes we only need to follow the _64-bit systems_ section.
+
+A Debian non-free repository URL should already be setup in `/etc/apt/sources.list`, so skip step 1.
+
+The `i386` architecture needs to be added as shown in step 2.
+
+Lastly, Steam needs to be installed:
+
+```bash
+sudo aptitude install steam
+```
+
+Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card.
+
+At this point Steam is installed on the system and can be accessed from the Applications menu.
+
 ## KeePassX
 
 KeePassX is a tool for storing key/pair values securely in an encrypted vault.
