@@ -499,10 +499,9 @@ installNodePackages ()
 		npm install -g jscs
 		npm install -g jshint
 		npm install -g eslint
-		npm install -g tslint
-
 		# Required by `tslint`.
 		npm install -g typescript
+		npm install -g tslint
 
 		# Required to enable Syntastic checking for JSON files.
 		npm install -g jsonlint
