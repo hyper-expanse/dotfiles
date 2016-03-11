@@ -6,14 +6,6 @@ augroup javascript-expand
 	autocmd Filetype javascript setlocal expandtab
 augroup END
 
-" Configure the use of Omnicomplete for JavaScript source files.
-augroup javascript-omnicomplete
-	autocmd!
-
-	" Enable JavaScript Omni Complete on JavaScript files.
-	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-augroup END
-
 " Configure code folding.
 augroup javascript-fold
 	autocmd!
