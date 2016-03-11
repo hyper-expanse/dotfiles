@@ -29,6 +29,10 @@ export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 # Instruct Linuxbrew to build package from source. By default Linuxbrew installed pre-compiled binaries and libraries for packages, rather than compiling the packages from source. By setting this environmental variable we instruct Linuxbrew to always compile from source.
 export HOMEBREW_BUILD_FROM_SOURCE=1
 
+# Set arguments that cmake should respect when it's invoked.
+# CMAKE_INSTALL_PREFIX - Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
+export EXTRA_CMAKE_ARGS='-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIBRARY=/home/hutson/.local/lib/libpython2.7.so -DPYTHON_INCLUDE_DIR=/home/hutson/.local/include/python2.7'
+
 # Set the default console editor.
 export EDITOR=nvim
 

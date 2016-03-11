@@ -86,9 +86,6 @@ alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo a
 # Update local packages and tools.
 alias updateLocal='updateBrewPackages && updateNeovim && updateTmux && installNodePackages && installPythonPackages'
 
-# Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
-alias cmake='cmake -DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY}'
-
 # Create a Python virtual environment using the Python 3 interpreter and the standard _env_ directory.
 alias createVirtualEnvironment='virtualenv --python=python3 venv'
 
