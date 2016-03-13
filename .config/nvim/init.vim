@@ -120,6 +120,9 @@ Plug 'https://github.com/tmux-plugins/vim-tmux.git', { 'for': 'tmux' }
 " We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
 Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
 
+" Install, and compile, the YouCompleteMe plugin; a code-completion engine for vim.
+Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.py --tern-completer' }
+
 " Add plugins to neovim's `runtimepath`.
 call plug#end()
 
