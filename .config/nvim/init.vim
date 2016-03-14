@@ -306,6 +306,20 @@ augroup programmingLanguageComments
 augroup END
 
 "====================================================
+" QuickFix List
+"
+" Configuration of neovim's QuickFix list, and how it integrates with other features in neovim.
+"====================================================
+
+" Automatically display the QuickFix list if the command `:make` returns any errors.
+augroup quickFixAutoAppear
+	autocmd!
+
+	autocmd QuickFixCmdPost [^l]* nested cwindow
+	autocmd QuickFixCmdPost    l* nested lwindow
+augroup END
+
+"====================================================
 " Per-language Setup
 "
 " Scripts for configuring behavior on a per-language basis.
