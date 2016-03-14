@@ -105,6 +105,7 @@ Plug 'https://github.com/vim-scripts/OmniCppComplete.git', { 'for': 'cpp' }
 Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
 Plug 'https://github.com/edkolev/tmuxline.vim.git'
+Plug 'https://github.com/leafgarland/typescript-vim.git', { 'for': 'typescript' }
 Plug 'https://github.com/vim-airline/vim-airline.git'
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/derekwyatt/vim-fswitch.git', { 'for': 'cpp' }
