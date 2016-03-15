@@ -31,7 +31,7 @@ export HOMEBREW_BUILD_FROM_SOURCE=1
 
 # Set arguments that cmake should respect when it's invoked.
 # CMAKE_INSTALL_PREFIX - Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
-export EXTRA_CMAKE_ARGS='-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIBRARY=/home/hutson/.local/lib/libpython2.7.so -DPYTHON_INCLUDE_DIR=/home/hutson/.local/include/python2.7'
+export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIBRARY=${PREFIX_DIRECTORY}/lib/libpython2.7.so -DPYTHON_INCLUDE_DIR=${PREFIX_DIRECTORY}/include/python2.7"
 
 # Set the default console editor.
 export EDITOR=nvim
