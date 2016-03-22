@@ -736,15 +736,6 @@ augroup markdownSupport
 	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
 augroup END
 
-" OTHER SUPPORT.
-
-" Change the default auto-complete pop-up window color scheme from pink to a custom scheme using Black for the background, Cyan for each entry in the dropdown, and Green for the item currently under focus..
-highlight clear
-highlight Pmenu ctermfg=Cyan ctermbg=Black
-highlight PmenuSel ctermfg=Green ctermbg=Black
-highlight PmenuSbar ctermfg=White ctermbg=Green
-highlight PmenuThumb ctermfg=White ctermbg=Green
-
 " Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that neovim was opened.
 function! UpdateTags()
 	execute ":silent !ctags --recurse=yes --sort=foldcase --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+fq ./"
@@ -971,3 +962,15 @@ highlight SpellBad   term=undercurl cterm=undercurl ctermfg=Red
 highlight SpellCap   term=undercurl cterm=undercurl ctermfg=Yellow
 highlight SpellRare  term=undercurl cterm=undercurl ctermfg=Magenta
 highlight SpellLocal term=undercurl cterm=undercurl ctermfg=Blue
+
+"====================================================
+" Auto-complete Highlighting
+"
+" Setup neovim to use our own highlighting rules for the auto-completion menu that appears when completing a sequence string.
+"====================================================
+
+" Change the default auto-complete pop-up window color scheme from pink to a custom scheme using Black for the background, Cyan for each entry in the dropdown, and Green for the item currently under focus..
+highlight Pmenu ctermfg=Cyan ctermbg=Black
+highlight PmenuSel ctermfg=Green ctermbg=Black
+highlight PmenuSbar ctermfg=White ctermbg=Green
+highlight PmenuThumb ctermfg=White ctermbg=Green
