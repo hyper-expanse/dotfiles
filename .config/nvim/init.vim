@@ -926,6 +926,15 @@ let g:tagbar_type_markdown = {
 let g:tmuxline_preset = 'full'
 
 "====================================================
+" Setup YouCompleteMe Plugin
+"
+" Setup for YouCompleteMe to customize the completion engine.
+"====================================================
+
+" Automatically close the `preview` window after an offered completion string has been accepted.
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+"====================================================
 " Setup Colorscheme
 "
 " Setup neovim to recognize our terminal as having a particular background color, and then set our preferred color scheme (a.k.a theme).
