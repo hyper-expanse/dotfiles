@@ -335,6 +335,15 @@ source ~/.config/nvim/python.vim
 " Source JSON configuration.
 source ~/.config/nvim/json.vim
 
+" Enable Markdown support.
+augroup markdownSupport
+	autocmd!
+
+	" Instruct neovim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because neovim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
+	autocmd BufRead,BufNewFile *.{md} set filetype=markdown
+	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
+augroup END
+
 "====================================================
 " Key Mappings
 "
@@ -724,16 +733,6 @@ augroup cssSupport
 
 	" Enable CSS Omni Complete on CSS files.
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-augroup END
-
-" Markdown SUPPORT
-
-augroup markdownSupport
-	autocmd!
-
-	" Instruct neovim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because neovim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
-	autocmd BufRead,BufNewFile *.{md} set filetype=markdown
-	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
 augroup END
 
 " Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that neovim was opened.
