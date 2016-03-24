@@ -653,6 +653,16 @@ function! InsertHeaderGuard()
 	normal! kk
 endfunction
 
+" Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that neovim was opened.
+function! UpdateTags()
+	execute ":silent !ctags --recurse=yes --sort=foldcase --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+fq ./"
+	execute ":redraw!"
+	echohl StatusLine | echo "C/C++ Tags Updated" | echohl None
+endfunction
+nnoremap <silent> <F5> <ESC>:call UpdateTags()<CR>
+inoremap <silent> <F5> <ESC>:call UpdateTags()<CR>i
+vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
+
 "====================================================
 " Setup Omni Complete Plugin and Other Language Tools
 "
@@ -734,16 +744,6 @@ augroup cssSupport
 	" Enable CSS Omni Complete on CSS files.
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 augroup END
-
-" Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that neovim was opened.
-function! UpdateTags()
-	execute ":silent !ctags --recurse=yes --sort=foldcase --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+fq ./"
-	execute ":redraw!"
-	echohl StatusLine | echo "C/C++ Tags Updated" | echohl None
-endfunction
-nnoremap <silent> <F5> <ESC>:call UpdateTags()<CR>
-inoremap <silent> <F5> <ESC>:call UpdateTags()<CR>i
-vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 
 "====================================================
 " Setup ctrlp Plugin
