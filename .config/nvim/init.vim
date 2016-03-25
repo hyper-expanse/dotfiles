@@ -117,6 +117,7 @@ Plug 'https://github.com/elzr/vim-json.git', { 'for': 'json' }
 Plug 'https://github.com/dbakker/vim-lint.git', { 'for': 'vim' }
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'https://github.com/tmux-plugins/vim-tmux.git', { 'for': 'tmux' }
+Plug 'https://github.com/christoomey/vim-tmux-navigator.git'
 
 " We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
 Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
@@ -932,6 +933,22 @@ let g:tmuxline_preset = 'full'
 
 " Automatically close the `preview` window after an offered completion string has been accepted.
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+"====================================================
+" Setup tmux-navigation Plugin
+"
+" Setup for tmux-navigation to configure a set of key mappings that match the key mappings we use for navigating between splits in neovim.
+"====================================================
+
+" Disable the key mappings that tmux-navigation setup so that we can set our own.
+let g:tmux_navigator_no_mappings = 1
+
+" Configure our own key mappings.
+nnoremap <silent> <A-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <A-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <A-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <A-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <A-/> :TmuxNavigatePrevious<CR>
 
 "====================================================
 " Setup Colorscheme
