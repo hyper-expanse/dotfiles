@@ -110,6 +110,7 @@ Plug 'https://github.com/vim-airline/vim-airline.git'
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/derekwyatt/vim-fswitch.git', { 'for': 'cpp' }
 Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/fatih/vim-go.git', { 'for': 'go' }
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plug 'https://github.com/jelera/vim-javascript-syntax.git', { 'for': 'javascript' }
 Plug 'https://github.com/heavenshell/vim-jsdoc.git', { 'for': 'javascript' }

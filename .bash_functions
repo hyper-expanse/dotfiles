@@ -416,6 +416,9 @@ installBrewPackages()
 
 		## NODE END
 
+		# Download and install go, a compiler and runtime.
+		brew install go
+
 		# Download and install neovim, a terminal text editor.
 		brew install neovim
 
