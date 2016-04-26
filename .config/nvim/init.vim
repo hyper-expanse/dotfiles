@@ -328,6 +328,9 @@ augroup END
 " Scripts for configuring behavior on a per-language basis.
 "====================================================
 
+" Souce Go configuration.
+source ~/.config/nvim/go.vim
+
 " Source JavaScript configuration.
 source ~/.config/nvim/javascript.vim
 
