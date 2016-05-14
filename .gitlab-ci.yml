@@ -5,6 +5,9 @@ stages:
   - publish
 
 build:
+  artifacts:
+    paths:
+      - public/
   before_script:
     - npm install
   cache:
@@ -18,12 +21,14 @@ build:
     GITBOOK_DIR: ".gitbook"
 
 pages:
-  script:
-    - echo "Already built"
   artifacts:
     paths:
       - public
+  dependencies:
+    - build
   only:
     - master@hutson/configuration
   stage: publish
+  script:
+    - echo "Already built"
   when: on_success
