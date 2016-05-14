@@ -18,6 +18,8 @@ build:
     GITBOOK_DIR: ".gitbook"
 
 pages:
+  script:
+    - echo "Already built"
   artifacts:
     paths:
       - public
