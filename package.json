@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Configuration guide for the Hyper-Expanse network.",
   "scripts": {
-    "build": "gitbook build ./",
+    "build": "gitbook build ./ public/",
+    "postinstall": "gitbook install",
     "start": "gitbook serve ./ -p ${PORT:-8000}"
   },
   "repository": {
