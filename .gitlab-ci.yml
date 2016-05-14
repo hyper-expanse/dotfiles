@@ -1,18 +1,27 @@
 image: node:6
 
-cache:
-  paths:
-    - node_modules/
+stages:
+  - build
+  - publish
 
-before_script:
-  - npm install
-
-script:
-  - npm run build
+build:
+  before_script:
+    - npm install
+  cache:
+    paths:
+      - node_modules/
+      - .gitbook/
+  script:
+    - npm run build
+  stage: build
+  variables:
+    GITBOOK_DIR: ".gitbook"
 
 pages:
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master@hutson/configuration
+  stage: publish
+  when: on_success

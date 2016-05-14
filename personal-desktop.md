@@ -145,7 +145,7 @@ Navigate to the [LinuxBrew](https://github.com/Homebrew/linuxbrew) and install a
 
 A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
 
-Installation instructions are available in the dotfile project's [README](https://github.com/hbetts/dotfiles/blob/master/README.md).
+Installation instructions are available in the dotfile project's [README](https://gitlab.com/hutson/dotfiles/blob/master/README.md).
 
 ## GNUPG
 
