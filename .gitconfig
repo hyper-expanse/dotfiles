@@ -81,8 +81,8 @@
 	# List all aliases stored in the user's Git configuration file. In addition to the aliases, display their values.
 	aliases = "!git config -l | grep alias | cut -c 7-"
 
-	# Update the current working branch to include the latest changes from the specified remote's master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the remote's master branch. If the name of a remote is not provided to the alias the command will default to the `upstream` remote. If you rely on the default behavior, but the local working directory does not have an `upstream` remote, then this command will fail.
-	update = "!sh -c 'git fetch ${1:-upstream} && git rebase ${1:-upstream}/master' -"
+	# Update the current working branch to include the latest changes from the specified remote's master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, then this command will fail.
+	update = "!sh -c 'git fetch --jobs=5 ${1:-origin} && git rebase ${1:-origin}/master' -"
 
 	# Show a diff in which individual word changes are inter-mingled with one another. Word additions are shown in green, word deletions are shown in red. This is in contrast to showing changes as line additions or deletions.
 	cdiff = diff --color-words
@@ -104,8 +104,8 @@
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
 
-	# Setup the local working directory by checking out the master branch, and then reseting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `upstream` remote. If you rely on the default behavior, but the local working directory does not have an `upstream` remote, then this command will fail.
-	setup = "!sh -c 'git checkout master && git fetch ${1:-upstream} && git reset --hard ${1:-upstream}/master && git clean -Xdf' -"
+	# Setup the local working directory by checking out the master branch, and then reseting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, then this command will fail.
+	setup = "!sh -c 'git checkout master && git fetch ${1:-origin} && git reset --hard ${1:-origin}/master && git clean -Xdf' -"
 
 	# List all branches in order of the author date of the latest commit on that branch. Order is descending, with most recently updated branch first.
 	ordered-branches = "!git for-each-ref --sort='-authordate' --format='%0a%(color:cyan)%(authordate:local)%(color:white)%0a%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
