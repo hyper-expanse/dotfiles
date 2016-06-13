@@ -75,8 +75,8 @@
 	# Show the most recent tag (annotated or lightweight) that is reachable before the current commit in the working copy. We exclude `--abbrev` so that the tag will be printed along with additional metadata, such as the number of additional commits on top of the tagged object, and the hash of the commit object pointed to by the tag.
 	lasttag = describe --tags
 
-	# Show the most recent tag (annotated or lightweight) that is reachable after the commit in the working copy. By adding the --abbrev option we instruct Git to only show the name of the tag, excluding other metadata associated with it.
-	nexttag = describe --tags --contains --abbrev=0
+	# Show the most recent tag (annotated or lightweight) that is reachable after the current commit in the working copy. We exclude `--abbrev` so that the tag will be printed along with additional metadata, such as the number of additional commits on top of the tagged object, and the hash of the commit object pointed to by the tag.
+	nexttag = describe --tags --contains
 
 	# List all aliases stored in the user's Git configuration file. In addition to the aliases, display their values.
 	aliases = "!git config -l | grep alias | cut -c 7-"
