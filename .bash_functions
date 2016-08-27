@@ -507,9 +507,6 @@ installNodePackages ()
 		npm install -g typescript
 		npm install -g tslint
 
-		# Flow (type checking) tool.
-		npm install -g flow-bin
-
 		# Required to enable Syntastic checking for JSON files.
 		npm install -g jsonlint
 
