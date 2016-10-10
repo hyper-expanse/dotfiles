@@ -46,6 +46,11 @@ ln --symbolic --force "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}"
 echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
 ln --symbolic --force "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}"
 
+# Symlilnk Visual Studio Code files.
+echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CONFIG_HOME}/Code/User)."
+mkdir --parents "${HOME}/.config/Code/User"
+ln --symbolic --force "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
+
 # Symlink third-party scripts into the appropriate directories.
 echo "> Symlinking third-party scripts into the data directory (${XDG_DATA_HOME})."
 mkdir --parents "${XDG_DATA_HOME}/nvim"

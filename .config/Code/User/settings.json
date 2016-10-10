@@ -1,0 +1,9 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "files.autoSave": "afterDelay",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "editor.renderWhitespace": true
+}
