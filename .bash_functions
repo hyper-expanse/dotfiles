@@ -452,6 +452,9 @@ installBrewPackages()
 		# Cross-platform, open-source, build system.
 		brew install cmake
 
+		# Static site generator and build tool.
+		brew install hugo
+
 		if [ `uname -n` == "startopia" ]; then
 
 			# GNU data recovery tool.
