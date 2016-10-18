@@ -411,7 +411,7 @@ installBrewPackages()
 			source "$(brew --prefix nvm)/nvm.sh"
 
 			# Install the latest LTS version of Node.
-			nvm install 4
+			nvm install 6
 			installNodePackages
 
 		## NODE END
