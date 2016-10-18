@@ -498,6 +498,12 @@ installNodePackages ()
 		# Update the version of `npm` installed in our environment.
 		npm install -g npm
 
+		# Install alternative JavaScript package manager called `yarn`.
+		npm install -g yarn
+
+		# Install command line tab completion for `yarn`.
+		npm install -g yarn-completions
+
 		# Required to enable Syntastic checking for JavaScript files.
 		npm install -g jscs
 		npm install -g jshint

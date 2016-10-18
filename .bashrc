@@ -100,3 +100,7 @@ fi
 if [ -f "${HOME}/.bash_functions" ]; then
 	source "${HOME}/.bash_functions"
 fi
+
+# tabtab source for yarn package
+# uninstall by removing these lines or running `tabtab uninstall yarn`
+[ -f /home/hutson/.yarn-cache/.global/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.yarn-cache/.global/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.bash
