@@ -60,7 +60,8 @@ compress()
 # This function is based on https://github.com/xvoland/Extract.
 #
 # \param $1 Path to the archive file.
-extract () {
+extract ()
+{
 	if [ -z "${1}" ]; then
 		echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
 		exit
@@ -88,6 +89,17 @@ extract () {
 	else
 		echo "${1} - file does not exist"
 	fi
+}
+
+#! Replace content in `package.json` files in multiple directories.
+# Replace the content of individual lines within `package.json` files within multiple directories.
+#
+# \param $1 Key in the `package.json` file.
+# \param $2 The original value associated with the key.
+# \param $3 New content to replace the original value associated with the key.
+replacePackageContentRecursively ()
+{
+	find . -maxdepth 2 -type f -name package.json -exec sed -i "s/\"${1}\": \"${2}\"/\"node\": \"${3}\"/g" {} \;
 }
 
 #! Launch NASA TV.
