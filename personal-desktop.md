@@ -154,6 +154,9 @@ You'll first want to skip down to the section about _Possible problems_, as this
 
 Once those packages are installed, scroll back up to the list of primary dependencies and install the packages listed under _Ubuntu/Debian_.
 
+Once `vagrant-libvirt` has been installed, have vagrant install the plugin:
+* `vagrant plugin install vagrant-libvirt`
+
 ## LinuxBrew
 
 Navigate to the [LinuxBrew](https://github.com/Homebrew/linuxbrew) and install all the required packages for your Linux distribution.
