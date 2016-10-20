@@ -157,6 +157,13 @@ Once those packages are installed, scroll back up to the list of primary depende
 Once `vagrant-libvirt` has been installed, have vagrant install the plugin:
 * `vagrant plugin install vagrant-libvirt`
 
+### Libvirt User
+
+Using any `vagrant` command that modifies the state of a `libvirt` managed machine will require you to enter your password to authenticate.
+
+To avoid the authentication prompt simply add yourself to the `libvirt` user group:
+* `sudo usermod -G libvirt -a ${USER}`
+
 ## LinuxBrew
 
 Navigate to the [LinuxBrew](https://github.com/Homebrew/linuxbrew) and install all the required packages for your Linux distribution.
