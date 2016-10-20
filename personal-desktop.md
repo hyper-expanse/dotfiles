@@ -137,6 +137,23 @@ Next, restart the Network-Manager service:
 sudo /etc/init.d/network-manager restart
 ```
 
+## Vagrant
+
+[Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through libvirt, or docker containers.
+
+First install the `vagrant` package from Debian:
+* vagrant
+
+Next you'll want to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin to allow our `vagrant` tool to provisiion environments using virtual machines through `libvirt`.
+
+To install `vagrant-libvirt`, navigate to their [Installation Guide](https://github.com/vagrant-libvirt/vagrant-libvirt#installation).
+
+> Please ensure you replace command line calls to `apt-get` with calls to `aptitude` using `sudo`.
+
+You'll first want to skip down to the section about _Possible problems_, as this section lists additional packages that may be required to correctly compile the plugin's primary dependencies. Install the packages listed for _Ubuntu/Debian_.
+
+Once those packages are installed, scroll back up to the list of primary dependencies and install the packages listed under _Ubuntu/Debian_.
+
 ## LinuxBrew
 
 Navigate to the [LinuxBrew](https://github.com/Homebrew/linuxbrew) and install all the required packages for your Linux distribution.
