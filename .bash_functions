@@ -467,6 +467,9 @@ installBrewPackages()
 		# Static site generator and build tool.
 		brew install hugo
 
+		# Tool to run multiple jobs in parallel using all available CPUs.
+		brew install parallel
+
 		if [ `uname -n` == "startopia" ]; then
 
 			# GNU data recovery tool.
