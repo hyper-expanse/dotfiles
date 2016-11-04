@@ -1,0 +1,16 @@
+Vagrant.configure("2") do |config|
+	# Every Vagrant development environment requires a box. You can search for boxes at https://atlas.hashicorp.com/search.
+	config.vm.box = "debian/jessie64"
+
+	# Share an additional folder to the guest VM. The first argument is the path on the host to the actual folder. The second argument is the path on the guest to mount the folder. And the optional third argument is a set of non-required options. `mount_options` is to account for how all files mounted within a Linux machine using VirtualBox shared folders will have their permissions appear as 777. This is a result of not being able to properly map Windows file permissions to Linux. Setting `dmask` for directories, and `fmask` for files, allows us to make files non-executable, and prevent files and directories from being globally accessible.
+	config.vm.synced_folder ".", "/vagrant", type: "virtualbox", mount_options: ["dmask=027", "fmask=137"]
+
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = "1024"
+	end
+
+	config.vm.provision "shell" do |s|
+		s.keep_color = true
+		s.path = "https://gitlab.com/hutson/dotfiles/raw/master/.vagrant.d/system-provisioner.sh"
+	end
+end
