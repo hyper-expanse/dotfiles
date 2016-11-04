@@ -102,6 +102,69 @@ replacePackageContentRecursively ()
 	find . -maxdepth 2 -type f -name package.json -exec sed -i "s/\"${1}\": \"${2}\"/\"node\": \"${3}\"/g" {} \;
 }
 
+#! Copy a single file from one sub-folder into all top-level folders under the current directory.
+# Copy a single file, as provided to the function, from one sub-folder into all top-level folders under the current working directory.
+#
+# \param $1 Path to the desired file for copying, relative to the current working directory.
+copyFileAcrossGroup ()
+{
+	for dir in *; do
+		echo $dir;
+		cd $dir;
+
+		# Ignore `cp` alias which may interfere with the ability to quickly copy a file across multiple directories.
+		\cp "../${1}" . --archive --verbose;
+
+		cd ..;
+		echo;
+	done
+}
+
+gitGroupDiff ()
+{
+       for dir in *; do
+               echo $dir;
+               cd $dir;
+               git diff --unified;
+               cd ..;
+               echo;
+       done
+}
+
+gitGroupPush ()
+{
+       for dir in *; do
+               echo $dir;
+               cd $dir;
+
+               if [ -n "$(git status -s)" ]; then
+                       git checkout -b "${1}"
+                       git add --all;
+                       git commit -m "${2}";
+                       git push -u hutson "${1}";
+               fi;
+
+               cd ..;
+               echo;
+       done
+}
+
+gitGroupSetup ()
+{
+       find . -maxdepth 1 -type d -not -path . | parallel -j 10 'echo "{1}"; cd "{1}"; git setup; cd ..; echo; echo;'
+}
+
+gitGroupStatus ()
+{
+       for dir in *; do
+               echo $dir;
+               cd $dir;
+               git status --short --branch;
+               cd ..;
+               echo;
+       done
+}
+
 #! Launch NASA TV.
 # Will hit NASA TV's HTTP live streaming source typically used by IPad and Android devices who don't have Adobe Flash. The script used to launch NASA TV will be forked into a TMUX-managed terminal. The script can be found at ~/Resources/Scripts/nasatv.sh.
 #
