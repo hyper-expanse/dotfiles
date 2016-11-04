@@ -13,7 +13,7 @@ fi
 
 # If the XDG data home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
 if [ -z "${XDG_DATA_HOME}" ]; then
-	export XDG_DATA_HOME="${PREFIX_DIRECTORY}/share"
+	export XDG_DATA_HOME="${HOME}/.local/share"
 fi
 
 echo "Deploying dotfiles..."
