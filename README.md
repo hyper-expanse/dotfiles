@@ -38,7 +38,3 @@ source ~/.profile
 
 * http://tnerual.eriogerg.free.fr/vim.html
 * http://michael.peopleofhonoronly.com/vim/
-
-## Contributing
-
-Read [CONTRIBUTING](CONTRIBUTING.md).
