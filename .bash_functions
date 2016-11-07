@@ -120,49 +120,60 @@ copyFileAcrossGroup ()
 	done
 }
 
+#! Call `git diff` in every sub-folder under the current working directory.
+# Call `git diff` within every sub-folder under the current working directory, with the assumption that each sub-folder is a git directory.
 gitGroupDiff ()
 {
-       for dir in *; do
-               echo $dir;
-               cd $dir;
-               git diff --unified;
-               cd ..;
-               echo;
-       done
+	for dir in *; do
+		echo $dir;
+		cd $dir;
+		git diff --unified;
+		cd ..;
+		echo;
+	done
 }
 
+#! Checkout, add, commit, and then push, across a group of sub-folders.
+# Checkout a new branch, add all modified, new, or deleted files, create a commit, and then push the new branch to the remote fork of the authoritative repository.
+#
+# \param $1 Branch name to use for the branch that will be created and eventually pushed to the remote fork.
+# \param $2 Commit message to use for the commit that will be created from modified, new, or deleted, files.
 gitGroupPush ()
 {
-       for dir in *; do
-               echo $dir;
-               cd $dir;
+	for dir in *; do
+		echo $dir;
+		cd $dir;
 
-               if [ -n "$(git status -s)" ]; then
-                       git checkout -b "${1}"
-                       git add --all;
-                       git commit -m "${2}";
-                       git push -u hutson "${1}";
-               fi;
+		if [ -n "$(git status -s)" ]; then
+			git checkout -b "${1}"
+			git add --all;
+			git commit -m "${2}";
+			git push -u hutson "${1}";
+		fi;
 
-               cd ..;
-               echo;
-       done
+		cd ..;
+		echo;
+	done
 }
 
+#! Run `git setup` within each top-level folder under the current directory.
+# Run `git setup` within each top-level folder under the current working directory to clean-up each working repository of any build artifacts, un-committed changes, etc.
 gitGroupSetup ()
 {
-       find . -maxdepth 1 -type d -not -path . | parallel -j 10 'echo "{1}"; cd "{1}"; git setup; cd ..; echo; echo;'
+	find . -maxdepth 1 -type d -not -path . | parallel -j 10 'echo "{1}"; cd "{1}"; git setup; cd ..; echo; echo;'
 }
 
+#! Print out the status of each top-level git directory under the current directory.
+# Print out the status, using `git status`, of each top-level git directory under the current working directory.
 gitGroupStatus ()
 {
-       for dir in *; do
-               echo $dir;
-               cd $dir;
-               git status --short --branch;
-               cd ..;
-               echo;
-       done
+	for dir in *; do
+		echo $dir;
+		cd $dir;
+		git status --short --branch;
+		cd ..;
+		echo;
+	done
 }
 
 #! Launch NASA TV.
