@@ -6,13 +6,6 @@
 # This script only needs to be sourced upon opening a new shell to configure the Bash shell environment.
 #====================================================
 
-# If not running interactively, don't do anything.
-case "${-}" in
-	*i*) ;;
-	*) return;;
-esac
-
-
 # BEGIN HISTORY
 
 # Don't push duplicate lines, or lines starting with a space, in the history. The second ignore condition allows you to execute commands with a leading space, thereby instructing Bash to not place them into history.
@@ -36,7 +29,6 @@ shopt -s histappend
 PROMPT_COMMAND='history -a'
 
 # END HISTORY
-
 
 # Correct minor spelling errors in a `cd` command; such as transposed, missing, or extra, characters without the need for retyping.
 shopt -s cdspell
