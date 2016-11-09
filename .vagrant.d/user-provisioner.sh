@@ -12,5 +12,4 @@ bash deploy.sh
 
 # Setup environment.
 
-source ~/.profile
 setupEnvironment

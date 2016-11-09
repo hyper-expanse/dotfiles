@@ -39,15 +39,17 @@ ln --symbolic --force "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 
 # Symlink Neovim files.
 echo "> Symlinking Neovim files into the config directory (${XDG_CONFIG_HOME}/nvim)."
-ln --symbolic --force "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}"
+mkdir --parents "${XDG_CONFIG_HOME}"
+ln --symbolic --force "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}/nvim"
 
 # Symlink tmux files.
 echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
-ln --symbolic --force "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}"
+mkdir --parents "${XDG_CONFIG_HOME}"
+ln --symbolic --force "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}/tmux"
 
 # Symlilnk Visual Studio Code files.
 echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CONFIG_HOME}/Code/User)."
-mkdir --parents "${HOME}/.config/Code/User"
+mkdir --parents "${XDG_CONFIG_HOME}/Code/User"
 ln --symbolic --force "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
 
 # Symlink third-party scripts into the appropriate directories.
