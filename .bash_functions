@@ -278,7 +278,7 @@ setupEnvironment ()
 	# Install general tools.
 	installPythonPackages
 
-	updateTmux
+	#updateTmux
 	updateNeovim
 }
 
@@ -294,7 +294,7 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 
-	updateTmux
+	#updateTmux
 	updateNeovim
 }
 
@@ -308,7 +308,7 @@ setupLinuxbrew ()
 	mkdir --parents "${HOME}/.local/bin"
 
 	# Download an archive version of the #master branch of LinuxBrew to the local system for future extraction. We download an archive version of LinuxBrew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using LinuxBrew).
-	wget https://github.com/Linuxbrew/linuxbrew/tarball/master -O "/tmp/linuxbrew.tar.gz"
+	wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
 
 	# Extract archive file into local system directory.
 	tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
@@ -506,6 +506,7 @@ installBrewPackages()
 		brew install go
 
 		# Download and install neovim, a terminal text editor.
+		brew install gperf # A dependency of neovim, but not installed by their homebrew formula.
 		brew install neovim
 
 		# Download and install Tmux, a terminal multiplexer.
@@ -543,6 +544,12 @@ installBrewPackages()
 
 		# Tool to run multiple jobs in parallel using all available CPUs.
 		brew install parallel
+
+		# Download and install docker, a tool and service for building isolated runtime environments that share a common kernel.
+		brew install docker
+
+		# Download and install packer, a tool for building machine and container images for multiple platforms.
+		brew install packer
 
 		if [ `uname -n` == "startopia" ]; then
 
