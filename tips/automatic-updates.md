@@ -13,7 +13,7 @@ Create a new cron job which will be executed on a daily basis by creating the `/
 Execute the following command to make the file executable:
 
 ```bash
-sudo chmod 755 /etc/cron.daily/aptitude-updates
+sudo chmod 554 /etc/cron.daily/aptitude-updates
 ```
 
 Set the proper owner, and group, for the file:
@@ -29,7 +29,7 @@ Create a new log rule for rotating and compressing log files associated with the
 Eecute the following command to set the proper permissions:
 
 ```bash
-sudo chmod 644 /etc/logrotate.d/apt-update
+sudo chmod 444 /etc/logrotate.d/apt-update
 ```
 
 Set the proper owner, and group, for the file:
