@@ -27,7 +27,7 @@ pages:
   dependencies:
     - build
   only:
-    - master@hutson/configuration
+    - master@hyper-expanse/configuration
   stage: deploy
   script:
     - echo "Already built"

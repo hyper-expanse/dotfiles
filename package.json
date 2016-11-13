@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/hutson/configuration.git"
+    "url": "https://gitlab.com/hyper-expanse/configuration.git"
   },
   "keywords": [
     "hyper-expanse"
@@ -17,9 +17,9 @@
   "author": "Hutson Betts",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://gitlab.com/hutson/configuration/issues"
+    "url": "https://gitlab.com/hyper-expanse/configuration/issues"
   },
-  "homepage": "https://gitlab.com/hutson/configuration",
+  "homepage": "https://gitlab.com/hyper-expanse/configuration",
   "dependencies": {
     "gitbook-cli": "^1.0.1"
   }

@@ -1,3 +1,0 @@
-[submodule "src/home"]
-	path = src/home
-	url = https://gitlab.com/hutson/dotfiles.git
