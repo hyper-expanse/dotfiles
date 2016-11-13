@@ -141,8 +141,11 @@ sudo /etc/init.d/network-manager restart
 
 [Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through libvirt, or docker containers.
 
-First install the `vagrant` package from Debian:
-* vagrant
+First install `vagrant` by downloading the appropriate Debian package, based on your architecture, from the [Vagrant Download Page](https://www.vagrantup.com/downloads.html), and using the following command to install the downloaded package:
+* `sudo dpkg -i [FILE NAME]`
+
+Once `vagrant` has been installed you will also need to install the following package to support NFS:
+* nfs-kernel-server
 
 Next you'll want to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin to allow our `vagrant` tool to provisiion environments using virtual machines through `libvirt`.
 
@@ -156,6 +159,9 @@ Once those packages are installed, scroll back up to the list of primary depende
 
 Once `vagrant-libvirt` has been installed, have vagrant install the plugin:
 * `vagrant plugin install vagrant-libvirt`
+
+Lastly, install `virt-manager`, a graphical tool for visualizing virtual machine resources.
+* virt-manager
 
 ### Libvirt User
 
