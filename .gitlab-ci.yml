@@ -12,8 +12,10 @@ build:
     - npm install
   cache:
     paths:
-      - node_modules/
       - .gitbook/
+      - node_modules/
+      - ${HOME}/.yarn-cache
+      - ${HOME}/.npm
   script:
     - npm run build
   stage: build
