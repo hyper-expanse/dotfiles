@@ -510,6 +510,8 @@ installBrewPackages()
 		brew install neovim
 
 		# Download and install Tmux, a terminal multiplexer.
+		# Need to install `libevent` first. `libevent` is a dependency of `tmux`. `libevent` depends on `doxygen` to compile it's man pages during installation. However, `doxygen` does not currently compile correctly. Therefore we need to install `libevent` without `doxygen`. Then, when we install `tmux`, `doxygen` won't be installed.
+		brew install libevent --without-doxygen
 		brew install tmux
 
 		# Download and install htop, a human-readable version of top.
