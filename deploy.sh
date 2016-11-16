@@ -57,7 +57,4 @@ echo "> Symlinking third-party scripts into the data directory (${XDG_DATA_HOME}
 mkdir --parents "${XDG_DATA_HOME}/nvim"
 ln --symbolic --force "$(pwd)/markdown2ctags/markdown2ctags.py" "${XDG_DATA_HOME}/nvim/markdown2ctags.py"
 
-# Source the newly installed profile script to setup the user's environment.
-source "${HOME}/.profile"
-
-echo "Finished deploying dotfiles. Your environment has been sourced and setup. Enjoy."
+echo "Finished deploying your dotfiles. Please run `source ~/.profile` to use your new setup."
