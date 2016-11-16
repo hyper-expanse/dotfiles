@@ -40,12 +40,14 @@ ln --symbolic --force "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 # Symlink Neovim files.
 echo "> Symlinking Neovim files into the config directory (${XDG_CONFIG_HOME}/nvim)."
 mkdir --parents "${XDG_CONFIG_HOME}"
-ln --symbolic --force "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}/nvim"
+rm "${XDG_CONFIG_HOME}/nvim" &> "/dev/null"
+ln --symbolic "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}/nvim"
 
 # Symlink tmux files.
 echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
 mkdir --parents "${XDG_CONFIG_HOME}"
-ln --symbolic --force "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}/tmux"
+rm "${XDG_CONFIG_HOME}/tmux" &> "/dev/null"
+ln --symbolic "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}/tmux"
 
 # Symlilnk Visual Studio Code files.
 echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CONFIG_HOME}/Code/User)."
