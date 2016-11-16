@@ -58,8 +58,8 @@
 # Enable large-file support using the large-file support (LFS) plugin for git.
 [filter "lfs"]
 	required = true
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
