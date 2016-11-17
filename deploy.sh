@@ -54,6 +54,11 @@ echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CON
 mkdir --parents "${XDG_CONFIG_HOME}/Code/User"
 ln --symbolic --force "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
 
+# Symlink Vagrant configuration file.
+echo "> Symlinking Vagrant configuration file into the Vagrant directory (${HOME}/.vagrant.d)."
+mkdir --parents "${HOME}/.vagrant.d"
+ln --symbolic --force "$(pwd)/.vagrant.d/Vagrantfile" "${HOME}/.vagrant.d/Vagrantfile"
+
 # Symlink third-party scripts into the appropriate directories.
 echo "> Symlinking third-party scripts into the data directory (${XDG_DATA_HOME})."
 mkdir --parents "${XDG_DATA_HOME}/nvim"
