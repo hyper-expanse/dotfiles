@@ -1,3 +1,5 @@
+export DEBIAN_FRONTEND=noninteractive # To force `debconf` (which is used by things such as `dpkg-preconfigure`) not to use an interactive prompt.
+
 # Update Software
 
 echo "deb http://httpredir.debian.org/debian jessie main contrib non-free
@@ -19,9 +21,19 @@ aptitude full-upgrade --assume-yes
 
 # Additional System Packages
 
-aptitude install apt-listbugs ntp sshfs
+aptitude install apt-listbugs ntp sshfs --assume-yes
+
+# Firewall
+
+
 
 # SSH Configuration
+
+sed -i "s/PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config
+
+sed -i "s/#\(Banner.*\)/\1/" /etc/ssh/sshd_config
+
+/etc/init.d/ssh restart
 
 echo "===========================
 HyperExpanse Network Notice
@@ -50,11 +62,11 @@ echo "root" > /etc/cron.allow
 
 # Security - Password Scheme
 
-aptitude install libpam-cracklib
+aptitude install libpam-cracklib --assume-yes
 
 # Security - Debian Vulnerability Scanner
 
-aptitude install debsecan
+aptitude install debsecan --assume-yes
 
 # Security - Update Host SSH Keys
 
