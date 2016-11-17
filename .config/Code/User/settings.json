@@ -1,9 +1,10 @@
-// Place your settings in this file to overwrite the default settings
 {
     "files.autoSave": "afterDelay",
     "editor.tabSize": 2,
-    "editor.insertSpaces": true,
+    "editor.insertSpaces": "auto",
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "typescript.check.workspaceVersion": false,
     "editor.renderWhitespace": true
 }
