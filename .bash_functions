@@ -273,12 +273,10 @@ setupEnvironment ()
 
 	# Download, build, and install core development environment tools.
 	setupPIP
-	setupTmux
 
 	# Install general tools.
 	installPythonPackages
 
-	#updateTmux
 	updateNeovim
 }
 
@@ -294,7 +292,6 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 
-	#updateTmux
 	updateNeovim
 }
 
@@ -371,28 +368,6 @@ setupPIP ()
 	fi
 }
 
-#! Setup the terminal multiplexer Tmux.
-# Install and configure Tmux and the environment in which it will run.
-setupTmux ()
-{
-	if command -v git &> /dev/null; then
-		printf "\n> Cloning TPM for Tmux plugin management.\n"
-
-		# Create the initial plugin directory that will be required for storing Tmux plugins.
-		mkdir --parents "${HOME}/.tmux/plugins/tpm"
-
-		# If the requested command fails, exit rather than attempt to execute further commands.
-		if [ "${?}" -gt 0 ]; then
-			return
-		fi
-
-		# Clone the required TPM plugin into the newly created plugin directory.
-		git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm --quiet --depth 1
-	else
-		printf "\n> ERROR: `git` is required for setting up TPM, but it's not available in your PATH. Please install `git` and ensure it's in your PATH. Then re-run `setupTmux`.\n"
-	fi
-}
-
 #! Update Linuxbrew environment.
 # Update the Linuxbrew installation. This includes doing the following:
 # 1) Pull down the latest commit from Linuxbrew's remote repository.
@@ -405,34 +380,6 @@ updateLinuxbrew ()
 	else
 		echo "ERROR: `brew` is required for updating the Linuxbrew installation, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateLinkBrew`."
 	fi
-}
-
-#! Update Tmux environment.
-# Update plugins associated with the user's local environment. This includes doing the following:
-# 1) Remove plugins from Tmux's plugin directory that are no longer listed in the user's .tmux.conf configuration file.
-# 2) Install plugins listed in the user's .tmux.conf file that are not already installed.
-# 3) Update plugins that are already installed on the system.
-updateTmux ()
-{
-	printf "\n> Updating Tmux.\n"
-
-	# Start a server, but don't attach to it.
-	tmux start-server
-
-	# Create a new session on the server, but don't attach to it either.
-	tmux new-session -d
-
-	# Install Tmux plugins.
-	bash "${HOME}/.tmux/plugins/tpm/bin/install_plugins"
-
-	# Update previously installed Tmux plugins.
-	bash "${HOME}/.tmux/plugins/tpm/bin/update_plugins" all
-
-	# Remove any installed plugins that are not listed in the `tmux.conf` file.
-	bash "${HOME}/.tmux/plugins/tpm/bin/clean_plugins"
-
-	# Kill the previously created Tmux server.
-	tmux kill-server
 }
 
 #! Update neovim environment.
