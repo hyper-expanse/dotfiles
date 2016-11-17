@@ -60,14 +60,10 @@ fi
 
 # Setup Bash prompt auto-completion for PIP; Python's package manager.
 # This step is incredibly slow to execute.
-#if command -v pip &> /dev/null; then
-#	eval "$(pip completion --bash)"
-#fi
+# command -v pip >/dev/null 2>&1 && eval "$(pip completion --bash)"
 
 # Execute `nvm` script to configure our local environment to work with `nvm`.
-if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
-	source "$(brew --prefix nvm)/nvm.sh"
-fi
+command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
 
 # Enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
@@ -79,9 +75,7 @@ if ! shopt -oq posix; then
 fi
 
 # Source the Linuxbrew bash completion script. This script will subsequently sources bash completion scripts installed into the Linuxbrew bash_completion.d directory.
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	source $(brew --prefix)/etc/bash_completion
-fi
+command -v brew >/dev/null 2>&1 && source $(brew --prefix)/etc/bash_completion
 
 # Source our custom shell aliases. All custom shell aliases should be in this external file rather than cluttering up this file.
 if [ -f "${HOME}/.bash_aliases" ]; then
