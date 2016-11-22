@@ -615,3 +615,39 @@ installPythonPackages ()
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
 }
+
+#! Install Visual Studio Code extensions.
+# If running on a desktop with Visual Studio Code installed, install our selection of Visual Studio Code extensions.
+installVisualStudioCodeExtensions ()
+{
+
+	if command -v $(code --help) &> /dev/null; then
+		printf "\n> Installing Visual Studio Code extensions.\n"
+
+		# JSHint linter for JavaScript.
+		code --install-extension dbaeumer.jshint
+
+		# ESLint linter for JavaScript.
+		code --install-extension dbaeumer.vscode-eslint
+
+		# JSCS linter for JavaScript.
+		code --install-extension ms-vscode.jscs
+
+		# TSLint linter for TypeScript.
+		code --install-extension eg2.tslint
+
+		# Chrome debugger integration.
+		code --install-extension msjsdiag.debugger-for-chrome
+
+		# Python development tools.
+		code --install-extension donjayamanne.python
+
+		# GO development tools.
+		code --install-extension lukehoban.Go
+
+		# C++ development tools.
+		code --install-extension ms-vscode.cpptools
+	else
+		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
+	fi
+}
