@@ -1,7 +1,7 @@
 {
     "editor.detectIndentation": true,
     "editor.quickSuggestions": false,
-    "editor.renderWhitespace": true,
+    "editor.renderWhitespace": "boundary",
     "editor.tabCompletion": true,
     "editor.tabSize": 2,
     "editor.wrappingColumn": 0,
