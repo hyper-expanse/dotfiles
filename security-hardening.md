@@ -14,7 +14,14 @@ The standard Linux kernel is packages with a set of default options which could 
 
 Create a new file at `/etc/sysctl.d/security.conf` and insert the following kernel options:
 
-[src/etc/sysctl.d/security.conf](src/etc/sysctl.d/security.conf)
+```
+#########################
+# Kernel Settings
+#########################
+
+# Disables the magic-sysrq key
+kernel.sysrq = 0
+```
 
 Lastly, tell the kernel to load the new settings:
 
@@ -243,7 +250,7 @@ Debian provides a vulnerability scanner that will determine if there are any sec
 ### Package Installation
 
 Packages:
-* desecan
+* debsecan
 
 ### Configuration
 
@@ -291,7 +298,7 @@ session required	pam_umask.so umask=0027
 
 The host keys for the server need to be updated to use a larger key size for better cryptographic security.
 
-Sudo into the root account:
+Temporarily log into the root account using `sudo`:
 
 ```bash
 sudo su
@@ -300,10 +307,10 @@ sudo su
 Run the following two commands to generate new SSH keys for the host system:
 
 ```bash
-ssh-keygen -t rsa -b 16384 -f /etc/ssh/ssh_host_rsa_key
-ssh-keygen -t dsa -b 1024 -f /etc/ssh/ssh_host_dsa_key
+yes | ssh-keygen -t rsa -b 16384 -N '' -f /etc/ssh/ssh_host_rsa_key
+yes | ssh-keygen -t dsa -b 1024 -N '' -f /etc/ssh/ssh_host_dsa_key
 ```
 
-**Note:** When prompted for a password just press `Enter` to make the key passwordless.
+**Note:** We call `yes` here to auto answer prompts affirmatively, so that the process can be automated.
 
 **Note:** DSA keys can only be as large as 1024 bits in length. This is a restriction imposed by FIPS 186-2 and enforced by OpenSSL (The manager of SSH keys).
