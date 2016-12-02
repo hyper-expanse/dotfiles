@@ -137,7 +137,16 @@ Because the system was installed from an ISO image, several of the installed pac
 
 First the default apt-get sources list should be updated to include additional Debian repositories that we can use. Replace the apt sources list, `/etc/apt/sources.list`, with the following content:
 
-[/etc/apt/sources.list](src/etc/apt/sources.list)
+```
+deb http://httpredir.debian.org/debian jessie main contrib non-free
+deb-src http://httpredir.debian.org/debian jessie main contrib non-free
+
+deb http://httpredir.debian.org/debian jessie-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian jessie-updates main contrib non-free
+
+deb http://security.debian.org/ jessie/updates main contrib non-free
+deb-src http://security.debian.org/ jessie/updates main contrib non-free
+```
 
 In addition to updating the list of repositories, we need to prioritize the repository a package should be installed from. These priorities are defined in files in the `preferences.d` directory located under `/etc/apt/`. Create a file named 'stable' in the `/etc/apt/preferences.d/` directory with the following content:
 
@@ -224,9 +233,13 @@ sudo /etc/init.d/ssh restart
 
 Edit the login banner files, `/etc/issue` and `/etc/issue.net`, to conform to a security statement that informs users that they are responsible for their actions, and their activities will be monitored. Please modify these files as appropriate for your network, or situation.
 
-[/etc/issue](src/etc/issue)
+```
+===========================
+HyperExpanse Network Notice
+===========================
 
-[/etc/issue.net](src/etc/issue.net)
+Unauthorized access to this computer system is prohibited. Users have no expectation of privacy except as otherwise provided by applicable privacy laws. All activities are monitored, logged, and analyzed. Unauthorized access and activities or any criminal activity will be reported to appropriate authorities.
+```
 
 ## Security Hardening
 
