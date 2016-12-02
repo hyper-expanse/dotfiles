@@ -144,9 +144,6 @@ sudo /etc/init.d/network-manager restart
 First install `vagrant` by downloading the appropriate Debian package, based on your architecture, from the [Vagrant Download Page](https://www.vagrantup.com/downloads.html), and using the following command to install the downloaded package:
 * `sudo dpkg -i [FILE NAME]`
 
-Once `vagrant` has been installed you will also need to install the following package to support NFS:
-* nfs-kernel-server
-
 Next you'll want to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin to allow our `vagrant` tool to provisiion environments using virtual machines through `libvirt`.
 
 To install `vagrant-libvirt`, navigate to their [Installation Guide](https://github.com/vagrant-libvirt/vagrant-libvirt#installation).
@@ -172,7 +169,7 @@ To avoid the authentication prompt simply add yourself to the `libvirt` user gro
 
 ## LinuxBrew
 
-Navigate to the [LinuxBrew](https://github.com/Homebrew/linuxbrew) and install all the required packages for your Linux distribution.
+Navigate to the [LinuxBrew](https://github.com/Linuxbrew/brew) and install all the required packages for your Linux distribution.
 
 ## Personal Dotfiles
 
