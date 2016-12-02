@@ -8,6 +8,8 @@
 	* [DHCP](services/dhcp.md)
 	* [OpenVPN](services/openvpn.md)
 	* [Transmission](services/transmission.md)
+* Windows
+  * [Personal Desktop](windows/personal-desktop.md)
 * Tips
     * [Networking](tips/networking.md)
     * [Security Policies](tips/security-policies.md)
