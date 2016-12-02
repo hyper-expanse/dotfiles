@@ -133,13 +133,13 @@ At the _Installation Complete_ prompt, remove the installation media and then pr
 
 ## Update Software
 
-Because the system was installed form a DVD image several of the installed packages may be out-of-date. Therefore, prior to proceeding with any further configuration, it is imperative, for security reasons, to update all packages to the latest version available.
+Because the system was installed from an ISO image, several of the installed packages may be out-of-date. Therefore, prior to proceeding with any further configuration, it is imperative, for security reasons, to update all packages to the latest version available.
 
 First the default apt-get sources list should be updated to include additional Debian repositories that we can use. Replace the apt sources list, `/etc/apt/sources.list`, with the following content:
 
 [/etc/apt/sources.list](src/etc/apt/sources.list)
 
-In addition to updating the list of repositories, we need to prioritize from which repository a package should be installed. These priorities are captured as files in the `preferences.d` directory of `/etc/apt/`. Create a file named 'stable' in the `/etc/apt/preferences.d/` directory with the following content:
+In addition to updating the list of repositories, we need to prioritize the repository a package should be installed from. These priorities are defined in files in the `preferences.d` directory located under `/etc/apt/`. Create a file named 'stable' in the `/etc/apt/preferences.d/` directory with the following content:
 
 ```
 Package: *
@@ -163,7 +163,7 @@ sudo aptitude full-upgrade
 
 Choose _Y_ to begin installation of package updates.
 
-Once all software updates have been installed, reboot the system. This will ensure only the latest versions of applications are running.
+Once all software updates have been installed, reboot the system. This will ensure only the latest version of packages are running.
 
 > Please remember to update your system on a regular basis (such as once a day). The same `update` and `full-upgrade` steps must be carried out in each case.
 
@@ -209,7 +209,7 @@ sudo /etc/init.d/arno-iptables-firewall restart
 
 Several options can be configured for SSH which will secure a system more thoroughly than what is configured by default. There are many additional options which can be configured but those listed below should limit system vulnerabilities considerably.
 
-Edit the SSH server configuration file `/etc/ssh/sshd\_config`. Change the SSH options so that they look like those below:
+Edit the SSH server configuration file `/etc/ssh/sshd_config`. Change the SSH options so that they look like those below:
 
 * Do not permit root login over SSH:
 	* `PermitRootLogin no`
