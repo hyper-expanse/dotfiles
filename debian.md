@@ -146,6 +146,9 @@ deb-src http://httpredir.debian.org/debian jessie-updates main contrib non-free
 
 deb http://security.debian.org/ jessie/updates main contrib non-free
 deb-src http://security.debian.org/ jessie/updates main contrib non-free
+
+deb http://httpredir.debian.org/debian unstable main contrib non-free
+deb-src http://httpredir.debian.org/debian unstable main contrib non-free
 ```
 
 In addition to updating the list of repositories, we need to prioritize the repository a package should be installed from. These priorities are defined in files in the `preferences.d` directory located under `/etc/apt/`. Create a file named 'stable' in the `/etc/apt/preferences.d/` directory with the following content:
