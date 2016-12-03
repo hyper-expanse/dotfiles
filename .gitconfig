@@ -4,15 +4,15 @@
 	signingkey = FDD86D62
 
 [core]
+	# Set to `input` to disable end-of-line conversion from LF to CRLF on checkout of a file from the repository. Instead, files will be checked out with the line endings they have in the repository.
+	autocrlf = input
+
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
 	editor = nvim
+	#editor = code --wait
 
 	# Global ignore list of files I would never want to push into a repository that I would be working with.
 	excludesfile = ~/.gitignore
-
-	# Apply a global set of attributes to a repository if that repository does not contain its own attributes file.
-	# Disable option to prevent mangling a Git repository in a way unintended by the author of that repository.
-	# attributesfile = ~/.gitattributes
 
 [pull]
 	# Automatically rebase local-only commits on top of commits fetched from the remotely tracked repository. This retains the existing structure of the remote's history, and causes local commits to be appended to the history in a linear fashion. This option avoids the default behavior of `git pull`, which fetches commits from the remote repository and "merges" them into the local branch.
@@ -31,11 +31,19 @@
 	gpgsign = true
 
 [diff]
-	# Instruct Git to use the vimdiff tool when using git's `difftool` command.
+	# Instruct Git to use the following editor when using git's `difftool` command.
 	tool = vimdiff
+	#tool = vsc
 
 	# Instruct Git to use mnemonic prefixes (Such as *i*ndex, *w*ork tree, *c*ommit, or *o*bject) instead of the standard *a* and *b* notation when outputting a diff to the console.
 	mnemonicprefix = true
+
+	# In addition to having Git detect, and display, simple file renames, instruct Git to diplay when a file has been copied from one location to another.
+	renames = copies
+
+[difftool "vsc"]
+	# Custom command to be invoked by Git when the `git difftool` command is called to visualize a diff in an editor.
+	cmd = code --wait --diff $LOCAL $REMOTE
 
 [fetch]
 	# Automatically prune, a.k.a. delete, local branches, on every fetch request, if those branches were deleted from the remote repository.
@@ -55,8 +63,8 @@
 	# Specify the path to the merge tool. Though we specified `vimdiff` earlier, `vimdiff` does not refer to the binary called by `git`, but rather a script that passes arguments to a binary defined by `merge_tool_path`. Below we change the path to the binary that `git`'s `vimdiff` script calls. The binary we use is for Neovim.
 	path = nvim
 
-# Enable large-file support using the large-file support (LFS) plugin for git.
 [filter "lfs"]
+	# Enable large-file support using the large-file support (LFS) plugin for git.
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -99,12 +107,13 @@
 	# * clean -X - Remove all files ignored by Git through the use of Git's `.gitignore` file. Useful for cleaning out build artifacts.
 	# * gc - Compress file revisions (which will reduce disk space consumption and improve performance), and remove unreachable objects. The `--aggressive` option is used to instruct Git to be more aggressive in cleaning, at the expense of more time.
 	# * branch --merged - Remove all local, and remote, branches that have been successfully merged into the current checked out local branch.
-	cleanup = "!git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v '*' | grep -v master | xargs -n 1 -I _branch sh -c 'git branch -D _branch; git push origin :refs/heads/_branch;'"
+	# If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have a `origin` remote, this command will fail.
+	cleanup = "!sh -c 'git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v \"*\" | grep -v master | xargs -n 1 -I _branch sh -c \"git branch -D _branch; git push ${1:-origin} :refs/heads/_branch;\"'"
 
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
 
-	# Setup the local working directory by checking out the master branch, and then reseting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, then this command will fail.
+	# Setup the local working directory by checking out the master branch, and then resetting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, this command will fail.
 	setup = "!sh -c 'git checkout master && git fetch ${1:-origin} && git reset --hard ${1:-origin}/master && git clean -Xdf' -"
 
 	# List all branches in order of the author date of the latest commit on that branch. Order is descending, with most recently updated branch first.
