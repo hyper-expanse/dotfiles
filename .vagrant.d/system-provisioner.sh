@@ -1,19 +1,27 @@
-export DEBIAN_FRONTEND=noninteractive # To force `debconf` (which is used by things such as `dpkg-preconfigure`) not to use an interactive prompt.
+# To force `debconf` (which is used by things such as `dpkg-preconfigure`) not to use an interactive prompt.
+export DEBIAN_FRONTEND=noninteractive
 
 # Update Software
 
-echo "deb http://httpredir.debian.org/debian jessie main contrib non-free
-	deb-src http://httpredir.debian.org/debian jessie main contrib non-free
+echo "
+deb http://httpredir.debian.org/debian jessie main contrib non-free
+deb-src http://httpredir.debian.org/debian jessie main contrib non-free
 
-	deb http://httpredir.debian.org/debian jessie-updates main contrib non-free
-	deb-src http://httpredir.debian.org/debian jessie-updates main contrib non-free
+deb http://httpredir.debian.org/debian jessie-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian jessie-updates main contrib non-free
 
-	deb http://security.debian.org/ jessie/updates main contrib non-free
-	deb-src http://security.debian.org/ jessie/updates main contrib non-free" > /etc/apt/sources.list
+deb http://security.debian.org/ jessie/updates main contrib non-free
+deb-src http://security.debian.org/ jessie/updates main contrib non-free
 
-echo "Package: *
-	Pin: release o=Debian,a=stable
-	Pin-Priority: 700" > /etc/apt/preferences.d/stable
+deb http://httpredir.debian.org/debian unstable main contrib non-free
+deb-src http://httpredir.debian.org/debian unstable main contrib non-free
+" > /etc/apt/sources.list
+
+echo "
+Package: *
+Pin: release o=Debian,a=stable
+Pin-Priority: 700
+" > /etc/apt/preferences.d/stable
 
 aptitude update
 
