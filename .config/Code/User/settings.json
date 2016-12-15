@@ -1,27 +1,29 @@
 {
-    "editor.detectIndentation": true,
-    "editor.quickSuggestions": false,
-    "editor.renderWhitespace": "boundary",
-    "editor.tabCompletion": true,
-    "editor.tabSize": 2,
-    "editor.wrappingColumn": 0,
+	"diffEditor.ignoreTrimWhitespace": false,
 
-		"explorer.openEditors.visible": 0,
+	"editor.detectIndentation": true,
+	"editor.quickSuggestions": false,
+	"editor.renderWhitespace": "boundary",
+	"editor.tabCompletion": true,
+	"editor.tabSize": 2,
+	"editor.wrappingColumn": 0,
 
-    "extensions.autoUpdate": true,
+	"explorer.openEditors.visible": 0,
 
-    "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 500,
-    "files.eol": "\n",
-    "files.trimTrailingWhitespace": true,
+	"extensions.autoUpdate": true,
 
-    "telemetry.enableCrashReporter": false,
-    "telemetry.enableTelemetry": false,
+	"files.autoSave": "afterDelay",
+	"files.autoSaveDelay": 500,
+	"files.insertFinalNewline": true,
+	"files.trimTrailingWhitespace": true,
 
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+	"telemetry.enableCrashReporter": false,
+	"telemetry.enableTelemetry": false,
 
-    "typescript.check.workspaceVersion": false,
+	"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
 
-    "window.reopenFolders": "all",
-    "window.restoreFullscreen": true
-}
+	"typescript.check.workspaceVersion": false,
+
+	"window.reopenFolders": "all",
+	"window.restoreFullscreen": true
+ }
