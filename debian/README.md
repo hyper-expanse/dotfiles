@@ -258,7 +258,6 @@ The following additional packages should be installed onto your system. To insta
 Packages:
 * apt-listbugs: Will display a list of known issues with packages before they're installed by `aptitude install/full-upgrade`.
 * ntp: Service for updating the system's time from Debian time servers.
-* sshfs: Userland-based filesystem over SSH.
 
 ## Firewall
 
