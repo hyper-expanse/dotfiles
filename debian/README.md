@@ -179,6 +179,78 @@ Once all software updates have been installed, reboot the system. This will ensu
 
 > Please remember to update your system on a regular basis (such as once a day). The same `update` and `full-upgrade` steps must be carried out in each case.
 
+## Automatic Updates
+
+Packages for Debian distributions are regularly updated within the main software repositories with enhancements and security fixes. Though these updated packages could be downloaded and installed manually, doing so would be tedious. Therefore we create scripts to automatically download and install updated packages, keeping our system up-to-date.
+
+Create a new cron job to run on a daily basis by creating the `/etc/cron.daily/aptitude-updates` file:
+
+```bash
+#!/usr/bin/env bash
+
+# Capture our start time.
+start=$(date +%s)
+
+# Set the date for UTC date.
+utcdate=$(date -u --rfc-3339=seconds)
+
+# Location of the output log file.
+log=/var/log/aptitude-updates
+
+# Begin executing commands.
+echo "*******************************************" >> $log
+echo "[Aptitude Updates]: $utcdate Z" >> $log
+echo "*******************************************" >> $log
+
+# Update our list of repository packages
+aptitude update >> $log
+
+# Install all package updates where the update does not require the removal of another package. Assume yes where applicable (--assume-yes) and do not install recommended packages but only those that are required (--no-install-recommends).
+aptitude safe-upgrade --assume-yes --without-recommends >> $log
+
+# Clean up cache files. Assume yes where applicable (--assume-yes).
+aptitude clean --assume-yes >> $log
+
+# Calculate and log total execution time.
+end=$(date +%s)
+difference=$(($end - $start))
+
+echo >> $log
+echo "Execution time: $difference seconds." >> $log
+echo >> $log
+```
+
+Run the following command to make the file executable:
+
+```bash
+sudo chmod 755 /etc/cron.daily/aptitude-updates
+```
+
+Create a new log rule for rotating and compressing log files associated with the automatic updates file by creating the `/etc/logrotate.d/aptitude-updates` file:
+
+```
+/var/log/aptitude-updates {
+	rotate 2
+	weekly
+	size 250k
+	compress
+	notifempty
+}
+```
+
+Run the following command to set the proper permissions:
+
+```bash
+sudo chmod 644 /etc/logrotate.d/apt-update
+```
+
+Set the proper owner, and group, for both files:
+
+```bash
+sudo chown root:root /etc/cron.daily/apt-updates
+sudo chown root:root /etc/cron.daily/apt-updates
+```
+
 ## Additional System Packages
 
 The following additional packages should be installed onto your system. To install them, run `sudo aptitude install [PACKAGE]`.

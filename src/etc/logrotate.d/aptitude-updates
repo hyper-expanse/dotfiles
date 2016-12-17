@@ -1,7 +1,0 @@
-/var/log/aptitude-updates {
-      rotate 2
-      weekly
-      size 250k
-      compress
-      notifempty
-}
