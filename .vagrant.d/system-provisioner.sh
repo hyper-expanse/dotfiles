@@ -27,6 +27,60 @@ aptitude update
 
 aptitude full-upgrade --assume-yes
 
+# Automatic Updates
+
+echo "
+#!/usr/bin/env bash
+
+# Capture our start time.
+start=$(date +%s)
+
+# Set the date for UTC date.
+utcdate=$(date -u --rfc-3339=seconds)
+
+# Location of the output log file.
+log=/var/log/aptitude-updates
+
+# Begin executing commands.
+echo "*******************************************" >> $log
+echo "[Aptitude Updates]: $utcdate Z" >> $log
+echo "*******************************************" >> $log
+
+# Update our list of repository packages
+aptitude update >> $log
+
+# Install all package updates where the update does not require the removal of another package. Assume yes where applicable (--assume-yes) and do not install recommended packages but only those that are required (--no-install-recommends).
+aptitude safe-upgrade --assume-yes --without-recommends >> $log
+
+# Clean up cache files. Assume yes where applicable (--assume-yes).
+aptitude clean --assume-yes >> $log
+
+# Calculate and log total execution time.
+end=$(date +%s)
+difference=$(($end - $start))
+
+echo >> $log
+echo "Execution time: $difference seconds." >> $log
+echo >> $log
+" > /etc/cron.daily/aptitude-updates
+
+chmod 755 /etc/cron.daily/aptitude-updates
+
+echo "
+/var/log/aptitude-updates {
+	rotate 2
+	weekly
+	size 250k
+	compress
+	notifempty
+}
+" > /etc/logrotate.d/aptitude-updates
+
+chmod 644 /etc/logrotate.d/aptitude-update
+
+chown root:root /etc/cron.daily/aptitude-updates
+chown root:root /etc/cron.daily/aptitude-updates
+
 # Additional System Packages
 
 aptitude install apt-listbugs ntp sshfs --assume-yes
