@@ -83,7 +83,7 @@ chown root:root /etc/cron.daily/aptitude-updates
 
 # Additional System Packages
 
-aptitude install apt-listbugs ntp sshfs --assume-yes
+aptitude install apt-listbugs ntp --assume-yes
 
 # Firewall
 
