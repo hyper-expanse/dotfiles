@@ -87,7 +87,46 @@ aptitude install apt-listbugs ntp --assume-yes
 
 # Firewall
 
+echo "
+#######################################################################
+# Feel free to edit this file.  However, be aware that debconf writes #
+# to (and reads from) this file too.  In case of doubt, only use      #
+# 'dpkg-reconfigure -plow arno-iptables-firewall' to edit this file.  #
+# If you really don't want to use debconf, or if you have specific    #
+# needs, you're likely better off using placing an additional         #
+# configuration snippet into/etc/arno-iptables-firewall/conf.d/.      #
+# Also see README.Debian.                                             #
+#######################################################################
 
+# External network interfaces (such as those connected to the internet).
+EXT_IF="eth0"
+
+# Set to '1' is external IP is retrieved from DHCP.
+EXT_IF_DHCP_IP=1
+
+# TCP ports to allow through external network interfaces.
+OPEN_TCP=""
+
+# UDP ports to allow through external network interfaces.
+OPEN_UDP=""
+
+# Internal network interfaces.
+INT_IF=""
+
+# Configuration for routing internal traffic from other systems, through this system's external network interfaces, and to the public internet.
+NAT=0
+INTERNAL_NET=""
+NAT_INTERNAL_NET=""
+
+# Set to '1' if the system should respond to PING messages on external network interfaces.
+OPEN_ICMP=0
+" > /etc/arno-iptables-firewall/conf.d/00debconf.conf
+
+aptitude install arno-iptables-firewall
+
+sed -i "s/ENABLED=0/ENABLED=1/" /etc/arno-iptables-firewall/plugins/ssh-brute-force-protection.conf
+
+/etc/init.d/arno-iptables-firewall restart
 
 # SSH Configuration
 
