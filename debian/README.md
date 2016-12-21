@@ -261,9 +261,50 @@ Packages:
 
 ## Firewall
 
-A firewall helps prevent external intrusion into the system. However, it should be noted that possessing a firewall does not block malicious actions while on the server.
+A firewall helps prevent external intrusion into the system. However, it should be noted that possessing a firewall does not block malicious actions from occurring on the server itself.
 
-For the firewall, a package called `arno-iptables-firewall` will be used. It configures the pre-installed `iptables` package for locking down ports and protecting ports from unauthorized access or use. To install:
+For the firewall, a package called `arno-iptables-firewall` will be used. `arno-iptables-firewall` acts as an [IPtables frontend](https://wiki.debian.org/Firewalls). It configures the pre-installed `iptables` package; locking down ports and protecting ports from unauthorized access or use.
+
+First, let's create a file that defines our desired configuration:
+
+```
+#######################################################################
+# Feel free to edit this file.  However, be aware that debconf writes #
+# to (and reads from) this file too.  In case of doubt, only use      #
+# 'dpkg-reconfigure -plow arno-iptables-firewall' to edit this file.  #
+# If you really don't want to use debconf, or if you have specific    #
+# needs, you're likely better off using placing an additional         #
+# configuration snippet into/etc/arno-iptables-firewall/conf.d/.      #
+# Also see README.Debian.                                             #
+#######################################################################
+
+# External network interfaces (such as those connected to the internet).
+EXT_IF="wlan0"
+
+# Set to '1' is external IP is retrieved from DHCP.
+EXT_IF_DHCP_IP=1
+
+# TCP ports to allow through external network interfaces.
+OPEN_TCP=""
+
+# UDP ports to allow through external network interfaces.
+OPEN_UDP=""
+
+# Internal network interfaces.
+INT_IF=""
+
+# Configuration for routing internal traffic from other systems, through this system's external network interfaces, and to the public internet.
+NAT=0
+INTERNAL_NET=""
+NAT_INTERNAL_NET=""
+
+# Set to '1' if the system should respond to PING messages on external network interfaces.
+OPEN_ICMP=0
+```
+
+> Make sure to change the value of *EXT_IF* to match the names of your system's external interfaces.
+
+Next, install the `arno-iptables-firewall` package:
 
 ```bash
 sudo aptitude install arno-iptables-firewall
@@ -273,8 +314,7 @@ An interactive configuration screen will appear to configure the firewall settin
 * Select _Yes_ for managing the firewall setup with debconf.
 * Select _Ok_ for the interface notice.
 * For the network interfaces enter the names of every Internet facing interface, such as `eth0`..
-* Enter `22` as the external TCP-port that will allow traffic through the firewall for:
-	* SSH
+* Do not open any inbound TCP ports.
 * If an interface is acting as a gateway interface, place that into the _Internal Interfaces_ list, otherwise, leave the list blank.
 * Select _No_ on whether the system should be pingable from the network.
 * Select _Yes_ to restart the firewall at the conclusion of the configuration.
