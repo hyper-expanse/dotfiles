@@ -142,7 +142,7 @@ sudo /etc/init.d/network-manager restart
 [Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through libvirt, or docker containers.
 
 First install `vagrant` by downloading the appropriate Debian package, based on your architecture, from the [Vagrant Download Page](https://www.vagrantup.com/downloads.html), and using the following command to install the downloaded package:
-* `sudo dpkg -i [FILE NAME]`
+* `sudo dpkg --install [FILE NAME]`
 
 Next you'll want to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin to allow our `vagrant` tool to provisiion environments using virtual machines through `libvirt`.
 
@@ -250,3 +250,14 @@ A collection of high quality, and highly recommended, radio stations. Playlists 
 * KUT 1 - News/Talk
 * KUT 2 - Music
 * Thistle Radio - Celtic Music - [Online Stream Information](http://somafm.com/thistle/)
+
+## Integrated Development Environment
+
+[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor, is a solid tool, though simple compared to more feature rich IDE platforms, for writing, organizing, testing, and debugging software.
+
+To install Visual Studio Code, navigate to the [Visual Studio Code download page](https://code.visualstudio.com/Download), and download the appropriate Debian package for your architecture.
+
+Next, open a command line window, navigate into the folder containing the downloaded package, and run the following command, replacing `[FILE NAME]` with the name of the file you downloaded:
+* `sudo dpkg --install [FILE NAME]`
+
+Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That will ensure future updates of your system will get the latest version of Visual Studio Code.

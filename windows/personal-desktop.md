@@ -19,9 +19,9 @@ Install the following packages:
 A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
 
 Installation instructions are available in the dotfile project's [README](https://gitlab.com/hutson/dotfiles/blob/master/README.md).
-			
+
 ## SSH Configuration
-	
+
 Create a new file called `~/.bash_profile` and add the content specified under the _Auto-launching ssh-agent_ section of the [GitHub documentation on SSH keys](https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows)
 
 Next, execute the following command to add your private key to the SSH Agent so that the agent can use that private key when establishing connections to remote servers:
@@ -73,3 +73,11 @@ vagrant plugin install vagrant-vbguest
 > Make sure to update Vagrant plugins on a regular basis with `vagrant plugins update.
 
 As described in the [Vagrantfile documentation](https://www.vagrantup.com/docs/vagrantfile/), the contents of the `Vagrantfile` file in `~/.vagrant.d` act as defaults for project-specific `Vagrantfile` files.
+
+## Integrated Development Environment
+
+[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor, is a solid tool, though simple compared to more feature rich IDE platforms, for writing, organizing, testing, and debugging software.
+
+To install Visual Studio Code, navigate to the [Visual Studio Code download page](https://code.visualstudio.com/Download), and download the appropriate installer for Windows.
+
+Once Visual Studio Code has been downloaded, open up _File Explorer_, navigate into your _Downloads_ directory, and run the installer.
