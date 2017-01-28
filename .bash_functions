@@ -500,6 +500,9 @@ installBrewPackages()
 		# Download and install packer, a tool for building machine and container images for multiple platforms.
 		brew install packer
 
+		# Install alternative JavaScript package manager called `yarn`.
+		brew install yarn
+
 		if [ `uname -n` == "startopia" ]; then
 
 			# GNU data recovery tool.
@@ -545,9 +548,6 @@ installNodePackages ()
 
 		# Update the version of `npm` installed in our environment.
 		npm install -g npm
-
-		# Install alternative JavaScript package manager called `yarn`.
-		npm install -g yarn
 
 		# Install command line tab completion for `yarn`.
 		npm install -g yarn-completions
