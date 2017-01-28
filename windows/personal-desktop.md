@@ -8,6 +8,7 @@ Install [Chocolatey](https://chocolatey.org/).
 
 Install the following packages:
 * clementine
+* dia
 * peazip
 * quiterss
 * sumatrapdf
