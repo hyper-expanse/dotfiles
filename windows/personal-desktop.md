@@ -9,6 +9,7 @@ Install [Chocolatey](https://chocolatey.org/).
 Install the following packages:
 * clementine
 * dia
+* gpg4win
 * peazip
 * quiterss
 * sumatrapdf
@@ -74,6 +75,10 @@ vagrant plugin install vagrant-vbguest
 > Make sure to update Vagrant plugins on a regular basis with `vagrant plugins update.
 
 As described in the [Vagrantfile documentation](https://www.vagrantup.com/docs/vagrantfile/), the contents of the `Vagrantfile` file in `~/.vagrant.d` act as defaults for project-specific `Vagrantfile` files.
+
+## GPG Keys
+
+Using the _Kleopatra_ application, create a new encryption key. (Please follow the [Security Policies](../tips/security-policies.md).)
 
 ## Integrated Development Environment
 
