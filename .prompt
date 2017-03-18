@@ -16,7 +16,6 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 source "${DIR}/scripts/git-prompt.sh"
 
-export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
 
 # If `bc` is not in the user's PATH do not display load percentage.
@@ -122,13 +121,6 @@ LoadPrompt()
 
 	# Current datetime.
 	PS1="${PS1}(${CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
-
-	# If option is enabled, print the number of files in the current directory, and their total size.
-	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_FILE_INFORMATION} -eq 1 ]; then "
-
-		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; printf '%s files %sb' \$(ls -1 | wc -l | sed 's: ::g') \$(ls -lah | grep -m 1 total | sed 's/total //'); printf '%s%s' '${B_BLACK}' ')';"
-
-	PS1="${PS1}fi)"
 
 	# If option is enabled, print the working directory's Git branch name.
 	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION} -eq 1 ]; then "
