@@ -650,6 +650,9 @@ installVisualStudioCodeExtensions ()
 
 		# General, offline, spell checker.
 		code --install-extension streetsidesoftware.code-spell-checker
+
+		# Material icon theme.
+		code --install-extension PKief.material-icon-theme
 	else
 		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
 	fi
