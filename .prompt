@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 
-# todo
-# * Print the previous return code if it's a failure.
-# * Print bash history number (so that I can type !512)
-
 #====================================================
 # Custom Bash Shell Prompt
 #
 # This script only needs to be sourced upon logging into a system to override the default Bash prompt.
 #====================================================
+
+# Retreiving the current files real directory path is handled by the following code, which was borrowed from this excellaent answer on StackOverflow - https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within/246128#246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+source "${DIR}/scripts/git-prompt.sh"
 
 export PROMPT_ENABLE_FILE_INFORMATION=0 # Enable information about file and folders in the current directory.
 export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
@@ -46,13 +52,6 @@ B_WHITE='\[\033[1;37m\]'	# White.
 
 # High intensity colors.
 I_Cyan='\[\033[0;94m\]'		# Cyan.
-
-#! Retrieve the Git branch name.
-# Retrieve the name of the Git branch in the current directory, if a Git branch exists in the current directory.
-ParseGitBranch()
-{
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/git::\1/' | tr -d '\n'
-}
 
 #! Retrieve the number of unique proessor cores.
 # Retrieve the number of unique processor cores on the system.
@@ -134,7 +133,7 @@ LoadPrompt()
 	# If option is enabled, print the working directory's Git branch name.
 	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION} -eq 1 ]; then "
 
-		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; ParseGitBranch; printf '%s%s' '${B_BLACK}' ')';"
+		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; __git_ps1 '%s'; printf '%s%s' '${B_BLACK}' ')';"
 
 	PS1="${PS1}fi)"
 
