@@ -260,4 +260,12 @@ To install Visual Studio Code, navigate to the [Visual Studio Code download page
 Next, open a command line window, navigate into the folder containing the downloaded package, and run the following command, replacing `[FILE NAME]` with the name of the file you downloaded:
 * `sudo dpkg --install [FILE NAME]`
 
-Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That will ensure future updates of your system will get the latest version of Visual Studio Code.
+Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That ensures future updates of your system will also install the latest version of Visual Studio Code.
+
+Because Visual Studio's package repository uses HTTPS, one additional system-level package will need to be installed.
+
+```bash
+sudo aptitude install apt-transport-https
+```
+
+Without `apt-transport-https` installed, attempts to update Visual Studio Code will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
