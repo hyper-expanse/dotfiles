@@ -16,8 +16,6 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 source "${DIR}/scripts/git-prompt.sh"
 
-export PROMPT_ENABLE_GIT_REPO_IDENTIFICATION=1 # Enable the display of a repository's (GIT) name for the repository stored in the current directory.
-
 # If `bc` is not in the user's PATH do not display load percentage.
 if command -v bc &> /dev/null; then
 	export PROMPT_ENABLE_LOAD=1 # Enable the display of a system's current, total, utilization as a percentage.
@@ -122,12 +120,8 @@ LoadPrompt()
 	# Current datetime.
 	PS1="${PS1}(${CYAN}\$(date '+%H:%M %Z')${B_BLACK})"
 
-	# If option is enabled, print the working directory's Git branch name.
-	PS1="${PS1}\$(if [ \${PROMPT_ENABLE_GIT_REPO_IDENTIFICATION} -eq 1 ]; then "
-
-		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; __git_ps1 '%s'; printf '%s%s' '${B_BLACK}' ')';"
-
-	PS1="${PS1}fi)"
+	# Current git branch.
+	PS1="${PS1}\$(printf '%s%s' '-(' '${CYAN}'; __git_ps1 '%s'; printf '%s%s' '${B_BLACK}' ')';)"
 
 	# Add input indicator before the user's input prompt.
 	PS1="${PS1}${B_BLACK}--> "
