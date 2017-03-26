@@ -144,11 +144,11 @@ sudo /etc/init.d/network-manager restart
 First install `vagrant` by downloading the appropriate Debian package, based on your architecture, from the [Vagrant Download Page](https://www.vagrantup.com/downloads.html), and using the following command to install the downloaded package:
 * `sudo dpkg --install [FILE NAME]`
 
-Next you'll want to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin to allow our `vagrant` tool to provisiion environments using virtual machines through `libvirt`.
+Next install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin so that `vagrant` can provision virtual machines through `libvirt`.
 
 To install `vagrant-libvirt`, navigate to their [Installation Guide](https://github.com/vagrant-libvirt/vagrant-libvirt#installation).
 
-> Please ensure you replace command line calls to `apt-get` with calls to `aptitude` using `sudo`.
+> Please ensure you replace command line calls made to `apt-get` with calls to `aptitude` using `sudo`.
 
 You'll first want to skip down to the section about _Possible problems_, as this section lists additional packages that may be required to correctly compile the plugin's primary dependencies. Install the packages listed for _Ubuntu/Debian_.
 
@@ -157,7 +157,7 @@ Once those packages are installed, scroll back up to the list of primary depende
 Once `vagrant-libvirt` has been installed, have vagrant install the plugin:
 * `vagrant plugin install vagrant-libvirt`
 
-Lastly, install `virt-manager`, a graphical tool for visualizing virtual machine resources.
+To monitor virtual machines on your system outside of Vagrant, install `virt-manager`, a graphical tool for visualizing virtual machine resources.
 * virt-manager
 
 ### Libvirt User
