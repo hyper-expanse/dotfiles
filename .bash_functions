@@ -624,14 +624,8 @@ installVisualStudioCodeExtensions ()
 	if command -v $(code --help) &> /dev/null; then
 		printf "\n> Installing Visual Studio Code extensions.\n"
 
-		# JSHint linter for JavaScript.
-		code --install-extension dbaeumer.jshint
-
 		# ESLint linter for JavaScript.
 		code --install-extension dbaeumer.vscode-eslint
-
-		# JSCS linter for JavaScript.
-		code --install-extension ms-vscode.jscs
 
 		# TSLint linter for TypeScript.
 		code --install-extension eg2.tslint
