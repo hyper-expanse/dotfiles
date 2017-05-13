@@ -9,14 +9,7 @@ Vagrant.configure("2") do |config|
 	# Enable strict host-key verification to force SSH to check the remote host key against your `known_hosts` file, and if they don't match, to ask whether the key should be added to the `known_hosts` file.
 	config.ssh.paranoid = true
 
-	# Share a folder with the guest VM. The first argument is the path on the host of the folder to be shared. The second argument is the path on the guest where the folder should show up. The third option sets the method of sharing. Our default share method uses `rsync` to do a one-way copy of files into the virtual machine.
-	config.vm.synced_folder ".", "/vagrant", type: "rsync",
-		rsync__exclude: [".vagrant/", ".git/", "node_modules/"]
-
-	config.vm.provider "virtualbox" do |vb|
-		vb.memory = "1024"
-	end
-
+	# Provision the system environment.
 	config.vm.provision "shell" do |s|
 		s.keep_color = true
 		s.path = "https://gitlab.com/hyper-expanse/dotfiles/raw/master/.vagrant.d/system-provisioner.sh"
