@@ -20,6 +20,8 @@
 	"files.insertFinalNewline": true,
 	"files.trimTrailingWhitespace": true,
 
+	"search.useIgnoreFilesByDefault": true,
+
 	"telemetry.enableCrashReporter": false,
 	"telemetry.enableTelemetry": false,
 
@@ -33,5 +35,11 @@
 	"window.restoreFullscreen": true,
 	"workbench.iconTheme": "material-icon-theme",
 
-	"zenMode.restore": true
+	"zenMode.restore": true,
+	"[cpp]": {
+		"editor.quickSuggestions": false
+	},
+	"[c]": {
+		"editor.quickSuggestions": false
+	}
 }
