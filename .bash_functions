@@ -539,56 +539,56 @@ updateBrewPackages ()
 	fi
 }
 
-#! Install Node.JS packages.
-# Install Node.JS packages via `npm`.
+#! Install NodeJS packages.
+# Install NodeJS packages via `yarn`.
 installNodePackages ()
 {
-	if command -v npm &> /dev/null; then
+	if command -v yarn &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
 		# Update the version of `npm` installed in our environment.
-		npm install -g npm
+		yarn global add npm
 
 		# Install command line tab completion for `yarn`.
-		npm install -g yarn-completions
+		yarn global add yarn-completions
 
 		# Required to enable Syntastic checking for JavaScript files.
-		npm install -g jscs
-		npm install -g jshint
-		npm install -g eslint
+		yarn global add jscs
+		yarn global add jshint
+		yarn global add eslint
 
 		# TypeScript (type checking) tools.
-		npm install -g typescript
-		npm install -g tslint
+		yarn global add typescript
+		yarn global add tslint
 
 		# Required to enable Syntastic checking for JSON files.
-		npm install -g jsonlint
+		yarn global add jsonlint
 
 		# Required to enable Tagbar to properly parse JavaScript files for tag information.
-		npm install -g git://github.com/ramitos/jsctags.git
+		yarn global add git://github.com/ramitos/jsctags.git
 
 		# `Foreman`-like tool for managing arbitrary processes within a local environment.
-		npm install -g foreman
+		yarn global add foreman
 
 		# CLI tool required to run Yeoman generators that scaffold projects.
-		npm install -g yo
+		yarn global add yo
 
 		# Developer tools for debugging NodeJS applications.
-		npm install -g node-inspector
+		yarn global add node-inspector
 
 		# Required to setup `cz` alias for Git that enforces commit message standards.
-		npm install -g commitizen
+		yarn global add commitizen
 
 		# Required for scaffolding and building Angular 2 applications and components.
-		npm install -g angular-cli
+		yarn global add angular-cli
 
 		# Required for running a project based on the gulp task runner.
-		npm install -g gulp-cli
+		yarn global add gulp-cli
 
 		# Required for running a project based on the grunt task runner.
-		npm install -g grunt-cli
+		yarn global add grunt-cli
 	else
-		echo "ERROR: `npm` is required for installing Node.JS packages, but it's not available in your PATH. Please install `npm` and ensure it's in your PATH. Then re-run `installNodePackages`."
+		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
 }
 
