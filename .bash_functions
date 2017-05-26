@@ -565,7 +565,7 @@ installNodePackages ()
 		yarn global add jsonlint
 
 		# Required to enable Tagbar to properly parse JavaScript files for tag information.
-		yarn global add git://github.com/ramitos/jsctags.git
+		yarn global add git://github.com/ramitos/jsctags.git#aa16b21dadeb40645aa66dec7002eb39c537ee77
 
 		# `Foreman`-like tool for managing arbitrary processes within a local environment.
 		yarn global add foreman
