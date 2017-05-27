@@ -107,8 +107,9 @@
 	# * clean -X - Remove all files ignored by Git through the use of Git's `.gitignore` file. Useful for cleaning out build artifacts.
 	# * gc - Compress file revisions (which will reduce disk space consumption and improve performance), and remove unreachable objects. The `--aggressive` option is used to instruct Git to be more aggressive in cleaning, at the expense of more time.
 	# * branch --merged - Remove all local, and remote, branches that have been successfully merged into the current checked out local branch.
+	# * git fetch --prune - Delete tags (refs/tags) that have already been removed from `origin` (+refs/tags/*) but are still available locally (:refs/tags/*).
 	# If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have a `origin` remote, this command will fail.
-	cleanup = "!sh -c 'git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v \"*\" | grep -v master | xargs -n 1 -I _branch sh -c \"git branch -D _branch; git push ${1:-origin} :refs/heads/_branch;\"'"
+	cleanup = "!sh -c 'git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v \"*\" | grep -v master | xargs -n 1 -I _branch sh -c \"git branch -D _branch; git push ${1:-origin} :refs/heads/_branch;\" && git fetch --prune ${1:-origin} \"+refs/tags/*:refs/tags/*\"'"
 
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
