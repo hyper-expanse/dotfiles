@@ -332,9 +332,6 @@ setupLinuxbrew ()
 		fi
 	fi
 
-	# A collection of useful core libraries and utility programs. The `dupes` project contains brew recipes for tools and libraries that are, by default, already on OSX systems. Because we work on a Linux system, we need to add the `dupes` project to our brew installation.
-	brew tap homebrew/dupes
-
 	# Tap for the neovim text editor.
 	brew tap neovim/neovim
 }
