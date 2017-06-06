@@ -442,6 +442,11 @@ installBrewPackages()
 
 			# Install the latest LTS version of Node.
 			nvm install 6
+
+			# Install alternative JavaScript package manager called `yarn`.
+			brew install yarn
+
+			# Once our `yarn` package manager has been installed, install all our Node packages.
 			installNodePackages
 
 		## NODE END
@@ -493,9 +498,6 @@ installBrewPackages()
 
 		# Download and install packer, a tool for building machine and container images for multiple platforms.
 		brew install packer
-
-		# Install alternative JavaScript package manager called `yarn`.
-		brew install yarn
 
 		if [ `uname -n` == "startopia" ]; then
 
