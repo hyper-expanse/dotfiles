@@ -29,9 +29,6 @@ export GOPATH="${HOME}/.cache/golang"
 mkdir -p "${PREFIX_DIRECTORY}/tmp"
 export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 
-# Instruct Linuxbrew to build package from source. By default Linuxbrew installed pre-compiled binaries and libraries for packages, rather than compiling the packages from source. By setting this environmental variable we instruct Linuxbrew to always compile from source.
-export HOMEBREW_BUILD_FROM_SOURCE=1
-
 # Set arguments that cmake should respect when it's invoked.
 # CMAKE_INSTALL_PREFIX - Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIBRARY=${PREFIX_DIRECTORY}/lib/libpython2.7.so -DPYTHON_INCLUDE_DIR=${PREFIX_DIRECTORY}/include/python2.7"
