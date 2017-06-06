@@ -508,7 +508,8 @@ installBrewPackages()
 			brew install dvdbackup
 
 			# Allows applications to access some of the more advanced features of the DVD format.
-			brew install libdvdcss
+			# Listed as dependency of `dvdbackup`.
+			#brew install libdvdcss
 		fi
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
