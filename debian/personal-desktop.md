@@ -123,6 +123,32 @@ Packages:
 * okular: PDF viewer.
 * transmission-qt: Qt front-end for the transmission instant messaging framework.
 
+### KeePassX
+
+KeePassX is a tool for storing key/pair values securely in an encrypted vault.
+
+To get the latest version of KeePassX, which is compatible with KeePass (Another application for securely storing data), we'll need to install from the backports repository:
+
+```bash
+sudo aptitude install -t jessie-backports keepassx
+```
+
+Once installed, launch the application and navigate to _Extras -> Settings_ and use the following settings:
+
+	General (1)
+		* Show system tray icon.
+		* Minimize to tray instead of taskbar.
+		* Start minimized.
+		* Start locked.
+	General (2)
+		* Automatically save database after every change.
+	Security
+		* Lock workspace when minimizing the main window.
+		* Lock database after inactivity of [300] seconds.
+
+ Create one, and only one, new key/pair database and give it the following name:
+	* KeyDatabase.kdb
+
 ## Sounds
 
 Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
@@ -232,26 +258,6 @@ sudo aptitude install steam
 Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card.
 
 At this point Steam is installed on the system and can be accessed from the Applications menu.
-
-## KeePassX
-
-KeePassX is a tool for storing key/pair values securely in an encrypted vault.
-
-Navigate to Extras -> Settings and use the following settings:
-
-	General (1)
-		* Show system tray icon.
-		* Minimize to tray instead of taskbar.
-		* Start minimized.
-		* Start locked.
-	General (2)
-		* Automatically save database after every change.
-	Security
-		* Lock workspace when minimizing the main window.
-		* Lock database after inactivity of [300] seconds.
-
- Create one, and only one, new key/pair database and give it the following name:
-	* KeyDatabase.kdb
 
 ## Radio Stations
 
