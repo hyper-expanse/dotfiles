@@ -175,6 +175,27 @@ aptitude install debsecan --assume-yes
 yes | ssh-keygen -t rsa -b 8192 -N '' -f /etc/ssh/ssh_host_rsa_key
 yes | ssh-keygen -t dsa -b 1024 -N '' -f /etc/ssh/ssh_host_dsa_key
 
+# Personal - Jessie Backports Repository
+
+echo "
+deb http://httpredir.debian.org/debian jessie-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian jessie-backports main contrib non-free
+" > /etc/apt/sources.list.d/jessie-backports.list
+
+aptitude update
+
+# Personal - Setting Up Intel Graphics
+
+echo "
+Package: xserver-xorg-video-intel
+Pin: release o=Debian,a=jessie-backports
+Pin-Priority: 600
+" > /etc/apt/preferences.d/xorg
+
+aptitude install -t jessie-backports xserver-xorg-video-intel
+
+aptitude install mesa-utils
+
 # Personal - LinuxBrew
 
 aptitude install build-essential curl git python-setuptools ruby --assume-yes
