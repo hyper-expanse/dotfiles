@@ -203,12 +203,6 @@ ClientAliveInterval 1800
 ClientAliveCountMax 0
 ```
 
-Finally, restart the SSH daemon:
-
-```bash
-sudo /etc/init.d/ssh restart
-```
-
 ### User Home Folder Access
 
 Debian-based systems create world-readable home directories by default when creating accounts using `adduser`. This allows users on a shared system to access the files and folders inside of each other’s home directories. Access includes the ability to execute programs within the directories of other users, along with reading the contents of any file. This is a potential security vulnerability, giving users access to material they shouldn't. Therefore, we must change this default.
