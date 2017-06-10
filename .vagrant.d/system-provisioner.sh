@@ -161,9 +161,13 @@ echo "root" > /etc/at.allow
 
 echo "root" > /etc/cron.allow
 
-# Security - Password Scheme
+# Security - SSH Auto-Logout
 
-aptitude install libpam-cracklib --assume-yes
+echo "
+
+ClientAliveInterval
+ClientAliveCountMax
+" >> /etc/ssh/sshd_config
 
 # Security - Debian Vulnerability Scanner
 
