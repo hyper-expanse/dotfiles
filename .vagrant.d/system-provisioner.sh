@@ -175,6 +175,10 @@ aptitude install debsecan --assume-yes
 yes | ssh-keygen -t rsa -b 8192 -N '' -f /etc/ssh/ssh_host_rsa_key
 yes | ssh-keygen -t dsa -b 1024 -N '' -f /etc/ssh/ssh_host_dsa_key
 
+# Personal - Package Installation
+
+aptitude install clamav openvpn spamassasin
+
 # Personal - Jessie Backports Repository
 
 echo "
@@ -183,6 +187,10 @@ deb-src http://httpredir.debian.org/debian jessie-backports main contrib non-fre
 " > /etc/apt/sources.list.d/jessie-backports.list
 
 aptitude update
+
+# Personal - Display Server
+
+aptitude install xorg
 
 # Personal - Setting Up Intel Graphics
 
@@ -195,6 +203,10 @@ Pin-Priority: 600
 aptitude install -t jessie-backports xserver-xorg-video-intel
 
 aptitude install mesa-utils
+
+# Personal - Window Manager
+
+aptitude install kwin
 
 # Personal - LinuxBrew
 
