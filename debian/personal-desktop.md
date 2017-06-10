@@ -13,6 +13,25 @@ Packages:
 * openvpn
 * spamassasin
 
+## Jessie Backports Repository
+
+As Debian 8 (Jessie) is the most recent stable release of Debian, yet released several years ago, packages within the Debian repository are years out-of-date.
+
+To access more recent versions of packages that have been specifically backported to work on Debian 8, we can add the `jessie-backports` repository to our system.
+
+Add the following to a file named `jessie-backports.list` in the `/etc/apt/sources.list.d/` directory:
+
+```
+deb http://httpredir.debian.org/debian jessie-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian jessie-backports main contrib non-free
+```
+
+Then instruct Aptitude to fetch all packages available within that repository:
+
+```bash
+sudo aptitude update
+```
+
 ## Latest Kernel
 
 In this section we cover how to upgrade a Debian stable installation to use the latest kernel from Debian's stable backport repository.
@@ -34,13 +53,6 @@ Add the following to a file named `xorg` in the `/etc/apt/preferences.d/` direct
 Package: xserver-xorg-video-intel
 Pin: release o=Debian,a=jessie-backports
 Pin-Priority: 600
-```
-
-Then add the following to a file named `jessie-backports` in the `/etc/apt/sources.list.d/` directory:
-
-```
-deb http://ftp.debian.org/debian jessie-backports main contrib non-free
-deb-src http://ftp.debian.org/debian jessie-backports main contrib non-free
 ```
 
 Lastly, install the driver:
