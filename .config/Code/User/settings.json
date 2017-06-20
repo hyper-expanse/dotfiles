@@ -2,6 +2,7 @@
 	"diffEditor.ignoreTrimWhitespace": false,
 
 	"editor.detectIndentation": true,
+	"editor.minimap.enabled": false,
 	"editor.quickSuggestions": false,
 	"editor.renderIndentGuides": true,
 	"editor.renderWhitespace": "boundary",
@@ -33,6 +34,7 @@
 
 	"window.reopenFolders": "all",
 	"window.restoreFullscreen": true,
+
 	"workbench.iconTheme": "material-icon-theme",
 
 	"zenMode.restore": true
