@@ -1,13 +1,53 @@
 # Debian
 
-This chapter describes how to setup a Debian 8 system for daily use.
+This chapter describes how to setup a Debian 9 system for use as either a server, or desktop environment.
 
 ## Requirements
 
-List of requirements to install Debian 8 (Stable).
-* Debian 8 installation DVD.
+List of requirements to install Debian 9 (Debian's _Stable_ Version).
+* Debian 9 installation ISO image.
 
-> Images for your architecture can be downloaded from [Debian's CD Torrent](https://www.debian.org/CD/torrent-cd/) page. You only need to download DVD image `1` for your architecture.
+> An installation image for your architecture can be downloaded from [Debian's Live Image](https://www.debian.org/CD/live/) site.
+
+To help minimize the burden on Debian's infrastructure, please use BitTorrent to download the image for your architecture.
+
+Debian's Live images are built so that you can boot your hardware into a usable desktop using the desktop environment of your choice (KDE, GNOME, etc.).
+
+Please download the desktop environment you want to work with, as well as the `SHA512SUMS` and `SHA512SUMS.sign` files. The _SHA512_ files will be used to validate the downloaded ISO file to ensure it has not been tampered with.
+
+## Image Verification
+
+Upon successfully downloading a DVD image, you need to validate the contents to ensure they weren't tampered with while at rest on the remote server, or in transit.
+
+Within the directory containing the downloaded files, run the following command, replacing `[ISO IMAGE NAME]` with the name of the ISO image you downloaded:
+
+```bash
+sha512sum --check SHA512SUMS 2> /dev/null | grep [ISO IMAGE NAME]
+```
+
+> The _SHA512SUMS_ file contains the hash value of all Debian ISO images. The `2> /dev/null` redirects errors about missing ISO images in your local directory to `/dev/null`, so that those errors aren't printed to console. The call to `grep` will only show the validation status for the image you actually downloaded.
+
+Assuming you downloaded `debian-live-9.0.0-amd64-kde.iso`, you will see the following output:
+
+```bash
+debian-live-9.0.0-amd64-kde.iso: OK
+```
+
+Lastly, we need to verify the authenticity of the `SHA512SUMS` file to ensure it wasn't tampered with. For this step we will use the downloaded `SHA512SUMS.sign` file. The `SHA512SUMS.sign` file contains a cryptographic hash generated using a [GPG private key](https://www.gnupg.org/gph/en/manual.html) and the contents of `SHA512SUMS`.
+
+To verify the signature file was signed by a private key owned by Debian, run the following:
+
+```bash
+gpg --keyring /usr/share/keyrings/debian-role-keys.gpg --verify SHA512SUMS.sign
+```
+
+You should see the following in the output:
+
+```bash
+Good signature from "Debian CD signing key <debian-cd@lists.debian.org>"
+```
+
+At this point you can be reasonably sure that the contents of your downloaded ISO image have not been tampered with since they were created by Debian.
 
 ## Installation
 
