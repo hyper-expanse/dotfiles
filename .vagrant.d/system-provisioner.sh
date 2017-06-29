@@ -212,6 +212,16 @@ aptitude install mesa-utils
 
 aptitude install kwin
 
+# Personal - KeePassX
+
+echo "
+Package: keepassx
+Pin: release o=Debian,a=jessie-backports
+Pin-Priority: 600
+" > /etc/apt/preferences.d/keepassx
+
+aptitude install -t jessie-backports keepassx
+
 # Personal - LinuxBrew
 
 aptitude install build-essential curl git python-setuptools ruby --assume-yes
