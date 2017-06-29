@@ -45,7 +45,7 @@ Packages:
 
 ### Setting Up Intel Graphics
 
-To work with the Intel graphics chip built into XPS 13 laptops we need to install the latest `xserver-xorg-video-intel` package from the Debian stable backport repository.
+To work with the Intel graphics chip built into XPS 13 laptops we need to install the latest `xserver-xorg-video-intel` package from the Debian 8 backport repository.
 
 Add the following to a file named `xorg` in the `/etc/apt/preferences.d/` directory:
 
