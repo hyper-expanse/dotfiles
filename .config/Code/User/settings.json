@@ -10,6 +10,8 @@
 	"editor.tabCompletion": true,
 	"editor.tabSize": 2,
 
+	"gitlens.codeLens.locations": [],
+
 	"explorer.openEditors.visible": 0,
 
 	"extensions.autoUpdate": true,
