@@ -277,7 +277,7 @@ setupEnvironment ()
 	# Install general tools.
 	installPythonPackages
 
-	updateNeovim
+	#updateNeovim
 }
 
 #! Update environment.
@@ -292,7 +292,7 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 
-	updateNeovim
+	#updateNeovim
 }
 
 #! Setup Linuxbrew, the Linux-clone of HomeBrew.
@@ -456,7 +456,7 @@ installBrewPackages()
 
 		# Download and install neovim, a terminal text editor.
 		brew install gperf # A dependency of neovim, but not installed by their homebrew formula.
-		brew install neovim
+		#brew install neovim
 
 		# Download and install Tmux, a terminal multiplexer.
 		# Need to install `libevent` first. `libevent` is a dependency of `tmux`.
@@ -493,12 +493,6 @@ installBrewPackages()
 		# Tool to run multiple jobs in parallel using all available CPUs.
 		brew install parallel
 
-		# Download and install docker, a tool and service for building isolated runtime environments that share a common kernel.
-		brew install docker
-
-		# Download and install packer, a tool for building machine and container images for multiple platforms.
-		brew install packer
-
 		if [ `uname -n` == "startopia" ]; then
 
 			# GNU data recovery tool.
@@ -506,10 +500,6 @@ installBrewPackages()
 
 			# Tool for ripping DVD's from the command line.
 			brew install dvdbackup
-
-			# Allows applications to access some of the more advanced features of the DVD format.
-			# Listed as dependency of `dvdbackup`.
-			#brew install libdvdcss
 		fi
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
@@ -553,12 +543,7 @@ installNodePackages ()
 		yarn global add jscs
 		yarn global add jshint
 		yarn global add eslint
-
-		# TypeScript (type checking) tools.
-		yarn global add typescript
 		yarn global add tslint
-
-		# Required to enable Syntastic checking for JSON files.
 		yarn global add jsonlint
 
 		# Required to enable Tagbar to properly parse JavaScript files for tag information.
@@ -572,12 +557,6 @@ installNodePackages ()
 
 		# Developer tools for debugging NodeJS applications.
 		yarn global add node-inspector
-
-		# Required to setup `cz` alias for Git that enforces commit message standards.
-		yarn global add commitizen
-
-		# Required for scaffolding and building Angular 2 applications and components.
-		yarn global add angular-cli
 
 		# Required for running a project based on the gulp task runner.
 		yarn global add gulp-cli
