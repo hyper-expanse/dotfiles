@@ -78,13 +78,10 @@ alias psmem='ps aux | sort --stable --parallel=2 -k4rh | head -n 5'
 alias processes='ps xf'
 
 # Update system packages and local packages through the use of a single command.
-alias update='updateSystem && updateLocal'
+alias update='updateSystem && updateEnvironment'
 
 # Update system packages.
 alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
-
-# Update local packages and tools.
-alias updateLocal='updateBrewPackages && updateNeovim && installNodePackages && installPythonPackages'
 
 # Create a Python virtual environment using the Python 3 interpreter and the standard _env_ directory.
 alias createVirtualEnvironment='virtualenv --python=python3 venv'
