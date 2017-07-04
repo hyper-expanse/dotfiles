@@ -13,55 +13,12 @@ Packages:
 * openvpn
 * spamassasin
 
-## Jessie Backports Repository
-
-As Debian 8 (Jessie) is the most recent stable release of Debian, yet released several years ago, packages within the Debian repository are years out-of-date.
-
-To access more recent versions of packages that have been specifically backported to work on Debian 8, we can add the `jessie-backports` repository to our system.
-
-Add the following to a file named `jessie-backports.list` in the `/etc/apt/sources.list.d/` directory:
-
-```
-deb http://httpredir.debian.org/debian jessie-backports main contrib non-free
-deb-src http://httpredir.debian.org/debian jessie-backports main contrib non-free
-```
-
-Then instruct Aptitude to fetch all packages available within that repository:
-
-```bash
-sudo aptitude update
-```
-
-## Latest Kernel
-
-In this section we cover how to upgrade a Debian stable installation to use the latest kernel from Debian's stable backport repository.
-
-_Pending..._
-
 ## Display Server
 
 Packages:
 * xorg: This metapackage provides the components for a standalone workstation running the X Window System.
 
-### Setting Up Intel Graphics
-
-To work with the Intel graphics chip built into XPS 13 laptops we need to install the latest `xserver-xorg-video-intel` package from the Debian 8 backport repository.
-
-Add the following to a file named `xorg` in the `/etc/apt/preferences.d/` directory:
-
-```
-Package: xserver-xorg-video-intel
-Pin: release o=Debian,a=jessie-backports
-Pin-Priority: 600
-```
-
-Lastly, install the driver:
-
-```bash
-sudo aptitude install -t jessie-backports xserver-xorg-video-intel
-```
-
-**Note:** `xserver-xorg-video-intel` was installed as a dependency of another `xorg` package, but needs to be upgraded to the version that corresponds with the latest backported Linux kernel that was installed on the system as part of the _Latest Kernel_ section.
+> `xserver-xorg-video-intel` should also be installed as a dependency of `xorg` package.
 
 To help facilitate future debugging of graphic driver issues, install the following package:
 * mesa-utils
@@ -73,7 +30,7 @@ To help facilitate future debugging of graphic driver issues, install the follow
 Packages:
 * kwin: Compositing window manager used by KDE.
 
-## Desktop Environments
+## Desktop Environment
 
 Several major all-inclusive desktop environments are available for installation on Linux systems. Some desktop environments are ``heavier'' than others; typically coming with a larger number of default applications, and requiring the downloading of additional libraries that must be loaded at runtime.
 
@@ -89,39 +46,34 @@ Install the basic KDE desktop package:
 Next, install a graphical network manager:
 * plasma-nm: Network Management widget for KDE Plasma workspaces.
 
-Lastly, to support connecting to virtual prive networks we'll need two additional packages.
-* network-manager-vpnc
+Lastly, to support connecting to virtual private networks we'll need two additional packages.
 * network-manager-openvpn
 
 ### Desktop Applications
 
-A list of common applications to fullfill various _life_ type workflows is provided below.
+A list of common applications to fulfill various workflows is provided below.
 
 Packages:
-* quiterss: RSS reader.
-* ark [KDE] // TODO: Future replacement - peazip-qt
-* basket: Note taking and management. [KDE] // TODO: Future replacement - basqet
-* calibre: E-book management library.
-* calligra: Extensive productivity and creative suite. [KDE]
+* quiterss: RSS/ATOM reader.
+* peazip-qt: Archive tool.
+* basket: Note taking. [KDE]
+* calibre: E-book library manager.
 * clementine: Music player and library manager.
-* gramps [GTK]
-* gwenview: Image viewer.
+* gramps: Genealogy tool. [GTK]
+* gwenview: Image viewer. [KDE]
 * k3b: A CD/DVD ripper and burner. [KDE]
 * kaddressbook: Address book and contact data manager. [KDE - Kontact]
-* kate: K Advance Text Editor. [KDE]
 * kcalc: Simple and scientific calculator. [KDE]
-* kde-telepathy: Chat application. [KDE]
 * kgpg: GNUPG graphical front-end. [KDE]
-* kmail: Full featured graphical email client. [KDE - Kontact]
+* kmail: E-mail client. [KDE - Kontact]
 * kmix: Volume control and mixer. [KDE]
-* kmymoney: KMyMoney is the Personal Finance Manager. [KDE]
-* konversation: GUI IRC client. [KDE]
 * korganizer: Calendar and personal organizer. [KDE- Kontact]
-* ksnapshot: Screenshot capture tool. [KDE]
+* kde-spectacle: Screenshot capture tool. [KDE]
 * kwalletmanager: Secure password waller manager. [KDE]
 * luckybackup: File backup utility.
-* okular: PDF viewer.
-* transmission-qt: Qt front-end for the transmission instant messaging framework.
+* okular: PDF viewer. [KDE]
+* transmission-qt: Qt front-end for the Transmission BitTorrent client.
+* [NEED OFFICE SUITE]
 
 ### KeePassX
 
@@ -213,6 +165,51 @@ Using any `vagrant` command that modifies the state of a `libvirt` managed machi
 
 To avoid the authentication prompt simply add yourself to the `libvirt` user group:
 * `sudo usermod -G libvirt -a ${USER}`
+
+## Docker
+
+This section is a modification of the instructions on [Docker's Debian CE](https://docs.docker.com/engine/installation/linux/docker-ce/debian/) site.
+
+Add Docker's official GPG key:
+
+```bash
+curl -sSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+```
+
+Verify the integrity of the key:
+
+```bash
+sudo apt-key fingerprint
+```
+
+Then look for the following key in the output:
+
+```bash
+pub   4096R/0EBFCD88 2017-02-22
+      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release (CE deb) <docker@docker.com>
+sub   4096R/F273FCD8 2017-02-22
+```
+
+To install the latest version of Docker we need to add Docker's repository to our `apt-get` list of Debian package repositories.
+
+Add the following to a file named `docker.list` in the `/etc/apt/sources.list.d/` directory:
+
+```
+deb [arch=amd64] https://download.docker.com/linux/debian jessie stable
+```
+
+Then instruct Aptitude to fetch all packages available within that repository:
+
+```bash
+sudo aptitude update
+```
+
+Install the latest version of Docker CE:
+
+```bash
+sudo aptitude install docker-ce
+```
 
 ## LinuxBrew
 

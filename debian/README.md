@@ -4,31 +4,31 @@ This chapter describes how to install and setup a Debian 9 system for use as eit
 
 ## Installer
 
-An installer for your architecture can be downloaded from [Debian's CD Images](https://www.debian.org/CD/torrent-cd/) site. Once you navigate to the Debian site, it's recommended you choose your architecture under the _DVD_ section. There will be several ISO images containing all available Debian packages on the architecture you choose. You should download all ISO images.
+An installer for our architecture can be downloaded from [Debian's CD Images](https://www.debian.org/CD/torrent-cd/) site. Once we've navigated to the Debian site, it's recommended to choose the appropriate architecture under the _DVD_ section. There will be several ISO images containing all available Debian packages for the chosen architecture. All of those images should be downloaded.
 
-> To minimize the burden on Debian's infrastructure use BitTorrent to download the images for your architecture.
+> To minimize the burden on Debian's infrastructure use BitTorrent to download ISO images.
 
 In addition to the ISO images, please download the `SHA512SUMS` and `SHA512SUMS.sign` files. The _SHA512_ files will be used to validate the downloaded ISO files to ensure they have not been tampered with.
 
 ## Image Verification
 
-Once you've successfully downloaded all the required ISO images, you need to validate the contents to ensure they weren't tampered with while at rest on the remote server, or in transit.
+Once we've successfully downloaded all the required ISO images, the contents need to be validated to ensure they weren't tampered with while at rest on the remote server, or in transit.
 
-Within the directory containing the downloaded files, run the following command, replacing `[ISO IMAGE NAME]` with the name of each ISO image you downloaded:
+Within the directory containing the downloaded files, run the following command, replacing `[ISO IMAGE NAME]` with the name of each ISO image downloaded:
 
 ```bash
 sha512sum --check SHA512SUMS 2> /dev/null | grep [ISO IMAGE NAME]
 ```
 
-> The _SHA512SUMS_ file contains the hash value of all Debian ISO images. The `2> /dev/null` redirects errors about missing ISO images in your local directory to `/dev/null`, so that those errors aren't printed to console. The call to `grep` will only show the validation status for the image you specify.
+> The _SHA512SUMS_ file contains the hash value of all Debian ISO images. The `2> /dev/null` redirects errors about missing ISO images in your local directory to `/dev/null`, so that those errors aren't printed to console. The call to `grep` will only show the validation status for the image specified.
 
-Assuming you downloaded `debian-9.0.0-amd64-DVD.iso`, you will see the following output:
+Assuming `debian-9.0.0-amd64-DVD.iso` was downloaded, we will see the following output:
 
 ```bash
 debian-9.0.0-amd64-DVD.iso: OK
 ```
 
-Once you've verified each ISO image matches their respective checksum contained in `SHA512SUMS`, you need to verify the authenticity of the `SHA512SUMS` file to ensure it too hasn't been tampered with. For this step you will use the downloaded `SHA512SUMS.sign` file. The `SHA512SUMS.sign` file contains a cryptographic hash generated using a [GPG private key](https://www.gnupg.org/gph/en/manual.html) and the contents of `SHA512SUMS`.
+Once each ISO image has been verified to match their respective checksum in `SHA512SUMS`, we need to verify the authenticity of the `SHA512SUMS` file to ensure it too hasn't been tampered with. For this step use the downloaded `SHA512SUMS.sign` file. The `SHA512SUMS.sign` file contains a cryptographic hash generated using a [GPG private key](https://www.gnupg.org/gph/en/manual.html) and the contents of `SHA512SUMS`.
 
 To verify the signature file was signed by a private key owned by Debian, run the following:
 
@@ -36,25 +36,31 @@ To verify the signature file was signed by a private key owned by Debian, run th
 gpg --keyring /usr/share/keyrings/debian-role-keys.gpg --verify SHA512SUMS.sign
 ```
 
-You should see the following in the output:
+The following output will be seen:
 
 ```bash
 Good signature from "Debian CD signing key <debian-cd@lists.debian.org>"
 ```
 
-At this point you can be reasonably sure that the contents of your downloaded ISO images have not been tampered with since they were created by Debian.
+At this point we can be reasonably sure that the contents of the downloaded ISO images have not been tampered with since they were created by Debian.
 
 ## Installation
 
-These instructions assume that the user will be performing a standard installation of Debian using Debian's DVD installation image. They also assume that the user has loaded the DVD image into the system via an external media (CD, USB, etc.) and subsequently restarted the system. Assuming those statements are correct, proceed with the following steps.
+Load the first ISO image downloaded above into the system (either via mounting the ISO for use with a virtual machine, or burning the image to a physical DVD or USB) and restart the system.
 
-On the Installation screen select the _Install_ option.
+Assuming those statements are correct, proceed with the following steps.
 
-On the language screen select _English_ as the language.
+On the _Main Menu_ screen select the _Install_ option.
 
-On the country page select _United States_ as the country.
+On the _Select a language_ screen select _English_ as the language.
 
-On the keyboard layout page select _American English_.
+On the _Select your location_ screen select _United States_ as the country.
+
+On the _Configure the keyboard_ screen select _American English_.
+
+The installation media will attempt to connect to a DHCP server. If the attempt fails, please feel free to skip the network setup step. With the DVD installation image, a full installation will be possible without network access. Just make sure to setup networking upon successfully installing Debian.
+
+Next, select a hostname for the system.
 
 Do **NOT** set a password for the root account. Instead, press _Enter_. Pressing _Enter_ will cause the root account to be disabled.
 
@@ -63,15 +69,9 @@ When prompted to configure a user please follow these guidelines:
 * Username for the account is: [FIRST NAME ALL LOWERCASE]
 * Password for the account is: [PASSWORD]
 
-You'll have to re-enter the password a second time to complete the user account setup.
+Re-enter the password a second time to complete the user account setup.
 
-The installation media will attempt to connect to a DHCP server. If the attempt fails, please feel free to skip the network setup step. With the DVD installation image, a full installation will be possible without network access. Just make sure to setup networking upon successfully installing Debian.
-
-Select a hostname for the system.
-
-For the domain name enter in the domain name you associate with your network.
-
-Select your local time zone.
+Select the local time zone.
 
 Select _Manual_ as the partitioning method.
 
@@ -79,37 +79,41 @@ Select _SCSI1 (0,0,0) (sda)_ for the disk to partition.
 
 > If the number after _SCSI_ is different than what is mentioned above, select the intended hard drive or the top most on the list.
 
+Select _Yes_ to create a new partition table for the device.
+
+Navigate to the newly created `pri/log` partition and select it.
+
+Choose _Create a new partition_.
+
 Setup the boot partition using the following values:
+* Use as: ext4
 * Mount location: /boot
-* File system: ext2
+* Partition type: Primary
+* Location for new partition: Beginning
 * Size: 255 MB
+* Bootable flag: on
 
-> A journaling filesystem, such as `ext3`, or `ext4`, is not necessary for a boot partition in which files are rarely written, or read.
+Select the remaining free space, and when prompted, choose _Create a new partition_.
 
-Create an encrypted partition before proceeding to setup LVM:
-* _physical volume for encryption_
-* _Configure the encryption volume_
-* Select the Free Space device.
-* _Write the changes to disks and configure encryption_
-* Enter a password for the encrypted volume.
+Setup the new partition using the following values:
+* Use as: physical volume for encryption
+* Partition type: Logical
+* Size: All remaining.
 
-Create a physical volume to store our LVM setup.
-* _physical volume for LVM_
-* Select _logical_
-* _physical volume for LVM_
+Once the encrypted partition has been created, navigate through the menu to the _Configure the Logical Volume Manager_ option to configure our LVM setup.
 
-Next select _Configure the Logical Volume Manager_.
+Choose _Create volume group_ and name the volume group `[HOSTNAME]-vg`, replacing `[HOSTNAME]` with the hostname of the system.
 
-When prompted, create a Volume Group using `[HOSTNAME]-vg` as the name, replacing `[HOSTNAME]` with the hostname of the system. For the Volume Group, select the Free Space device.
+When prompted for the volume group device, choose the device tagged as `crypto`, and then allow the changes to be written to disk.
 
-With the newly created Volume Group create several logical volumes that are mapped to directories within the file system. For each of the following directory mappings select _Create logical volume_, then select the `[HOSTNAME]-vg` volume group:
+Once the volume group has been created, move on to creating several logical volumes, one for distinct directory for which we want to create a separate file system. For each of the following directory mappings select _Create logical volume_, then select the `[HOSTNAME]-vg` volume group:
 
 * /
 	* Name: root-lv
 	* Size: 20 GB
 * /home
 	* Name: home-lv
-	* Size: Rest of available disk space.
+	* Size: All remaining disk space minus 20GB.
 * /tmp
 	* Name: tmp-lv
 	* Size: 1 GB
@@ -118,7 +122,7 @@ With the newly created Volume Group create several logical volumes that are mapp
 	* Size: 10 GB
 * /var
 	* Name: var-lv
-	* Size: 3 GB
+	* Size: 20 GB
 * /var/tmp
 	* Name: var_tmp-lv
 	* Size: 1 GB
@@ -132,16 +136,22 @@ Configure each Logical Volume in the following manner:
 
 * root-lv
 	* File-system: ext4
+	* Mount point: /root
 * home-lv
 	* File-system: ext4
+	* Mount point: /home
 * tmp-lv
 	* File-system: ext4
+	* Mount point: /tmp
 * usr-lv
 	* File-system: ext4
+	* Mount point: /usr
 * var-lv
 	* File-system: ext4
+	* Mount point: /var
 * var_tmp-lv
 	* File-system: ext4
+	* Mount point: /var/tmp
 * swap-lv
 	* File-system: swap
 
@@ -151,20 +161,27 @@ Choose _Yes_ to write changes to disk.
 
 _Installing the base system............_
 
-Select _United States_ as the archive mirror country.
-
-Select _ftp.us.debian.org_ as the archive mirror.
-
-Simply leave the HTTP proxy prompt blank and press _Enter_.
-
 Select _No_ for the package usage survey (unless you would like to contribute anonymous information on the packages installed to your system for the benefit of the Debian community).
 
 From the _Software selection_ screen make sure only the following package groups are selected:
 * SSH server
+* standard system utilities
 
-Select _Yes_ for the system clock being set to UTC. (This option may, or may not, appear)
+Choose _Yes_ to install the GRUB boot loader to the master boot record, and then select the primary hard drive.
 
 At the _Installation Complete_ prompt, remove the installation media and then press _Continue_.
+
+## Install Aptitude
+
+We will be using Debian's [aptitude](https://wiki.debian.org/Aptitude) package manager (based on Debian's `apt-get` package manager) for installing software at the system-level (as opposed to within user directories.).
+
+Install `aptitude`:
+
+```bash
+sudo apt-get install aptitude
+```
+
+Choose _Y_ to begin installation of package updates.
 
 ## Update Software
 
@@ -173,28 +190,25 @@ Because the system was installed from an ISO image, several of the installed pac
 First the default apt-get sources list should be updated to include additional Debian repositories that we can use. Replace the apt sources list, `/etc/apt/sources.list`, with the following content:
 
 ```
-deb http://httpredir.debian.org/debian jessie main contrib non-free
-deb-src http://httpredir.debian.org/debian jessie main contrib non-free
+deb http://deb.debian.org/debian stretch main
+deb-src http://deb.debian.org/debian stretch main
 
-deb http://httpredir.debian.org/debian jessie-updates main contrib non-free
-deb-src http://httpredir.debian.org/debian jessie-updates main contrib non-free
+deb http://deb.debian.org/debian stretch-updates main
+deb-src http://deb.debian.org/debian stretch-updates main
 
-deb http://security.debian.org/ jessie/updates main contrib non-free
-deb-src http://security.debian.org/ jessie/updates main contrib non-free
-
-deb http://httpredir.debian.org/debian unstable main contrib non-free
-deb-src http://httpredir.debian.org/debian unstable main contrib non-free
+deb http://security.debian.org/ stretch/updates main
+deb-src http://security.debian.org/ stretch/updates main
 ```
 
-In addition to updating the list of repositories, we need to prioritize the repository a package should be installed from. These priorities are defined in files in the `preferences.d` directory located under `/etc/apt/`. Create a file named 'stable' in the `/etc/apt/preferences.d/` directory with the following content:
+In addition to updating the list of repositories, we need to prioritize the repository a package should be installed from. These priorities are defined within files in the `preferences.d` directory located under `/etc/apt/`.
+
+Create a file named `stable` in the `/etc/apt/preferences.d/` directory with the following content:
 
 ```
 Package: *
-Pin: release o=Debian,a=stable
+Pin: release o=Debian,n=stretch
 Pin-Priority: 700
 ```
-
-We will be using Debian's [aptitude](https://wiki.debian.org/Aptitude) package manager (based on Debian's `apt-get` package manager).
 
 To update aptitude's cache of available packages:
 
@@ -216,9 +230,9 @@ Once all software updates have been installed, reboot the system. This will ensu
 
 ## Automatic Updates
 
-Packages for Debian distributions are regularly updated within the main software repositories with enhancements and security fixes. Though these updated packages could be downloaded and installed manually, doing so would be tedious. Therefore we create scripts to automatically download and install updated packages, keeping our system up-to-date.
+Packages for Debian distributions are regularly updated within the main software repositories with enhancements and security fixes. Though these updated packages could be downloaded and installed manually, doing so would be tedious. Therefore we create scripts to automate the process of downloading and installing updated packages, keeping our system up-to-date.
 
-Create a new cron job to run on a daily basis by creating the `/etc/cron.daily/aptitude-updates` file:
+Create a new cron job to run on a daily basis by creating the `/etc/cron.daily/aptitude-updates` file, and putting the following content into it:
 
 ```bash
 #!/usr/bin/env bash
@@ -291,83 +305,14 @@ sudo chown root:root /etc/cron.daily/aptitude-updates
 The following additional packages should be installed onto your system. To install them, run `sudo aptitude install [PACKAGE]`.
 
 Packages:
-* apt-listbugs: Will display a list of known issues with packages before they're installed by `aptitude install/full-upgrade`.
+* apt-listbugs: Will display a list of known issues with packages before they're installed using tools such as `apt-get` or `aptitude`.
 * ntp: Service for updating the system's time from Debian time servers.
-
-## Firewall
-
-A firewall helps prevent external intrusion into the system. However, it should be noted that possessing a firewall does not block malicious actions from occurring on the server itself.
-
-For the firewall, a package called `arno-iptables-firewall` will be used. `arno-iptables-firewall` acts as an [IPtables frontend](https://wiki.debian.org/Firewalls). It configures the pre-installed `iptables` package; locking down ports and protecting ports from unauthorized access or use.
-
-First, let's create a file that defines our desired configuration:
-
-```
-#######################################################################
-# Feel free to edit this file.  However, be aware that debconf writes #
-# to (and reads from) this file too.  In case of doubt, only use      #
-# 'dpkg-reconfigure -plow arno-iptables-firewall' to edit this file.  #
-# If you really don't want to use debconf, or if you have specific    #
-# needs, you're likely better off using placing an additional         #
-# configuration snippet into/etc/arno-iptables-firewall/conf.d/.      #
-# Also see README.Debian.                                             #
-#######################################################################
-
-# External network interfaces (such as those connected to the internet).
-EXT_IF="wlan0"
-
-# Set to '1' is external IP is retrieved from DHCP.
-EXT_IF_DHCP_IP=1
-
-# TCP ports to allow through external network interfaces.
-OPEN_TCP=""
-
-# UDP ports to allow through external network interfaces.
-OPEN_UDP=""
-
-# Internal network interfaces.
-INT_IF=""
-
-# Configuration for routing internal traffic from other systems, through this system's external network interfaces, and to the public internet.
-NAT=0
-INTERNAL_NET=""
-NAT_INTERNAL_NET=""
-
-# Set to '1' if the system should respond to PING messages on external network interfaces.
-OPEN_ICMP=0
-```
-
-> Make sure to change the value of *EXT_IF* to match the names of your system's external interfaces.
-
-Next, install the `arno-iptables-firewall` package:
-
-```bash
-sudo aptitude install arno-iptables-firewall
-```
-
-An interactive configuration screen will appear to configure the firewall settings.
-* Select _Yes_ for managing the firewall setup with debconf.
-* Select _Ok_ for the interface notice.
-* For the network interfaces enter the names of every Internet facing interface, such as `eth0`..
-* Do not open any inbound TCP ports.
-* If an interface is acting as a gateway interface, place that into the _Internal Interfaces_ list, otherwise, leave the list blank.
-* Select _No_ on whether the system should be pingable from the network.
-* Select _Yes_ to restart the firewall at the conclusion of the configuration.
-* Select _Yes_ again to restart the firewall.
-
-Edit the `/etc/arno-iptables-firewall/plugins/ssh-brute-force-protection.conf` file and change `ENABLE = 0` to `ENABLE = 1` to enable SSH brute force protection.
-
-Restart the firewall to allow for the additional protection plugins to take effect:
-
-```bash
-sudo /etc/init.d/arno-iptables-firewall restart
-```
 
 ## SSH Configuration
 
-Several options can be configured for SSH which will secure a system more thoroughly than what is configured by default. There are many additional options which can be configured but those listed below should limit system vulnerabilities considerably.
+Several options can be configured for SSH which will secure a system more thoroughly than what is configured by default.
 
-Edit the SSH server configuration file `/etc/ssh/sshd_config`. Change the SSH options so that they look like those below:
+Edit the SSH server configuration file `/etc/ssh/sshd_config`, and change the SSH options so that they look like those below:
 
 * Do not permit root login over SSH:
 	* `PermitRootLogin no`
@@ -380,7 +325,9 @@ Restart the SSH server:
 sudo /etc/init.d/ssh restart
 ```
 
-Edit the login banner files, `/etc/issue` and `/etc/issue.net`, to conform to a security statement that informs users that they are responsible for their actions, and their activities will be monitored. Please modify these files as appropriate for your network, or situation.
+Edit the login banner files, `/etc/issue` and `/etc/issue.net`, to conform to a security statement that informs users that they are responsible for their actions, and their activities will be monitored.
+
+Please modify these files as appropriate for your network, or situation.
 
 ```
 ===========================
@@ -399,3 +346,9 @@ To improve the security of this system follow the _Security Hardening_ guide lin
 
 To improve the performance of this system follow the _Performance_ guide linked below:
 * [Performance](performance.md)
+
+## Personal Desktop
+
+> This section is only necessary if you want to setup your Debian system with a desktop environment.
+
+* [Personal Desktop](personal-desktop.md)

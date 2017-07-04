@@ -16,6 +16,15 @@ Using that command disable the following services (Services I don't personally u
 
 We make several configuration changes to limit the time applications take to restart, or boot-up, from a cold state.
 
+### Mount Options
+
+Below is a table of partitions (which would have been setup following our installation guide), and which mount options should be enabled for those mounted file systems.
+
+* noatime: Do not update the access time for files when they are accessed.
+
+| Partition | noatime |
+| /boot     | Yes     |
+
 ### Exim
 
 First, the e-mail server/client used by the system for sending system messages needs to be reconfigured to eliminate its costly DNS lookups conducted at boot time.
