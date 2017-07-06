@@ -57,6 +57,7 @@ Packages:
 * k3b: A CD/DVD ripper and burner. [KDE]
 * kaddressbook: Address book and contact data manager. [KDE - Kontact]
 * kcalc: Simple and scientific calculator. [KDE]
+* keepassx: Offline password and secrets manager.
 * kgpg: GNUPG graphical front-end. [KDE]
 * kmail: E-mail client. [KDE - Kontact]
 * kmix: Volume control and mixer. [KDE]
@@ -71,22 +72,6 @@ Packages:
 
 KeePassX is a tool for storing key/pair values securely in an encrypted vault.
 
-To get the latest version of KeePassX, which is compatible with KeePass (Another application for securely storing data), we'll need to install from the Debian 8 backports repository.
-
-Add the following to a file named `keepassx` in the `/etc/apt/preferences.d/` directory:
-
-```
-Package: keepassx
-Pin: release o=Debian,a=jessie-backports
-Pin-Priority: 600
-```
-
-Lastly, install KeePassX:
-
-```bash
-sudo aptitude install -t jessie-backports keepassx
-```
-
 Once installed, launch the application and navigate to _Extras -> Settings_ and use the following settings:
 * General (1)
 	* Show system tray icon.
@@ -98,9 +83,6 @@ Once installed, launch the application and navigate to _Extras -> Settings_ and 
 * Security
 	* Lock workspace when minimizing the main window.
 	* Lock database after inactivity of [300] seconds.
-
-Create one, and only one, new key/pair database and give it the following name:
-* KeyDatabase.kdb
 
 ## Sounds
 
