@@ -277,7 +277,7 @@ A collection of high quality, and highly recommended, radio stations. Playlists 
 
 ## Integrated Development Environment
 
-[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor, is a solid tool, though simple compared to more feature rich IDE platforms, for writing, organizing, testing, and debugging software.
+[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
 
 To install Visual Studio Code, navigate to the [Visual Studio Code download page](https://code.visualstudio.com/Download), and download the appropriate Debian package for your architecture.
 
