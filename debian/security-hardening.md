@@ -4,6 +4,43 @@ Hardening a system is an important process to carry-out for all newly provisione
 
 This configuration guide walks through the process of securing a standard Debian installation by installing various security tools, instituting "best practice" changes to the default settings of pre-installed services, and insuring the latest protocols are utilized. This guide, however, does not guarantee that a system is impervious to a security breach, nor does it account for the human factor in system security. Rather, it simply takes a "best effort" at implementing the best standard of security on a system while leaving the maintenance of security to institutional policies.
 
+## Firewall
+
+A firewall helps prevent external intrusion into the system. However, it should be noted that possessing a firewall does not block malicious actions from occurring on the server itself.
+
+For our firewall we'll use a package called `ufw`, short for _Uncomplicated Firewall_, which is a framework, and a command line frontend for manipulating [iptables](https://en.wikipedia.org/wiki/Iptables).
+
+First, install `ufw`:
+
+```bash
+sudo aptitude install ufw
+```
+
+Though `ufw` is installed, it is not automatically enabled, nor are any rules turned on by default.
+
+To enable `ufw`, please run the following command:
+
+```bash
+sudo ufw enable
+```
+
+Next, a few default rules should be set to block all incoming traffic, while allowing all outgoing traffic:
+
+```bash
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+```
+
+Lastly, verify `ufw` is running:
+
+```bash
+sudo ufw status vebose
+```
+
+You should see `Status: active` in the output, along with the default rules you set earlier.
+
+Please read Debian's [guide on `ufw`](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29) for more on how to configure `ufw` to support your needs.
+
 ## Server Security
 
 Each server can be configured to further enhance the security of that system. Configuration changes are typically related to kernel options which can prevent certain activities from occurring on the server, to system properties such as the default permissions on files, folders, and executables.
