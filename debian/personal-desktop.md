@@ -28,7 +28,7 @@ Packages:
 To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
-* kwin: Compositing window manager used by KDE.
+* kwin-x11: Compositing window manager used by KDE.
 
 ## Desktop Environment
 
