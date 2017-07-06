@@ -190,14 +190,14 @@ Because the system was installed from an ISO image, several of the installed pac
 First the default apt-get sources list should be updated to include additional Debian repositories that we can use. Replace the apt sources list, `/etc/apt/sources.list`, with the following content:
 
 ```
-deb http://deb.debian.org/debian stretch main
-deb-src http://deb.debian.org/debian stretch main
+deb http://deb.debian.org/debian stretch main contrib non-free
+deb-src http://deb.debian.org/debian stretch main contrib non-free
 
-deb http://deb.debian.org/debian stretch-updates main
-deb-src http://deb.debian.org/debian stretch-updates main
+deb http://deb.debian.org/debian stretch-updates main contrib non-free
+deb-src http://deb.debian.org/debian stretch-updates main contrib non-free
 
-deb http://security.debian.org/ stretch/updates main
-deb-src http://security.debian.org/ stretch/updates main
+deb http://security.debian.org/ stretch/updates main contrib non-free
+deb-src http://security.debian.org/ stretch/updates main contrib non-free
 ```
 
 In addition to updating the list of repositories, we need to prioritize the repository a package should be installed from. These priorities are defined within files in the `preferences.d` directory located under `/etc/apt/`.
