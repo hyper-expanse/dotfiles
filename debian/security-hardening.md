@@ -41,11 +41,7 @@ You should see `Status: active` in the output, along with the default rules you 
 
 Please read Debian's [guide on `ufw`](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29) for more on how to configure `ufw` to support your needs.
 
-## Server Security
-
-Each server can be configured to further enhance the security of that system. Configuration changes are typically related to kernel options which can prevent certain activities from occurring on the server, to system properties such as the default permissions on files, folders, and executables.
-
-### Restricting Task Scheduling
+## Restricting Task Scheduling
 
 Linux systems include four mechanisms for users to schedule one-time and regular tasks. Such tasks, when used maliciously, could be used to maintain open backdoors, exhaust system resources, etc. Therefore, restricting who's authorized to use the scheduling system could prevent malicious use by un-authorized, or compromised users.
 
@@ -75,7 +71,6 @@ root
 
 If a `/etc/at.deny` file exists it provides the reverse of `at.allow`. It enables all users to access `at`, except those whose usernames are listed in `at.deny`.
 
-
 ### cron Restriction
 
 To restrict user access to the `cron` scheduling system, create a file called `/etc/cron.allow`. If this file exists, `cron` will limit access to only those users listed in the file.
@@ -94,17 +89,17 @@ root
 
 If a `/etc/cron.deny` file exists it provides the reverse of cron.allow. It enables all users to access cron, except those whose usernames are listed in `cron.deny`.
 
-### Mount Protection
+## Mount Protection
 
 Each partition on a Linux system can be mounted to a directory relative to the root directory. When mounting a partition, the principle of lease privileges should be followed by restricting the permissions and activities that can be carried out on the mounted partition. This is achieved by mounting each partition with the most restrictive mount options available without impacting required functionality.
 
-#### Mount Options
+### Mount Options
 
 * nodev: Do not interpret character or block special devices on the file system.
 * nosuid: Do not allow set-user-identifier or set-group-identifier bits to take effect.
 * noexec: Do not allow direct execution of any binaries on the mounted filesystem.
 
-#### Recommended Setup
+### Recommended Setup
 
 Below is a table of partitions (which would have been setup following our installation guide), and which mount options should be enabled for those mounted file systems.
 
@@ -117,7 +112,7 @@ Below is a table of partitions (which would have been setup following our instal
 | /var      | No    | No     | No     |
 | /var/tmp  | Yes   | Yes    | Yes    |
 
-#### Application
+### Configure Setup
 
 Edit the mount configuration file, `/etc/fstab`, and apply the appropriate permission mentioned in the _Recommended Setup_ section by appending the permissions to the `<options>` column for each mounted partition:
 
