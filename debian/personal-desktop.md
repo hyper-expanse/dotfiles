@@ -54,8 +54,7 @@ Lastly, to support connecting to virtual private networks we'll need two additio
 A list of common applications to fulfill various workflows is provided below.
 
 Packages:
-* quiterss: RSS/ATOM reader.
-* peazip-qt: Archive tool.
+* ark: Archive tool.
 * basket: Note taking. [KDE]
 * calibre: E-book library manager.
 * clementine: Music player and library manager.
@@ -72,8 +71,8 @@ Packages:
 * kwalletmanager: Secure password waller manager. [KDE]
 * luckybackup: File backup utility.
 * okular: PDF viewer. [KDE]
+* quiterss: RSS/ATOM reader.
 * transmission-qt: Qt front-end for the Transmission BitTorrent client.
-* [NEED OFFICE SUITE]
 
 ### KeePassX
 
