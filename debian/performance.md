@@ -11,6 +11,7 @@ Below is a table of partitions (which would have been setup following our instal
 * noatime: Do not update the access time for files when they are accessed.
 
 | Partition | noatime |
+| --------- | ------- |
 | /boot     | Yes     |
 
 ### Grub

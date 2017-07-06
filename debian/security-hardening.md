@@ -72,6 +72,7 @@ Each partition on a Linux system can be mounted to a directory relative to the r
 Below is a table of partitions (which would have been setup following our installation guide), and which mount options should be enabled for those mounted file systems.
 
 | Partition | nodev | nosuid | noexec |
+| --------- | ----- | ------ | ------ |
 | /boot     | Yes   | Yes    | Yes    |
 | /home     | Yes   | Yes    | Yes (Only if code will not be executed out of the home directories.) |
 | /tmp      | Yes   | Yes    | Yes (Only if packages will not be build from scratch on this system.) |
