@@ -68,7 +68,6 @@ Packages:
 * kmix: Volume control and mixer. [KDE]
 * korganizer: Calendar and personal organizer. [KDE- Kontact]
 * kde-spectacle: Screenshot capture tool. [KDE]
-* kwalletmanager: Secure password waller manager. [KDE]
 * luckybackup: File backup utility.
 * okular: PDF viewer. [KDE]
 * quiterss: RSS/ATOM reader.
