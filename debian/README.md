@@ -302,7 +302,9 @@ sudo chown root:root /etc/cron.daily/aptitude-updates
 
 ## Additional System Packages
 
-The following additional packages should be installed onto your system. To install them, run `sudo aptitude install [PACKAGE]`.
+The following additional packages should be installed onto your system.
+
+To install them, run `sudo aptitude install [PACKAGE]`.
 
 Packages:
 * apt-listbugs: Will display a list of known issues with packages before they're installed using tools such as `apt-get` or `aptitude`.

@@ -1,12 +1,12 @@
 # Personal Desktop
 
-This chapter covers setting up a graphical desktop environment over a bare Debian operating system. My desktop of choice is based on the wonderful [KDE](https://www.kde.org/) desktop environment. The sections in this chapter will walk you through installing the desktop environment itself, to installing office suite applications.
-
-Furthermore the contents of this chapter were based on what it took to get Debian working on a Dell XPS 13 laptop.
+This chapter covers setting up a graphical desktop environment over a bare Debian operating system. My desktop of choice is the wonderful [KDE](https://www.kde.org/) desktop environment. Sections in this chapter will walk you through installing the desktop environment and various applications to meet your daily needs.
 
 ## Package Installation
 
-Before extending our system with a full desktop environment we need to install a few basic packages. These packages will be used by desktop applications that we'll install To install them, run `sudo aptitude install [PACKAGE]`.
+Before extending our system with a full desktop environment we need to install a few basic packages. These packages will be used by desktop applications that we'll install later.
+
+To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
 * clamav
@@ -15,43 +15,37 @@ Packages:
 
 ## Display Server
 
+To install them, run `sudo aptitude install [PACKAGE]`.
+
 Packages:
 * xorg: This metapackage provides the components for a standalone workstation running the X Window System.
-
-> `xserver-xorg-video-intel` should also be installed as a dependency of `xorg` package.
-
-To help facilitate future debugging of graphic driver issues, install the following package:
 * mesa-utils
 
-`mesa-utils` includes a command line tool called `glxinfo` that can display information about the OpenGL and GLX implementations employed by the running X display server. (For example, executing `glxinfo | grep OpenGL` will provide information on whether your system is using OpenGL for rendering.)
+> `mesa-utils` includes a command line tool called `glxinfo` that can display information about the OpenGL and GLX implementations employed by the running X display server. (For example, executing `glxinfo | grep OpenGL` will provide information on whether your system is using OpenGL for rendering.)
 
 ## Window Manager
+
+To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
 * kwin: Compositing window manager used by KDE.
 
 ## Desktop Environment
 
-Several major all-inclusive desktop environments are available for installation on Linux systems. Some desktop environments are ``heavier'' than others; typically coming with a larger number of default applications, and requiring the downloading of additional libraries that must be loaded at runtime.
+In addition to providing the fundamental components required to offer a functional desktop environment, the `kde-plasma-desktop` package also include basic necessities such as a file manager, and a password manager. However, `kde-plasma-desktop` does **not** come with a large number of applications, such as video and music players. Instead we leave it up to the user to choose what basic applications they want on their system.
 
-For our purposes, we favor an environment that is based on the QT widget library. Our desktop environment of choice is therefore KDE.
+To install the following packages run `sudo aptitude install [PACKAGE]`.
 
-In addition to providing the fundamental components required to offer a functional desktop environment, the `kde-plasma-desktop` package also include basic necessities such as a file manager, a password manager, along with other essential applicationsi. However, `kde-plasma-desktop` does **not** come with a large number of applications such as video and music players. Instead we leave it up to the user to choose what basic applications they want on their system.
-
-When requested to install a package, use `sudo aptitude install [PACKAGE]`.
-
-Install the basic KDE desktop package:
-* kde-plasma-desktop: The KDE Plasma Desktop and minimal set of applications.
-
-Next, install a graphical network manager:
+Packages:
+* kde-plasma-desktop: The KDE Plasma desktop and minimal set of applications.
 * plasma-nm: Network Management widget for KDE Plasma workspaces.
-
-Lastly, to support connecting to virtual private networks we'll need two additional packages.
-* network-manager-openvpn
+* network-manager-openvpn: Support for connecting to virtual private networks.
 
 ### Desktop Applications
 
 A list of common applications to fulfill various workflows is provided below.
+
+To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
 * ark: Archive tool.
