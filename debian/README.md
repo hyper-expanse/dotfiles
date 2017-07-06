@@ -290,14 +290,14 @@ Create a new log rule for rotating and compressing log files associated with the
 Run the following command to set the proper permissions:
 
 ```bash
-sudo chmod 644 /etc/logrotate.d/aptitude-update
+sudo chmod 644 /etc/logrotate.d/aptitude-updates
 ```
 
 Set the proper owner, and group, for both files:
 
 ```bash
 sudo chown root:root /etc/cron.daily/aptitude-updates
-sudo chown root:root /etc/cron.daily/aptitude-updates
+sudo chown root:root /etc/logrotate.d/aptitude-updates
 ```
 
 ## Additional System Packages
