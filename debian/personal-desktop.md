@@ -88,23 +88,22 @@ Once installed, launch the application and navigate to _Extras -> Settings_ and 
 
 Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
 
-To install `pulseaudio` run the following command:
+To install the following packages run `sudo aptitude install [PACKAGE]`.
 
-```bash
-sudo aptitude install pulseaudio
-```
+Packages:
+* pulseaudio
 
 ## Network Manager
 
-The Debian Network Manager is not configured to start automatically and manage the network interfaces. Therefore, we must first configure the Network Manager to manage all network interfaces, and then we must start the Network Manager daemon.
+The Debian Network Manager is not configured to start automatically, nor is it setup to manage the system's network interfaces. Therefore we must first configure the Network Manager to manage all network interfaces, and then we must restart the Network Manager daemon for that change to take effect.
 
-Edit the following file, /etc/NetworkManager/NetworkManager.conf, and enable the managed feature:
+Edit the following file, `/etc/NetworkManager/NetworkManager.conf`, and enable the managed feature:
 
 ```
 managed=true
 ```
 
-Next, restart the Network-Manager service:
+Then restart the Network-Manager service:
 
 ```bash
 sudo /etc/init.d/network-manager restart
