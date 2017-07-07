@@ -93,26 +93,6 @@ Packages:
 * quiterss: RSS/ATOM reader.
 * transmission-qt: Qt front-end for the Transmission BitTorrent client.
 
-### KeePassX
-
-[KeePassX](https://www.keepassx.org/) is a tool for storing key/pair values securely in an encrypted vault.
-
-Once installed, launch the application and navigate to _Tools -> Settings_ and use the following settings:
-* General
-	* Remember last databases
-	* Remember last key files
-	* Open previous databases on startup
-	* Automatically save after every change
-	* Use entry title to match windows for global auto-type
-	* Show a system tray icon
-	* Hide window to system tray when minimized
-* Security
-	* Clear clipboard after 30 seconds
-	* Lock databases after inactivity of 300 sec
-	* Always ask before performing auto-type
-
-> KeePassX will likely be replaced with [KeePassXC](https://keepassxc.org/) at a later date once KeePassXC is available in the Debian repository.
-
 ## Vagrant
 
 [Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through libvirt, or docker containers.
@@ -250,6 +230,26 @@ sudo aptitude install steam
 Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card.
 
 At this point Steam is installed on the system and can be accessed from the Applications menu.
+
+### KeePassX
+
+[KeePassX](https://www.keepassx.org/) is a tool for storing key/pair values securely in an encrypted vault.
+
+Once installed, launch the application and navigate to _Tools -> Settings_ and use the following settings:
+* General
+	* Remember last databases
+	* Remember last key files
+	* Open previous databases on startup
+	* Automatically save after every change
+	* Use entry title to match windows for global auto-type
+	* Show a system tray icon
+	* Hide window to system tray when minimized
+* Security
+	* Clear clipboard after 30 seconds
+	* Lock databases after inactivity of 300 sec
+	* Always ask before performing auto-type
+
+> KeePassX will likely be replaced with [KeePassXC](https://keepassxc.org/) at a later date once KeePassXC is available in the Debian repository.
 
 ## LinuxBrew
 
