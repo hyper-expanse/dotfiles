@@ -174,17 +174,15 @@ GNUPG allows for the creation and management of encryption keys following the pu
 
 Remove all default key servers using GNUPG's graphical interface (which will be be determined by the desktop environment used) as they don't provide a secure means to request keys from a public key server.
 
-Create the `~/.gnupg/gpg.conf` configuration file required by GPG clients (Available from my [dotfiles]() project).
-
-Next, create the configuration file `~/.gnupg/gpg-agent.conf` for the GPG Agent (Available from my [dotfiles]() project).
+A `~/.gnupg/gpg.conf` configuration file, used for configuring GPG clients, will be scaffolded by the _Personal Dotfiles_ section below.
 
 ### Generating Key
 
-Set all newly created keys with an expiration date 10 years in the future. Set all sub-keys with an expiration date 1 year in the future and then set a calendar event as a reminder when the sub-key needs to be renewed.
+When generating a new GPG key, set all primary keys with an expiration date 10 years in the future, and then set all sub-keys with an expiration date 1 year in the future. Finally, set a calendar event as a reminder of when to renew the sub-key.
 
-Next, generate the actual key.
+Next, generate the key.
 
-After creating and configuring a key, create a revocation certificate so that the key can later be revoke if it is compromised. If the key becomes compromised, this revocation certificate must be published on key servers to notify everyone that they should no longer use the key. You can do this with the following command:
+After creating a key, create a revocation certificate so that the key can later be revoke if it is compromised. If the key becomes compromised, this revocation certificate must be published on key servers to notify everyone that they should no longer use the key. You can generate the revocation certificate by running the following command:
 
 ```bash
 gpg --output revoke.asc --gen-revoke <keyid>
