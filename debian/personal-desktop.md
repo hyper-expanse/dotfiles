@@ -70,19 +70,23 @@ Packages:
 
 ### KeePassX
 
-KeePassX is a tool for storing key/pair values securely in an encrypted vault.
+[KeePassX](https://www.keepassx.org/) is a tool for storing key/pair values securely in an encrypted vault.
 
-Once installed, launch the application and navigate to _Extras -> Settings_ and use the following settings:
-* General (1)
-	* Show system tray icon.
-	* Minimize to tray instead of taskbar.
-	* Start minimized.
-	* Start locked.
-* General (2)
-	* Automatically save database after every change.
+Once installed, launch the application and navigate to _Tools -> Settings_ and use the following settings:
+* General
+	* Remember last databases
+	* Remember last key files
+	* Open previous databases on startup
+	* Automatically save after every change
+	* Use entry title to match windows for global auto-type
+	* Show a system tray icon
+	* Hide window to system tray when minimized
 * Security
-	* Lock workspace when minimizing the main window.
-	* Lock database after inactivity of [300] seconds.
+	* Clear clipboard after 30 seconds
+	* Lock databases after inactivity of 300 sec
+	* Always ask before performing auto-type
+
+> KeePassX will likely be replaced with [KeePassXC](https://keepassxc.org/) at a later date once KeePassXC is available in the Debian repository.
 
 ## Sounds
 
