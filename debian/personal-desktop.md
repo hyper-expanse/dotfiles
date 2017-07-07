@@ -66,6 +66,17 @@ To install the following packages run `sudo aptitude install [PACKAGE]`.
 Packages:
 * pulseaudio
 
+### Multi-Factor Authentication Device
+
+> This section specifically mentions [Yubico](https://www.yubico.com/) devices, but any two-factor authentication device is supported by the following instructions.
+
+YubiKeys purchased from Yubico provide support for [multi-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication), and specifically, [Universal 2nd Factor](https://en.wikipedia.org/wiki/Universal_2nd_Factor) authentication.
+
+Background information, and detailed instructions for setting up YubiKey on Debian, are provided in Debian's [YubiKey4 docs](https://wiki.debian.org/Smartcards/YubiKey4).
+
+However, for most uses, including support for non-YubiKey devices, install the following package:
+* libu2f-host0
+
 ### Desktop Applications
 
 A list of common applications to fulfill various workflows is provided below.
