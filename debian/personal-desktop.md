@@ -41,6 +41,31 @@ Packages:
 * plasma-nm: Network Management widget for KDE Plasma workspaces.
 * network-manager-openvpn: Support for connecting to virtual private networks.
 
+## Network Manager
+
+The Debian Network Manager is not configured to start automatically, nor is it setup to manage the system's network interfaces. Therefore we must first configure the Network Manager to manage all network interfaces, and then we must restart the Network Manager daemon for that change to take effect.
+
+Edit the following file, `/etc/NetworkManager/NetworkManager.conf`, and enable the managed feature:
+
+```
+managed=true
+```
+
+Then restart the Network-Manager service:
+
+```bash
+sudo /etc/init.d/network-manager restart
+```
+
+## Sound
+
+Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
+
+To install the following packages run `sudo aptitude install [PACKAGE]`.
+
+Packages:
+* pulseaudio
+
 ### Desktop Applications
 
 A list of common applications to fulfill various workflows is provided below.
@@ -87,31 +112,6 @@ Once installed, launch the application and navigate to _Tools -> Settings_ and u
 	* Always ask before performing auto-type
 
 > KeePassX will likely be replaced with [KeePassXC](https://keepassxc.org/) at a later date once KeePassXC is available in the Debian repository.
-
-## Sounds
-
-Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
-
-To install the following packages run `sudo aptitude install [PACKAGE]`.
-
-Packages:
-* pulseaudio
-
-## Network Manager
-
-The Debian Network Manager is not configured to start automatically, nor is it setup to manage the system's network interfaces. Therefore we must first configure the Network Manager to manage all network interfaces, and then we must restart the Network Manager daemon for that change to take effect.
-
-Edit the following file, `/etc/NetworkManager/NetworkManager.conf`, and enable the managed feature:
-
-```
-managed=true
-```
-
-Then restart the Network-Manager service:
-
-```bash
-sudo /etc/init.d/network-manager restart
-```
 
 ## Vagrant
 
