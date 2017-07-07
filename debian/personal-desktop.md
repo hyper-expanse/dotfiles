@@ -188,16 +188,6 @@ Install the latest version of Docker CE:
 sudo aptitude install docker-ce
 ```
 
-## LinuxBrew
-
-Navigate to the [LinuxBrew](https://github.com/Linuxbrew/brew) and install all the required packages for your Linux distribution.
-
-## Personal Dotfiles
-
-A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
-
-Installation instructions are available in the dotfile project's [README](https://gitlab.com/hyper-expanse/dotfiles/blob/master/README.md).
-
 ## GNUPG
 
 GNUPG allows for the creation and management of encryption keys following the public/private key model.
@@ -219,6 +209,25 @@ After creating and configuring a key, create a revocation certificate so that th
 ```bash
 gpg --output revoke.asc --gen-revoke <keyid>
 ```
+
+## Integrated Development Environment
+
+[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
+
+To install Visual Studio Code, navigate to the [Visual Studio Code download page](https://code.visualstudio.com/Download), and download the appropriate Debian package for your architecture.
+
+Next, open a command line window, navigate into the folder containing the downloaded package, and run the following command, replacing `[FILE NAME]` with the name of the file you downloaded:
+* `sudo dpkg --install [FILE NAME]`
+
+Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That ensures future updates of your system will also install the latest version of Visual Studio Code.
+
+Because Visual Studio's package repository uses HTTPS, one additional system-level package will need to be installed.
+
+```bash
+sudo aptitude install apt-transport-https
+```
+
+Without `apt-transport-https` installed, attempts to update Visual Studio Code will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
 
 ## Steam for Gaming
 
@@ -242,6 +251,16 @@ Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card
 
 At this point Steam is installed on the system and can be accessed from the Applications menu.
 
+## LinuxBrew
+
+Navigate to the [LinuxBrew](https://github.com/Linuxbrew/brew) and install all the required packages for your Linux distribution.
+
+## Personal Dotfiles
+
+A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
+
+Installation instructions are available in the dotfile project's [README](https://gitlab.com/hyper-expanse/dotfiles/blob/master/README.md).
+
 ## Radio Stations
 
 A collection of high quality, and highly recommended, radio stations. Playlists will need to be retrieved from their respective radio station websites.
@@ -251,22 +270,3 @@ A collection of high quality, and highly recommended, radio stations. Playlists 
 * KUT 1 - News/Talk
 * KUT 2 - Music
 * Thistle Radio - Celtic Music - [Online Stream Information](http://somafm.com/thistle/)
-
-## Integrated Development Environment
-
-[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
-
-To install Visual Studio Code, navigate to the [Visual Studio Code download page](https://code.visualstudio.com/Download), and download the appropriate Debian package for your architecture.
-
-Next, open a command line window, navigate into the folder containing the downloaded package, and run the following command, replacing `[FILE NAME]` with the name of the file you downloaded:
-* `sudo dpkg --install [FILE NAME]`
-
-Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That ensures future updates of your system will also install the latest version of Visual Studio Code.
-
-Because Visual Studio's package repository uses HTTPS, one additional system-level package will need to be installed.
-
-```bash
-sudo aptitude install apt-transport-https
-```
-
-Without `apt-transport-https` installed, attempts to update Visual Studio Code will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
