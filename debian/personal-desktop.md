@@ -138,7 +138,7 @@ To avoid the authentication prompt simply add yourself to the `libvirt` user gro
 
 ## Docker
 
-This section is a modification of the instructions on [Docker's Debian CE](https://docs.docker.com/engine/installation/linux/docker-ce/debian/) site.
+> This section is a modification of the instructions on [Docker's Debian CE](https://docs.docker.com/engine/installation/linux/docker-ce/debian/) site.
 
 Add Docker's official GPG key:
 

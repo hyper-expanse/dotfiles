@@ -41,6 +41,40 @@ You should see `Status: active` in the output, along with the default rules you 
 
 Please read Debian's [guide on `ufw`](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29) for more on how to configure `ufw` to support your needs.
 
+## Mandatory Access Control
+
+> This section is a modification of the instructions on Debian's [AppArmor How To Use](https://wiki.debian.org/AppArmor/HowToUse) wiki site. More detailed information on AppArmor is available from the _Debian Handbook_ [section on AppArmor](https://debian-handbook.info/browse/stable/sect.apparmor.html).
+
+[AppArmor](http://wiki.apparmor.net/index.php/Main_Page) is one of several _[Mandatory Access Control](https://en.wikipedia.org/wiki/Mandatory_access_control)_ frameworks available for Linux, along with [SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux) and [TOMOYO](https://en.wikipedia.org/wiki/Tomoyo_Linux).
+
+When used AppArmor provides the Linux kernel with information that informs the kernel as to which system resources (such as files and networks) a given process may access.
+
+Install AppArmor, its support utilities, and packages containing pre-written access control profiles for well known processes.
+
+```bash
+sudo aptitude install apparmor apparmor-profiles apparmor-profiles-extra apparmor-utils
+```
+
+> `apparmor-profiles` are profiles maintained by the AppArmor community, while `apparmor-profiles-extra` are profiles maintained by the Debian and Ubuntu communities.
+
+Once AppArmor has been installed the Linux kernel needs to be configured to use AppArmor on boot.
+
+Edit `/etc/default/grub` and append the following to the end of the quoted text for the `GRUB_CMDLINE_LINUX_DEFAULT` option:
+
+```
+ apparmor=1 security=apparmor
+```
+
+Execute the following to re-build the Grub menu:
+
+```bash
+sudo update-grub2
+```
+
+Next, restart your system to boot into a kernel with AppArmor enabled.
+
+From the command line you can run `aa-status` to see all loaded profiles, processes running with a community maintained profile, processes running with their own provided profile, and lastly, any _unconfined_ processes running without a profile.
+
 ## Restricting Task Scheduling
 
 Linux systems include four mechanisms for users to schedule one-time and regular tasks. Such tasks, when used maliciously, could be used to maintain open backdoors, exhaust system resources, etc. Therefore, restricting who's authorized to use the scheduling system could prevent malicious use by un-authorized, or compromised users.
