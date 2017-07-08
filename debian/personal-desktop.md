@@ -146,7 +146,7 @@ Add Docker's official GPG key:
 curl -sSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 ```
 
-Verify the integrity of the key:
+Verify key integrity:
 
 ```bash
 sudo apt-key fingerprint
@@ -155,10 +155,10 @@ sudo apt-key fingerprint
 Then look for the following key in the output:
 
 ```bash
-pub   4096R/0EBFCD88 2017-02-22
-      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid                  Docker Release (CE deb) <docker@docker.com>
-sub   4096R/F273FCD8 2017-02-22
+pub   rsa4096 2017-02-22 [SCEA]
+      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
+sub   rsa4096 2017-02-22 [S]
 ```
 
 To install the latest version of Docker we need to add Docker's repository to our `apt-get` list of Debian package repositories.
@@ -166,10 +166,10 @@ To install the latest version of Docker we need to add Docker's repository to ou
 Add the following to a file named `docker.list` in the `/etc/apt/sources.list.d/` directory:
 
 ```
-deb [arch=amd64] https://download.docker.com/linux/debian jessie stable
+deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
 ```
 
-Then instruct Aptitude to fetch all packages available within that repository:
+Then instruct Aptitude to update it's list of available packages, including those available in the Docker repository.
 
 ```bash
 sudo aptitude update
@@ -179,6 +179,21 @@ Install the latest version of Docker CE:
 
 ```bash
 sudo aptitude install docker-ce
+```
+
+To run Docker containers without using `sudo` to gain `root` user permissions, you can add your account to the `docker` user group previously setup by the `docker-ce` installer.
+
+> Before adding your account to the `docker` group, please read through Docker's [Docker daemon attach surface documentation](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to understand the tradeoff of giving users root-like permissions through the `docker` group.
+
+To do so simply add yourself to the `docker` user group:
+* `sudo usermod -G docker -a ${USER}`
+
+Once you've added yourself to the `docker` group you will need to log out, and back into, your system for the group change to take effect.
+
+Lastly, verify Docker was installed correctly by running their test image:
+
+```bash
+[SUDO] docker run hello-world
 ```
 
 ## GNUPG
