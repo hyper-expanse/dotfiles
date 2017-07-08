@@ -300,6 +300,27 @@ sudo chown root:root /etc/cron.daily/aptitude-updates
 sudo chown root:root /etc/logrotate.d/aptitude-updates
 ```
 
+## Wiresless Support for Intel Chips
+
+> This section specifically addresses Intel wireless chip support in Debian, such as the Dell XPS line of laptops.
+
+Since Intel wireless chips require proprietary firmware (which comes in binary-only format), we will need to rely on the addition of the `non-free` archive that we appended to the Debian repository URL in `/etc/apt/sources.list`.
+
+Install the Intel firmware package:
+
+```bash
+sudo aptitude install firmware-iwlwifi
+```
+
+Lastly, reload the Intel wireless kernel module to take advantage of the installed firmware:
+
+```bash
+sudo modprobe -r iwlwifi
+sudo modprobe iwlwifi
+```
+
+To enable the wireless card, and connect to a wireless access point, you may wait until you've install a desktop environment as part of the _Personal Desktop_ sub-chapter, or you may try one of the other approaches documented in Debian's [WiFi How To](https://wiki.debian.org/WiFi/HowToUse).
+
 ## Additional System Packages
 
 The following additional packages should be installed onto your system.
