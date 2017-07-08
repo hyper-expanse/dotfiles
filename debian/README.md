@@ -228,6 +228,18 @@ Once all software updates have been installed, reboot the system. This will ensu
 
 > Please remember to update your system on a regular basis (such as once a day). The same `update` and `full-upgrade` steps must be carried out in each case.
 
+## Support HTTPS Repositories
+
+Some non-Debian package repositories use HTTPS as their transport protocol.
+
+To support these repositories we need to install one additional system-level package:
+
+```bash
+sudo aptitude install apt-transport-https
+```
+
+Without `apt-transport-https`, attempts to install packages from a repository over HTTPS will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
+
 ## Automatic Updates
 
 Packages for Debian distributions are regularly updated within the main software repositories with enhancements and security fixes. Though these updated packages could be downloaded and installed manually, doing so would be tedious. Therefore we create scripts to automate the process of downloading and installing updated packages, keeping our system up-to-date.

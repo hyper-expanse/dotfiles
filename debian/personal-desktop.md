@@ -212,13 +212,7 @@ Next, open a command line window, navigate into the folder containing the downlo
 
 Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That ensures future updates of your system will also install the latest version of Visual Studio Code.
 
-Because Visual Studio's package repository uses HTTPS, one additional system-level package will need to be installed.
-
-```bash
-sudo aptitude install apt-transport-https
-```
-
-Without `apt-transport-https` installed, attempts to update Visual Studio Code will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
+> Visual Studio's repository uses HTTPS, which is supported as a result of installing the `apt-transports-https` package in an earlier section. Without `apt-transport-https` installed, attempts to update Visual Studio Code will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
 
 ## Steam for Gaming
 
