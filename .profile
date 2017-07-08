@@ -43,6 +43,9 @@ export EDITOR=nvim
 # Specify the language and encoding for our shell environment.
 export LANG=en_US.UTF8
 
+# Only allow the Docker client to download and use "trusted" images (Trust is associated with the `TAG` pointing to an image, where the `TAG` has been cryptographically signed).
+export DOCKER_CONTENT_TRUST=1
+
 export TERM="${TERM}" # Export what our environment already provides.
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
