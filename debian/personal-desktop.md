@@ -106,26 +106,28 @@ Packages:
 
 ## Vagrant
 
-[Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through libvirt, or docker containers.
+[Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through `libvirt`, or Docker containers.
 
-First install `vagrant` by downloading the appropriate Debian package, based on your architecture, from the [Vagrant Download Page](https://www.vagrantup.com/downloads.html), and using the following command to install the downloaded package:
-* `sudo dpkg --install [FILE NAME]`
+First, install `vagrant` from the Debian repository:
 
-Next install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin so that `vagrant` can provision virtual machines through `libvirt`.
+```bash
+sudo aptitude install vagrant
+```
 
-To install `vagrant-libvirt`, navigate to their [Installation Guide](https://github.com/vagrant-libvirt/vagrant-libvirt#installation).
+Next, we'll need to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin so that `vagrant` can provision virtual machines through `libvirt` (Our preferred provisioning interface for virtual machines).
+
+To install `vagrant-libvirt`, navigate to their [Installation Guide](https://github.com/vagrant-libvirt/vagrant-libvirt#installation) and install the packages listed for Debian.
 
 > Please ensure you replace command line calls made to `apt-get` with calls to `aptitude` using `sudo`.
 
-You'll first want to skip down to the section about _Possible problems_, as this section lists additional packages that may be required to correctly compile the plugin's primary dependencies. Install the packages listed for _Ubuntu/Debian_.
-
-Once those packages are installed, scroll back up to the list of primary dependencies and install the packages listed under _Ubuntu/Debian_.
-
-Once `vagrant-libvirt` has been installed, have vagrant install the plugin:
+Once all dependencies for `vagrant-libvirt` have been installed, have vagrant install the plugin:
 * `vagrant plugin install vagrant-libvirt`
 
 To monitor virtual machines on your system outside of Vagrant, install `virt-manager`, a graphical tool for visualizing virtual machine resources.
-* virt-manager
+
+```bash
+sudo aptitude install virt-manager
+```
 
 ### Libvirt User
 
