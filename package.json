@@ -1,25 +1,36 @@
 {
-  "name": "configuration",
-  "version": "1.0.0",
-  "description": "Configuration guide for the Hyper-Expanse network.",
-  "scripts": {
-    "build": "gitbook build ./ public/",
-    "postinstall": "gitbook install",
-    "start": "gitbook serve ./ -p ${PORT:-8000}"
+  "author": {
+    "name": "Hutson Betts",
+    "email": "hutson@hyper-expanse.net",
+    "url": "https://gitlab.com/hutson"
   },
+  "bin": {},
+  "bugs": "https://gitlab.com/hyper-expanse/configuration/issues",
+  "description": "Configuration guide for the Hyper-Expanse network.",
+  "engines": {
+    "node": ">=4.2.0",
+    "npm": ">=2.1.9"
+  },
+  "files": [],
+  "homepage": "https://gitlab.com/hyper-expanse/configuration#readme",
+  "keywords": [
+    "hyper-expanse"
+  ],
+  "license": "Apache-2.0",
+  "main": "",
+  "name": "configuration",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/hyper-expanse/configuration.git"
   },
-  "keywords": [
-    "hyper-expanse"
-  ],
-  "author": "Hutson Betts",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://gitlab.com/hyper-expanse/configuration/issues"
+  "scripts": {
+    "dev": "docker run --rm --user node -v \"$(pwd)\":/app -w /app -it node:6 sh -c \"yarn install && yarn test && bash\"",
+    "build": "gitbook build ./ public/",
+    "postinstall": "gitbook install",
+    "start": "gitbook serve ./ -p ${PORT:-8000}",
+    "test": "echo \"no tests\""
   },
-  "homepage": "https://gitlab.com/hyper-expanse/configuration",
+  "version": "1.0.0",
   "dependencies": {
     "gitbook-cli": "^1.0.1"
   }
