@@ -35,7 +35,6 @@
 
 	"typescript.check.tscVersion": false,
 
-	"window.reopenFolders": "all",
 	"window.restoreFullscreen": true,
 
 	"workbench.iconTheme": "material-icon-theme",
