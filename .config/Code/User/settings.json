@@ -1,6 +1,7 @@
 {
 	"diffEditor.ignoreTrimWhitespace": false,
 
+	"editor.autoIndent": true,
 	"editor.detectIndentation": true,
 	"editor.minimap.enabled": false,
 	"editor.quickSuggestions": false,
