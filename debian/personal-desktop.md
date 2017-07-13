@@ -88,6 +88,7 @@ Packages:
 * basket: Note taking. [KDE]
 * calibre: E-book library manager.
 * clementine: Music player and library manager.
+* dia: Diagram editor.
 * gramps: Genealogy tool. [GTK]
 * gwenview: Image viewer. [KDE]
 * k3b: A CD/DVD ripper and burner. [KDE]
