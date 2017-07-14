@@ -70,6 +70,12 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 
+[remote "origin"]
+	# The following fetches are in addition to the default remote references fetched by Git for a locally cloned project.
+
+	# Fetch any references that begin with `merge-requests`, as these references pertain to merge requests filed against the upstream, `origin`, repository on a GitLab website. By fetching `merge-requests` references, we can easily pull down, and checkout, merge requests submitted by contributors, and test those merge requests locally.
+	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
 	l = log --abbrev-commit --decorate --graph --oneline
