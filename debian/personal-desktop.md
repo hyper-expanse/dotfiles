@@ -194,7 +194,7 @@ Once you've added yourself to the `docker` group you will need to log out, and b
 Lastly, verify Docker was installed correctly by running their test image:
 
 ```bash
-[SUDO] docker run hello-world
+docker run hello-world
 ```
 
 ## GNUPG
