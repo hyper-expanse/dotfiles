@@ -66,7 +66,7 @@ To install the following packages run `sudo aptitude install [PACKAGE]`.
 Packages:
 * pulseaudio
 
-### Multi-Factor Authentication Device
+## Multi-Factor Authentication Device
 
 > This section specifically mentions [Yubico](https://www.yubico.com/) devices, but any two-factor authentication device is supported by the following instructions.
 
@@ -77,7 +77,7 @@ Background information, and detailed instructions for setting up YubiKey on Debi
 However, for most uses, including support for non-YubiKey devices, install the following package:
 * libu2f-host0
 
-### Desktop Applications
+## Desktop Applications
 
 A list of common applications to fulfill various workflows is provided below.
 
@@ -252,7 +252,7 @@ Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card
 
 At this point Steam is installed on the system and can be accessed from the Applications menu.
 
-### KeePassX
+## KeePassX
 
 [KeePassX](https://www.keepassx.org/) is a tool for storing key/pair values securely in an encrypted vault.
 
