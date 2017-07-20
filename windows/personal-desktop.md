@@ -2,19 +2,34 @@
 
 This chapter covers configuring a graphical desktop environment on a Windows machine. The sections in this chapter will walk you through configuring the desktop environment, to installing office suite applications.
 
-## Chocolatey
+## Desktop Applications
+
+A list of common applications to fulfill various workflows is provided below.
+
+### Chocolatey
 
 Install [Chocolatey](https://chocolatey.org/).
 
-Install the following packages:
+Install the following packages using Chocolatey:
 * clementine
 * dia
 * gpg4win
+* keepassxc
 * peazip
 * quiterss
 * sumatrapdf
 * wget
 * windirstat
+* zoom
+
+### Installed Directly
+
+Please navigate to the following product websites and download an installer directly from their _Downloads_ page:
+* Slack
+* Gitter.im
+* Visual Studio Code
+
+> Though these applications can be installed through Chocolatey, they already have embedded auto-updaters, making Chocolatey unnecessary (and possibly confusing).
 
 ## Personal Dotfiles
 
