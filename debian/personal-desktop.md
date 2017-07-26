@@ -97,7 +97,6 @@ Packages:
 * keepassx: Offline password and secrets manager.
 * kgpg: GNUPG graphical front-end. [KDE]
 * kmail: E-mail client. [KDE - Kontact]
-* kmix: Volume control and mixer. [KDE]
 * korganizer: Calendar and personal organizer. [KDE- Kontact]
 * kde-spectacle: Screenshot capture tool. [KDE]
 * luckybackup: File backup utility.
