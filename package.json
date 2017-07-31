@@ -24,7 +24,7 @@
     "url": "https://gitlab.com/hyper-expanse/configuration.git"
   },
   "scripts": {
-    "dev": "docker run --rm --user node -v \"$(pwd)\":/app -w /app -it node:6 sh -c \"yarn install && yarn test && bash\"",
+    "dev": "docker run --rm --user node -v \"$(pwd)\":/app -w /app -it node:6 sh -c \"yarn install; yarn test; bash\"",
     "build": "gitbook build ./ public/",
     "postinstall": "gitbook install",
     "start": "gitbook serve ./ -p ${PORT:-8000}",
