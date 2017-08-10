@@ -552,9 +552,6 @@ installNodePackages ()
 		# CLI tool required to run Yeoman generators that scaffold projects.
 		yarn global add yo
 
-		# Developer tools for debugging NodeJS applications.
-		yarn global add node-inspector
-
 		# Required for running a project based on the gulp task runner.
 		yarn global add gulp-cli
 
