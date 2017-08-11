@@ -557,6 +557,9 @@ installNodePackages ()
 
 		# Required for running a project based on the grunt task runner.
 		yarn global add grunt-cli
+
+		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
+		yarn global add doctoc
 	else
 		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
