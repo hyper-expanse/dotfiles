@@ -271,9 +271,6 @@ setupEnvironment ()
 	setupLinuxbrew
 	installBrewPackages
 
-	# Download, build, and install core development environment tools.
-	setupPIP
-
 	# Install general tools.
 	installPythonPackages
 
@@ -336,35 +333,6 @@ setupLinuxbrew ()
 	brew tap neovim/neovim
 }
 
-#! Setup pip, Python's package manager.
-# Install and configure Python's package manager in the user's local environment.
-setupPIP ()
-{
-	# Delete any existing file so that `wget` will download the file from scratch.
-	if [ -f "/tmp/hutson-get-pip.py" ]; then
-		rm "/tmp/hutson-get-pip.py"
-	fi
-
-	printf "\n> Downloading PIP installer.\n"
-
-	# Download the PIP installer.
-	wget --quiet https://bootstrap.pypa.io/get-pip.py -O /tmp/hutson-get-pip.py
-
-	# If the requested command fails, exit rather than attempt to execute further commands.
-	if [ "${?}" -gt 0 ]; then
-		return
-	fi
-
-	printf "\n> Installing PIP user-wide.\n"
-
-	python /tmp/hutson-get-pip.py --user
-
-	# If the requested command fails, exit rather than attempt to execute further commands.
-	if [ "${?}" -gt 0 ]; then
-		return
-	fi
-}
-
 #! Update Linuxbrew environment.
 # Update the Linuxbrew installation. This includes doing the following:
 # 1) Pull down the latest commit from Linuxbrew's remote repository.
@@ -422,8 +390,8 @@ installBrewPackages()
 		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
 		brew install openssl # (git)
 
-		# Install python (2.7), as the header files are required by natively-built pip packages.
-		brew install python
+		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
+		brew install python3
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
@@ -489,6 +457,9 @@ installBrewPackages()
 
 		# Tool to run multiple jobs in parallel using all available CPUs.
 		brew install parallel
+
+		# Tool used to compute CPU load for prompt line.
+		brew install bc
 
 		if [ `uname -n` == "startopia" ]; then
 
@@ -569,21 +540,21 @@ installNodePackages ()
 # Install Python packages via `pip`.
 installPythonPackages ()
 {
-	if command -v pip &> /dev/null; then
+	if command -v pip3 &> /dev/null; then
 		printf "\n> Installing Python packages.\n"
 
 		# Update the version of `pip` installed in our environment.
-		pip install --user pip --upgrade
+		pip3 install --user pip --upgrade
 
 		# Required to manage virtual Python environments.
-		pip install --user virtualenv --upgrade
+		pip3 install --user virtualenv --upgrade
 
 		# Required to enable Syntastic checking for Python files.
-		pip install --user pylint --upgrade
-		pip install --user pep8 --upgrade
+		pip3 install --user pylint --upgrade
+		pip3 install --user pep8 --upgrade
 
 		# Required by neovim to support vim Python packages in neovim.
-		pip install --user neovim --upgrade
+		pip3 install --user neovim --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
