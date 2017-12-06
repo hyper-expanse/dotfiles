@@ -274,6 +274,9 @@ setupEnvironment ()
 	# Install general tools.
 	installPythonPackages
 
+	# Install Firefox.
+	installFirefox
+
 	#updateNeovim
 }
 
@@ -288,6 +291,9 @@ updateEnvironment ()
 	# Update general tools.
 	installNodePackages
 	installPythonPackages
+
+	# Update Firefox.
+	installFirefox
 
 	#updateNeovim
 }
@@ -600,4 +606,46 @@ installVisualStudioCodeExtensions ()
 	else
 		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
 	fi
+}
+
+#! Install the latest stable version of Firefox.
+# Install the latest stable version of Firefox directly from Mozilla's website, as Debian archives do not have the latest version of Firefox.
+# Based on the instructions available here - https://wiki.debian.org/Firefox
+installFirefox ()
+{
+	printf "\n> Installing Firefox.\n"
+
+	# Create a local ad-hoc directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of Firefox into the `${HOME}/.local/opt/` directory.
+	mkdir --parents "${HOME}/.local/opt"
+
+	# Download an archive version of the latest version of Firefox to the local system for future extraction.
+	wget "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US" -O "/tmp/firefox.tar.bz2"
+
+	# Extract archive file into an ad-hoc local system directory.
+	rm -rf "${HOME}/.local/opt/firefox"
+	tar -jxf "/tmp/firefox.tar.bz2" -C "${HOME}/.local/opt/"
+
+	# Symlink the extracted Firefox binary into our standard local binary directory.
+	rm "${HOME}/.local/bin/firefox"
+	ln -s "${HOME}/.local/opt/firefox/firefox" "${HOME}/.local/bin/firefox"
+
+  # Generate a desktop configuration file to add our local Firefox installation to our desktop application/start menu.
+	echo "
+[Desktop Entry]
+Name=Firefox
+Comment=Web Browser
+GenericName=Web Browser
+X-GNOME-FullName=Firefox Web Browser
+Exec=${HOME}/.local/bin/firefox %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=${HOME}/.local/opt/firefox/browser/icons/mozicon128.png
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=Firefox
+StartupNotify=true" > "${HOME}/.local/share/applications/firefox-stable.desktop"
+
+	# Cleanup.
+	rm "/tmp/firefox.tar.bz2"
 }
