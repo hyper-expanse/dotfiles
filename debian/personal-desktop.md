@@ -196,21 +196,31 @@ Lastly, verify Docker was installed correctly by running their test image:
 docker run hello-world
 ```
 
-## GNUPG
+## GnuPG
 
-GNUPG allows for the creation and management of encryption keys following the public/private key model.
+[GnuPG](https://www.gnupg.org/) allows for the creation and management of encryption keys following the public/private key model.
 
-Remove all default key servers using GNUPG's graphical interface (which will be be determined by the desktop environment used) as they don't provide a secure means to request keys from a public key server.
+Launch `KGpg`, KDE's graphical user interface to GnuPG, and under _Settings -> Configure KGpg -> Key Servers_, remove all the default key servers.
 
-A `~/.gnupg/gpg.conf` configuration file, used for configuring GPG clients, will be scaffolded by the _Personal Dotfiles_ section below.
+A `~/.gnupg/gpg.conf` configuration file, used for configuring GnuPG clients, will be scaffolded by the _Personal Dotfiles_ section below.
+
+Lastly, install the following dependency for the `gpg` command line tool:
+
+```bash
+sudo aptitude install dirmngr
+```
+
+> `dirmngr` is used by GnuPG's command line tool, `gpg`, to connect to third-party servers to upload, or download, keys.
 
 ### Generating Key
 
-When generating a new GPG key, set all primary keys with an expiration date 10 years in the future, and then set all sub-keys with an expiration date 1 year in the future. Finally, set a calendar event as a reminder of when to renew the sub-key.
+When generating a new encryption key, set all keys with an expiration date 10 years in the future. Then set a calendar event as a reminder of when to replace an old key.
 
-Next, generate the key.
+_create an encryption key..._
 
-After creating a key, create a revocation certificate so that the key can later be revoke if it is compromised. If the key becomes compromised, this revocation certificate must be published on key servers to notify everyone that they should no longer use the key. You can generate the revocation certificate by running the following command:
+After creating a key, create a revocation certificate so that the key can later be revoke if it's compromised. If the key becomes compromised, this revocation certificate must be published to key servers to notify everyone that they should no longer use trust the revoked key.
+
+You can generate the revocation certificate by running the following command:
 
 ```bash
 gpg --output revoke.asc --gen-revoke <keyid>
