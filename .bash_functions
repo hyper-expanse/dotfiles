@@ -292,9 +292,6 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 
-	# Update Firefox.
-	installFirefox
-
 	#updateNeovim
 }
 
