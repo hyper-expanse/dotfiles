@@ -307,6 +307,87 @@ gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
 
 In a later section we'll talk about moving the backup to a safe location as well.
 
+### Generate Encryption Key
+
+Generate an encryption subkey to be used for encrypting content before storing or transmitting that content.
+
+```bash
+> gpg2 --expert --edit-key 0x[KEYID]
+
+Secret key is available.
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+
+gpg> addkey
+Please select what kind of key you want:
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (5) Elgamal (encrypt only)
+   (6) RSA (encrypt only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+  (10) ECC (sign only)
+  (11) ECC (set your own capabilities)
+  (12) ECC (encrypt only)
+  (13) Existing key
+Your selection? 8
+
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Sign Encrypt
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? S
+
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Encrypt
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? Q
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+Requested keysize is 4096 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 10y
+Key expires at Wed 12 Jan 2028 09:25:34 PM CST
+Is this correct? (y/N) Y
+Really create? (y/N) Y
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+
+gpg> save
+```
+
+Create a backup of any subkeys associated with your master key:
+
+```bash
+gpg2 --armor --export-secret-subkeys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].subkeys
+```
+
 ### Generate Signing Subkey
 
 Generate a signing subkey to be used for signing messages as originating from you.
