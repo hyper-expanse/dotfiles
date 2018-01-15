@@ -212,19 +212,9 @@ sudo aptitude install dirmngr
 
 > `dirmngr` is used by GnuPG's command line tool, `gpg`, to connect to third-party servers to upload, or download, keys.
 
-### Generating Key
-
 When generating a new encryption key, set all keys with an expiration date 10 years in the future. Then set a calendar event as a reminder of when to replace an old key.
 
-_create an encryption key..._
-
-After creating a key, create a revocation certificate so that the key can later be revoke if it's compromised. If the key becomes compromised, this revocation certificate must be published to key servers to notify everyone that they should no longer use trust the revoked key.
-
-You can generate the revocation certificate by running the following command:
-
-```bash
-gpg --output revoke.asc --gen-revoke <keyid>
-```
+Create a single master key, and then a subkey for each purpose of Encryption, Signing, and Authentication.
 
 ## Integrated Development Environment
 
