@@ -1,7 +1,7 @@
 [user]
 	name = Hutson Betts
 	email = hutson@hyper-expanse.net
-	signingkey = D36C94218BAC862F
+	signingkey = 0xA5C376AC3772B622
 
 [core]
 	# Set to `input` to disable end-of-line conversion from LF to CRLF on checkout of a file from the repository. Instead, files will be checked out with the line endings they have in the repository.
