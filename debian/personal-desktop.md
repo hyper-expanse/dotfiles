@@ -570,6 +570,106 @@ Create a backup of any subkeys associated with your master key:
 gpg2 --armor --export-secret-subkeys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].subkeys
 ```
 
+### Add User Identities
+
+Though the master key has been created with your provided name and e-mail address as your identity, you're welcome to add additional identities, such as an alternative name or e-mail address.
+
+```bash
+> gpg2 --expert --edit-key 0x[KEYID]
+
+Secret key is available.
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+
+gpg> adduid
+Real name: [ALTERNATE NAME]
+Email address: [ALTERNATE E-MAIL ADDRESS]
+Comment:
+You selected this USER-ID:
+    "[ALTERNATE NAME] <[ALTERNATE E-MAIL ADDRESS]>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+[ unknown] (2)  [ALTERNATE NAME] <[ALTERNATE E-MAIL ADDRESS]>
+
+gpg> save
+```
+
+The final output shows a `.` before the name of one of your identifies. This indicates which identity is considered your primary identity. If that identity is not your primary, then please make sure to change it:
+
+```bash
+> gpg2 --expert --edit-key 0x[KEYID]
+
+Secret key is available.
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+[ultimate] (2)  [ALTERNATE NAME] <[ALTERNATE E-MAIL ADDRESS]>
+
+gpg> uid 2
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+[ultimate] (2)* [ALTERNATE NAME] <[ALTERNATE E-MAIL ADDRESS]>
+
+gpg> primary
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1)  [FULL NAME] <[E-MAIL ADDRESS]>
+[ultimate] (2)* [ALTERNATE NAME] <[ALTERNATE E-MAIL ADDRESS]>
+
+gpg> save
+```
+
+If you decided to add identities, please re-create your master key backup:
+
+```bash
+gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
+```
+
 ## Integrated Development Environment
 
 [Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
