@@ -670,6 +670,148 @@ If you decided to add identities, please re-create your master key backup:
 gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
 ```
 
+## Yubikey
+
+Install package required for GnuPG to recognize the Yubikey as a smart card.
+
+```bash
+sudo aptitude install scdaemon
+```
+
+Once the smart card package has been installed, you can verify that GnuPG can interact with your Yubikey by running the following command:
+
+```bash
+gpg --card-status
+```
+
+You should see something like:
+
+```bash
+Reader ...........: Yubico Yubikey
+```
+
+Change the PIN and Admin PIN from the defaults (`123456` is default for PIN and `12345678` is default for Admin PIN):
+
+```
+> gpg2 --card-edit
+
+Reader ...........: Yubico Yubikey
+
+gpg/card> admin
+Admin commands are allowed
+
+gpg/card> passwd
+gpg: OpenPGP card no. detected
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 1
+PIN changed.
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 3
+PIN changed.
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? Q
+
+gpg/card> quit
+```
+
+Now let's move the subkeys to the Yubikey. We are moving the subkeys instead of copying them so that we don't leave the private subkeys on an internet-accessible device where they could be compromised.
+
+Once moved to a Yukikey, the private subkeys cannot be retreived (Except with the backup file created earlier), though they can continue to be used for authenticating, encrypting, and signing.
+
+We'll start with our _Authentication_ subkey by selecting the key that is setup for _Authentication_, as indicated with _usage_ of _A_.
+
+```bash
+> gpg2 --expert --edit-key 0x[KEYID]
+
+Secret key is available.
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+
+gpg> key 1
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb* rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+
+gpg> keytocard
+Please select where to store the key:
+   (3) Authentication key
+Your selection? 3
+
+sec  rsa4096/0x[KEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: C
+     trust: ultimate      validity: ultimate
+ssb* rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: A
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: S
+ssb  rsa4096/0x[SUBKEYID]
+     created: 2018-01-15  expires: 2028-01-13  usage: E
+[ultimate] (1). [FULL NAME] <[E-MAIL ADDRESS]>
+
+gpg> save
+```
+
+Repeat the process for your _Encryption_ and _Signing_ subkeys.
+
+Lastly, verify that the subkeys were properly moved to your Yubikey:
+
+```bash
+> gpg2 --card-status
+
+Reader ...........: Yubico Yubikey
+...
+Signature key ....: [FINGERPRINT]
+      created ....: 2018-01-15 03:25:16
+Encryption key....: [FINGERPRINT]
+      created ....: 2018-01-15 15:45:18
+Authentication key: [FINGERPRINT]
+      created ....: 2018-01-15 03:23:55
+sec   rsa4096/0x[KEYID]     created: 2018-01-15  expires: 2028-01-13
+ssb>  rsa4096/0x[SUBKEYID]  created: 2018-01-15  expires: 2028-01-13
+                            card-no: [NUMBER]
+ssb>  rsa4096/0x[SUBKEYID]  created: 2018-01-15  expires: 2028-01-13
+                            card-no: [NUMBER]
+ssb>  rsa4096/0x[SUBKEYID]  created: 2018-01-15  expires: 2028-01-13
+                            card-no: [NUMBER]
+```
+
+Though the master key is shown in the output, once the master key has been moved off of the device with the Yubikey, it will appear as `sec#` when displaying card status using `gpg2 --card-status` (where `#` means the private key is not available).
+
 ## Integrated Development Environment
 
 [Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
