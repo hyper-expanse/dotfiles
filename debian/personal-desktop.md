@@ -216,6 +216,97 @@ When generating a new encryption key, set all keys with an expiration date 10 ye
 
 Create a single master key, and then a subkey for each purpose of Encryption, Signing, and Authentication.
 
+### Generate Master Key
+
+We'll delegate _Encryption_, _Signing_, and _Authentication_, to individual subkeys, but to manage those subkeys, such as creating, signing, and revocing, them, we'll need to first create a master key.
+
+We'll generate our master key in _expert_ mode so that we can restrict our master key to the _Certify_ capability.
+
+```bash
+> gpg2 --expert --full-generate-key
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+   (9) ECC and ECC
+  (10) ECC (sign only)
+  (11) ECC (set your own capabilities)
+Your selection? 8
+
+Possible actions for a RSA key: Sign Certify Encrypt Authenticate
+Current allowed actions: Sign Certify Encrypt
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? S
+
+Possible actions for a RSA key: Sign Certify Encrypt Authenticate
+Current allowed actions: Certify Encrypt
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? E
+
+Possible actions for a RSA key: Sign Certify Encrypt Authenticate
+Current allowed actions: Certify
+
+   (S) Toggle the sign capability
+   (E) Toggle the encrypt capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? Q
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+Requested keysize is 4096 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 10y
+Key expires at Wed 12 Jan 2028 08:31:53 PM CST
+Is this correct? (y/N) Y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: [FULL NAME]
+Email address: [E-MAIL ADDRESS]
+Comment:
+You selected this USER-ID:
+    "[FULL NAME] <[E-MAIL ADDRESS]>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key [KEYID] marked as ultimately trusted
+gpg: revocation certificate stored as '~/.gnupg/openpgp-revocs.d/[FINGERPRINT].rev'
+public and secret key created and signed.
+```
+
+Move the revocation certificate to a safe location where no one, but you, can access in case you need to revoke your master key. Revocaing your master key may be neceesary in the event it's been compromised. If the key becomes compromised, this revocation certificate must be published to key servers to notify everyone that they should no longer trust the revoked key.
+
+Lastly, using the `[KEYID]` shown in the output above, create a backup of your master key:
+
+```bash
+gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
+```
+
+In a later section we'll talk about moving the backup to a safe location as well.
+
 ## Integrated Development Environment
 
 [Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
