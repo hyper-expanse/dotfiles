@@ -204,7 +204,7 @@ Launch `KGpg`, KDE's graphical user interface to GnuPG, and under _Settings -> C
 
 A `~/.gnupg/gpg.conf` configuration file, used for configuring GnuPG clients, will be scaffolded by the _Personal Dotfiles_ section below.
 
-Lastly, install the following dependency for the `gpg` command line tool:
+Lastly, install the following dependency for the `gpg2` command line tool:
 
 ```bash
 sudo aptitude install dirmngr
