@@ -36,6 +36,7 @@ ln --symbolic --force "$(pwd)/.ssh/config" "${HOME}/.ssh/config"
 echo "> Symlinking GNUPG files into GNUPG directory (${HOME}/.gnupg)."
 mkdir --parents "${HOME}/.gnupg"
 ln --symbolic --force "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
+ln --symbolic --force "$(pwd)/.gnupg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 
 # Symlink Neovim files.
 echo "> Symlinking Neovim files into the config directory (${XDG_CONFIG_HOME}/nvim)."
