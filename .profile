@@ -68,10 +68,7 @@ if [ -z "${XDG_DATA_HOME}" ]; then
 	export XDG_DATA_HOME="${PREFIX_DIRECTORY}/share"
 fi
 
-# Add our local XDG data directory to the list of directories considered to contain application data by the XDG specification.
-export XDG_DATA_DIRS="${XDG_DATA_DIRS}:${XDG_DATA_HOME}"
-
-# Source the Bash configuration file to load environment variables required by each shell.
-if [ -f "${HOME}/.bashrc" ]; then
-	source "${HOME}/.bashrc"
+# If the XDG cache home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
+if [ -z "${XDG_DATA_HOME}" ]; then
+	export XDG_DATA_HOME="${HOME}/.cache"
 fi
