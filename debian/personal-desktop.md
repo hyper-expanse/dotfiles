@@ -216,6 +216,14 @@ When generating a new encryption key, set all keys with an expiration date 10 ye
 
 Create a single master key, and then a subkey for each purpose of Encryption, Signing, and Authentication.
 
+A few good resources for setting up GPG keys:
+* [Create GnuPG key with sub-keys to sign, encrypt, authenticate](https://blog.tinned-software.net/create-gnupg-key-with-sub-keys-to-sign-encrypt-authenticate/)
+* [Creating the perfect GPG keypair](https://alexcabal.com/creating-the-perfect-gpg-keypair/)
+
+A few good resources for using GPG keys:
+* [PGP and You](https://robots.thoughtbot.com/pgp-and-you)
+* [yubikey and ssh authentication](https://www.isi.edu/~calvin/yubikeyssh.htm)
+
 ### Generate Master Key
 
 We'll delegate _Encryption_, _Signing_, and _Authentication_, to individual subkeys, but to manage those subkeys, such as creating, signing, and revocing, them, we'll need to first create a master key.
