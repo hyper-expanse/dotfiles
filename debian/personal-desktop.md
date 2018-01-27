@@ -820,6 +820,18 @@ ssb>  rsa4096/0x[SUBKEYID]  created: 2018-01-15  expires: 2028-01-13
 
 Though the master key is shown in the output, once the master key has been moved off of the device with the Yubikey, it will appear as `sec#` when displaying card status using `gpg2 --card-status` (where `#` means the private key is not available).
 
+### Configuring GnuPG for SSH
+
+You first must disable the standard SSH Agent so that SSH connection authentication is handled by the GnuPG agent. Edit `/etc/X11/Xsession.options` and comment out `use-ssh-agent` by prepending `#`.
+
+Run the following to output your SSH public key:
+
+```bash
+gpg2 --export-ssh-key 0x[KEYID]
+```
+
+> You can also use the subkey ID associated with your _Authentication_ subkey.
+
 ## Integrated Development Environment
 
 [Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
