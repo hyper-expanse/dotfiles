@@ -832,6 +832,16 @@ gpg2 --export-ssh-key 0x[KEYID]
 
 > You can also use the subkey ID associated with your _Authentication_ subkey.
 
+### Securing Your Master Key
+
+As noted earlier, the revocation certificate for your master key should be kept somewhere safe where no one else can access it.
+
+This may mean placing it on write-protected media, or printing it to paper, and storing it in a safe.
+
+In addition to the revocation certificate, you want to also move master key backup `0x[KEYID]-[E-MAIL ADDRESS].key` to the same location. This ensures that, should your internet-connected device become compromised, your master key will be safe elsewhere.
+
+Once the master key revocation certificate and backup are move elsewhere, you need to remove the master key from your internet-connected device.
+
 ## Integrated Development Environment
 
 [Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
