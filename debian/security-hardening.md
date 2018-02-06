@@ -207,9 +207,9 @@ Changing the default permissions from `751` to `750` disables the default permis
 
 ## Default Permissions
 
-Files and directories are typically created on a Unix system with world readable permissions. That means any user on that system, besides the file's owner, can, by default, read the contents of newly created files, even if that user is not the owner, or part of the group assigned to the file.
+Files and directories are typically created on a Unix system with world readable permissions. That means any user on that system, besides the file's owner, can, by default, read the contents of newly created files, even if that user is not the owner, or part of the group assigned as an owner to the file.
 
-To mitigate the availability of file contents to third-parties, we change the `UMASK` used by our Linux system when setting the default permissions on new files and directories.
+To mitigate the availability of file contents to third-parties on the same system, we change the `UMASK` value used by the Linux system when setting the default permissions for new files and directories.
 
 Edit `/etc/login.defs` and change the following line:
 
@@ -223,13 +223,17 @@ To the following value:
 UMASK	027
 ```
 
-Next edit the PAM configuration file, `/etc/pam.d/common-session`, and add the `pam_umask` module as an optional module:
+Please see [Umask](https://en.wikipedia.org/wiki/Umask) documentation to learn how changing `2` to `7` will prevent files from being set with world read permissions.
+
+Next, edit the PAM configuration file, `/etc/pam.d/common-session`, and add the `pam_umask` module as an optional module:
 
 ```
 session optional pam_umask.so
 ```
 
-Though `pam_umask` is listed as optional, if it's available on the system it will be loaded by PAM.
+Though `pam_umask` is listed as optional, it will be loaded by PAM if it has been installed on the system.
+
+The `pam_umask` module for [PAM](https://en.wikipedia.org/wiki/Linux_PAM) will load the `UMASK` setting from `/etc/login.defs` and set it in the current environment so that all newly created files have the `UMASK` value applied.
 
 > The `pam_umask.so` module is provided by the `libpam-modules` Debian package.
 
