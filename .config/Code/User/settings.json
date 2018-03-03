@@ -10,7 +10,7 @@
 	"editor.tabCompletion": true,
 	"editor.tabSize": 2,
 
-	"gitlens.codeLens.locations": [],
+	"gitlens.codeLens.enabled": false,
 
 	"explorer.openEditors.visible": 0,
 
