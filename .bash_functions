@@ -120,19 +120,6 @@ copyFileAcrossGroup ()
 	done
 }
 
-#! Call `git diff` in every sub-folder under the current working directory.
-# Call `git diff` within every sub-folder under the current working directory, with the assumption that each sub-folder is a git directory.
-gitGroupDiff ()
-{
-	for dir in *; do
-		echo $dir;
-		cd $dir;
-		git diff --unified;
-		cd ..;
-		echo;
-	done
-}
-
 #! Checkout, add, commit, and then push, across a group of sub-folders.
 # Checkout a new branch, add all modified, new, or deleted files, create a commit, and then push the new branch to the remote fork of the authoritative repository.
 #
@@ -151,26 +138,6 @@ gitGroupPush ()
 			git push -u hutson "${1}";
 		fi;
 
-		cd ..;
-		echo;
-	done
-}
-
-#! Run `git setup` within each top-level folder under the current directory.
-# Run `git setup` within each top-level folder under the current working directory to clean-up each working repository of any build artifacts, un-committed changes, etc.
-gitGroupSetup ()
-{
-	find . -maxdepth 1 -type d -not -path . | parallel -j 10 'echo "{1}"; cd "{1}"; git setup; cd ..; echo; echo;'
-}
-
-#! Print out the status of each top-level git directory under the current directory.
-# Print out the status, using `git status`, of each top-level git directory under the current working directory.
-gitGroupStatus ()
-{
-	for dir in *; do
-		echo $dir;
-		cd $dir;
-		git status --short --branch;
 		cd ..;
 		echo;
 	done

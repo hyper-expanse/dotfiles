@@ -91,3 +91,12 @@ alias activateVirtualEnvironment='source ./venv/bin/activate'
 
 # Instruct Celibre to add each sub-directory of the designated directory as a book to the Calibre book database.
 alias addBookDirectories='calibredb add --one-book-per-directory -r'
+
+# Print out the status, using `git status`, of each top-level git directory under the current working directory.
+alias gitGroupStatus='find . -maxdepth 1 -type d -not -path . -exec sh -c "echo \"{}\"; cd \"{}\"; git status --short --branch; cd ..; echo;" \;'
+
+# Run `git setup` within each top-level folder under the current working directory to clean-up each working repository of any build artifacts, un-committed changes, etc.
+alias gitGroupSetup='find . -maxdepth 1 -type d -not -path . | parallel -j 10 "echo \"{1}\"; cd \"{1}\"; git setup && git cleanup; cd ..; echo;"'
+
+# Call `git diff` within every sub-folder under the current working directory, with the assumption that each sub-folder is a git directory.
+alias gitGroupDiff='find . -maxdepth 1 -type d -not -path . -exec sh -c "echo \"{}\"; cd \"{}\"; git diff --unified; cd ..; echo;" \;'
