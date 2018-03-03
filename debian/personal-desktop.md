@@ -90,6 +90,7 @@ Packages:
 * clementine: Music player and library manager.
 * dia: Diagram editor.
 * gramps: Genealogy tool. [GTK]
+* gufw: Graphical user interface for `ufw` firewall. [GTK]
 * gwenview: Image viewer. [KDE]
 * k3b: A CD/DVD ripper and burner. [KDE]
 * kaddressbook: Address book and contact data manager. [KDE - Kontact]
