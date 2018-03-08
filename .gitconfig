@@ -32,8 +32,7 @@
 
 [diff]
 	# Instruct Git to use the following editor when using git's `difftool` command.
-	tool = vimdiff
-	#tool = vsc
+	tool = vscode
 
 	# Instruct Git to use mnemonic prefixes (Such as *i*ndex, *w*ork tree, *c*ommit, or *o*bject) instead of the standard *a* and *b* notation when outputting a diff to the console.
 	mnemonicprefix = true
@@ -41,7 +40,7 @@
 	# In addition to having Git detect, and display, simple file renames, instruct Git to diplay when a file has been copied from one location to another.
 	renames = copies
 
-[difftool "vsc"]
+[difftool "vscode"]
 	# Custom command to be invoked by Git when the `git difftool` command is called to visualize a diff in an editor.
 	cmd = code --wait --diff $LOCAL $REMOTE
 
@@ -50,14 +49,18 @@
 	prune = true
 
 [merge]
-	# Instruct Git to use the vimdiff tool when using git's `mergetool` command.
-	tool = vimdiff
+	# Instruct Git to use the following tool when using git's `mergetool` command.
+	tool = vscode
 
 	# Specify the style for Git to use when writing out conflicted hunks to a working tree file upon a merge. A diff3 style will show the changes made on one side of a merge, along with the change made on the other side, along with the original text both sides have modified.
 	conflictstyle = diff3
 
 	# Tell Git to run a virtual check-out and check-in of all three stages of a file when resolving a three-way merge to normalize the files to avoid differences caused by changes in a repository's attributes.
 	renormalize = true
+
+[mergetool "vscode"]
+	# Custom command to be invoked by Git when the `git mergetool` command is called to manage a merge in an editor.
+	cmd = code --wait $MERGED
 
 [mergetool "vimdiff"]
 	# Specify the path to the merge tool. Though we specified `vimdiff` earlier, `vimdiff` does not refer to the binary called by `git`, but rather a script that passes arguments to a binary defined by `merge_tool_path`. Below we change the path to the binary that `git`'s `vimdiff` script calls. The binary we use is for Neovim.
