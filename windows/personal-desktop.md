@@ -22,15 +22,6 @@ Install the following packages using Chocolatey:
 * windirstat
 * zoom
 
-### Installed Directly
-
-Please navigate to the following product websites and download an installer directly from their _Downloads_ page:
-* Slack
-* Gitter.im
-* Visual Studio Code
-
-> Though these applications can be installed through Chocolatey, they already have embedded auto-updaters, making Chocolatey unnecessary (and possibly confusing).
-
 ## Personal Dotfiles
 
 A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
