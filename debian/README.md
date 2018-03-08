@@ -79,6 +79,8 @@ Select _SCSI1 (0,0,0) (sda)_ for the disk to partition.
 
 > If the number after _SCSI_ is different than what is mentioned above, select the intended hard drive or the top most on the list.
 
+> The `sda` device may already be partitiioned with a `sda1` device containing a [UEFI](https://wiki.debian.org/UEFI) boot partition. In that case, leave that partition alone, delete all the other partitions, and then skip down to the _Create a new partition_ step.
+
 Select _Yes_ to create a new partition table for the device.
 
 Navigate to the newly created `pri/log` partition and select it.
