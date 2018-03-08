@@ -30,13 +30,15 @@ Installation instructions are available in the dotfile project's [README](https:
 
 ## SSH Configuration
 
-Create a new file called `~/.bash_profile` and add the content specified under the _Auto-launching ssh-agent_ section of the [GitHub documentation on SSH keys](https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows)
+Create a new file called `~/.profile` and add the content specified under the _Auto-launching ssh-agent_ section of the [GitHub documentation on SSH keys](https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows)
 
 Next, execute the following command to add your private key to the SSH Agent so that the agent can use that private key when establishing connections to remote servers:
 
 ```bash
 ssh-add ~/.ssh/id_rsa
 ```
+
+> **Note:** This only needs to be done the first time you've setup the script. The script will execute `ssh-add` for you in the future.
 
 ## Vagrant
 
