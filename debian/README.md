@@ -112,7 +112,7 @@ Once the volume group has been created, move on to creating several logical volu
 
 * /
 	* Name: root-lv
-	* Size: 20 GB
+	* Size: 10 GB
 * /home
 	* Name: home-lv
 	* Size: All remaining disk space minus 20GB.
