@@ -455,7 +455,7 @@ updateBrewPackages ()
 		brew update
 
 		# Upgrade all Brew-installed packages.
-		brew upgrade --all
+		brew upgrade
 
 		# Cleanup Linuxbrew installation.
 		brew cleanup -s --force
