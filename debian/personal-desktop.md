@@ -9,9 +9,7 @@ Before extending our system with a full desktop environment we need to install a
 To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
-* clamav
 * openvpn
-* spamassasin
 
 ## Display Server
 
@@ -85,7 +83,6 @@ To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
 * ark: Archive tool.
-* basket: Note taking. [KDE]
 * calibre: E-book library manager.
 * clementine: Music player and library manager.
 * dia: Diagram editor.
@@ -98,10 +95,7 @@ Packages:
 * kcalc: Simple and scientific calculator. [KDE]
 * keepassx: Offline password and secrets manager.
 * kgpg: GNUPG graphical front-end. [KDE]
-* kmail: E-mail client. [KDE - Kontact]
-* korganizer: Calendar and personal organizer. [KDE- Kontact]
 * kde-spectacle: Screenshot capture tool. [KDE]
-* luckybackup: File backup utility.
 * okular: PDF viewer. [KDE]
 * quiterss: RSS/ATOM reader.
 * transmission-qt: Qt front-end for the Transmission BitTorrent client.
