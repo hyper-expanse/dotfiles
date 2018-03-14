@@ -97,6 +97,7 @@ Packages:
 * kgpg: GNUPG graphical front-end. [KDE]
 * kde-spectacle: Screenshot capture tool. [KDE]
 * okular: PDF viewer. [KDE]
+* picard: Cross-platform music tagger.
 * quiterss: RSS/ATOM reader.
 * transmission-qt: Qt front-end for the Transmission BitTorrent client.
 
