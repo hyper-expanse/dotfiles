@@ -9,4 +9,4 @@
 * Tips
   * [Networking](tips/networking.md)
   * [Security Policies](tips/security-policies.md)
-  * [Browser Extensions](tips/browser-extensions.md)
+  * [Browser](tips/browser.md)
