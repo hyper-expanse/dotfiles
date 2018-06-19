@@ -29,7 +29,7 @@ pages:
   dependencies:
     - build
   only:
-    - master@hyper-expanse/configuration
+    - master
   stage: deploy
   script:
     - echo "Already built"
