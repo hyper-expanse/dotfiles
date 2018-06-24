@@ -819,7 +819,15 @@ Though the master key is shown in the output, once the master key has been moved
 
 ### Configuring GnuPG for SSH
 
-You first must disable the standard SSH Agent so that SSH connection authentication is handled by the GnuPG agent. Edit `/etc/X11/Xsession.options` and comment out `use-ssh-agent` by prepending `#`.
+You must first disable the standard SSH Agent so that SSH connection authentication is handled by the GnuPG agent.
+
+Edit `/etc/X11/Xsession.options` and comment out `use-ssh-agent` by prepending `#`.
+
+Next, install the following package so that `gpg-agent` can determine how to prompt the user to unlock the Yubikey.
+
+```bash
+sudo aptitude install debus-user-session
+```
 
 Run the following to output your SSH public key:
 
