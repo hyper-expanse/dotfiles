@@ -10,3 +10,4 @@
   * [Networking](tips/networking.md)
   * [Security Policies](tips/security-policies.md)
   * [Browser](tips/browser.md)
+  * [Dislocker](tips/dislocker.md)
