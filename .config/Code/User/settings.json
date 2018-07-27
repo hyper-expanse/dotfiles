@@ -10,6 +10,9 @@
 	"editor.tabCompletion": true,
 	"editor.tabSize": 2,
 
+	"eslint.packageManager": "yarn",
+	"eslint.autoFixOnSave": true,
+
 	"gitlens.codeLens.enabled": false,
 
 	"explorer.openEditors.visible": 0,
@@ -34,5 +37,16 @@
 
 	"workbench.iconTheme": "material-icon-theme",
 
-	"zenMode.restore": true
+	"zenMode.restore": true,
+	"gitlens.advanced.messages": {
+		"suppressCommitHasNoPreviousCommitWarning": false,
+		"suppressCommitNotFoundWarning": false,
+		"suppressFileNotUnderSourceControlWarning": false,
+		"suppressGitVersionWarning": false,
+		"suppressLineUncommittedWarning": false,
+		"suppressNoRepositoryWarning": false,
+		"suppressResultsExplorerNotice": false,
+		"suppressShowKeyBindingsNotice": true
+	},
+	"gitlens.historyExplorer.enabled": true
 }
