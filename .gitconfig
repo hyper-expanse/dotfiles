@@ -134,4 +134,4 @@
 	undo = reset --mixed HEAD~1
 
 	# Add a _Signed-off-by_ to each commit message to certify that I have agreed to the Developer Certificate of Origin (https://developercertificate.org/).
-	dco = commit -s
+	dco = commit --signoff
