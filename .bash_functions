@@ -504,6 +504,9 @@ installNodePackages ()
 
 		# Tool for viewing and manipulating Git repositories on Secure Scuttlebutt (SSB).
 		yarn global add git-ssb
+
+		# Driver for Git to resolve JSON merge conflicts.
+		yarn global add git-json-merge
 	else
 		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi

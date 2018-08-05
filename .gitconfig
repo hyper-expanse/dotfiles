@@ -4,6 +4,9 @@
 	signingkey = 0xA5C376AC3772B622
 
 [core]
+	# Global attributes file to apply file type specific behavior across all repositories I work with.
+	attributesfile = ~/.gitattributes
+
 	# Set to `input` to disable end-of-line conversion from LF to CRLF on checkout of a file from the repository. Instead, files will be checked out with the line endings they have in the repository.
 	autocrlf = input
 
@@ -57,6 +60,11 @@
 
 	# Tell Git to run a virtual check-out and check-in of all three stages of a file when resolving a three-way merge to normalize the files to avoid differences caused by changes in a repository's attributes.
 	renormalize = true
+
+[merge "json"]
+	# Custom merge behavior for files that have had their `merge` property set to `json`. (Such as `*.json merge=json` in a `.gitattributes` file.)
+	name = Merge Driver For JSON
+	driver = git-json-merge %A %O %B
 
 [mergetool "vscode"]
 	# Custom command to be invoked by Git when the `git mergetool` command is called to manage a merge in an editor.
