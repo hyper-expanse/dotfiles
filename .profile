@@ -22,9 +22,6 @@ export INFOPATH="${PREFIX_DIRECTORY}/share/info:${INFOPATH}"
 # Specify the directory where `nvm` should install various versions of node and npm packages.
 export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 
-# Specify directory where Go will install third-party packages and tools.
-export GOPATH="${HOME}/.cache/golang"
-
 # Provide the path to a temporary directory that may contain executable scripts so that Homebrew may use that directory for storing, and executing, installation scripts. Though Linuxbrew will use the system's temp directory by default that directory may not be executable, depending on the security measures in place on the local system.
 mkdir -p "${PREFIX_DIRECTORY}/tmp"
 export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
