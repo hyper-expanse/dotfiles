@@ -34,6 +34,9 @@ export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIB
 # This setting assumes that the `vagrant-libvirt` plugin as been installed into the local vagrant installation.
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
+# Disable Homebrew/Linuxbrew analytics so that my usage is not reported to the Homebrew/Linuxbrew account on the Google Analytics platform.
+export HOMEBREW_NO_ANALYTICS=1
+
 # Set the default console editor.
 export EDITOR=nvim
 
