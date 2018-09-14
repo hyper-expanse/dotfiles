@@ -11,7 +11,6 @@
 	autocrlf = input
 
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
-	#editor = nvim
 	editor = code --wait
 
 	# Global ignore list of files I would never want to push into a repository that I would be working with.
@@ -70,10 +69,6 @@
 	# Custom command to be invoked by Git when the `git mergetool` command is called to manage a merge in an editor.
 	cmd = code --wait $MERGED
 
-[mergetool "vimdiff"]
-	# Specify the path to the merge tool. Though we specified `vimdiff` earlier, `vimdiff` does not refer to the binary called by `git`, but rather a script that passes arguments to a binary defined by `merge_tool_path`. Below we change the path to the binary that `git`'s `vimdiff` script calls. The binary we use is for Neovim.
-	path = nvim
-
 [filter "lfs"]
 	# Enable large-file support using the large-file support (LFS) plugin for git.
 	required = true
@@ -82,8 +77,6 @@
 	process = git-lfs filter-process
 
 [remote "origin"]
-	# The following fetches are in addition to the default remote references fetched by Git for a locally cloned project.
-
 	# Fetch any references that begin with `merge-requests`, as these references pertain to merge requests filed against the upstream, `origin`, repository on a GitLab website. By fetching `merge-requests` references, we can easily pull down, and checkout, merge requests submitted by contributors, and test those merge requests locally.
 	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
 
@@ -108,13 +101,10 @@
 	aliases = "!git config -l | grep alias | cut -c 7-"
 
 	# Update the current working branch to include the latest changes from the specified remote's master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, then this command will fail.
-	update = "!sh -c 'git fetch --jobs=5 ${1:-origin} && git rebase ${1:-origin}/master' -"
+	update-branch = "!sh -c 'git fetch --jobs=5 ${1:-origin} && git rebase ${1:-origin}/master' -"
 
 	# Show a diff in which individual word changes are inter-mingled with one another. Word additions are shown in green, word deletions are shown in red. This is in contrast to showing changes as line additions or deletions.
 	cdiff = diff --color-words
-
-	# Merge the current working branch onto the latest commit from origin/master. Before the merge takes place the working branch is rebased on top of the latest commit from origin/master.
-	done = "!git fetch origin && git rebase origin/master && git checkout master && git merge @{-1}"
 
 	# List the name of each contributor to the working branch, and along the left of each contributor, the number of commits that person contributed. We also specifically ignore merge commits since they typically don't contain contribution of code to the project.
 	contributors = shortlog --numbered --summary --no-merges
@@ -134,9 +124,6 @@
 
 	# Setup the local working directory by checking out the master branch, and then resetting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, this command will fail.
 	setup = "!sh -c 'git checkout master && git fetch ${1:-origin} && git reset --hard ${1:-origin}/master && git clean -Xdf' -"
-
-	# List all branches in order of the author date of the latest commit on that branch. Order is descending, with most recently updated branch first.
-	ordered-branches = "!git for-each-ref --sort='-authordate' --format='%0a%(color:cyan)%(authordate:local)%(color:white)%0a%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 
 	# Reset the index of the current directory to the previous commit, but do not modify the contents of the working tree. This will cause any changes not committed, or changes included in the reverted commit, to be left in the working directory as modifications that are not staged for commit.
 	undo = reset --mixed HEAD~1
