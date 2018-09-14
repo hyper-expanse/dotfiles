@@ -14,9 +14,6 @@ alias mv='mv -iv'
 alias cp='cp -iv'
 alias ln='ln -i'
 
-# Enable case insensitivity for grep'ing.
-alias grep='grep -i'
-
 # Enable color support for those GNU tools that support colorized output.
 if command -v dircolors &> /dev/null; then
 	# Check if user has a dircolors database (a file that maps file types, and file permissions, to colors). If the user has such a file, then instruct dircolors to use that file to map Bash color commands to the desired colors.
@@ -47,14 +44,8 @@ alias scram='history -c; clear; /usr/bin/env rm -r ${XDG_DATA_HOME}/nvim/shada/ 
 # Find the top 5 largest files within the current, and sub, directories.
 alias findbig='find . -type f -exec ls -lha {} \; | sort --stable --parallel=2 -t" " -k5rh | head -5'
 
-# Package management.
-alias pkgfind='dpkg -S' # Find the package containing a particular binary image.
-alias pkglist='dpkg -l' # List all installed packages.
-
-# Navigate directories more easily.
-alias ..2='cd ../../'
-alias ..3='cd ../../../'
-alias ..4='cd ../../../../'
+# Find the package containing a particular binary image.
+alias pkgfind='dpkg -S'
 
 # List all ports currently opened on the system with port numbers and processes shown.
 alias ports='netstat -tulanp'
@@ -64,9 +55,6 @@ alias wget='wget -c'
 
 # Enable the standard math library for the math command line tool.
 alias bc='bc -l'
-
-# Enable SSH Agent authentication forwarding. This allows authentication against remote servers using the private SSH key-pair residing on the local system.
-alias ssh='ssh -A'
 
 # Quickly find and print the top five processes consuming CPU cycles.
 alias pscpu='ps aux | sort --stable --parallel=2 -k3rh | head -n 5'
