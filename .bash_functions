@@ -243,8 +243,6 @@ setupEnvironment ()
 
 	# Install Firefox.
 	installFirefox
-
-	#updateNeovim
 }
 
 #! Update environment.
@@ -258,8 +256,6 @@ updateEnvironment ()
 	# Update general tools.
 	installNodePackages
 	installPythonPackages
-
-	#updateNeovim
 }
 
 #! Setup Linuxbrew, the Linux-clone of HomeBrew.
@@ -317,38 +313,6 @@ updateLinuxbrew ()
 	fi
 }
 
-#! Update neovim environment.
-# Update plugins associated with the user's local environment. This includes doing the following:
-# 1) Remove plugins from neovim's bundle directory that are no longer listed in the user's configuration file.
-# 2) Install plugins listed in the user's configuration file that are not already installed.
-# 3) Update plugins that are already installed on the system.
-updateNeovim ()
-{
-	printf "\n> Updating neovim.\n"
-
-	# Make a directory to hold the font file containing the special Powerline font glyphs.
-	mkdir --parents "${HOME}/.fonts/"
-
-	# Make a directory to hold a font configuration file that will load the Powerline font glyphs, replacing the appropriate font characters in our font of choice.
-	mkdir --parents "${HOME}/.config/fontconfig/conf.d/"
-
-	# Download the Powerline font glyphs.
-	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf --directory-prefix="${HOME}/.fonts/"
-
-	# Update our font cache.
-	fc-cache -fv "${HOME}/.fonts/"
-
-	# Download the font configuration file.
-	wget --quiet https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf --directory-prefix="${HOME}/.config/fontconfig/conf.d/"
-
-	# Update neovim plugins.
-	if command -v nvim &> /dev/null; then
-		nvim +PlugUpgrade +PlugClean! +PlugUpdate +qa
-	else
-		printf "\n> ERROR: `nvim` is required for updating neovim's plugins, but it's not available in your PATH. Please install `nvim` and ensure it's in your PATH. Then re-run `updateNeovim`.\n"
-	fi
-}
-
 #! Install packages via Linuxbrew.
 # Install packages via Linuxbrew's `brew` CLI tool.
 installBrewPackages()
@@ -385,13 +349,6 @@ installBrewPackages()
 			installNodePackages
 
 		## NODE END
-
-		# Download and install go, a compiler and runtime.
-		brew install go
-
-		# Download and install neovim, a terminal text editor.
-		brew install gperf # A dependency of neovim, but not installed by their homebrew formula.
-		#brew install neovim
 
 		# Download and install Tmux, a terminal multiplexer.
 		# Need to install `libevent` first. `libevent` is a dependency of `tmux`.
@@ -471,33 +428,14 @@ installNodePackages ()
 	if command -v yarn &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
-		# Update the version of `npm` installed in our environment.
-		yarn global add npm
-
 		# Install command line tab completion for `yarn`.
 		yarn global add yarn-completions
-
-		# Required to enable Syntastic checking for JavaScript files.
-		yarn global add jscs
-		yarn global add jshint
-		yarn global add eslint
-		yarn global add tslint
-		yarn global add jsonlint
 
 		# Required to enable Tagbar to properly parse JavaScript files for tag information.
 		yarn global add git://github.com/ramitos/jsctags.git#aa16b21dadeb40645aa66dec7002eb39c537ee77
 
 		# `Foreman`-like tool for managing arbitrary processes within a local environment.
 		yarn global add foreman
-
-		# CLI tool required to run Yeoman generators that scaffold projects.
-		yarn global add yo
-
-		# Required for running a project based on the gulp task runner.
-		yarn global add gulp-cli
-
-		# Required for running a project based on the grunt task runner.
-		yarn global add grunt-cli
 
 		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
 		yarn global add doctoc
@@ -524,13 +462,6 @@ installPythonPackages ()
 
 		# Required to manage virtual Python environments.
 		pip3 install --user virtualenv --upgrade
-
-		# Required to enable Syntastic checking for Python files.
-		pip3 install --user pylint --upgrade
-		pip3 install --user pep8 --upgrade
-
-		# Required by neovim to support vim Python packages in neovim.
-		pip3 install --user neovim --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
@@ -559,14 +490,8 @@ installVisualStudioCodeExtensions ()
 		# GO development tools.
 		code --install-extension lukehoban.Go
 
-		# C++ development tools.
-		code --install-extension ms-vscode.cpptools
-
 		# General, offline, spell checker.
 		code --install-extension streetsidesoftware.code-spell-checker
-
-		# Material icon theme.
-		code --install-extension PKief.material-icon-theme
 
 		# Support for Git blame annotations.
 		code --install-extension eamodio.gitlens
