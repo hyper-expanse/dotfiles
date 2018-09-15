@@ -169,7 +169,14 @@ setupEnvironment ()
 	setupLinuxbrew
 	installBrewPackages
 
+	# Enable the Large File Storage extension.
+	git lfs install
+
+	# Execute `nvm` script to configure our local environment to work with `nvm`.
+	source "$(brew --prefix nvm)/nvm.sh"
+
 	# Install general tools.
+	installNodePackages
 	installPythonPackages
 
 	# Install Firefox.
@@ -181,8 +188,13 @@ setupEnvironment ()
 updateEnvironment ()
 {
 	# Update Linuxbrew.
-	updateLinuxbrew
-	updateBrewPackages
+	brew update
+
+	# Upgrade all Brew-installed packages.
+	brew upgrade
+
+	# Cleanup Linuxbrew installation.
+	brew cleanup -s --force
 
 	# Update general tools.
 	installNodePackages
@@ -225,23 +237,6 @@ setupLinuxbrew ()
 			ln -s $(which gfortran) ${PREFIX_DIRECTORY}/bin/gfortran-$(gfortran -dumpversion | cut -d. -f1,2)
 		fi
 	fi
-
-	# Tap for the neovim text editor.
-	brew tap neovim/neovim
-}
-
-#! Update Linuxbrew environment.
-# Update the Linuxbrew installation. This includes doing the following:
-# 1) Pull down the latest commit from Linuxbrew's remote repository.
-updateLinuxbrew ()
-{
-	if command -v brew &> /dev/null; then
-		printf "\n> Updating Linuxbrew.\n"
-
-		brew update
-	else
-		echo "ERROR: `brew` is required for updating the Linuxbrew installation, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateLinkBrew`."
-	fi
 }
 
 #! Install packages via Linuxbrew.
@@ -251,39 +246,19 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
-		# Install openssl, which is required by various other brew builds. (git)
-		brew install pkg-config # Dependency of openssl, required in some instances (some systems).
-		brew install openssl # (git)
-
 		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
 		brew install python3
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
 
-		# NODE
-			# We call `installNodePackages` after installing each version of Node so as to install our global Node modules within the `node_modules` directory associated with the currently enabled version of Node. This is necessary since some Node modules must be built against the currently enabled version of Node. Therefore they can't be installed in a global directory shared by all installed versions of Node.
+		# Download and install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
+		brew install nvm
 
-			# Download and install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
-			brew install nvm
-
-			# Execute `nvm` script to configure our local environment to work with `nvm`.
-			source "$(brew --prefix nvm)/nvm.sh"
-
-			# Install the latest LTS version of Node.
-			nvm install 6
-
-			# Install alternative JavaScript package manager called `yarn`.
-			brew install yarn
-
-			# Once our `yarn` package manager has been installed, install all our Node packages.
-			installNodePackages
-
-		## NODE END
+		# Install alternative JavaScript package manager called `yarn`.
+		brew install yarn
 
 		# Download and install Tmux, a terminal multiplexer.
-		# Need to install `libevent` first. `libevent` is a dependency of `tmux`.
-		brew install libevent
 		brew install tmux
 
 		# Download and install htop, a human-readable version of top.
@@ -294,9 +269,6 @@ installBrewPackages()
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
-
-		# Enable the Large File Storage extension.
-		git lfs install
 
 		# Download and install flac, a command line tool for re-encoding audio files into Flac format.
 		brew install flac
@@ -332,26 +304,6 @@ installBrewPackages()
 	fi
 }
 
-#! Update brew packages via Linuxbrew.
-# Update previously installed brew packages via Linuxbrew's `brew` CLI tool.
-updateBrewPackages ()
-{
-	if command -v brew &> /dev/null; then
-		printf "\n> Updating Brew packages.\n"
-
-		# Update the brew installation.
-		brew update
-
-		# Upgrade all Brew-installed packages.
-		brew upgrade
-
-		# Cleanup Linuxbrew installation.
-		brew cleanup -s --force
-	else
-		echo "ERROR: `brew` is required for updating brew packages, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `updateBrewPackages`."
-	fi
-}
-
 #! Install NodeJS packages.
 # Install NodeJS packages via `yarn`.
 installNodePackages ()
@@ -359,20 +311,16 @@ installNodePackages ()
 	if command -v yarn &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
+		nvm install
+
 		# Install command line tab completion for `yarn`.
 		yarn global add yarn-completions
-
-		# Required to enable Tagbar to properly parse JavaScript files for tag information.
-		yarn global add git://github.com/ramitos/jsctags.git#aa16b21dadeb40645aa66dec7002eb39c537ee77
 
 		# `Foreman`-like tool for managing arbitrary processes within a local environment.
 		yarn global add foreman
 
 		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
 		yarn global add doctoc
-
-		# Tool for viewing and manipulating Git repositories on Secure Scuttlebutt (SSB).
-		yarn global add git-ssb
 
 		# Driver for Git to resolve JSON merge conflicts.
 		yarn global add git-json-merge
