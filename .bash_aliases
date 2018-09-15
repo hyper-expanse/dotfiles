@@ -9,7 +9,7 @@
 # Do not allow deletion of content at the root level, /, and prompt the user once before removing more than three files or when removing files and directories recursively.
 alias rm='rm -I --preserve-root'
 
-# Enable common comand confirmations with additional verbosity.
+# Enable common command confirmations with additional verbosity.
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias ln='ln -i'
