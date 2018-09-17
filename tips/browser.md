@@ -3,10 +3,13 @@
 ## Extensions
 
 A list of useful browser extensions:
-* Codecov Extension
-* HTTPS Everywhere
-* Privacy Badger
-* uBlock Origin
+
+- Disable WebRTC
+- HTTPS Everywhere
+- Privacy Badger
+- Sourcegraph
+- uBlock Origin
+- Vue.js devtools
 
 ## Firefox Options
 
