@@ -2,15 +2,6 @@
 
 This chapter covers setting up a graphical desktop environment over a bare Debian operating system. My desktop of choice is the wonderful [KDE](https://www.kde.org/) desktop environment. Sections in this chapter will walk you through installing the desktop environment and various applications to meet your daily needs.
 
-## Package Installation
-
-Before extending our system with a full desktop environment we need to install a few basic packages. These packages will be used by desktop applications that we'll install later.
-
-To install the following packages run `sudo aptitude install [PACKAGE]`.
-
-Packages:
-* openvpn
-
 ## Display Server
 
 To install them, run `sudo aptitude install [PACKAGE]`.
