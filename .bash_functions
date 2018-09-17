@@ -194,7 +194,7 @@ updateEnvironment ()
 	brew upgrade
 
 	# Cleanup Linuxbrew installation.
-	brew cleanup -s --force
+	brew cleanup -s
 
 	# Update general tools.
 	installNodePackages
