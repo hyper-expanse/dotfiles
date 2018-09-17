@@ -82,7 +82,7 @@ A list of common applications to fulfill various workflows is provided below.
 To install the following packages run `sudo aptitude install [PACKAGE]`.
 
 Packages:
-* ark: Archive tool.
+* ark: Archive tool. [KDE]
 * calibre: E-book library manager.
 * clementine: Music player and library manager.
 * dia: Diagram editor.
