@@ -23,6 +23,11 @@ else
 	export PROMPT_ENABLE_LOAD=0
 fi
 
+# Disable load information on macOS as the `/proc/cpuinfo` device is not available to poll.
+if [ "$(uname)" = "Darwin" ]; then
+	export PROMPT_ENABLE_LOAD=0
+fi
+
 COLOR_OFF='\[\e[0m\]'	# Remove all color modifications.
 
 COLUMN_FIX='\[\033[G\]'	# Forces the Bash prompt to always go to the first column. Resolves the issue where text is sometimes off by two characters as a result of control characters such as ^C.
