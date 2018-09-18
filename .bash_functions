@@ -313,6 +313,28 @@ installBrewPackages()
 		# Tool used to compute CPU load for prompt line.
 		brew install bc
 
+		if [ "$(uname)" = "Darwin" ]; then
+			brew install bash
+			brew install wget
+			brew cask install firefox
+			brew cask install visual-studio-code
+			brew cask install calibre
+			brew cask install clementine
+			brew cask install dia
+			brew cask install gramps
+			brew cask install keepassxc
+			brew cask install musicbrainz-picard
+			brew cask install transmission
+			brew cask install gpg-suite
+			brew cask install vlc
+			brew cask install iterm2
+			brew cask install spectacle
+			brew cask install alfred
+
+			# General purpose archive/extractor tool.
+			brew cask install keka
+		fi
+
 		if [ `uname -n` == "startopia" ]; then
 
 			# GNU data recovery tool.
