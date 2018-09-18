@@ -22,7 +22,7 @@ export INFOPATH="${PREFIX_DIRECTORY}/share/info:${INFOPATH}"
 # Specify the directory where `nvm` should install various versions of node and npm packages.
 export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 
-# Provide the path to a temporary directory that may contain executable scripts so that Homebrew may use that directory for storing, and executing, installation scripts. Though Linuxbrew will use the system's temp directory by default that directory may not be executable, depending on the security measures in place on the local system.
+# Provide the path to a temporary directory that may contain executable scripts so that Homebrew may use that directory for storing, and executing, installation scripts. Though Brew will use the system's temp directory by default that directory may not be executable, depending on the security measures in place on the local system.
 mkdir -p "${PREFIX_DIRECTORY}/tmp"
 export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 
@@ -34,7 +34,7 @@ export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIB
 # This setting assumes that the `vagrant-libvirt` plugin as been installed into the local vagrant installation.
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-# Disable Homebrew/Linuxbrew analytics so that my usage is not reported to the Homebrew/Linuxbrew account on the Google Analytics platform.
+# Disable Brew analytics so that my usage is not reported to the Brew account on the Google Analytics platform.
 export HOMEBREW_NO_ANALYTICS=1
 
 # Set the default console editor.

@@ -222,6 +222,6 @@ Pin-Priority: 600
 
 aptitude install -t jessie-backports keepassx
 
-# Personal - LinuxBrew
+# Personal - Brew
 
 aptitude install build-essential curl git python-setuptools ruby --assume-yes

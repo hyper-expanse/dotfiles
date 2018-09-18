@@ -165,8 +165,8 @@ setupEnvironment ()
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
 	mkdir -p "${HOME}/.local/tmp"
 
-	# Setup Linuxbrew.
-	setupLinuxbrew
+	# Setup Brew.
+	setupBrew
 	installBrewPackages
 
 	# Enable the Large File Storage extension.
@@ -187,13 +187,13 @@ setupEnvironment ()
 # Update our development environment by installing the latest version of our desired tools.
 updateEnvironment ()
 {
-	# Update Linuxbrew.
+	# Update Brew.
 	brew update
 
 	# Upgrade all Brew-installed packages.
 	brew upgrade
 
-	# Cleanup Linuxbrew installation.
+	# Cleanup Brew installation.
 	brew cleanup -s
 
 	# Update general tools.
@@ -201,16 +201,16 @@ updateEnvironment ()
 	installPythonPackages
 }
 
-#! Setup Linuxbrew, the Linux-clone of HomeBrew.
-# Install Linuxbrew locally so that we can download, build, and install tools from source.
-setupLinuxbrew ()
+#! Setup Brew, the Linux-clone of HomeBrew.
+# Install Brew locally so that we can download, build, and install tools from source.
+setupBrew ()
 {
-	printf "\n> Installing Linuxbrew.\n"
+	printf "\n> Installing Brew.\n"
 
-	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of LinuxBrew into the `.local/` directory.
+	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of Brew into the `.local/` directory.
 	mkdir -p "${HOME}/.local/bin"
 
-	# Download an archive version of the #master branch of LinuxBrew to the local system for future extraction. We download an archive version of LinuxBrew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using LinuxBrew).
+	# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
 	wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
 
 	# Extract archive file into local system directory.
@@ -239,8 +239,8 @@ setupLinuxbrew ()
 	fi
 }
 
-#! Install packages via Linuxbrew.
-# Install packages via Linuxbrew's `brew` CLI tool.
+#! Install packages via Brew.
+# Install packages via Brew's `brew` CLI tool.
 installBrewPackages()
 {
 	if command -v brew &> /dev/null; then

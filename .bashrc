@@ -74,7 +74,7 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-# Source the Linuxbrew bash completion script. This script will subsequently sources bash completion scripts installed into the Linuxbrew bash_completion.d directory.
+# Source the Brew bash completion script. This script will subsequently sources bash completion scripts installed into the Brew bash_completion.d directory.
 command -v brew >/dev/null 2>&1 && source $(brew --prefix)/etc/bash_completion
 
 # Source our custom shell aliases. All custom shell aliases should be in this external file rather than cluttering up this file.
