@@ -179,8 +179,10 @@ setupEnvironment ()
 	installNodePackages
 	installPythonPackages
 
-	# Install Firefox.
-	installFirefox
+	if [ "$(uname)" = "Linux" ]; then
+		# Install Firefox.
+		installFirefox
+	fi
 }
 
 #! Update environment.
