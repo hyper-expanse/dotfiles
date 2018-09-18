@@ -9,7 +9,12 @@ Installation is as simple as copying these files into your home directory, or ex
 First, pull down, and then extract, a copy of the repository into a hidden dotfiles directory.
 
 ```bash
+# On Linux
 wget https://gitlab.com/hyper-expanse/dotfiles/repository/archive.tar.gz?ref=master -O "/tmp/dotfiles.tar.gz"
+
+# On macOS
+curl -L https://gitlab.com/hyper-expanse/dotfiles/repository/archive.tar.gz?ref=master -o "/tmp/dotfiles.tar.gz"
+
 mkdir "${HOME}/.dotfiles"
 tar -xf "/tmp/dotfiles.tar.gz" -C "${HOME}/.dotfiles/" --strip-components=1
 rm "/tmp/dotfiles.tar.gz"
@@ -20,6 +25,8 @@ Navigate into the `${HOME}/.dotfiles` directory. Once there, run the deployment 
 ```bash
 bash deploy.sh
 ```
+
+If using macOS, run `git` on the Terminal once, and follow the instructions to install Apple's Developer Tools. This will ensure `git` is available for use by Homebrew, when we use Homebrew to install both command line tools and applications.
 
 Once deployed the `${HOME}/.profile` script will need to be sourced, just once, to expose the scripts contained within the dotfiles repository. To source the profile script run the following command:
 
