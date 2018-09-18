@@ -18,9 +18,6 @@ fi
 
 echo "Deploying dotfiles..."
 
-# Make sure any submodules have been pulled down (in case the user did not clone this repository using `--recursive`).
-git submodule update --init --recursive &> /dev/null
-
 # Symlink files into the user's home directory.
 echo "> Symlinking files into the user's home directory (${HOME})."
 for file in `find . -maxdepth 1 -type f -name '.*' -print`; do
