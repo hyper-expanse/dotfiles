@@ -255,8 +255,8 @@ installBrewPackages()
 		# Download and install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
 		brew install nvm
 
-		# Install alternative JavaScript package manager called `yarn`.
-		brew install yarn
+		# Install alternative JavaScript package manager called `yarn`. Install without the Node dependency, as we will use the Node installation provided by the `nvm` tool.
+		brew install yarn --without-node
 
 		# Download and install Tmux, a terminal multiplexer.
 		brew install tmux
