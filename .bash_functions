@@ -163,7 +163,7 @@ setupEnvironment ()
 	fi
 
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
-	mkdir --parents "${HOME}/.local/tmp"
+	mkdir -p "${HOME}/.local/tmp"
 
 	# Setup Linuxbrew.
 	setupLinuxbrew
@@ -208,7 +208,7 @@ setupLinuxbrew ()
 	printf "\n> Installing Linuxbrew.\n"
 
 	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of LinuxBrew into the `.local/` directory.
-	mkdir --parents "${HOME}/.local/bin"
+	mkdir -p "${HOME}/.local/bin"
 
 	# Download an archive version of the #master branch of LinuxBrew to the local system for future extraction. We download an archive version of LinuxBrew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using LinuxBrew).
 	wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
@@ -390,7 +390,7 @@ installFirefox ()
 	printf "\n> Installing Firefox.\n"
 
 	# Create a local ad-hoc directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of Firefox into the `${HOME}/.local/opt/` directory.
-	mkdir --parents "${HOME}/.local/opt"
+	mkdir -p "${HOME}/.local/opt"
 
 	# Download an archive version of the latest version of Firefox to the local system for future extraction.
 	wget "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US" -O "/tmp/firefox.tar.bz2"
