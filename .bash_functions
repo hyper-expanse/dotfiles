@@ -210,14 +210,25 @@ setupBrew ()
 	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of Brew into the `.local/` directory.
 	mkdir -p "${HOME}/.local/bin"
 
-	# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
-	wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
+	if [ "$(uname)" = "Darwin" ]; then
+		# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
+		curl -L https://github.com/Homebrew/brew/archive/master.tar.gz -o "/tmp/homebrew.tar.gz"
 
-	# Extract archive file into local system directory.
-	tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
+		# Extract archive file into local system directory.
+		tar -xf "/tmp/homebrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
 
-	# Cleanup.
-	rm "/tmp/linuxbrew.tar.gz"
+		# Cleanup.
+		rm "/tmp/homebrew.tar.gz"
+	else
+		# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
+		wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
+
+		# Extract archive file into local system directory.
+		tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
+
+		# Cleanup.
+		rm "/tmp/linuxbrew.tar.gz"
+	fi
 
 	# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
 	local uname=`uname -a`
