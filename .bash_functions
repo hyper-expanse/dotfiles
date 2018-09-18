@@ -177,9 +177,11 @@ setupEnvironment ()
 
 	# Install general tools.
 	installNodePackages
-	installPythonPackages
 
 	if [ "$(uname)" = "Linux" ]; then
+		# Not supported on macOS at this time.
+		installPythonPackages
+
 		# Install Firefox.
 		installFirefox
 	fi
@@ -200,7 +202,11 @@ updateEnvironment ()
 
 	# Update general tools.
 	installNodePackages
-	installPythonPackages
+
+	if [ "$(uname)" = "Linux" ]; then
+		# Not supported on macOS at this time.
+		installPythonPackages
+	fi
 }
 
 #! Setup Brew, the Linux-clone of HomeBrew.
