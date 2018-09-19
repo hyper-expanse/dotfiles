@@ -136,7 +136,9 @@ LoadPrompt()
 }
 
 # Make a cache of the number of cores on the current system. This allows us to avoid retrieving this information every time the prompt is generated. Instead, the number is only retrieved when this file is sourced.
-export NUMBER_OF_CORES="$(GetNumberOfCores)"
+if [ $PROMPT_ENABLE_LOAD = 1 ]; then
+	export NUMBER_OF_CORES="$(GetNumberOfCores)"
+fi
 
 # Limit number of path segments displayed on the user's command line to 2 plus the alias for the user's home directory, a.k.a. ~.
 export PROMPT_DIRTRIM=2
