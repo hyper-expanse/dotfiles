@@ -95,7 +95,7 @@ LoadPrompt()
 	PS1="${PS1}${B_BLACK}@"
 
 	# Set host portion of the prompt based on whether the host is local or remote.
-	if [ -n "${SSH_CONNECTION}" ]; then
+	if [ -n "${SSH_CONNECTION:-}" ]; then
 		PS1="${PS1}${B_YELLOW}"
 	else
 		PS1="${PS1}${CYAN}"
@@ -108,7 +108,7 @@ LoadPrompt()
 		# Current 1 minute system load.
 		local load="\$(uptime | awk -F 'load average' '{ print \$2 }' | cut -d, -f1 | sed 's/: //g')"
 		local scale="100"
-		local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${NUMBER_OF_CORES}\" | bc)"
+		local percentUtilization="\$(echo \"scale=0;${scale} * ${load} / ${NUMBER_OF_CORES:-}\" | bc)"
 
 		PS1="${PS1}printf '%s%s' '-(' '${CYAN}'; echo -n \"${percentUtilization}\"; echo -n \"%\"; printf '%s%s' '${B_BLACK}' ')';"
 

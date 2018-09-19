@@ -13,7 +13,7 @@ HISTCONTROL=ignoreboth
 
 # For setting history length see HISTSIZE and HISTFILESIZE.
 HISTSIZE=32768
-HISTFILESIZE=$HISTSIZE
+HISTFILESIZE=${HISTSIZE:-}
 
 # Include date and timestamps in history output.
 HISTTIMEFORMAT='%F %T '
@@ -90,4 +90,4 @@ fi
 
 # tabtab source for yarn package
 # uninstall by removing these lines or running `tabtab uninstall yarn`
-[ -f /home/hutson/.yarn-cache/.global/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.yarn-cache/.global/node_modules/yarn-completions/node_modules/tabtab/.completions/yarn.bash
+[ -f /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash

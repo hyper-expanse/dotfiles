@@ -14,10 +14,10 @@ export PREFIX_DIRECTORY="${HOME}/.local"
 export PATH="${PREFIX_DIRECTORY}/bin:${PREFIX_DIRECTORY}/sbin:${PATH}"
 
 # Add our local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
-export MANPATH="${PREFIX_DIRECTORY}/share/man:${MANPATH}"
+export MANPATH="${PREFIX_DIRECTORY}/share/man:${MANPATH:-}"
 
 # Add our local info page directory to our INFOPATH. This will allow the `info` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our INFOPATH, our local manual pages will be used in favor of globally installed manual pages.
-export INFOPATH="${PREFIX_DIRECTORY}/share/info:${INFOPATH}"
+export INFOPATH="${PREFIX_DIRECTORY}/share/info:${INFOPATH:-}"
 
 # Specify the directory where `nvm` should install various versions of node and npm packages.
 export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
@@ -59,17 +59,17 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 fi
 
 # If the XDG configuration home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
-if [ -z "${XDG_CONFIG_HOME}" ]; then
+if [ -z "${XDG_CONFIG_HOME:-}" ]; then
 	export XDG_CONFIG_HOME="${HOME}/.config"
 fi
 
 # If the XDG data home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
-if [ -z "${XDG_DATA_HOME}" ]; then
+if [ -z "${XDG_DATA_HOME:-}" ]; then
 	export XDG_DATA_HOME="${PREFIX_DIRECTORY}/share"
 fi
 
 # If the XDG cache home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
-if [ -z "${XDG_DATA_HOME}" ]; then
+if [ -z "${XDG_DATA_HOME:-}" ]; then
 	export XDG_DATA_HOME="${HOME}/.cache"
 fi
 
