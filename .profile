@@ -11,7 +11,7 @@
 export PREFIX_DIRECTORY="${HOME}/.local"
 
 # Add our local binary directories to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
-export PATH="${PREFIX_DIRECTORY}/bin:${PREFIX_DIRECTORY}/sbin:$(yarn global dir)/node_modules/.bin/:${PATH}"
+export PATH="${PREFIX_DIRECTORY}/bin:${PREFIX_DIRECTORY}/sbin:${PATH}"
 
 # Add our local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
 export MANPATH="${PREFIX_DIRECTORY}/share/man:${MANPATH}"

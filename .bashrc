@@ -64,6 +64,7 @@ fi
 
 # Execute `nvm` script to configure our local environment to work with `nvm`.
 command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
+command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global dir)/node_modules/.bin/:${PATH}"
 
 # Enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
