@@ -38,7 +38,7 @@ export VAGRANT_DEFAULT_PROVIDER=libvirt
 export HOMEBREW_NO_ANALYTICS=1
 
 # Set the default console editor.
-export EDITOR=nvim
+export EDITOR=nano
 
 # Specify the language and encoding for our shell environment.
 export LANG=en_US.UTF8
