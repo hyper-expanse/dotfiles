@@ -320,6 +320,10 @@ installBrewPackages()
 			brew cask install visual-studio-code
 			brew cask install calibre
 			brew cask install clementine
+
+			# Required for successful installation of `dia`.
+			brew cask install xquartz
+
 			brew cask install dia
 			brew cask install gramps
 			brew cask install keepassxc
