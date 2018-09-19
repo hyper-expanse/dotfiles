@@ -79,3 +79,7 @@ if [ "${uname/$debian}" = "${uname}" ] && [ "$(uname)" = "Linux" ]; then
 	export SSH_AGENT_PID=""
 	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 fi
+
+if [ "$(uname)" = "Darwin" ] && [ -f "${HOME}/.bashrc" ]; then
+	source "${HOME}/.bashrc"
+fi
