@@ -73,5 +73,9 @@ if [ -z "${XDG_DATA_HOME}" ]; then
 	export XDG_DATA_HOME="${HOME}/.cache"
 fi
 
-export SSH_AGENT_PID=""
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+uname=`uname -a`
+debian="Debian"
+if [ "${uname/$debian}" = "${uname}" ] && [ "$(uname)" = "Linux" ]; then
+	export SSH_AGENT_PID=""
+	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+fi
