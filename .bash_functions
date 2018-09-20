@@ -441,8 +441,7 @@ installFirefox ()
 	tar -jxf "/tmp/firefox.tar.bz2" -C "${HOME}/.local/opt/"
 
 	# Symlink the extracted Firefox binary into our standard local binary directory.
-	rm "${HOME}/.local/bin/firefox"
-	ln -s "${HOME}/.local/opt/firefox/firefox" "${HOME}/.local/bin/firefox"
+	ln -s -f "${HOME}/.local/opt/firefox/firefox" "${HOME}/.local/bin/firefox"
 
   # Generate a desktop configuration file to add our local Firefox installation to our desktop application/start menu.
 	echo "
