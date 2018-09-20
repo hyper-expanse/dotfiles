@@ -141,11 +141,11 @@ watch ()
 # Setup a local environment that contains all the tools and libraries needed for development work, and play.
 setupEnvironment ()
 {
-	printf "\n> Removing ${HOME}/.local/ directory.\n"
+	printf "\n> Removing ${PREFIX_DIRECTORY} directory.\n"
 
 	# Clear out our local system directory.
-	if [ -d "${HOME}/.local/" ]; then
-		rm -fr "${HOME}/.local/" &> /dev/null
+	if [ -d "${PREFIX_DIRECTORY}" ]; then
+		rm -fr "${PREFIX_DIRECTORY}" &> /dev/null
 	fi
 
 	printf "\n> Removing ${HOME}/.tmux/ directory.\n"
@@ -156,7 +156,7 @@ setupEnvironment ()
 	fi
 
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
-	mkdir -p "${HOME}/.local/tmp"
+	mkdir -p "${PREFIX_DIRECTORY}/tmp"
 
 	# Setup Brew.
 	setupBrew
