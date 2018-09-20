@@ -40,32 +40,6 @@ shopt -s direxpand
 # Check the window size after each command and, if necessary update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Set variable identifying the current chroot.
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-	debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# If this is an xterm window set the window title to user@host:dir.
-case "$TERM" in
-	xterm*|rxvt*)
-		PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1" ;;
-	*)
-		;;
-esac
-
-# Source our custom prompt setup script.
-if [ -f "${HOME}/.prompt" ]; then
-	source "${HOME}/.prompt"
-fi
-
-# Setup Bash prompt auto-completion for PIP; Python's package manager.
-# This step is incredibly slow to execute.
-# command -v pip >/dev/null 2>&1 && eval "$(pip completion --bash)"
-
-# Execute `nvm` script to configure our local environment to work with `nvm`.
-command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
-command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global dir)/node_modules/.bin/:${PATH}"
-
 # Enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
 	if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -75,8 +49,20 @@ if ! shopt -oq posix; then
 	fi
 fi
 
+# Setup Bash prompt auto-completion for PIP; Python's package manager.
+# This step is incredibly slow to execute.
+# command -v pip >/dev/null 2>&1 && eval "$(pip completion --bash)"
+
 # Source the Brew bash completion script. This script will subsequently sources bash completion scripts installed into the Brew bash_completion.d directory.
 command -v brew >/dev/null 2>&1 && source $(brew --prefix)/etc/bash_completion
+
+# Execute `nvm` script to configure our local environment to work with `nvm`.
+command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
+command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global dir)/node_modules/.bin/:${PATH}"
+
+# tabtab source for yarn package
+# uninstall by removing these lines or running `tabtab uninstall yarn`
+[ -f /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash
 
 # Source our custom shell aliases. All custom shell aliases should be in this external file rather than cluttering up this file.
 if [ -f "${HOME}/.bash_aliases" ]; then
@@ -88,6 +74,7 @@ if [ -f "${HOME}/.bash_functions" ]; then
 	source "${HOME}/.bash_functions"
 fi
 
-# tabtab source for yarn package
-# uninstall by removing these lines or running `tabtab uninstall yarn`
-[ -f /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash
+# Source our custom prompt setup script.
+if [ -f "${HOME}/.prompt" ]; then
+	source "${HOME}/.prompt"
+fi
