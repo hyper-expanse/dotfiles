@@ -155,13 +155,6 @@ setupEnvironment ()
 		rm -fr "${HOME}/.tmux/" &> /dev/null
 	fi
 
-	printf "\n> Removing ${XDG_DATA_HOME}/nvim/ directory.\n"
-
-	# Clear out our neovim directory.
-	if [ -d "${XDG_DATA_HOME}/nvim/" ]; then
-		rm -fr "${XDG_DATA_HOME}/nvim/" &> /dev/null
-	fi
-
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
 	mkdir -p "${HOME}/.local/tmp"
 
