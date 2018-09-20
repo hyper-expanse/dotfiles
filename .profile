@@ -66,8 +66,8 @@ if [ -z "${XDG_DATA_HOME:-}" ]; then
 fi
 
 # If the XDG cache home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
-if [ -z "${XDG_DATA_HOME:-}" ]; then
-	export XDG_DATA_HOME="${HOME}/.cache"
+if [ -z "${XDG_CACHE_HOME:-}" ]; then
+	export XDG_CACHE_HOME="${HOME}/.cache"
 fi
 
 uname=`uname -a`
