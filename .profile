@@ -40,9 +40,6 @@ export HOMEBREW_NO_ANALYTICS=1
 # Set the default console editor.
 export EDITOR=nano
 
-# Specify the language and encoding for our shell environment.
-export LANG=en_US.UTF8
-
 # Only allow the Docker client to download and use "trusted" images (Trust is associated with the `TAG` pointing to an image, where the `TAG` has been cryptographically signed).
 export DOCKER_CONTENT_TRUST=1
 
