@@ -307,6 +307,9 @@ installBrewPackages()
 		brew install bc
 
 		if [ "$(uname)" = "Darwin" ]; then
+			# Latest GNU core utilities, such as `rm`, `ls`, etc.
+			brew install coreutils
+
 			brew install bash
 			brew install wget
 			brew cask install firefox
