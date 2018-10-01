@@ -6,8 +6,13 @@
 # This script only needs to be sourced upon logging into a system to provide useful command aliases.
 #====================================================
 
-# Do not allow deletion of content at the root level, /, and prompt the user once before removing more than three files or when removing files and directories recursively.
-alias rm='rm -I --preserve-root'
+if [ "$(uname)" = "Darwin" ]; then
+	# Prompt the user once before removing any file.
+	alias rm='rm -i'
+else
+	# Do not allow deletion of content at the root level, /, and prompt the user once before removing more than three files or when removing files and directories recursively.
+	alias rm='rm -I --preserve-root'
+fi
 
 # Enable common command confirmations with additional verbosity.
 alias mv='mv -iv'
