@@ -47,10 +47,16 @@ mkdir -p "${XDG_CONFIG_HOME}"
 rm "${XDG_CONFIG_HOME}/tmux" &> "/dev/null"
 ln -s "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}/tmux"
 
-# Symlilnk Visual Studio Code files.
-echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CONFIG_HOME}/Code/User)."
-mkdir -p "${XDG_CONFIG_HOME}/Code/User"
-ln -s -f "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
+# Symlink Visual Studio Code files.
+if [ "$(uname)" = "Darwin" ]; then
+	echo "> Symlinking Visual Studio Code files into the Library directory (Library/Application Support/Code/User)."
+	mkdir -p "${HOME}/Library/Application Support/Code/User"
+	ln -s -f "$(pwd)/.config/Code/User/settings.json" "${HOME}/Library/Application Support/Code/User/settings.json"
+else
+	echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CONFIG_HOME}/Code/User)."
+	mkdir -p "${XDG_CONFIG_HOME}/Code/User"
+	ln -s -f "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
+fi
 
 # Symlink Vagrant configuration file.
 echo "> Symlinking Vagrant configuration file into the Vagrant directory (${HOME}/.vagrant.d)."
