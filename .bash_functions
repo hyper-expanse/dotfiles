@@ -169,6 +169,7 @@ setupEnvironment ()
 	source "$(brew --prefix nvm)/nvm.sh"
 
 	# Install general tools.
+	nvm install
 	installNodePackages
 
 	if [ "$(uname)" = "Linux" ]; then
@@ -194,6 +195,7 @@ updateEnvironment ()
 	brew cleanup -s
 
 	# Update general tools.
+	nvm install
 	installNodePackages
 
 	if [ "$(uname)" = "Linux" ]; then
@@ -354,8 +356,6 @@ installNodePackages ()
 {
 	if command -v yarn &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
-
-		nvm install
 
 		# Install command line tab completion for `yarn`.
 		yarn global add yarn-completions
