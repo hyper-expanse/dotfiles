@@ -35,12 +35,6 @@ mkdir -p "${HOME}/.gnupg"
 ln -s -f "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 ln -s -f "$(pwd)/.gnupg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 
-# Symlink Neovim files.
-echo "> Symlinking Neovim files into the config directory (${XDG_CONFIG_HOME}/nvim)."
-mkdir -p "${XDG_CONFIG_HOME}"
-rm "${XDG_CONFIG_HOME}/nvim" &> "/dev/null"
-ln -s "$(pwd)/.config/nvim" "${XDG_CONFIG_HOME}/nvim"
-
 # Symlink tmux files.
 echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
 mkdir -p "${XDG_CONFIG_HOME}"
@@ -62,10 +56,5 @@ fi
 echo "> Symlinking Vagrant configuration file into the Vagrant directory (${HOME}/.vagrant.d)."
 mkdir -p "${HOME}/.vagrant.d"
 ln -s -f "$(pwd)/.vagrant.d/Vagrantfile" "${HOME}/.vagrant.d/Vagrantfile"
-
-# Symlink third-party scripts into the appropriate directories.
-echo "> Symlinking third-party scripts into the data directory (${XDG_DATA_HOME})."
-mkdir -p "${XDG_DATA_HOME}/nvim"
-ln -s -f "$(pwd)/markdown2ctags/markdown2ctags.py" "${XDG_DATA_HOME}/nvim/markdown2ctags.py"
 
 echo "Finished deploying your dotfiles. Please run 'source ~/.profile' to use your new setup."
