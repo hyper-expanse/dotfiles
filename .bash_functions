@@ -380,6 +380,10 @@ installPythonPackages ()
 
 		# Required to manage virtual Python environments.
 		pip3 install virtualenv --upgrade
+
+		# Configuration management tool.
+		pip3 install ansible --upgrade
+
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
