@@ -260,11 +260,8 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
-		# Can't get `python3` to correctly build on macOS.
-		if [ "$(uname)" = "Linux" ]; then
-			# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
-			brew install python3
-		fi
+		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
+		brew install python3
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
