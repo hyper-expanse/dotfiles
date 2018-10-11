@@ -7,13 +7,11 @@
 	"editor.renderIndentGuides": true,
 	"editor.renderWhitespace": "boundary",
 	"editor.rulers": [120],
-	"editor.tabCompletion": true,
+	"editor.tabCompletion": "on",
 	"editor.tabSize": 2,
 
 	"eslint.packageManager": "yarn",
 	"eslint.autoFixOnSave": true,
-
-	"gitlens.codeLens.enabled": false,
 
 	"explorer.openEditors.visible": 0,
 
@@ -26,18 +24,7 @@
 	"files.insertFinalNewline": true,
 	"files.trimTrailingWhitespace": true,
 
-	"telemetry.enableCrashReporter": false,
-	"telemetry.enableTelemetry": false,
-
-	"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-
-	"tslint.autoFixOnSave": true,
-
-	"window.restoreFullscreen": true,
-
-	"workbench.iconTheme": "material-icon-theme",
-
-	"zenMode.restore": true,
+	"gitlens.codeLens.enabled": false,
 	"gitlens.advanced.messages": {
 		"suppressCommitHasNoPreviousCommitWarning": false,
 		"suppressCommitNotFoundWarning": false,
@@ -48,5 +35,16 @@
 		"suppressResultsExplorerNotice": false,
 		"suppressShowKeyBindingsNotice": true
 	},
-	"gitlens.historyExplorer.enabled": true
+	"gitlens.historyExplorer.enabled": true,
+
+	"telemetry.enableCrashReporter": false,
+	"telemetry.enableTelemetry": false,
+
+	"tslint.autoFixOnSave": true,
+
+	"window.restoreFullscreen": true,
+
+	"workbench.iconTheme": "material-icon-theme",
+
+	"zenMode.restore": true
 }
