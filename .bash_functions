@@ -219,7 +219,7 @@ setupBrew ()
 		tar -xf "/tmp/homebrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
 
 		# Cleanup.
-		rm "/tmp/homebrew.tar.gz"
+		rm -f "/tmp/homebrew.tar.gz"
 	else
 		# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
 		wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
@@ -228,7 +228,7 @@ setupBrew ()
 		tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
 
 		# Cleanup.
-		rm "/tmp/linuxbrew.tar.gz"
+		rm -f "/tmp/linuxbrew.tar.gz"
 	fi
 
 	# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
