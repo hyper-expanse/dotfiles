@@ -171,11 +171,9 @@ setupEnvironment ()
 	# Install general tools.
 	nvm install
 	installNodePackages
+	installPythonPackages
 
 	if [ "$(uname)" = "Linux" ]; then
-		# Not supported on macOS at this time.
-		installPythonPackages
-
 		# Install Firefox.
 		installFirefox
 	fi
@@ -378,10 +376,10 @@ installPythonPackages ()
 		printf "\n> Installing Python packages.\n"
 
 		# Update the version of `pip` installed in our environment.
-		pip3 install --user pip --upgrade
+		pip3 install pip --upgrade
 
 		# Required to manage virtual Python environments.
-		pip3 install --user virtualenv --upgrade
+		pip3 install virtualenv --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
