@@ -35,6 +35,12 @@ mkdir -p "${HOME}/.gnupg"
 ln -s -f "$(pwd)/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 ln -s -f "$(pwd)/.gnupg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 
+# Symlink Powerline files.
+echo "> Symlinking powerline files into the config directory (${XDG_CONFIG_HOME}/powerline)."
+mkdir -p "${XDG_CONFIG_HOME}"
+rm "${XDG_CONFIG_HOME}/powerline" &> "/dev/null"
+ln -s -f "$(pwd)/.config/powerline" "${XDG_CONFIG_HOME}/powerline"
+
 # Symlink tmux files.
 echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
 mkdir -p "${XDG_CONFIG_HOME}"

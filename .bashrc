@@ -60,6 +60,16 @@ command -v brew >/dev/null 2>&1 && source $(brew --prefix)/etc/bash_completion
 command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
 command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global dir)/node_modules/.bin/:${PATH}"
 
+# Invoke Powershell setup script to configure our shell prompt.
+if [ -f "${PREFIX_DIRECTORY}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh" ]; then
+	# The following is to improve performance - https://powerline.readthedocs.io/en/latest/usage/shell-prompts.html#bash-prompt
+	powerline-daemon -q
+	POWERLINE_BASH_CONTINUATION=1
+	POWERLINE_BASH_SELECT=1
+
+	source "${PREFIX_DIRECTORY}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh"
+fi
+
 # tabtab source for yarn package
 # uninstall by removing these lines or running `tabtab uninstall yarn`
 [ -f /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash
@@ -72,9 +82,4 @@ fi
 # Source our custom bash functions.
 if [ -f "${HOME}/.bash_functions" ]; then
 	source "${HOME}/.bash_functions"
-fi
-
-# Source our custom prompt setup script.
-if [ -f "${HOME}/.prompt" ]; then
-	source "${HOME}/.prompt"
 fi
