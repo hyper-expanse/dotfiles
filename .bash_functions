@@ -405,12 +405,6 @@ installVisualStudioCodeExtensions ()
 		# Chrome debugger integration.
 		code --install-extension msjsdiag.debugger-for-chrome
 
-		# Python development tools.
-		code --install-extension donjayamanne.python
-
-		# GO development tools.
-		code --install-extension lukehoban.Go
-
 		# General, offline, spell checker.
 		code --install-extension streetsidesoftware.code-spell-checker
 
