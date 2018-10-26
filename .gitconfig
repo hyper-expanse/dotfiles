@@ -2,6 +2,10 @@
 	name = Hutson Betts
 	email = hutson@hyper-expanse.net
 	signingkey = 0xA5C376AC3772B622
+	useConfigOnly = true
+
+[includeIf "gitdir:/home/hbetts/"]
+	path = ~/.dotfiles/.gitconfig-factset
 
 [core]
 	# Global attributes file to apply file type specific behavior across all repositories I work with.
