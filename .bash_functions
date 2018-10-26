@@ -360,6 +360,9 @@ installNodePackages ()
 
 		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
 		yarn global add doctoc
+
+		# Tool to configure many GitHub projects to use a given set of settings.
+		yarn global add @hbetts/github-metadata-sync
 	else
 		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
