@@ -37,6 +37,8 @@
 	},
 	"gitlens.historyExplorer.enabled": true,
 
+	"javascript.updateImportsOnFileMove.enabled": "always",
+
 	"telemetry.enableCrashReporter": false,
 	"telemetry.enableTelemetry": false,
 
