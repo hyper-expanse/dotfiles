@@ -11,7 +11,8 @@
 export PREFIX_DIRECTORY="${HOME}/.local"
 
 # Add our local binary directories to our PATH. This will allow us to utilize locally installed binaries when available. Furthermore, because we prepend our local binary directory to our PATH our local binaries will be used in favor of globally-installed system binaries.
-export PATH="${PREFIX_DIRECTORY}/bin:${PREFIX_DIRECTORY}/sbin:${PATH}"
+# Adding `/opt/python/libexec/` to path so that `python` points to Python 3 instead of Python 2.
+export PATH="${PREFIX_DIRECTORY}/opt/python/libexec/bin:${PREFIX_DIRECTORY}/bin:${PREFIX_DIRECTORY}/sbin:${PATH}"
 
 # Add our local info page directory to our MANPATH. This will allow the `man` utility to load manual pages from our local manual directory. Furthermore, because we prepend our local manual directory to our MANPATH, our local manual pages will be used in favor of globally installed manual pages.
 export MANPATH="${PREFIX_DIRECTORY}/share/man:${MANPATH:-}"
