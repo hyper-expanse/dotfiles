@@ -5,6 +5,7 @@
 	useConfigOnly = true
 
 [includeIf "gitdir:/home/hbetts/"]
+	# When using an account associated with my work laptop, defer to any work-specific configuration.
 	path = ~/.dotfiles/.gitconfig-factset
 
 [core]

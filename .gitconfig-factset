@@ -1,2 +1,5 @@
 [user]
   email = hbetts@factset.com
+
+[commit]
+  gpgsign = false
