@@ -81,7 +81,6 @@ Packages:
 * gufw: Graphical user interface for `ufw` firewall. [GTK]
 * gwenview: Image viewer. [KDE]
 * k3b: A CD/DVD ripper and burner. [KDE]
-* kaffeine: Media player. [KDE]
 * kcalc: Simple and scientific calculator. [KDE]
 * keepassx: Offline password and secrets manager.
 * kgpg: GNUPG graphical front-end. [KDE]
@@ -90,6 +89,55 @@ Packages:
 * picard: Cross-platform music tagger.
 * quiterss: RSS/ATOM reader.
 * transmission-qt: Qt front-end for the Transmission BitTorrent client.
+* vlc: Multimedia player.
+
+## Additional VLC Setup
+
+While VLC can play most multimedia formats, the version distributed with Debian cannot play encrypted DVDs. Encrypted DVDs account for most commercially available movie DVDs. To play encrypted DVDs an additional library, called `libdvdcss`, is required. `libdvdcss` is not distributed with the Debian version of VLC because of [legal concerns](https://en.wikipedia.org/wiki/Libdvdcss).
+
+Full instructions for installing `libdvdcss` on Debian are available on the [VideoLAN website](https://www.videolan.org/developers/libdvdcss.html), but they are included here (with a few changes that align with other instructions in the _Configuration_ guide).
+
+Add VideoLAN's official GPG signing key:
+
+```bash
+curl -sSL https://download.videolan.org/pub/debian/videolan-apt.asc | sudo apt-key add -
+```
+
+Verify key integrity:
+
+```bash
+sudo apt-key fingerprint
+```
+
+Then look for the following key in the output:
+
+```bash
+pub   rsa2048 2013-08-27 [SC]
+      8F08 45FE 77B1 6294 429A  7934 6BCA 5E4D B842 88D9
+uid           [ unknown] VideoLAN APT Signing Key <videolan@videolan.org>
+sub   rsa2048 2013-08-27 [E]
+```
+
+Add the following to a file named `videolan.list` in the `/etc/apt/sources.list.d/` directory:
+
+```
+deb [arch=amd64] https://download.videolan.org/pub/debian/stable/ /
+deb-src [arch=amd64] https://download.videolan.org/pub/debian/stable/ /
+```
+
+Then instruct Aptitude to update it's list of available packages, including those available in the VideoLAN repository.
+
+```bash
+sudo aptitude update
+```
+
+Install the latest version of `libdvdcss``:
+
+```bash
+sudo aptitude install libdvdcss2
+```
+
+At this point VLC should be able to play any encrypted DVD.
 
 ## Vagrant
 
@@ -127,7 +175,7 @@ To avoid the authentication prompt simply add yourself to the `libvirt` user gro
 
 > This section is a modification of the instructions on [Docker's Debian CE](https://docs.docker.com/engine/installation/linux/docker-ce/debian/) site.
 
-Add Docker's official GPG key:
+Add Docker's official GPG signing key:
 
 ```bash
 curl -sSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -148,7 +196,7 @@ uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
 sub   rsa4096 2017-02-22 [S]
 ```
 
-To install the latest version of Docker we need to add Docker's repository to our `apt-get` list of Debian package repositories.
+To install the latest version of Docker we need to add Docker's repository to our `apt` list of Debian package repositories.
 
 Add the following to a file named `docker.list` in the `/etc/apt/sources.list.d/` directory:
 
