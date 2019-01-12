@@ -35,7 +35,8 @@
 		"suppressResultsExplorerNotice": false,
 		"suppressShowKeyBindingsNotice": true
 	},
-	"gitlens.historyExplorer.enabled": true,
+	"gitlens.views.fileHistory.enabled": true,
+	"gitlens.views.lineHistory.enabled": true,
 
 	"javascript.updateImportsOnFileMove.enabled": "always",
 
