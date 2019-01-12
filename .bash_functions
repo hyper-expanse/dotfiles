@@ -259,7 +259,7 @@ installBrewPackages()
 		printf "\n> Installing Brew packages.\n"
 
 		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
-		brew install python3
+		brew install python
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
@@ -363,6 +363,9 @@ installNodePackages ()
 
 		# Tool to configure many GitHub projects to use a given set of settings.
 		yarn global add @hbetts/github-metadata-sync
+
+		# Tool to run Yeoman generators for scaffolding new projects.
+		yarn global add yo
 	else
 		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
@@ -372,20 +375,20 @@ installNodePackages ()
 # Install Python packages via `pip`.
 installPythonPackages ()
 {
-	if command -v pip3 &> /dev/null; then
+	if command -v pip &> /dev/null; then
 		printf "\n> Installing Python packages.\n"
 
 		# Update the version of `pip` installed in our environment.
-		pip3 install pip --upgrade
+		pip install pip --upgrade
 
-		# Required to manage virtual Python environments.
-		pip3 install virtualenv --upgrade
+		# Package and virtual environment manager for Python.
+		pip install pipenv --upgrade
 
 		# Configuration management tool.
-		pip3 install ansible --upgrade
+		pip install ansible --upgrade
 
 		# Shell prompt configuration and theming tool.
-		pip3 install powerline-status --upgrade
+		pip install powerline-status --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
