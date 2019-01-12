@@ -69,6 +69,10 @@
 	# Custom command to be invoked by Git when the `git mergetool` command is called to manage a merge in an editor.
 	cmd = code --wait $MERGED
 
+[protocol]
+	# Enable Git protocol version 2 to reduce overall network traffic.
+	version = 2
+
 [filter "lfs"]
 	# Enable large-file support using the large-file support (LFS) plugin for git.
 	required = true
