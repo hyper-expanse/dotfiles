@@ -1,0 +1,3 @@
+[protocol]
+	# Enable Git protocol version 2 to reduce overall network traffic.
+	version = 2
