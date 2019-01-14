@@ -127,7 +127,7 @@
 	# Add a _Signed-off-by_ to each commit message to certify that I have agreed to the Developer Certificate of Origin (https://developercertificate.org/).
 	dco = commit --signoff
 
-[includeIf "gitdir:/User/hbetts/"]
+[includeIf "gitdir:/Users/hbetts/"]
 	# When using an account associated with my work laptop, defer to any work-specific configuration.
 	path = ~/.dotfiles/.gitconfig-factset
 
@@ -135,6 +135,6 @@
 	# When using an account associated with my work laptop, defer to any work-specific configuration.
 	path = ~/.dotfiles/.gitconfig-factset
 
-[includeIf "gitdir:/home/hutson"]
+[includeIf "gitdir:/home/hutson/"]
 	# Options that only work, or are compatible, with my personal laptop.
 	path = ~/.dotfiles/.gitconfig-hutson
