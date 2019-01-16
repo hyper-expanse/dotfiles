@@ -724,7 +724,7 @@ sudo aptitude install scdaemon
 Once the smart card package has been installed, you can verify that GnuPG can interact with your Yubikey by running the following command:
 
 ```bash
-gpg --card-status
+gpg2 --card-status
 ```
 
 You should see something like:
@@ -831,7 +831,7 @@ gpg> save
 
 Repeat the process for your _Encryption_ and _Signing_ subkeys.
 
-Lastly, verify that the subkeys were properly moved to your Yubikey:
+Lastly, verify that the subkeys were properly moved to your Yubikey (Moved keys will appear with an `>` after `ssb`):
 
 ```bash
 > gpg2 --card-status
@@ -881,9 +881,13 @@ As noted earlier, the revocation certificate for your master key should be kept 
 
 This may mean placing it on write-protected media, or printing it to paper, and storing it in a safe.
 
-In addition to the revocation certificate, you want to also move master key backup `0x[KEYID]-[E-MAIL ADDRESS].key` to the same location. This ensures that, should your internet-connected device become compromised, your master key will be safe elsewhere.
+In addition to the revocation certificate, you want to also move your master key backup `0x[KEYID]-[E-MAIL ADDRESS].key`, and private subkeys, `0x[KEYID]-[E-MAIL ADDRESS].subkeys`, to the same location. This ensures that, should your internet-connected device become compromised, your keys will be safe elsewhere.
 
-Once the master key revocation certificate and backup are move elsewhere, you need to remove the master key from your internet-connected device.
+Once the master key revocation certificate and backup are move elsewhere, you need to remove the secret keys:
+
+```
+gpg2 --delete-secret-keys 0x[KEYID]
+```
 
 ## Integrated Development Environment
 
