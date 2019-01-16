@@ -1,6 +1,7 @@
 {
 	"diffEditor.ignoreTrimWhitespace": false,
 
+	"explorer.confirmDragAndDrop": false,
 	"editor.detectIndentation": true,
 	"editor.minimap.enabled": false,
 	"editor.quickSuggestions": false,
