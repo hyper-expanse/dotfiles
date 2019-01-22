@@ -879,15 +879,19 @@ gpg2 --export-ssh-key 0x[KEYID]
 
 As noted earlier, the revocation certificate for your master key should be kept somewhere safe where no one else can access it.
 
-This may mean placing it on write-protected media, or printing it to paper, and storing it in a safe.
+This may mean placing it on write-protected media, or printing it to paper, and then storing it in a safe location where only you have physical access.
 
-In addition to the revocation certificate, you want to also move your master key backup `0x[KEYID]-[E-MAIL ADDRESS].key`, and private subkeys, `0x[KEYID]-[E-MAIL ADDRESS].subkeys`, to the same location. This ensures that, should your internet-connected device become compromised, your keys will be safe elsewhere.
+In addition to the revocation certificate, you are encouraged to move your master key backup, `0x[KEYID]-[E-MAIL ADDRESS].key`, and subkeys backup, `0x[KEYID]-[E-MAIL ADDRESS].subkeys`, to the same location. This ensures that, should your computer become compromised, your private keys will remain safe.
 
-Once the master key revocation certificate and backup are move elsewhere, you need to remove the secret keys:
+Once the master key revocation certificate and backups are move elsewhere, you may remove the master private key (private subkeys have already been moved to the Yubikey):
 
 ```
 gpg2 --delete-secret-keys 0x[KEYID]
 ```
+
+After deleting the master private key, only the public portion of your master key and subkeys remain on your computer.
+
+At this point, signing, encrypting, or authenticating, with your private subkeys can only be done with your Yubikey connected to your computer.
 
 ## Integrated Development Environment
 
