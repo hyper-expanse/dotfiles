@@ -237,7 +237,7 @@ Some non-Debian package repositories use HTTPS as their transport protocol.
 To support these repositories we need to install one additional system-level package:
 
 ```bash
-sudo aptitude install apt-transport-https
+sudo aptitude install apt-transport-https --without-recommends
 ```
 
 Without `apt-transport-https`, attempts to install packages from a repository over HTTPS will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
@@ -323,7 +323,7 @@ Since Intel wireless chips require proprietary firmware (which comes in binary-o
 Install the Intel firmware package:
 
 ```bash
-sudo aptitude install firmware-iwlwifi
+sudo aptitude install firmware-iwlwifi --without-recommends
 ```
 
 Lastly, reload the Intel wireless kernel module to take advantage of the installed firmware:
@@ -339,7 +339,7 @@ To enable the wireless card, and connect to a wireless access point, you may wai
 
 The following additional packages should be installed onto your system.
 
-To install them, run `sudo aptitude install [PACKAGE]`.
+To install them, run `sudo aptitude install [PACKAGE] --without-recommends`.
 
 Packages:
 * apt-listbugs: Will display a list of known issues with packages before they're installed using tools such as `apt-get` or `aptitude`.

@@ -4,7 +4,7 @@ This chapter covers setting up a graphical desktop environment over a bare Debia
 
 ## Display Server
 
-To install them, run `sudo aptitude install [PACKAGE]`.
+To install them, run `sudo aptitude install [PACKAGE] --without-recommends`.
 
 Packages:
 * xorg: This metapackage provides the components for a standalone workstation running the X Window System.
@@ -14,7 +14,7 @@ Packages:
 
 ## Window Manager
 
-To install the following packages run `sudo aptitude install [PACKAGE]`.
+To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
 
 Packages:
 * kwin-x11: Compositing window manager used by KDE.
@@ -23,7 +23,7 @@ Packages:
 
 In addition to providing the fundamental components required to offer a functional desktop environment, the `kde-plasma-desktop` package also include basic necessities such as a file manager, and a password manager. However, `kde-plasma-desktop` does **not** come with a large number of applications, such as video and music players. Instead we leave it up to the user to choose what basic applications they want on their system.
 
-To install the following packages run `sudo aptitude install [PACKAGE]`.
+To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
 
 Packages:
 * kde-plasma-desktop: The KDE Plasma desktop and minimal set of applications.
@@ -50,7 +50,7 @@ sudo /etc/init.d/network-manager restart
 
 Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
 
-To install the following packages run `sudo aptitude install [PACKAGE]`.
+To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
 
 Packages:
 * pulseaudio
@@ -63,14 +63,18 @@ YubiKeys purchased from Yubico provide support for [multi-factor authentication]
 
 Background information, and detailed instructions for setting up YubiKey on Debian, are provided in Debian's [YubiKey4 docs](https://wiki.debian.org/Smartcards/YubiKey4).
 
-However, for most uses, including support for non-YubiKey devices, install the following package:
+However, for most uses, including support for non-YubiKey devices.
+
+To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
+
+Packages:
 * libu2f-host0
 
 ## Desktop Applications
 
 A list of common applications to fulfill various workflows is provided below.
 
-To install the following packages run `sudo aptitude install [PACKAGE]`.
+To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
 
 Packages:
 * ark: Archive tool. [KDE]
@@ -134,7 +138,7 @@ sudo aptitude update
 Install the latest version of `libdvdcss``:
 
 ```bash
-sudo aptitude install libdvdcss2
+sudo aptitude install libdvdcss2 --without-recommends
 ```
 
 At this point VLC should be able to play any encrypted DVD.
@@ -146,7 +150,7 @@ At this point VLC should be able to play any encrypted DVD.
 First, install `vagrant` from the Debian repository:
 
 ```bash
-sudo aptitude install vagrant
+sudo aptitude install vagrant --without-recommends
 ```
 
 Next, we'll need to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin so that `vagrant` can provision virtual machines through `libvirt` (Our preferred provisioning interface for virtual machines).
@@ -161,7 +165,7 @@ Once all dependencies for `vagrant-libvirt` have been installed, have vagrant in
 To monitor virtual machines on your system outside of Vagrant, install `virt-manager`, a graphical tool for visualizing virtual machine resources.
 
 ```bash
-sudo aptitude install virt-manager
+sudo aptitude install virt-manager --without-recommends
 ```
 
 ### Libvirt User
@@ -213,7 +217,7 @@ sudo aptitude update
 Install the latest version of Docker CE:
 
 ```bash
-sudo aptitude install docker-ce
+sudo aptitude install docker-ce --without-recommends
 ```
 
 To run Docker containers without using `sudo` to gain `root` user permissions, you can add your account to the `docker` user group previously setup by the `docker-ce` installer.
@@ -242,7 +246,7 @@ A `~/.gnupg/gpg.conf` configuration file, used for configuring GnuPG clients, wi
 Lastly, install the following dependency for the `gpg2` command line tool:
 
 ```bash
-sudo aptitude install dirmngr
+sudo aptitude install dirmngr --without-recommends
 ```
 
 > `dirmngr` is used by GnuPG's command line tool, `gpg`, to connect to third-party servers to upload, or download, keys.
@@ -718,7 +722,7 @@ gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
 Install package required for GnuPG to recognize the Yubikey as a smart card.
 
 ```bash
-sudo aptitude install scdaemon
+sudo aptitude install scdaemon --without-recommends
 ```
 
 Once the smart card package has been installed, you can verify that GnuPG can interact with your Yubikey by running the following command:
@@ -864,7 +868,7 @@ Edit `/etc/X11/Xsession.options` and comment out `use-ssh-agent` by prepending `
 Next, install the following package so that `gpg-agent` can determine how to prompt the user to unlock the Yubikey.
 
 ```bash
-sudo aptitude install debus-user-session
+sudo aptitude install debus-user-session --without-recommends
 ```
 
 Run the following to output your SSH public key:
@@ -921,7 +925,7 @@ The `i386` architecture needs to be added as shown in step 2.
 Lastly, Steam needs to be installed:
 
 ```bash
-sudo aptitude install steam
+sudo aptitude install steam --without-recommends
 ```
 
 Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card.

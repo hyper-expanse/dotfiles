@@ -13,7 +13,7 @@ For our firewall we'll use a package called `ufw`, short for _Uncomplicated Fire
 First, install `ufw`:
 
 ```bash
-sudo aptitude install ufw
+sudo aptitude install ufw --without-recommends
 ```
 
 Though `ufw` is installed, it is not automatically enabled, nor are any rules turned on by default.
@@ -52,7 +52,7 @@ When used AppArmor provides the Linux kernel with information that informs the k
 Install AppArmor, its support utilities, and packages containing pre-written access control profiles for well known processes.
 
 ```bash
-sudo aptitude install apparmor apparmor-profiles apparmor-profiles-extra apparmor-utils
+sudo aptitude install apparmor apparmor-profiles apparmor-profiles-extra apparmor-utils --without-recommends
 ```
 
 > `apparmor-profiles` are profiles maintained by the AppArmor community, while `apparmor-profiles-extra` are profiles maintained by the Debian and Ubuntu communities.
