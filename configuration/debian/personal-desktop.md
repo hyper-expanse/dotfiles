@@ -79,6 +79,9 @@ To install the following packages run `sudo aptitude install [PACKAGE] --without
 Packages:
 * ark: Archive tool. [KDE]
 * calibre: E-book library manager.
+* calligrasheets: Office spreadsheet application. [KDE]
+* calligraplan: Office planning application. [KDE]
+* calligrawords: Office word document application. [KDE]
 * clementine: Music player and library manager.
 * dia: Diagram editor.
 * gramps: Genealogy tool. [GTK]
