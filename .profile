@@ -71,12 +71,8 @@ if [ -z "${XDG_CACHE_HOME:-}" ]; then
 	export XDG_CACHE_HOME="${HOME}/.cache"
 fi
 
-uname=`uname -a`
-debian="Debian"
-if [ "${uname/$debian}" = "${uname}" ] && [ "$(uname)" = "Linux" ]; then
-	export SSH_AGENT_PID=""
-	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-fi
+export SSH_AGENT_PID=""
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 if [ "$(uname)" = "Darwin" ] && [ -f "${HOME}/.bashrc" ]; then
 	source "${HOME}/.bashrc"

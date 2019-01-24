@@ -306,6 +306,7 @@ installBrewPackages()
 
 			brew install bash
 			brew install wget
+			brew install pinentry-mac
 			brew cask install firefox
 			brew cask install visual-studio-code
 			brew cask install calibre

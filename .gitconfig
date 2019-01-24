@@ -1,7 +1,7 @@
 [user]
 	name = Hutson Betts
 	email = hutson@hyper-expanse.net
-	signingkey = 0xA5C376AC3772B622
+	signingkey = 0x8DED68C277EBED7B
 	useConfigOnly = true
 
 [core]
