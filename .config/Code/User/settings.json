@@ -44,6 +44,10 @@
 	"telemetry.enableCrashReporter": false,
 	"telemetry.enableTelemetry": false,
 
+	"terminal.explorerKind": "external",
+	"terminal.external.osxExec": "iTerm.app",
+	"terminal.integrated.fontFamily": "'Droid Sans Mono', 'Droid Sans Fallback', Menlo, Monaco, 'Courier New', monospace, PowerlineSymbols",
+
 	"tslint.autoFixOnSave": true,
 
 	"window.restoreFullscreen": true,
