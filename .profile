@@ -71,7 +71,6 @@ if [ -z "${XDG_CACHE_HOME:-}" ]; then
 	export XDG_CACHE_HOME="${HOME}/.cache"
 fi
 
-export SSH_AGENT_PID=""
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 if [ "$(uname)" = "Darwin" ] && [ -f "${HOME}/.bashrc" ]; then
