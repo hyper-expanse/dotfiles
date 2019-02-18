@@ -261,6 +261,9 @@ installBrewPackages()
 		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
 		brew install python
 
+		# Install Go compiler and development stack.
+		brew install go
+
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
 
