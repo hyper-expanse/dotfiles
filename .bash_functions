@@ -267,31 +267,31 @@ installBrewPackages()
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
 		brew install bash-completion
 
-		# Download and install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
+		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
 		brew install nvm
 
 		# Install alternative JavaScript package manager called `yarn`. Install without the Node dependency, as we will use the Node installation provided by the `nvm` tool.
 		brew install yarn --without-node
 
-		# Download and install Tmux, a terminal multiplexer.
+		# Install Tmux, a terminal multiplexer.
 		brew install tmux
 
-		# Download and install htop, a human-readable version of top.
+		# Install htop, a human-readable version of top.
 		brew install htop
 
-		# Download and install git, a distributed source code management tool.
+		# Install git, a distributed source code management tool.
 		brew install git
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
 
-		# Download and install flac, a command line tool for re-encoding audio files into Flac format.
+		# Install flac, a command line tool for re-encoding audio files into Flac format.
 		brew install flac
 
-		# Download and install ncdu, a command line tool for displaying disk usage information.
+		# Install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
 
-		# Download and install scrub, a command line tool for securely deleting files.
+		# Install scrub, a command line tool for securely deleting files.
 		brew install scrub
 
 		# Cross-platform, open-source, build system.
