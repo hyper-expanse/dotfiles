@@ -423,6 +423,9 @@ installVisualStudioCodeExtensions ()
 
 		# Docker support.
 		code --install-extension PeterJausovec.vscode-docker
+
+		# Go support.
+		code --install-extension ms-vscode.go
 	else
 		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
 	fi
