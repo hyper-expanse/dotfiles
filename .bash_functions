@@ -303,6 +303,9 @@ installBrewPackages()
 		# Tool used to compute CPU load for prompt line.
 		brew install bc
 
+		# Install resource orchestration tool.
+		brew install terraform
+
 		if [ "$(uname)" = "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
