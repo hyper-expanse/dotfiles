@@ -306,6 +306,10 @@ installBrewPackages()
 		# Install resource orchestration tool.
 		brew install terraform
 
+		# Install tflint, a linter/validator for Terraform files.
+		brew tap wata727/tflint
+		brew install tflint
+
 		if [ "$(uname)" = "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
@@ -426,6 +430,9 @@ installVisualStudioCodeExtensions ()
 
 		# Go support.
 		code --install-extension ms-vscode.go
+
+		# Terraform support.
+		code --install-extension mauve.terraform
 	else
 		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
 	fi
