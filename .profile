@@ -35,6 +35,9 @@ export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIB
 # This setting assumes that the `vagrant-libvirt` plugin as been installed into the local vagrant installation.
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
+# Set default region to use for AWS provisioning commands using the AWS CLI tool, or tools that wrap AWS functionality.
+export AWS_REGION=us-east-1
+
 # Disable Brew analytics so that my usage is not reported to the Brew account on the Google Analytics platform.
 export HOMEBREW_NO_ANALYTICS=1
 
