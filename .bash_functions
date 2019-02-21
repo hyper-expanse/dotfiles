@@ -370,7 +370,7 @@ installNodePackages ()
 		yarn global add doctoc
 
 		# Tool to configure many GitHub projects to use a given set of settings.
-		yarn global add @hbetts/github-metadata-sync
+		yarn global add @hutson/github-metadata-sync
 
 		# Tool to run Yeoman generators for scaffolding new projects.
 		yarn global add yo
