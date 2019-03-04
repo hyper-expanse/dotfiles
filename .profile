@@ -76,6 +76,9 @@ fi
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-if [ "$(uname)" = "Darwin" ] && [ -f "${HOME}/.bashrc" ]; then
+# Start our GPG agent so that it can begin responding to requests for a private key (SSH or signing requests).
+gpgconf --launch gpg-agent
+
+if [ "$(uname)" = "Darwin" -o -f "/etc/redhat-release" ] && [ -f "${HOME}/.bashrc" ]; then
 	source "${HOME}/.bashrc"
 fi
