@@ -79,9 +79,6 @@ To install the following packages run `sudo aptitude install [PACKAGE] --without
 Packages:
 * ark: Archive tool. [KDE]
 * calibre: E-book library manager.
-* calligrasheets: Office spreadsheet application. [KDE]
-* calligraplan: Office planning application. [KDE]
-* calligrawords: Office word document application. [KDE]
 * clementine: Music player and library manager.
 * dia: Diagram editor.
 * gramps: Genealogy tool. [GTK]
@@ -92,6 +89,9 @@ Packages:
 * keepassx: Offline password and secrets manager.
 * kgpg: GNUPG graphical front-end. [KDE]
 * kde-spectacle: Screenshot capture tool. [KDE]
+* libreoffice-calc: Spreadsheet application.
+* libreoffice-kde: For improved integration of LibreOffice into KDE theme. [KDE]
+* libreoffice-writer: Word application.
 * okular: PDF viewer. [KDE]
 * picard: Cross-platform music tagger.
 * quiterss: RSS/ATOM reader.
