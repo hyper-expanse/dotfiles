@@ -317,6 +317,12 @@ installBrewPackages()
 			brew install bash
 			brew install wget
 			brew install pinentry-mac
+
+			# Cloud tools
+			brew install awscli
+			brew install aws-iam-authenticator
+			brew install kubectl
+
 			brew cask install firefox
 			brew cask install visual-studio-code
 			brew cask install calibre
@@ -386,17 +392,19 @@ installPythonPackages ()
 	if command -v pip &> /dev/null; then
 		printf "\n> Installing Python packages.\n"
 
+		# Using `pip3` is necessary to avoid errors like `pkg_resources.VersionConflict: (pip 19.0.3 (~.local/lib/python3.7/site-packages), Requirement.parse('pip==19.0.2'))`
+
 		# Update the version of `pip` installed in our environment.
-		pip install pip --upgrade
+		pip3 install pip --upgrade
 
 		# Package and virtual environment manager for Python.
-		pip install pipenv --upgrade
+		pip3 install pipenv --upgrade
 
 		# Configuration management tool.
-		pip install ansible --upgrade
+		pip3 install ansible --upgrade
 
 		# Shell prompt configuration and theming tool.
-		pip install powerline-status --upgrade
+		pip3 install powerline-status --upgrade
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
