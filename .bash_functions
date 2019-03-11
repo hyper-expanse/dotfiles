@@ -310,6 +310,9 @@ installBrewPackages()
 		brew tap wata727/tflint
 		brew install tflint
 
+		# Install Asyncy CLI for beta cloud platform.
+		brew install asyncy/brew/asyncy
+
 		if [ "$(uname)" = "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
