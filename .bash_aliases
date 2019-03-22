@@ -49,17 +49,11 @@ alias scram='history -c; clear; /usr/bin/env rm -r ${XDG_DATA_HOME}/nvim/shada/ 
 # Find the top 5 largest files within the current, and sub, directories.
 alias findbig='find . -type f -exec ls -lha {} \; | sort --stable --parallel=2 -t" " -k5rh | head -5'
 
-# Find the package containing a particular binary image.
-alias pkgfind='dpkg -S'
-
 # List all ports currently opened on the system with port numbers and processes shown.
 alias ports='netstat -tulanp'
 
 # Alias wget so that it will always attempt to continue a file that was not successfully downloaded to begin with.
 alias wget='wget -c'
-
-# Enable the standard math library for the math command line tool.
-alias bc='bc -l'
 
 # Quickly find and print the top five processes consuming CPU cycles.
 alias pscpu='ps aux | sort --stable --parallel=2 -k3rh | head -n 5'
@@ -75,12 +69,6 @@ alias update='updateSystem && updateEnvironment'
 
 # Update system packages.
 alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
-
-# Create a Python virtual environment using the Python 3 interpreter and the standard _env_ directory.
-alias createVirtualEnvironment='virtualenv --python=python3 venv'
-
-# Activate the `env` Python virtual environment installed within the local directory.
-alias activateVirtualEnvironment='source ./venv/bin/activate'
 
 # Instruct Celibre to add each sub-directory of the designated directory as a book to the Calibre book database.
 alias addBookDirectories='calibredb add --one-book-per-directory -r'
