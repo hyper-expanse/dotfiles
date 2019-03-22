@@ -349,17 +349,11 @@ installNodePackages ()
 		# Install command line tab completion for `yarn`.
 		yarn global add yarn-completions
 
-		# `Foreman`-like tool for managing arbitrary processes within a local environment.
-		yarn global add foreman
-
 		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
 		yarn global add doctoc
 
 		# Tool to configure many GitHub projects to use a given set of settings.
 		yarn global add @hutson/github-metadata-sync
-
-		# Tool to run Yeoman generators for scaffolding new projects.
-		yarn global add yo
 	else
 		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
@@ -372,16 +366,13 @@ installPythonPackages ()
 	if command -v pip &> /dev/null; then
 		printf "\n> Installing Python packages.\n"
 
-		# Using `pip3` is necessary to avoid errors like `pkg_resources.VersionConflict: (pip 19.0.3 (~.local/lib/python3.7/site-packages), Requirement.parse('pip==19.0.2'))`
+		# Using `pip3` to install other packages is necessary to avoid errors like `pkg_resources.VersionConflict: (pip 19.0.3 (~.local/lib/python3.7/site-packages), Requirement.parse('pip==19.0.2'))`
 
 		# Update the version of `pip` installed in our environment.
 		pip3 install pip --upgrade
 
 		# Package and virtual environment manager for Python.
 		pip3 install pipenv --upgrade
-
-		# Configuration management tool.
-		pip3 install ansible --upgrade
 
 		# Shell prompt configuration and theming tool.
 		pip3 install powerline-status --upgrade
@@ -400,9 +391,6 @@ installVisualStudioCodeExtensions ()
 
 		# ESLint linter for JavaScript.
 		code --install-extension dbaeumer.vscode-eslint
-
-		# TSLint linter for TypeScript.
-		code --install-extension eg2.tslint
 
 		# Chrome debugger integration.
 		code --install-extension msjsdiag.debugger-for-chrome
