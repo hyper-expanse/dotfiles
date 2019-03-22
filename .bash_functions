@@ -19,7 +19,7 @@ compress()
 	local baseName=`basename ${1}`
 
 	if [ -f "${1}" ]; then
-		echo "Selected a file for compression. Changing directory to ${dirName}."
+		echo "Selected a file for compression. Changing directory to '${dirName}''."
 		cd "${dirName}"
 		case "${2}" in
 			tar.bz2)   tar cjf ${baseName}.tar.bz2 ${baseName} ;;
@@ -28,14 +28,14 @@ compress()
 			tar)       tar -cvvf ${baseName}.tar ${baseName}   ;;
 			zip)       zip -r ${baseName}.zip ${baseName}      ;;
 			*)
-				echo "A compression format was not chosen. Defaulting to tar.bz2"
-				tar cjf ${baseName}.tar.bz2 ${baseName}
+				echo "A compression format was not chosen. Defaulting to tar.gz"
+				tar czf ${baseName}.tar.gz ${baseName}
 				;;
 		esac
 		echo "Navigating back to ${dirPriorToExe}"
 		cd "${dirPriorToExe}"
 	elif [ -d "${1}" ]; then
-		echo "Selected a directory for compression. Changing directory to ${dirName}."
+		echo "Selected a directory for compression. Changing directory to '${dirName}''."
 		cd "${dirName}"
 		case "${2}" in
 			tar.bz2)   tar cjf ${baseName}.tar.bz2 ${baseName} ;;
@@ -44,8 +44,8 @@ compress()
 			tar)       tar -cvvf ${baseName}.tar ${baseName}   ;;
 			zip)       zip -r ${baseName}.zip ${baseName}      ;;
 			*)
-				echo "A compression format was not chosen. Defaulting to tar.bz2"
-				tar cjf ${baseName}.tar.bz2 ${baseName}
+				echo "A compression format was not chosen. Defaulting to tar.gz"
+				tar czf ${baseName}.tar.gz ${baseName}
 				;;
 		esac
 		echo "Navigating back to ${dirPriorToExe}"
