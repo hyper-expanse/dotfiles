@@ -273,9 +273,6 @@ installBrewPackages()
 		# Install alternative JavaScript package manager called `yarn`. Install without the Node dependency, as we will use the Node installation provided by the `nvm` tool.
 		brew install yarn --without-node
 
-		# Install Tmux, a terminal multiplexer.
-		brew install tmux
-
 		# Install htop, a human-readable version of top.
 		brew install htop
 
@@ -294,14 +291,8 @@ installBrewPackages()
 		# Install scrub, a command line tool for securely deleting files.
 		brew install scrub
 
-		# Cross-platform, open-source, build system.
-		brew install cmake
-
 		# Static site generator and build tool.
 		brew install hugo
-
-		# Tool used to compute CPU load for prompt line.
-		brew install bc
 
 		# Install resource orchestration tool.
 		brew install terraform
@@ -309,9 +300,6 @@ installBrewPackages()
 		# Install tflint, a linter/validator for Terraform files.
 		brew tap wata727/tflint
 		brew install tflint
-
-		# Install Asyncy CLI for beta cloud platform.
-		brew install asyncy/brew/asyncy
 
 		if [ "$(uname)" = "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
@@ -328,29 +316,18 @@ installBrewPackages()
 
 			brew cask install firefox
 			brew cask install visual-studio-code
-			brew cask install calibre
-			brew cask install clementine
-
-			# Required for successful installation of `dia`.
-			brew cask install xquartz
-
+			brew cask install xquartz # Required for successful installation of `dia`.
 			brew cask install dia
-			brew cask install gramps
 			brew cask install keepassxc
-			brew cask install musicbrainz-picard
-			brew cask install transmission
 			brew cask install gpg-suite
 			brew cask install vlc
 			brew cask install iterm2
 			brew cask install spectacle
 			brew cask install alfred
-
-			# General purpose archive/extractor tool.
-			brew cask install keka
+			brew cask install keka # General purpose archive/extractor tool.
 		fi
 
 		if [ `uname -n` == "startopia" ]; then
-
 			# GNU data recovery tool.
 			brew install ddrescue
 
