@@ -148,33 +148,23 @@ setupEnvironment ()
 		rm -fr "${PREFIX_DIRECTORY}" &> /dev/null
 	fi
 
-	printf "\n> Removing ${HOME}/.tmux/ directory.\n"
-
-	# Clear out our Tmux directory.
-	if [ -d "${HOME}/.tmux/" ]; then
-		rm -fr "${HOME}/.tmux/" &> /dev/null
-	fi
-
 	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
 	mkdir -p "${PREFIX_DIRECTORY}/tmp"
 
 	# Setup Brew.
-	setupBrew
+	setupHomeBrew
 	installBrewPackages
-
-	# Enable the Large File Storage extension.
-	git lfs install
 
 	# Execute `nvm` script to configure our local environment to work with `nvm`.
 	source "$(brew --prefix nvm)/nvm.sh"
 
-	# Install general tools.
+	# Install additional tools.
 	nvm install
 	installNodePackages
 	installPythonPackages
 
-	if [ "$(uname)" = "Linux" ]; then
-		# Install Firefox.
+	# Install Firefox on personal laptop.
+	if [ `uname -n` == "startopia" ]; then
 		installFirefox
 	fi
 }
@@ -195,41 +185,26 @@ updateEnvironment ()
 	# Update general tools.
 	nvm install
 	installNodePackages
-
-	if [ "$(uname)" = "Linux" ]; then
-		# Not supported on macOS at this time.
-		installPythonPackages
-	fi
+	installPythonPackages
 }
 
-#! Setup Brew, the Linux-clone of HomeBrew.
-# Install Brew locally so that we can download, build, and install tools from source.
-setupBrew ()
+#! Setup HomeBrew.
+# Install HomeBrew locally so that we can download, build, and install tools from source.
+setupHomeBrew ()
 {
-	printf "\n> Installing Brew.\n"
+	printf "\n> Installing HomeBrew.\n"
 
 	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of Brew into the `.local/` directory.
 	mkdir -p "${HOME}/.local/bin"
 
-	if [ "$(uname)" = "Darwin" ]; then
-		# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
-		curl -L https://github.com/Homebrew/brew/archive/master.tar.gz -o "/tmp/homebrew.tar.gz"
+	# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
+	curl -L https://github.com/Homebrew/brew/archive/master.tar.gz -o "/tmp/homebrew.tar.gz"
 
-		# Extract archive file into local system directory.
-		tar -xf "/tmp/homebrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
+	# Extract archive file into local system directory.
+	tar -xf "/tmp/homebrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
 
-		# Cleanup.
-		rm -f "/tmp/homebrew.tar.gz"
-	else
-		# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
-		wget https://github.com/Linuxbrew/brew/archive/master.tar.gz -O "/tmp/linuxbrew.tar.gz"
-
-		# Extract archive file into local system directory.
-		tar -xf "/tmp/linuxbrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
-
-		# Cleanup.
-		rm -f "/tmp/linuxbrew.tar.gz"
-	fi
+	# Cleanup.
+	rm -f "/tmp/homebrew.tar.gz"
 
 	# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
 	local uname=`uname -a`
@@ -271,7 +246,7 @@ installBrewPackages()
 		brew install nvm
 
 		# Install alternative JavaScript package manager called `yarn`. Install without the Node dependency, as we will use the Node installation provided by the `nvm` tool.
-		brew install yarn --without-node
+		brew install yarn
 
 		# Install htop, a human-readable version of top.
 		brew install htop
@@ -281,6 +256,7 @@ installBrewPackages()
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
+		git lfs install # Install and register the Git extension.
 
 		# Install flac, a command line tool for re-encoding audio files into Flac format.
 		brew install flac
@@ -296,6 +272,9 @@ installBrewPackages()
 
 		# Install resource orchestration tool.
 		brew install terraform
+
+		# Install network traffic inspection tool.
+		brew install tcpdump
 
 		# Install tflint, a linter/validator for Terraform files.
 		brew tap wata727/tflint
@@ -325,6 +304,7 @@ installBrewPackages()
 			brew cask install spectacle
 			brew cask install alfred
 			brew cask install keka # General purpose archive/extractor tool.
+			brew cask install wireshark # For network debugging.
 		fi
 
 		if [ `uname -n` == "startopia" ]; then
