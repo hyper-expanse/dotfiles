@@ -356,6 +356,13 @@ installPythonPackages ()
 
 		# Shell prompt configuration and theming tool.
 		pip3 install powerline-status --upgrade
+
+		# Install and configure powerline font.
+		mkdir -p "${XDG_DATA_HOME}/fonts/"
+		curl -L https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf -o "${XDG_DATA_HOME}/fonts/PowerlineSymbols.otf"
+		fc-cache -vf "${XDG_DATA_HOME}/fonts/"
+		mkdir -p "${XDG_CONFIG_HOME}/fontconfig/conf.d/"
+		curl -L https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf -o "${XDG_CONFIG_HOME}/fontconfig/conf.d/10-powerline-symbols.conf"
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
