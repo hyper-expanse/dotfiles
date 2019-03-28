@@ -299,6 +299,7 @@ installBrewPackages()
 			brew cask install gpg-suite
 			brew cask install vlc
 			brew cask install iterm2
+			brew cask install slack
 			brew cask install spectacle
 			brew cask install keka # General purpose archive/extractor tool.
 			brew cask install wireshark # For network debugging.
