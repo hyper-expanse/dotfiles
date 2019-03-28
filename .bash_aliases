@@ -83,4 +83,4 @@ alias gitGroupSetup='find . -maxdepth 1 -type d -not -path . -exec sh -c "echo \
 alias gitGroupDiff='find . -maxdepth 1 -type d -not -path . -exec sh -c "echo \"{}\"; cd \"{}\"; git diff --unified; cd ..; echo;" \;'
 
 # Spin up Node development environment within a Docker container.
-alias nodeDocker='docker run --rm --user node -v "$(pwd)":/app -w /app -it node:10-alpine sh -c "yarn install; yarn test; bash"'
+alias nodeDocker='docker run --rm --user node -v "$(pwd)":/app -w /app -it node:10-alpine sh -c "yarn install; yarn test; sh"'

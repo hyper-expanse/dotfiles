@@ -295,14 +295,11 @@ installBrewPackages()
 
 			brew cask install firefox
 			brew cask install visual-studio-code
-			brew cask install xquartz # Required for successful installation of `dia`.
-			brew cask install dia
 			brew cask install keepassxc
 			brew cask install gpg-suite
 			brew cask install vlc
 			brew cask install iterm2
 			brew cask install spectacle
-			brew cask install alfred
 			brew cask install keka # General purpose archive/extractor tool.
 			brew cask install wireshark # For network debugging.
 		fi
