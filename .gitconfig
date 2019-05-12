@@ -127,6 +127,9 @@
 	# Add a _Signed-off-by_ to each commit message to certify that I have agreed to the Developer Certificate of Origin (https://developercertificate.org/).
 	dco = commit --signoff
 
+	# Create a merge request immediately after pushing a new branch to the origin repository, and merge that branch if the build succeeds.
+	merge-push = push -u origin -o merge_request.create -o merge_request.merge_when_pipeline_succeeds
+
 [includeIf "gitdir:/Users/hbetts/"]
 	# When using an account associated with my work laptop, defer to any work-specific configuration.
 	path = ~/.dotfiles/.gitconfig-factset
