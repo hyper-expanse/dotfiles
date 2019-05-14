@@ -31,10 +31,6 @@ export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 # CMAKE_INSTALL_PREFIX - Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIBRARY=${PREFIX_DIRECTORY}/lib/libpython2.7.so -DPYTHON_INCLUDE_DIR=${PREFIX_DIRECTORY}/include/python2.7"
 
-# Set the default provider used by Vagrant to provision new machines.
-# This setting assumes that the `vagrant-libvirt` plugin as been installed into the local vagrant installation.
-export VAGRANT_DEFAULT_PROVIDER=libvirt
-
 # Set default region to use for AWS provisioning commands using the AWS CLI tool, or tools that wrap AWS functionality.
 export AWS_REGION=us-east-1
 
