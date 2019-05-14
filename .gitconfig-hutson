@@ -1,3 +1,4 @@
 [protocol]
 	# Enable Git protocol version 2 to reduce overall network traffic.
-	version = 2
+	# Disabled because the default `git` client on many systems don't, yet, support version 2.
+	# version = 2
