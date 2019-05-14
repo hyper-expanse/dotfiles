@@ -41,12 +41,6 @@ mkdir -p "${XDG_CONFIG_HOME}"
 rm "${XDG_CONFIG_HOME}/powerline" &> "/dev/null"
 ln -s -f "$(pwd)/.config/powerline" "${XDG_CONFIG_HOME}/powerline"
 
-# Symlink tmux files.
-echo "> Symlinking tmux files into the config directory (${XDG_CONFIG_HOME}/tmux)."
-mkdir -p "${XDG_CONFIG_HOME}"
-rm "${XDG_CONFIG_HOME}/tmux" &> "/dev/null"
-ln -s "$(pwd)/.config/tmux" "${XDG_CONFIG_HOME}/tmux"
-
 # Symlink Visual Studio Code files.
 if [ "$(uname)" = "Darwin" ]; then
 	echo "> Symlinking Visual Studio Code files into the Library directory (Library/Application Support/Code/User)."
@@ -57,10 +51,5 @@ else
 	mkdir -p "${XDG_CONFIG_HOME}/Code/User"
 	ln -s -f "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
 fi
-
-# Symlink Vagrant configuration file.
-echo "> Symlinking Vagrant configuration file into the Vagrant directory (${HOME}/.vagrant.d)."
-mkdir -p "${HOME}/.vagrant.d"
-ln -s -f "$(pwd)/.vagrant.d/Vagrantfile" "${HOME}/.vagrant.d/Vagrantfile"
 
 echo "Finished deploying your dotfiles. Please run 'source ~/.profile' to use your new setup."
