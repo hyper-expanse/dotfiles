@@ -76,6 +76,6 @@ if [ -z "${SSH_CLIENT}" ] && [ -z "${SSH_TTY}" ]; then
 	gpgconf --launch gpg-agent
 fi
 
-if [ "$(uname)" = "Darwin" -o -f "/etc/redhat-release" ] && [ -f "${HOME}/.bashrc" ]; then
+if [ -f "${HOME}/.bashrc" ]; then
 	source "${HOME}/.bashrc"
 fi
