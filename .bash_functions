@@ -205,25 +205,6 @@ setupHomeBrew ()
 
 	# Cleanup.
 	rm -f "/tmp/homebrew.tar.gz"
-
-	# Link compilers into local bin directory for non-Debian systems, as non-Debian systems do not expose a version-named binary for compilers like gcc, or g++. For example, on Debian, you may find `gcc-4.4` in your path.
-	local uname=`uname -a`
-	local debian="Debian"
-	if [ "${uname/$debian}" = "${uname}" ] && [ "$(uname)" = "Linux" ]; then
-		printf "\n--> Linking compilers into prefix binary directory."
-
-		if command -v gcc &> /dev/null; then
-			ln -s $(which gcc) ${PREFIX_DIRECTORY}/bin/gcc-$(gcc -dumpversion | cut -d. -f1,2)
-		fi
-
-		if command -v g++ &> /dev/null; then
-			ln -s $(which g++) ${PREFIX_DIRECTORY}/bin/g++-$(g++ -dumpversion | cut -d. -f1,2)
-		fi
-
-		if command -v gfortran &> /dev/null; then
-			ln -s $(which gfortran) ${PREFIX_DIRECTORY}/bin/gfortran-$(gfortran -dumpversion | cut -d. -f1,2)
-		fi
-	fi
 }
 
 #! Install packages via Brew.
