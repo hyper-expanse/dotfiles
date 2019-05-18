@@ -1,236 +1,342 @@
-# Personal Desktop
+# Kubuntu
 
-This chapter covers setting up a graphical desktop environment over a bare Debian operating system. My desktop of choice is the wonderful [KDE](https://www.kde.org/) desktop environment. Sections in this chapter will walk you through installing the desktop environment and various applications to meet your daily needs.
+Instructions for setting up Kubuntu 18.04 (Based on Ubuntu 18.04 with the KDE desktop environment) on an Dell XPS 13 laptop (Developer Edition).
 
-## Display Server
+## Installer
 
-To install them, run `sudo aptitude install [PACKAGE] --without-recommends`.
+An installer is available from Kubuntu's [Download page](https://kubuntu.org/getkubuntu/).
 
-Packages:
-* xorg: This metapackage provides the components for a standalone workstation running the X Window System.
-* mesa-utils
+Select the _64-bit Download_ option and download the ISO image.
 
-> `mesa-utils` includes a command line tool called `glxinfo` that can display information about the OpenGL and GLX implementations employed by the running X display server. (For example, executing `glxinfo | grep OpenGL` will provide information on whether your system is using OpenGL for rendering.)
+In addition to the ISO image, please copy the SHA256 checksum for the image you downloaded. You can get the checksum from the [_Alternative Downloads_](https://kubuntu.org/alternative-downloads) page.
 
-## Window Manager
+## Image Verification
 
-To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
+With the ISO installation image in hand, we need to validate the image to ensure it wasn't corrupted while at rest on the remote server or while in transit.
 
-Packages:
-* kwin-x11: Compositing window manager used by KDE.
-
-## Desktop Environment
-
-In addition to providing the fundamental components required to offer a functional desktop environment, the `kde-plasma-desktop` package also include basic necessities such as a file manager, and a password manager. However, `kde-plasma-desktop` does **not** come with a large number of applications, such as video and music players. Instead we leave it up to the user to choose what basic applications they want on their system.
-
-To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
-
-Packages:
-* kde-plasma-desktop: The KDE Plasma desktop and minimal set of applications.
-* plasma-nm: Network Management widget for KDE Plasma workspaces.
-* network-manager-openvpn: Support for connecting to virtual private networks.
-
-## Network Manager
-
-The Debian Network Manager is not configured to start automatically, nor is it setup to manage the system's network interfaces. Therefore we must first configure the Network Manager to manage all network interfaces, and then we must restart the Network Manager daemon for that change to take effect.
-
-Edit the following file, `/etc/NetworkManager/NetworkManager.conf`, and enable the managed feature:
-
-```
-managed=true
-```
-
-Then restart the Network-Manager service:
+Within the directory containing the downloaded installer, run the following command, replacing `[ISO IMAGE NAME]` with the name of the ISO image downloaded:
 
 ```bash
-sudo /etc/init.d/network-manager restart
+sha256sum [ISO IMAGE NAME]
 ```
 
-## Sound
+You should see something like:
 
-Our basic KDE desktop setup does not come with audio support. To enable audio for desktop applications we need to install the [pulseadio sound server](https://en.wikipedia.org/wiki/PulseAudio).
+```bash
+sha256sum kubuntu-18.04.2-desktop-amd64.iso
 
-To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
+844762a208593ee5cf396cb09522b1dfa127c65b79f71f4863c062039215d0d8  kubuntu-18.04.2-desktop-amd64.iso
+```
 
-Packages:
-* pulseaudio
+Compare the checksum output with the value you retrieved from the Kubuntu website.
 
-## Multi-Factor Authentication Device
+## Installation
+
+Load the ISO image downloaded above into the system (either by mounting the ISO for use with a virtual machine, or burning the image to a physical DVD or USB) and then restart the system.
+
+An installation screen will launch providing two options; _Try Kubuntu_ and _Install Kubuntu_.
+
+Choose _Install Kubuntu_.
+
+On the _Keyboard layout_ screen, just press _Continue_ as the _English_ default is good enough.
+
+Log into your wireless router to facilitate package installation and updates.
+
+On the _Updates and other software_ screen, select the _Minimal installation_ option. We'll install additional software to meet our needs, without being burdended by software we don't use. Furthermore, select the _Install third-party software ..._ option so that we can be assured that our operating system has access to drivers needed to use all the features of the laptop.
+
+On the _Installation type_ screen, select _Guided - use entire disk and set up encrypted LVM_ and proceed with _Install now_
+
+On the _Where are you?_ screen, select the appropriate time zone.
+
+On the _Who are you?_ screen, enter in your information.
+
+When the installation is complete, choose _Restart Now_.
+
+## Support HTTPS Repositories
+
+Some package repositories use HTTPS as their transport protocol.
+
+To support these repositories we need to install one additional system-level package:
+
+```bash
+sudo apt install apt-transport-https
+```
+
+Without `apt-transport-https` attempts to install packages from a repository over HTTPS will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
+
+## Security Hardening
+
+Hardening a laptop is an important process to carry-out for all newly provisioned, and existing in-production, systems to insure that information is secured and services can be provided in a continuous and reliable manner.
+
+This section walks you through the process of securing a standard Kubuntu installation by installing various security tools, instituting _best practices_ for settings of pre-installed services, and insuring the latest protocols are utilized.
+
+This guide, however, does not guarantee that a system is impervious to a security breach, nor does it account for the human factor in system security. Rather, it simply takes a _best effort_ at implementing the best standard of security on a system while leaving the maintenance of security to institutional policies.
+
+> **Note:** This section is not comprehensive. Please do additional research to ensure you're applying all _best practices_ as they pertain to security.
+
+### Firewall
+
+A firewall helps prevent external intrusion into the system. However, it should be noted that possessing a firewall does not block malicious actions from occurring on the server itself.
+
+For our firewall we'll use a package called `ufw`, short for _Uncomplicated Firewall_, which is a framework, and a command line frontend for manipulating [iptables](https://en.wikipedia.org/wiki/Iptables).
+
+First, install `ufw`:
+
+```bash
+sudo apt install ufw
+```
+
+Though `ufw` is installed, it is not automatically enabled, nor are any rules turned on by default.
+
+To enable `ufw`, please run the following command:
+
+```bash
+sudo ufw enable
+```
+
+Next let's enable a few default rules to block all incoming traffic while allowing all outbound traffic:
+
+```bash
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+```
+
+Lastly, let's verify `ufw` is running:
+
+```bash
+sudo ufw status verbose
+```
+
+You should see `Status: active` in the output along with the default rules you set earlier.
+
+Please read Debian's [guide on `ufw`](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29) for more on how to configure `ufw` to support your needs.
+
+### Restricting Task Scheduling
+
+Linux systems include four mechanisms for users to schedule one-time and regular tasks. Such tasks, when used maliciously, could be used to maintain open backdoors, exhaust system resources, etc. Therefore, restricting who's authorized to use the scheduling system could prevent malicious use by un-authorized, or compromised users.
+
+Here's a list of those task scheduling systems:
+- at: Runs a task once, at a specific time in the future.
+- batch: Runs a particular task when the system load drops below a specified value.
+- cron: Runs tasks at specific times according to a schedule.
+- anacron: Periodically runs specified tasks when the system is available.
+
+The `atd` service manages both `at` and `batch`. The `cron` and `anacron` task scheduling systems each use a separate service.
+
+#### at and batch Restriction
+
+To restrict user access to the `at` and `batch` scheduling systems, create a file called `/etc/at.allow`. If this file exists, `at` and `batch` will limit access to only those users listed in the file.
+
+Create the `at.allow` file and restrict to the `root` user:
+
+```bash
+sudo echo "root" > /etc/at.allow
+```
+
+If a `/etc/at.deny` file exists it provides the reverse of `at.allow`. It enables all users to access `at`, except those whose usernames are listed in `at.deny`.
+
+#### cron Restriction
+
+To restrict user access to the `cron` scheduling system, create a file called `/etc/cron.allow`. If this file exists, `cron` will limit access to only those users listed in the file.
+
+Create the `cron.allow` file and restrict to the `root` user:
+
+```bash
+sudo echo "root" > /etc/cron.allow
+```
+
+If a `/etc/cron.deny` file exists it provides the reverse of cron.allow. It enables all users to access cron, except those whose usernames are listed in `cron.deny`.
+
+### Account Security
+
+Account security involves the creation and management of user accounts on a system in a manner that ensures the security and integrity of that system. Account security has two aspects that must be handled; first, protecting the access to accounts on a system, and second, ensuring that an account is used in a manner that is appropriate given institutional policies.
+
+#### User Home Folder Access
+
+Kubuntu-based systems create world-readable home directories by default when accounts are created using `adduser`. This allows users on a shared system to access the files and folders inside of each other’s home directories. Access includes the ability to execute programs within the directories of other users, along with reading the contents of any file. This is a potential security and privacy issue, giving users access to material they shouldn't. So we're going to change the default to restrict access to home directories.
+
+Execute the following command to re-configure the `adduser` program:
+
+```bash
+sudo dpkg-reconfigure adduser
+```
+
+An interactive configuration screen will appear to configure the `adduser` settings.
+
+Select _No_ for system-wide readable home directories.
+
+Next, we must secure all home directories that already exist on the system, removing world privileges, by executing the following command, replacing `[USERNAME]` with the name of the user's home directory:
+
+```bash
+sudo chmod -R o-rwx /home/[USERNAME]
+```
+
+Modify `/etc/adduser.conf` and change the following property:
+
+```
+DIR_MODE=0751
+```
+
+> `DIR_MODE` originally has the value of `0755`, but that value is changed to `0751` by our call to `dpkg-reconfigure`.
+
+To the following value:
+
+```
+DIR_MODE=0750
+```
+
+Changing the default permissions from `751` to `750` disables the default permission that allows executables within a user's home directory to be executed by other users.
+
+#### Default Permissions
+
+Files and directories are typically created on a Unix system with world readable permissions. That means any user on that system, besides the file's owner, can read the contents of newly created files, even if that user is not the owner, or part of the group assigned as an owner of the file.
+
+To mitigate the availability of file contents to third-parties on the same system we change the `UMASK` value used by the Linux system when setting the default permissions for new files and directories.
+
+Edit `/etc/login.defs` and change the following line:
+
+```
+UMASK 022
+```
+
+To the following value:
+
+```
+UMASK	027
+```
+
+Please see [Umask](https://en.wikipedia.org/wiki/Umask) documentation to learn how changing `2` to `7` will prevent files from being set with world read permissions.
+
+## Personal Desktop
+
+This section covers customizing the [KDE](https://www.kde.org/) desktop environment.
+
+### Multi-Factor Authentication Device
 
 > This section specifically mentions [Yubico](https://www.yubico.com/) devices, but any two-factor authentication device is supported by the following instructions.
 
-YubiKeys purchased from Yubico provide support for [multi-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication), and specifically, [Universal 2nd Factor](https://en.wikipedia.org/wiki/Universal_2nd_Factor) authentication.
+YubiKeys, a product of Yubico, provide support for [multi-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication), and specifically, [Universal 2nd Factor](https://en.wikipedia.org/wiki/Universal_2nd_Factor) authentication.
 
-Background information, and detailed instructions for setting up YubiKey on Debian, are provided in Debian's [YubiKey4 docs](https://wiki.debian.org/Smartcards/YubiKey4).
-
-However, for most uses, including support for non-YubiKey devices.
-
-To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
-
-Packages:
-* libu2f-host0
-
-## Desktop Applications
-
-A list of common applications to fulfill various workflows is provided below.
-
-To install the following packages run `sudo aptitude install [PACKAGE] --without-recommends`.
-
-Packages:
-* ark: Archive tool. [KDE]
-* calibre: E-book library manager.
-* clementine: Music player and library manager.
-* dia: Diagram editor.
-* gramps: Genealogy tool. [GTK]
-* gufw: Graphical user interface for `ufw` firewall. [GTK]
-* gwenview: Image viewer. [KDE]
-* k3b: A CD/DVD ripper and burner. [KDE]
-* kcalc: Simple and scientific calculator. [KDE]
-* keepassx: Offline password and secrets manager.
-* kgpg: GNUPG graphical front-end. [KDE]
-* kde-spectacle: Screenshot capture tool. [KDE]
-* libreoffice-calc: Spreadsheet application.
-* libreoffice-kde: For improved integration of LibreOffice into KDE theme. [KDE]
-* libreoffice-writer: Word application.
-* okular: PDF viewer. [KDE]
-* picard: Cross-platform music tagger.
-* quiterss: RSS/ATOM reader.
-* transmission-qt: Qt front-end for the Transmission BitTorrent client.
-* vlc: Multimedia player.
-
-## Additional VLC Setup
-
-While VLC can play most multimedia formats, the version distributed with Debian cannot play encrypted DVDs. Encrypted DVDs account for most commercially available movie DVDs. To play encrypted DVDs an additional library, called `libdvdcss`, is required. `libdvdcss` is not distributed with the Debian version of VLC because of [legal concerns](https://en.wikipedia.org/wiki/Libdvdcss).
-
-Full instructions for installing `libdvdcss` on Debian are available on the [VideoLAN website](https://www.videolan.org/developers/libdvdcss.html), but they are included here (with a few changes that align with other instructions in the _Configuration_ guide).
-
-Add VideoLAN's official GPG signing key:
+Install the required package for U2F support:
 
 ```bash
-curl -sSL https://download.videolan.org/pub/debian/videolan-apt.asc | sudo apt-key add -
+sudo apt install libu2f-host0
 ```
 
-Verify key integrity:
+> **Note:** Detailed instructions for setting up YubiKey on Debian are provided in Debian's [YubiKey4 docs](https://wiki.debian.org/Smartcards/YubiKey4).
+
+### Desktop Applications
+
+To provide a basic level of functionality for daily tasks, I've put together the following list of desktop applications. I've found these applications to be useful, and provide capabilities not offered by software pre-installed with Kubuntu.
 
 ```bash
-sudo apt-key fingerprint
+sudo apt install [PACKAGE]
 ```
 
-Then look for the following key in the output:
+Please use the command above to install each package:
+- akregator: RSS/ATOM reader.
+- calibre: E-book library manager.
+- dia: Diagram editor.
+- gramps: Genealogy tool.
+- gufw: Graphical user interface for `ufw` firewall.
+- keepassxc: Offline password and secrets manager.
+- kgpg: GNUPG graphical front-end.
+- libreoffice-calc: Spreadsheet application.
+- libreoffice-writer: Word application.
+
+### Additional VLC Setup
+
+While VLC can play most multimedia formats, the version distributed with Kubuntu cannot play encrypted DVDs. Encrypted DVDs account for most commercially available movie DVDs. To play encrypted DVDs an additional library, called `libdvdcss2`, is required. `libdvdcss2` is not distributed with the Kubuntu version of VLC because for [legal reasons](https://en.wikipedia.org/wiki/Libdvdcss) that you are encouraged to be fully aware of before you proceed with this section.
+
+Full instructions for installing `libdvdcss2` on Debian-based operating systems are available on the [VideoLAN website](https://www.videolan.org/developers/libdvdcss.html), though I have also included them here.
+
+Start by installing the package that sets up the environment needed for installing `libdvdcss2`.
 
 ```bash
-pub   rsa2048 2013-08-27 [SC]
-      8F08 45FE 77B1 6294 429A  7934 6BCA 5E4D B842 88D9
-uid           [ unknown] VideoLAN APT Signing Key <videolan@videolan.org>
-sub   rsa2048 2013-08-27 [E]
+sudo apt install libdvd-pkg
 ```
 
-Add the following to a file named `videolan.list` in the `/etc/apt/sources.list.d/` directory:
-
-```
-deb [arch=amd64] https://download.videolan.org/pub/debian/stable/ /
-deb-src [arch=amd64] https://download.videolan.org/pub/debian/stable/ /
-```
-
-Then instruct Aptitude to update it's list of available packages, including those available in the VideoLAN repository.
+Then reconfigure the package to trigger the installation of `libdvdcss2`.
 
 ```bash
-sudo aptitude update
+sudo dpkg-reconfigure libdvd-pkg
 ```
 
-Install the latest version of `libdvdcss``:
+Select _Yes_ to install `libdvdcss2`.
+
+At this point VLC will be able to play encrypted DVDs.
+
+### Virtual Machine Manager
+
+To provision virtualized resources on Linux using KVM, QEMU, and others, install the `libvirt` daemon process.
 
 ```bash
-sudo aptitude install libdvdcss2 --without-recommends
+sudo apt install libvirt-daemon-system
 ```
 
-At this point VLC should be able to play any encrypted DVD.
-
-## Vagrant
-
-[Vagrant](https://www.vagrantup.com/) is a tool for configuring reproducible and portable development environments using one of several provisioning tools, such as virtual machines through `libvirt`, or Docker containers.
-
-First, install `vagrant` from the Debian repository:
+To monitor the virtual resources in use install the following package.
 
 ```bash
-sudo aptitude install vagrant --without-recommends
+sudo apt install virt-manager
 ```
 
-Next, we'll need to install the [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) plugin so that `vagrant` can provision virtual machines through `libvirt` (Our preferred provisioning interface for virtual machines).
+### Docker
 
-To install `vagrant-libvirt`, navigate to their [Installation Guide](https://github.com/vagrant-libvirt/vagrant-libvirt#installation) and install the packages listed for Debian.
+> This section is a modification of the instructions on [Docker's Ubuntu CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) site.
 
-> Please ensure you replace command line calls made to `apt-get` with calls to `aptitude` using `sudo`.
-
-Once all dependencies for `vagrant-libvirt` have been installed, have vagrant install the plugin:
-* `vagrant plugin install vagrant-libvirt`
-
-To monitor virtual machines on your system outside of Vagrant, install `virt-manager`, a graphical tool for visualizing virtual machine resources.
+Add Docker's official GPG signing key to your system to validate the authenticity of the Docker CE package:
 
 ```bash
-sudo aptitude install virt-manager --without-recommends
+curl -sSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-### Libvirt User
-
-Using any `vagrant` command that modifies the state of a `libvirt` managed machine will require you to enter your password to authenticate.
-
-To avoid the authentication prompt simply add yourself to the `libvirt` user group:
-* `sudo usermod -G libvirt -a ${USER}`
-
-## Docker
-
-> This section is a modification of the instructions on [Docker's Debian CE](https://docs.docker.com/engine/installation/linux/docker-ce/debian/) site.
-
-Add Docker's official GPG signing key:
-
-```bash
-curl -sSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-```
-
-Verify key integrity:
+Next, verify the key installed for Docker (Fingerprint is available on Docker's website):
 
 ```bash
 sudo apt-key fingerprint
 ```
 
-Then look for the following key in the output:
+To install the latest version of Docker we need to add Docker's repository to our `apt` list of Ubuntu package repositories:
+
+```
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+```
+
+Then update the list of available packages, including those available from the Docker repository:
 
 ```bash
-pub   rsa4096 2017-02-22 [SCEA]
-      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
-sub   rsa4096 2017-02-22 [S]
+sudo apt update
 ```
 
-To install the latest version of Docker we need to add Docker's repository to our `apt` list of Debian package repositories.
-
-Add the following to a file named `docker.list` in the `/etc/apt/sources.list.d/` directory:
-
-```
-deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
-```
-
-Then instruct Aptitude to update it's list of available packages, including those available in the Docker repository.
+Ensure that the Docker package, `docker-ce`, will be installed from the Docker repository (`https://download.docker.com`):
 
 ```bash
-sudo aptitude update
+apt-cache policy docker-ce
 ```
 
 Install the latest version of Docker CE:
 
 ```bash
-sudo aptitude install docker-ce --without-recommends
+sudo apt install docker-ce
 ```
 
-To run Docker containers without using `sudo` to gain `root` user permissions, you can add your account to the `docker` user group previously setup by the `docker-ce` installer.
+Lastly, check that Docker is running (Looking for `Active: active (running)`):
 
-> Before adding your account to the `docker` group, please read through Docker's [Docker daemon attach surface documentation](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to understand the tradeoff of giving users root-like permissions through the `docker` group.
+```bash
+sudo systemctl status docker
+```
+
+To run Docker containers without using `sudo`, for the purpose of gaining `root` permissions, you'll need to add your account to the `docker` user group previously setup by the `docker-ce` installer.
+
+> Before adding your account to the `docker` group please read through Docker's [Docker daemon attach surface documentation](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to understand the tradeoff of giving users root-like permissions through the `docker` group.
 
 To do so simply add yourself to the `docker` user group:
-* `sudo usermod -G docker -a ${USER}`
 
-Once you've added yourself to the `docker` group you will need to log out, and back into, your system for the group change to take effect.
+```bash
+sudo usermod -G docker -a ${USER}
+```
+
+Once you've added yourself to the `docker` group you will need to log out and back into your system for the group change to take effect.
 
 Lastly, verify Docker was installed correctly by running their test image:
 
@@ -238,35 +344,27 @@ Lastly, verify Docker was installed correctly by running their test image:
 docker run hello-world
 ```
 
-## GnuPG
+### GnuPG
 
 [GnuPG](https://www.gnupg.org/) allows for the creation and management of encryption keys following the public/private key model.
 
-Launch `KGpg`, KDE's graphical user interface to GnuPG, and under _Settings -> Configure KGpg -> Key Servers_, remove all the default key servers.
+Launch `KGpg`, Kubuntu's graphical user interface to GnuPG, and under _Settings -> Configure KGpg -> Key Servers_, remove all the default key servers.
 
 A `~/.gnupg/gpg.conf` configuration file, used for configuring GnuPG clients, will be scaffolded by the _Personal Dotfiles_ section below.
-
-Lastly, install the following dependency for the `gpg2` command line tool:
-
-```bash
-sudo aptitude install dirmngr --without-recommends
-```
-
-> `dirmngr` is used by GnuPG's command line tool, `gpg`, to connect to third-party servers to upload, or download, keys.
 
 When generating a new encryption key, set all keys with an expiration date 10 years in the future. Then set a calendar event as a reminder of when to replace an old key.
 
 Create a single master key, and then a subkey for each purpose of Encryption, Signing, and Authentication.
 
 A few good resources for setting up GPG keys:
-* [Create GnuPG key with sub-keys to sign, encrypt, authenticate](https://blog.tinned-software.net/create-gnupg-key-with-sub-keys-to-sign-encrypt-authenticate/)
-* [Creating the perfect GPG keypair](https://alexcabal.com/creating-the-perfect-gpg-keypair/)
+- [Create GnuPG key with sub-keys to sign, encrypt, authenticate](https://blog.tinned-software.net/create-gnupg-key-with-sub-keys-to-sign-encrypt-authenticate/)
+- [Creating the perfect GPG keypair](https://alexcabal.com/creating-the-perfect-gpg-keypair/)
 
 A few good resources for using GPG keys:
-* [PGP and You](https://robots.thoughtbot.com/pgp-and-you)
-* [yubikey and ssh authentication](https://www.isi.edu/~calvin/yubikeyssh.htm)
+- [PGP and You](https://robots.thoughtbot.com/pgp-and-you)
+- [yubikey and ssh authentication](https://www.isi.edu/~calvin/yubikeyssh.htm)
 
-### Generate Master Key
+#### Generate Master Key
 
 We'll delegate _Encryption_, _Signing_, and _Authentication_, to individual subkeys, but to manage those subkeys, such as creating, signing, and revocing, them, we'll need to first create a master key.
 
@@ -357,7 +455,7 @@ gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
 
 In a later section we'll talk about moving the backup to a safe location as well.
 
-### Generate Encryption Key
+#### Generate Encryption Key
 
 Generate an encryption subkey to be used for encrypting content before storing or transmitting that content.
 
@@ -438,7 +536,7 @@ Create a backup of any subkeys associated with your master key:
 gpg2 --armor --export-secret-subkeys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].subkeys
 ```
 
-### Generate Signing Subkey
+#### Generate Signing Subkey
 
 Generate a signing subkey to be used for signing messages as originating from you.
 
@@ -519,7 +617,7 @@ Create a backup of any subkeys associated with your master key:
 gpg2 --armor --export-secret-subkeys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].subkeys
 ```
 
-### Generate Authentication Subkey
+#### Generate Authentication Subkey
 
 Generate an authentication subkey for authenticating with remote servers over SSH.
 
@@ -620,7 +718,7 @@ Create a backup of any subkeys associated with your master key:
 gpg2 --armor --export-secret-subkeys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].subkeys
 ```
 
-### Add User Identities
+#### Add User Identities
 
 Though the master key has been created with your provided name and e-mail address as your identity, you're welcome to add additional identities, such as an alternative name or e-mail address.
 
@@ -720,15 +818,9 @@ If you decided to add identities, please re-create your master key backup:
 gpg2 --armor --export-secret-keys 0x[KEYID] > ~/0x[KEYID]-[E-MAIL ADDRESS].key
 ```
 
-## Yubikey
+### Yubikey
 
-Install package required for GnuPG to recognize the Yubikey as a smart card.
-
-```bash
-sudo aptitude install scdaemon --without-recommends
-```
-
-Once the smart card package has been installed, you can verify that GnuPG can interact with your Yubikey by running the following command:
+Verify that GnuPG can interact with your Yubikey by running the following command:
 
 ```bash
 gpg2 --card-status
@@ -862,7 +954,7 @@ ssb>  rsa4096/0x[SUBKEYID]  created: 2018-01-15  expires: 2028-01-13
 
 Though the master key is shown in the output, once the master key has been moved off of the device with the Yubikey, it will appear as `sec#` when displaying card status using `gpg2 --card-status` (where `#` means the private key is not available).
 
-### Configuring GnuPG for SSH
+#### Configuring GnuPG for SSH
 
 You must first disable the standard SSH Agent so that SSH connection authentication is handled by the GnuPG agent.
 
@@ -871,7 +963,7 @@ Edit `/etc/X11/Xsession.options` and comment out `use-ssh-agent` by prepending `
 Next, install the following package so that `gpg-agent` can determine how to prompt the user to unlock the Yubikey.
 
 ```bash
-sudo aptitude install debus-user-session --without-recommends
+sudo apt install dbus-user-session
 ```
 
 Run the following to output your SSH public key:
@@ -882,7 +974,7 @@ gpg2 --export-ssh-key 0x[KEYID]
 
 > You can also use the subkey ID associated with your _Authentication_ subkey.
 
-### Securing Your Master Key
+#### Securing Your Master Key
 
 As noted earlier, the revocation certificate for your master key should be kept somewhere safe where no one else can access it.
 
@@ -900,77 +992,46 @@ After deleting the master private key, only the public portion of your master ke
 
 At this point, signing, encrypting, or authenticating, with your private subkeys can only be done with your Yubikey connected to your computer.
 
-## Integrated Development Environment
-
-[Visual Studio Code](https://code.visualstudio.com/), Microsoft's free and open source code editor is a fantastic tool for writing, organizing, testing, and debugging software.
-
-To install Visual Studio Code, navigate to the [Visual Studio Code download page](https://code.visualstudio.com/Download), and download the appropriate Debian package for your architecture.
-
-Next, open a command line window, navigate into the folder containing the downloaded package, and run the following command, replacing `[FILE NAME]` with the name of the file you downloaded:
-* `sudo dpkg --install [FILE NAME]`
-
-Visual Studio Code's package will automatically add its own package repository to your system's list of repositories. That ensures future updates of your system will also install the latest version of Visual Studio Code.
-
-> Visual Studio's repository uses HTTPS, which is supported as a result of installing the `apt-transports-https` package in an earlier section. Without `apt-transport-https` installed, attempts to update Visual Studio Code will result in the following error - `The method driver /usr/lib/apt/methods/https could not be found.`
-
-## Steam for Gaming
-
-[Steam](http://store.steampowered.com/) is a content delivery platform, well known for distributing video games for Windows, OSX, and Linux.
-
-Debian [offers a guide](https://wiki.debian.org/Steam) on how to install Steam.
-
-For our purposes we only need to follow the _64-bit systems_ section.
-
-A Debian non-free repository URL should already be setup in `/etc/apt/sources.list`, so skip step 1.
-
-The `i386` architecture needs to be added as shown in step 2.
-
-Lastly, Steam needs to be installed:
-
-```bash
-sudo aptitude install steam --without-recommends
-```
-
-Step 4 may be skipped as the XPS 13 does not come with a dedicated graphics card.
-
-At this point Steam is installed on the system and can be accessed from the Applications menu.
-
-## KeePassX
-
-[KeePassX](https://www.keepassx.org/) is a tool for storing key/pair values securely in an encrypted vault.
-
-Once installed, launch the application and navigate to _Tools -> Settings_ and use the following settings:
-* General
-	* Remember last databases
-	* Remember last key files
-	* Open previous databases on startup
-	* Automatically save after every change
-	* Use entry title to match windows for global auto-type
-	* Show a system tray icon
-	* Hide window to system tray when minimized
-* Security
-	* Clear clipboard after 30 seconds
-	* Lock databases after inactivity of 300 sec
-	* Always ask before performing auto-type
-
-> KeePassX will likely be replaced with [KeePassXC](https://keepassxc.org/) at a later date once KeePassXC is available in the Debian repository.
-
-## LinuxBrew
-
-Navigate to the [LinuxBrew](https://github.com/Linuxbrew/brew) and install all the required packages for your Linux distribution.
-
 ## Personal Dotfiles
 
-A collection of useful automation tools, and setup scripts, are kept in a publically accessible repository for consumption by any individual that wishes to replicate the same environment I use.
+A collection of useful automation tools, and setup scripts, are kept in a publicly accessible repository for consumption by any individual that wishes to replicate the same environment I use.
 
-Installation instructions are available in the dotfile project's [README](https://gitlab.com/hyper-expanse/dotfiles/blob/master/README.md).
+Installation instructions are available in the dotfile project's [README](https://gitlab.com/hyper-expanse/personal/dotfiles/blob/master/README.md).
 
-## Radio Stations
+## Chrome
 
-A collection of high quality, and highly recommended, radio stations. Playlists will need to be retrieved from their respective radio station websites.
+Download and install [Chrome](https://www.google.com/chrome/) for Debian/Ubuntu.
 
-* Jazz 24 - Jazz Music
-* KHCB - Christian Radio (16k/11 khz)
-* KUT 1 - News/Talk
-* KUT 2 - Music
-* Thistle Radio - Celtic Music - [Online Stream Information](http://somafm.com/thistle/)
+Chrome is required for screen sharing in Google Hangouts.
+
+## Visual Studio Code
+
+Download and install [Visual Studio Code](https://code.visualstudio.com/Download) for Debian/Ubuntu.
+
+## Other Pain Points
+
+A list of pain points experienced working within Kubuntu on XPS 13, each with a workaround, but with no concrete fix at this time.
+
+### Scrolling Direction on Trackpad
+
+Kubuntu 18.04 uses an older version of KDE that contains a bug preventing KDE from configuring the XPS 13 trackpad to reverse the scrolling direction. Therefore it's not possible to set the scrolling direction to "Natural".
+
+Instead, the option must be configured manually.
+
+Find the `id` for your trackpad (it will be the last pointer listed for `Virtual core pointer`):
+
+```bash
+xinput --list
+```
+
+Set the scrolling direction:
+
+```bash
+xinput --set-prop [ID] "libinput Natural Scrolling Enabled" 1
+```
+
+Lastly, through KDE settings, add an auto start script to run the `--set-prop` command on every login.
+
+### Screen Tearing on Konsole
+
+When setting the scale factor to anything greater than 1 on a HiDPI, Konsole will encounter screen tearing.
