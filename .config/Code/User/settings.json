@@ -47,5 +47,6 @@
 	"tslint.autoFixOnSave": true,
 	"window.restoreFullscreen": true,
 	"workbench.iconTheme": "material-icon-theme",
-	"zenMode.restore": true
+	"zenMode.restore": true,
+	"go.useLanguageServer": true
 }
