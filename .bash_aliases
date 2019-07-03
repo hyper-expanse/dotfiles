@@ -84,3 +84,6 @@ alias gitGroupDiff='find . -maxdepth 1 -type d -not -path . -exec sh -c "echo \"
 
 # Spin up Node development environment within a Docker container.
 alias nodeDocker='docker run --rm --user node -v "$(pwd)":/app -w /app -it node:10-alpine sh -c "yarn install; yarn test; sh"'
+
+# Reset our GPG environment to work with a different Yubikey (One Yubikey was removed from the system and another Yubikey key was plugged in.)
+alias yubiset='rm -rf ~/.gnupg/private-keys-v1.d/ && gpgconf --kill gpg-agent && gpgconf --launch gpg-agent'
