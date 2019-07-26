@@ -87,3 +87,6 @@ alias nodeDocker='docker run --rm --user node -v "$(pwd)":/app -w /app -it node:
 
 # Reset our GPG environment to work with a different Yubikey (One Yubikey was removed from the system and another Yubikey key was plugged in.)
 alias yubiset='rm -rf ~/.gnupg/private-keys-v1.d/ && gpgconf --kill gpg-agent && gpgconf --launch gpg-agent'
+
+# List file extensions in use, starting at the current working directory and searching recursively.
+alias fileExtensions='find . -type f | perl -ne "print $1 if m/\.([^.\/]+)$/" | sort | uniq -c | sort -n'
