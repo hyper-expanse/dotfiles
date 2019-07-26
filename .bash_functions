@@ -376,3 +376,20 @@ installVisualStudioCodeExtensions ()
 		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
 	fi
 }
+
+#! Find all file types in use and convert to standard types.
+# Find all file types in use within a given directory and offer to convert files to a known set of standard file types, such as WAV to FLAC, using appropriate permissions (not globally readable).
+checkAndConvert ()
+{
+	# TODO: Prompt user whether global permissions should be revoked from listed files.
+	printf "\n> List of globally accessible files.\n"
+	find . \( -perm -o+r -or -perm -o+w -or -perm -o+x \) | xargs ls -l
+
+	## TODO: Rename all files to be all lower-case.
+	# for i in $( ls | grep [A-Z] ); do mv -i $i `echo $i | tr 'A-Z' 'a-z'`; done
+	# ls | sed -n 's/.*/mv "&" $(tr "[A-Z]" "[a-z]" <<< "&")/p' | bash
+
+	# TODO: Convert some known file formats to an alternative, "open", file format.
+	# To convert Office documents to ODF formats such as `.ods`.
+	# lowriter --headless --convert-to ods *.xlsx
+}
