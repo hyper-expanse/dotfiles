@@ -372,6 +372,9 @@ installVisualStudioCodeExtensions ()
 
 		# Terraform support.
 		code --install-extension mauve.terraform
+
+		# Nice icon theme.
+		code --install-extension vscode-icons-team.vscode-icons
 	else
 		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
 	fi
