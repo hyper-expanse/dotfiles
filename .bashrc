@@ -58,7 +58,7 @@ command -v brew >/dev/null 2>&1 && source $(brew --prefix)/etc/bash_completion
 
 # Execute `nvm` script to configure our local environment to work with `nvm`.
 command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
-command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global dir)/node_modules/.bin/:${PATH}"
+command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global bin):${PATH}"
 
 # Invoke Powershell setup script to configure our shell prompt.
 if [ -f "${PREFIX_DIRECTORY}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh" ]; then
