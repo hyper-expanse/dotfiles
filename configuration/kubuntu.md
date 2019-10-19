@@ -243,6 +243,7 @@ Please use the command above to install each package:
 - kgpg: GNUPG graphical front-end.
 - libreoffice-calc: Spreadsheet application.
 - libreoffice-writer: Word application.
+- rsibreak: Tool to encourage regular breaks from typing.
 
 ### Additional VLC Setup
 
