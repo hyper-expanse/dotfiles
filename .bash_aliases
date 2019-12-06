@@ -68,7 +68,7 @@ alias processes='ps xf'
 alias update='updateSystem && updateEnvironment'
 
 # Update system packages.
-alias updateSystem='sudo aptitude update && sudo aptitude full-upgrade && sudo aptitude clean && sudo aptitude autoclean'
+alias updateSystem='sudo apt update && sudo apt full-upgrade && sudo apt autoremove'
 
 # Instruct Celibre to add each sub-directory of the designated directory as a book to the Calibre book database.
 alias addBookDirectories='calibredb add --one-book-per-directory -r'
