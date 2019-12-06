@@ -358,9 +358,6 @@ installVisualStudioCodeExtensions ()
 	if command -v $(code --help) &> /dev/null; then
 		printf "\n> Installing Visual Studio Code extensions.\n"
 
-		# ESLint linter for JavaScript.
-		code --install-extension dbaeumer.vscode-eslint
-
 		# Chrome debugger integration.
 		code --install-extension msjsdiag.debugger-for-chrome
 
