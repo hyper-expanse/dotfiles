@@ -12,8 +12,6 @@
 	],
 	"editor.tabCompletion": "on",
 	"editor.tabSize": 2,
-	"eslint.packageManager": "yarn",
-	"eslint.autoFixOnSave": true,
 	"explorer.openEditors.visible": 0,
 	"extensions.autoUpdate": true,
 	"files.autoSave": "afterDelay",
@@ -45,9 +43,9 @@
 	"terminal.external.osxExec": "iTerm.app",
 	"terminal.integrated.fontFamily": "'Droid Sans Mono', 'Droid Sans Fallback', Menlo, Monaco, 'Courier New', monospace, PowerlineSymbols",
 	"terraform.telemetry.enabled": false,
-	"tslint.autoFixOnSave": true,
 	"window.restoreFullscreen": true,
 	"workbench.colorTheme": "Monokai Dimmed",
 	"workbench.iconTheme": "vscode-icons",
-	"zenMode.restore": true
+	"zenMode.restore": true,
+	"vsicons.dontShowNewVersionMessage": true
 }
