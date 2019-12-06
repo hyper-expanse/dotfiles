@@ -254,6 +254,9 @@ installBrewPackages()
 		# Install resource orchestration tool.
 		brew install terraform
 
+		# Install terminal multiplexer.
+		brew install tmux
+
 		# Install network traffic inspection tool.
 		brew install tcpdump
 
