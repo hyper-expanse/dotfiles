@@ -159,7 +159,6 @@ setupEnvironment ()
 	source "$(brew --prefix nvm)/nvm.sh"
 
 	# Install additional tools.
-	nvm install
 	installNodePackages
 	installPythonPackages
 
@@ -183,7 +182,6 @@ updateEnvironment ()
 	brew cleanup -s
 
 	# Update general tools.
-	nvm install
 	installNodePackages
 	installPythonPackages
 }
@@ -237,7 +235,6 @@ installBrewPackages()
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
-		git lfs install # Install and register the Git extension.
 
 		# Install flac, a command line tool for re-encoding audio files into Flac format.
 		brew install flac
@@ -308,9 +305,6 @@ installNodePackages ()
 	if command -v yarn &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
-		# Install command line tab completion for `yarn`.
-		yarn global add yarn-completions
-
 		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
 		yarn global add doctoc
 
@@ -357,9 +351,6 @@ installVisualStudioCodeExtensions ()
 
 	if command -v $(code --help) &> /dev/null; then
 		printf "\n> Installing Visual Studio Code extensions.\n"
-
-		# Chrome debugger integration.
-		code --install-extension msjsdiag.debugger-for-chrome
 
 		# General, offline, spell checker.
 		code --install-extension streetsidesoftware.code-spell-checker
