@@ -73,8 +73,9 @@
 	process = git-lfs filter-process
 
 [remote "origin"]
-	# Fetch any references that begin with `merge-requests`, as these references pertain to merge requests filed against the upstream, `origin`, repository on a GitLab website. By fetching `merge-requests` references, we can easily pull down, and checkout, merge requests submitted by contributors, and test those merge requests locally.
+	# Fetch any references that begin with `merge-requests` or `pull`, as these references pertain to merge/pull requests filed against the upstream, `origin`, repository on a GitLab/GitHub website. By fetching references, we can easily pull down, and checkout, merge/pull requests submitted by contributors and test those merge requests locally.
 	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
 
 [alias]
 	# Minimized log that displays commit messages and a graphical representation of merges and branches. (The 'l' alias relies upon default colors and ordering)
