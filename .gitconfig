@@ -131,6 +131,9 @@
 	# Create a merge request immediately after pushing a new branch to the origin repository, and merge that branch if the build succeeds.
 	merge-push = push -u origin -o merge_request.create -o merge_request.merge_when_pipeline_succeeds
 
+	# Restore all unreachable tags on a repository from reflog. Restoring all unreachable tags may be necessary if those tags were accidently deleted, using `git tag -d <tag>`, manually or automatically, and the tag information hasn't been garbage collected yet.
+	restore-tags = "!sh -c 'for sha in $(git fsck --unreachable |grep tag|cut -f3 -d\" \"); do tagName=$(git show ${sha}|head -1);tagName=${tagName:4};git update-ref refs/tags/${tagName} ${sha}; done' -"
+
 [includeIf "gitdir:/Users/hbetts/"]
 	# When using an account associated with my work laptop, defer to any work-specific configuration.
 	path = ~/.dotfiles/.gitconfig-factset
