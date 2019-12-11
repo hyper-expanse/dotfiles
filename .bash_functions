@@ -261,6 +261,11 @@ installBrewPackages()
 		brew tap wata727/tflint
 		brew install tflint
 
+		# Cloud tools
+		brew install awscli
+		brew install aws-iam-authenticator
+		brew install kubectl
+
 		if [ "$(uname)" = "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
@@ -268,11 +273,6 @@ installBrewPackages()
 			brew install bash
 			brew install wget
 			brew install pinentry-mac
-
-			# Cloud tools
-			brew install awscli
-			brew install aws-iam-authenticator
-			brew install kubectl
 
 			brew cask install firefox
 			brew cask install visual-studio-code
