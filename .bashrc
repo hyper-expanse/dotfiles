@@ -53,14 +53,23 @@ fi
 # This step is incredibly slow to execute.
 # command -v pip >/dev/null 2>&1 && eval "$(pip completion --bash)"
 
-# Source the Brew bash completion script. This script will subsequently sources bash completion scripts installed into the Brew bash_completion.d directory.
-command -v brew >/dev/null 2>&1 && source $(brew --prefix)/etc/bash_completion
+# Source the Brew bash completion initialization script if it exists, otherwise, just source each tool's completion script.
+if type brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+    done
+  fi
+fi
 
 # Execute `nvm` script to configure our local environment to work with `nvm`.
 command -v brew >/dev/null 2>&1 && source "$(brew --prefix nvm)/nvm.sh"
 command -v yarn --version >/dev/null 2>&1 && export PATH="$(yarn global bin):${PATH}"
 
-# Invoke Powershell setup script to configure our shell prompt.
+# Invoke Powerline setup script to configure our shell prompt.
 if [ -f "${PREFIX_DIRECTORY}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh" ]; then
 	# The following is to improve performance - https://powerline.readthedocs.io/en/latest/usage/shell-prompts.html#bash-prompt
 	powerline-daemon -q

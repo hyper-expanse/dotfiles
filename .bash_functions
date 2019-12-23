@@ -212,14 +212,17 @@ installBrewPackages()
 	if command -v brew &> /dev/null; then
 		printf "\n> Installing Brew packages.\n"
 
+		# Install the latest Bash shell environment. This will give us access to the latest features in our primary work environment.
+		brew install bash
+
+		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages. Version @2 is required for Bash > 2.
+		brew install bash-completion@2
+
 		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
 		brew install python
 
 		# Install Go compiler and development stack.
 		brew install go
-
-		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages.
-		brew install bash-completion
 
 		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
 		brew install nvm
@@ -235,9 +238,6 @@ installBrewPackages()
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
-
-		# Install flac, a command line tool for re-encoding audio files into Flac format.
-		brew install flac
 
 		# Install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
@@ -270,7 +270,6 @@ installBrewPackages()
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
 
-			brew install bash
 			brew install wget
 			brew install pinentry-mac
 
@@ -287,6 +286,9 @@ installBrewPackages()
 		fi
 
 		if [ `uname -n` == "startopia" ]; then
+			# Install flac, a command line tool for re-encoding audio files into Flac format.
+			brew install flac
+
 			# GNU data recovery tool.
 			brew install ddrescue
 
