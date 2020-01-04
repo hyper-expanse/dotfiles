@@ -266,7 +266,7 @@ installBrewPackages()
 		brew install aws-iam-authenticator
 		brew install kubectl
 
-		if [ "$(uname)" = "Darwin" ]; then
+		if [ "$(uname)" == "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
 
@@ -285,7 +285,7 @@ installBrewPackages()
 			brew cask install wireshark # For network debugging.
 		fi
 
-		if [ `uname -n` == "startopia" ]; then
+		if [ "$(uname -n)" == "startopia" ]; then
 			# Install flac, a command line tool for re-encoding audio files into Flac format.
 			brew install flac
 
