@@ -1,0 +1,36 @@
+[Desktop Entry]
+DefaultProfile=hutson.profile
+
+[Favorite Profiles]
+Favorites=
+
+[FileDialogSize]
+Height 1543=789
+Width 2743=1087
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
+
+[MainWindow]
+Height 1080=886
+Height 1200=567
+Height 1350=748
+Height 1440=479
+Height 1543=719
+Height 1620=831
+Height 2160=1236
+Height 750=480
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+Width 1000=640
+Width 1600=796
+Width 1920=966
+Width 2400=1063
+Width 2560=639
+Width 2743=1366
+Width 2880=1464
+Width 3840=2015
+Window-Maximized 600x800=true
+
+[TabBar]
+TabBarVisibility=ShowTabBarWhenNeeded

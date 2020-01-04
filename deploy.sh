@@ -52,4 +52,9 @@ else
 	ln -s -f "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
 fi
 
+# Symlink Konsole files.
+echo "> Symlinking Konsole files."
+mkdir -p "${XDG_CONFIG_HOME}"
+ln -s -f "$(pwd)/.config/konsolerc" "${XDG_CONFIG_HOME}/konsolerc"
+
 echo "Finished deploying your dotfiles. Please run 'source ~/.profile' to use your new setup."
