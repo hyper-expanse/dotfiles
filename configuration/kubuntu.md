@@ -267,6 +267,16 @@ Select _Yes_ to install `libdvdcss2`.
 
 At this point VLC will be able to play encrypted DVDs.
 
+### Virtual Machines
+
+To provide processor emulator and virtualization, we need to install the QEMU support libraries.
+
+```bash
+sudo apt install qemu qemu-kvm qemu-utils virt-manager libvirt-daemon-system libvirt-clients gir1.2-spiceclientgtk-3.0
+```
+
+> `gir1.2-spiceclientgtk-3.0` is required to display the virtual machine's desktop.
+
 ### Virtual Machine Manager
 
 To provision virtualized resources on Linux using KVM, QEMU, and others, install the `libvirt` daemon process.
