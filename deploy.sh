@@ -53,8 +53,12 @@ else
 fi
 
 # Symlink Konsole files.
-echo "> Symlinking Konsole files."
-mkdir -p "${XDG_CONFIG_HOME}"
-ln -s -f "$(pwd)/.config/konsolerc" "${XDG_CONFIG_HOME}/konsolerc"
+if [ "$(uname -n)" == "startopia" ]; then
+	echo "> Symlinking Konsole files."
+	mkdir -p "${XDG_CONFIG_HOME}"
+	ln -s -f "$(pwd)/.config/konsolerc" "${XDG_CONFIG_HOME}/konsolerc"
+	ln -s -f "$(pwd)/icons/noun_1058899_edited_white.png" "${XDG_DATA_HOME}/konsole/noun_1058899_edited_white.png"
+	ln -s -f "$(pwd)/konsole/hutson.profile" "${XDG_DATA_HOME}/konsole/hutson.profile"
+fi
 
 echo "Finished deploying your dotfiles. Please run 'source ~/.profile' to use your new setup."
