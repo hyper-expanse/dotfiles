@@ -76,6 +76,13 @@ if [ -z "${SSH_CLIENT}" ] && [ -z "${SSH_TTY}" ]; then
 	gpgconf --launch gpg-agent
 fi
 
+if [ "$(uname -n)" == "startopia" ]; then
+	# Disable the prompt from AppImage binaries that ask to integrate with your desktop environment.
+	# Asking to integrate with the desktop environment does not work natively with KDE Plasma.
+	mkdir -p "${PREFIX_DIRECTORY}/share/appimagekit/"
+	touch "${PREFIX_DIRECTORY}/share/appimagekit/no_desktopintegration"
+fi
+
 if [ -f "${HOME}/.bashrc" ]; then
 	source "${HOME}/.bashrc"
 fi

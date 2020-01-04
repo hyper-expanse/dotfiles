@@ -83,11 +83,6 @@ fi
 # uninstall by removing these lines or running `tabtab uninstall yarn`
 [ -f /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash ] && . /home/hutson/.local/share/yarn/global/node_modules/tabtab/.completions/yarn.bash
 
-# Disable the prompt from AppImage binaries that ask to integrate with your desktop environment.
-# This feature does not work natively with KDE Plasma.
-mkdir --parent "${PREFIX_DIRECTORY}/share/appimagekit/"
-touch "${PREFIX_DIRECTORY}/share/appimagekit/no_desktopintegration"
-
 # Source our custom shell aliases. All custom shell aliases should be in this external file rather than cluttering up this file.
 if [ -f "${HOME}/.bash_aliases" ]; then
 	source "${HOME}/.bash_aliases"
