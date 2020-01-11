@@ -47,5 +47,18 @@
 	"workbench.colorTheme": "Monokai Dimmed",
 	"workbench.iconTheme": "vscode-icons",
 	"zenMode.restore": true,
-	"vsicons.dontShowNewVersionMessage": true
+	"vsicons.dontShowNewVersionMessage": true,
+	"terraform.indexing": {
+		"enabled": false,
+		"liveIndexing": false,
+		"delay": 500,
+		"exclude": [
+			".terraform/**/*",
+			"**/.terraform/**/*"
+		]
+	},
+	"terraform.languageServer": {
+		"enabled": true,
+		"args": []
+	}
 }
