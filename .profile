@@ -7,17 +7,6 @@
 # Its contents configure the Bash shell environment.
 #====================================================
 
-case $- in
-	*i*)
-		# If this is an interactive login session (Such as SSH connection), attempt to launch the version of Bash installed with Homebrew.
-		bash=$(type -p bash)
-		if [ -x "${bash}" ]; then
-			# Set SHELL so that other tools, such as TMUX, know which shell launched them.
-			export SHELL="${bash}"
-			exec "${bash}"
-	fi
-esac
-
 # Set the path to our prefix directory containing our local build, and development, environment. This may be used by third-party tools as well as our own Bash scripts.
 export PREFIX_DIRECTORY="${HOME}/.local"
 
@@ -93,3 +82,15 @@ if [ "$(uname -n)" == "startopia" ]; then
 	mkdir -p "${PREFIX_DIRECTORY}/share/appimagekit/"
 	touch "${PREFIX_DIRECTORY}/share/appimagekit/no_desktopintegration"
 fi
+
+# Must be at end of file to allow the environment (variables) to be configured.
+case $- in
+	*i*)
+		# If this is an interactive login session (Such as SSH connection), attempt to launch the version of Bash installed with Homebrew.
+		bash=$(type -p bash)
+		if [ -x "${bash}" ]; then
+			# Set SHELL so that other tools, such as TMUX, know which shell launched them.
+			export SHELL="${bash}"
+			exec "${bash}"
+	fi
+esac
