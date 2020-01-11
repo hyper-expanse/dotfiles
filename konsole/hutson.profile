@@ -9,6 +9,9 @@ Name=hutson
 Parent=FALLBACK/
 StartInCurrentSessionDir=false
 
+[Interaction Options]
+TrimTrailingSpacesInSelectedText=true
+
 [Scrolling]
 HistorySize=10000
 ScrollBarPosition=2
