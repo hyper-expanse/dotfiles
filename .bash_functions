@@ -270,6 +270,9 @@ installBrewPackages()
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
 			brew install coreutils
 
+			# Store Docker Hub credentials in the OSX Keychain for improved security.
+			brew install docker-credential-helper
+
 			brew install wget
 			brew install pinentry-mac
 
