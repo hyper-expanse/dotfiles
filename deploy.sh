@@ -20,9 +20,7 @@ echo "Deploying dotfiles..."
 
 # Symlink files into the user's home directory.
 echo "> Symlinking files into the user's home directory (${HOME})."
-for file in `find . -maxdepth 1 -type f -name '.*' -print`; do
-	ln -s -f "$(pwd)/${file#./}" "${HOME}/${file#./}"
-done
+find . -maxdepth 1 -type f -name '.*' -exec ln -s -f "$(pwd)/{}" "${HOME}/{}" \;
 
 # Symlink SSH files.
 echo "> Symlinking SSH files into the SSH directory (${HOME}/.ssh)."

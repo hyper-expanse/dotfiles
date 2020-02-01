@@ -1,0 +1,12 @@
+name: CI
+on:
+  push:
+    branches:
+      - '**'
+jobs:
+  shellcheck:
+    runs-on: ubuntu-18.04
+    container: koalaman/shellcheck:stable
+    steps:
+      - uses: actions/checkout@v1.2.0
+      - run: bash test.sh
