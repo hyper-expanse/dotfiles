@@ -261,6 +261,9 @@ installBrewPackages()
 		brew tap wata727/tflint
 		brew install tflint
 
+		# Install shell script linter.
+		brew install shellcheck --force-bottle
+
 		# Cloud tools
 		brew install awscli
 		brew install aws-iam-authenticator
