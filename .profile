@@ -27,6 +27,9 @@ export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
 mkdir -p "${PREFIX_DIRECTORY}/tmp"
 export HOMEBREW_TEMP="${PREFIX_DIRECTORY}/tmp"
 
+# Inform `pkg-config` of additional pkgconfig metadata available from our brew installation.
+export PKG_CONFIG_PATH="${PREFIX_DIRECTORY}/lib/pkgconfig/:${PREFIX_DIRECTORY}/share/pkgconfig/:${PKG_CONFIG_PATH}"
+
 # Set arguments that cmake should respect when it's invoked.
 # CMAKE_INSTALL_PREFIX - Instruct `cmake` to use our local system directory as the installation directory for cmake-based builds.
 export EXTRA_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=${PREFIX_DIRECTORY} -DPYTHON_LIBRARY=${PREFIX_DIRECTORY}/lib/libpython2.7.so -DPYTHON_INCLUDE_DIR=${PREFIX_DIRECTORY}/include/python2.7"
