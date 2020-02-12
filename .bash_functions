@@ -261,7 +261,7 @@ installBrewPackages()
 		brew tap wata727/tflint
 		brew install tflint
 
-		# Install shell script linter.
+		# Install shell script linter. (Force install the pre-compiled binary as a full compile requires _lots_ of additional packages that have to be compiled and installed)
 		brew install shellcheck --force-bottle
 
 		# Cloud tools
@@ -283,6 +283,7 @@ installBrewPackages()
 			brew cask install visual-studio-code
 			brew cask install keepassxc
 			brew cask install gpg-suite
+			brew cask install joplin # For taking and organizing notes.
 			brew cask install vlc
 			brew cask install iterm2
 			brew cask install slack
