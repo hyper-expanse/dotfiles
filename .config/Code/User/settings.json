@@ -60,5 +60,8 @@
 	"terraform.languageServer": {
 		"enabled": true,
 		"args": []
-	}
+	},
+	"workbench.editor.limit.enabled": true,
+	"workbench.editor.limit.perEditorGroup": true,
+	"workbench.editor.limit.value": 3
 }
