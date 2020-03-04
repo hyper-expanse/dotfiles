@@ -9,6 +9,16 @@ resource "github_repository" "repository" {
   topics         = var.topics
 }
 
+resource "github_branch_protection" "branch_protection" {
+  repository             = var.name
+  branch                 = var.default_branch
+  require_signed_commits = true
+
+  required_status_checks {
+    strict = true
+  }
+}
+
 resource "github_issue_label" "advance-developer-workflow" {
   description = "Issues related to behavior that address a workflow not part of the most common workflow."
   color       = "5843AD"
