@@ -257,6 +257,9 @@ installBrewPackages()
 		# Install network traffic inspection tool.
 		brew install tcpdump
 
+		# Install Docker image analysis tool.
+		brew install dive
+
 		# Install tflint, a linter/validator for Terraform files.
 		brew tap wata727/tflint
 		brew install tflint
