@@ -1,6 +1,6 @@
 # Kubuntu
 
-Instructions for setting up Kubuntu 18.04 (Based on Ubuntu 18.04 with the KDE desktop environment) on an Dell XPS 13 laptop (Developer Edition).
+Instructions for setting up Kubuntu 20.04 (Based on Ubuntu 20.04 with the KDE desktop environment) on a Dell XPS 13 laptop (Developer Edition).
 
 ## Installer
 
@@ -23,9 +23,9 @@ sha256sum [ISO IMAGE NAME]
 You should see something like:
 
 ```bash
-sha256sum kubuntu-18.04.2-desktop-amd64.iso
+$ sha256sum kubuntu-20.04-desktop-amd64.iso
 
-844762a208593ee5cf396cb09522b1dfa127c65b79f71f4863c062039215d0d8  kubuntu-18.04.2-desktop-amd64.iso
+ffddf52ad0122180a130f1d738a9a2cb77d87848a326a16cf830ac871a3c786f  kubuntu-20.04-desktop-amd64.iso
 ```
 
 Compare the checksum output with the value you retrieved from the Kubuntu website.
@@ -78,13 +78,7 @@ This guide, however, does not guarantee that a system is impervious to a securit
 
 A firewall helps prevent external intrusion into the system. However, it should be noted that possessing a firewall does not block malicious actions from occurring on the server itself.
 
-For our firewall we'll use a package called `ufw`, short for _Uncomplicated Firewall_, which is a framework, and a command line frontend for manipulating [iptables](https://en.wikipedia.org/wiki/Iptables).
-
-First, install `ufw`:
-
-```bash
-sudo apt install ufw
-```
+For our firewall we'll use a package called `ufw`, short for _Uncomplicated Firewall_, which is a framework, and a command line frontend, for manipulating [iptables](https://en.wikipedia.org/wiki/Iptables).
 
 Though `ufw` is installed, it is not automatically enabled, nor are any rules turned on by default.
 
@@ -220,7 +214,7 @@ YubiKeys, a product of Yubico, provide support for [multi-factor authentication]
 Install the required package for U2F support:
 
 ```bash
-sudo apt install libu2f-host0
+sudo apt install libu2f-host0 pcscd scdaemon gnupg2 pcsc-tools
 ```
 
 > **Note:** Detailed instructions for setting up YubiKey on Debian are provided in Debian's [YubiKey4 docs](https://wiki.debian.org/Smartcards/YubiKey4).
@@ -237,6 +231,7 @@ Please use the command above to install each package:
 - akregator: RSS/ATOM reader.
 - calibre: E-book library manager.
 - dia: Diagram editor.
+- elisa: Music player.
 - gramps: Genealogy tool.
 - gufw: Graphical user interface for `ufw` firewall.
 - keepassxc: Offline password and secrets manager.
@@ -244,6 +239,23 @@ Please use the command above to install each package:
 - libreoffice-calc: Spreadsheet application.
 - libreoffice-writer: Word application.
 - rsibreak: Tool to encourage regular breaks from typing.
+
+### Flatpak Applications
+
+In addition to packages installed from Ubuntu's traditional package registry, we can also install packages from FlatHub, and package registry that receives regular updates to packages published directly from application developers.
+
+To add support for Flatpak to KDE's _Discover_ package installer and the `flatpak` CLI tool, install the following package:
+
+```
+sudo apt install plasma-discover-flatpak-backend
+```
+
+Next, go into _Discover_ and navigate to _Settings_. Under _Settings_ click on the `Add Flathub` button to add the central Flathub repository as a source for installing Flatpak packages.
+
+At this point you can install Flatpak packages from Flathub.
+
+Please use the search feature in _Discover_ to install the following packages:
+- Visual Studio Code (Flatpak)
 
 ### Additional VLC Setup
 
@@ -269,27 +281,13 @@ At this point VLC will be able to play encrypted DVDs.
 
 ### Virtual Machines
 
-To provide processor emulator and virtualization, we need to install the QEMU support libraries.
+To provide processor emulator and virtualization, along with a GUI for monitoring virtualized resources, we need to install the QEMU support libraries and Virt Manager:
 
 ```bash
 sudo apt install qemu qemu-kvm qemu-utils virt-manager libvirt-daemon-system libvirt-clients gir1.2-spiceclientgtk-3.0
 ```
 
 > `gir1.2-spiceclientgtk-3.0` is required to display the virtual machine's desktop.
-
-### Virtual Machine Manager
-
-To provision virtualized resources on Linux using KVM, QEMU, and others, install the `libvirt` daemon process.
-
-```bash
-sudo apt install libvirt-daemon-system
-```
-
-To monitor the virtual resources in use install the following package.
-
-```bash
-sudo apt install virt-manager
-```
 
 ### Docker
 
@@ -1008,41 +1006,3 @@ At this point, signing, encrypting, or authenticating, with your private subkeys
 A collection of useful automation tools, and setup scripts, are kept in a publicly accessible repository for consumption by any individual that wishes to replicate the same environment I use.
 
 Installation instructions are available in the dotfile project's [README](https://gitlab.com/hyper-expanse/personal/dotfiles/blob/master/README.md).
-
-## Chrome
-
-Download and install [Chrome](https://www.google.com/chrome/) for Debian/Ubuntu.
-
-Chrome is required for screen sharing in Google Hangouts.
-
-## Visual Studio Code
-
-Download and install [Visual Studio Code](https://code.visualstudio.com/Download) for Debian/Ubuntu.
-
-## Other Pain Points
-
-A list of pain points experienced working within Kubuntu on XPS 13, each with a workaround, but with no concrete fix at this time.
-
-### Scrolling Direction on Trackpad
-
-Kubuntu 18.04 uses an older version of KDE that contains a bug preventing KDE from configuring the XPS 13 trackpad to reverse the scrolling direction. Therefore it's not possible to set the scrolling direction to "Natural".
-
-Instead, the option must be configured manually.
-
-Find the `id` for your trackpad (it will be the last pointer listed for `Virtual core pointer`):
-
-```bash
-xinput --list
-```
-
-Set the scrolling direction:
-
-```bash
-xinput --set-prop [ID] "libinput Natural Scrolling Enabled" 1
-```
-
-Lastly, through KDE settings, add an auto start script to run the `--set-prop` command on every login.
-
-### Screen Tearing on Konsole
-
-When setting the scale factor to anything greater than 1 on a HiDPI, Konsole will encounter screen tearing.
