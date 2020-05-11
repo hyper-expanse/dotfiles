@@ -90,3 +90,8 @@ alias yubiset='rm -rf ~/.gnupg/private-keys-v1.d/ && gpgconf --kill gpg-agent &&
 
 # List file extensions in use, starting at the current working directory and searching recursively.
 alias fileExtensions='find . -type f | perl -ne "print $1 if m/\.([^.\/]+)$/" | sort | uniq -c | sort -n'
+
+if [ "$(uname -n)" == "startopia" ]; then
+	# Alias `code` to the Flatpak installation that is used on Startopia, while elsewhere `code` is the executable exposed by a more native installation, such as MacOS.
+	alias code='flatpak run com.visualstudio.code'
+fi
