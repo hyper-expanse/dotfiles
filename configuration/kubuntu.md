@@ -234,6 +234,8 @@ Please use the command above to install each package:
 - elisa: Music player.
 - gramps: Genealogy tool.
 - gufw: Graphical user interface for `ufw` firewall.
+- k3b: CD rip/burn application.
+- kde-config-cddb: Module for loading CD metadata from internet.
 - keepassxc: Offline password and secrets manager.
 - kgpg: GNUPG graphical front-end.
 - libreoffice-calc: Spreadsheet application.
