@@ -91,6 +91,28 @@ extract ()
 	fi
 }
 
+#! Convert a Zip file to a compressed Tar file (*.tar.gz).
+# Take a Zip file, extract the contents to a temporary directory, and then re-archive the extracted contents into a compressed Tar file.
+#
+# \param $1 Path to the Zip archive file.
+convert ()
+{
+	tmpdir="$(mktemp -d)"
+
+	unzip -q "${1}" -d "${tmpdir}/"
+
+	outfilename="$(echo "$(basename "${1}")" | rev | cut -d. -f2- | rev).tar"
+
+	tar --create --exclude="${outfilename}" --file="${tmpdir}/${outfilename}" -C "${tmpdir}/" .
+
+	pigz -9 "${tmpdir}/${outfilename}"
+
+	mv "${tmpdir}/${outfilename}.gz" "$(dirname "${1}")"
+
+	rm -rf "${tmpdir}"
+	rm -f "${1}"
+}
+
 #! Setup a watch and run a command.
 # Watch for changes to files that match a given file specification, and on change, run the given command.
 #
