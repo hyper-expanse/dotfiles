@@ -95,7 +95,7 @@ extract ()
 # Take a Zip file, extract the contents to a temporary directory, and then re-archive the extracted contents into a compressed Tar file.
 #
 # \param $1 Path to the Zip archive file.
-convert ()
+convertZip ()
 {
 	tmpdir="$(mktemp -d)"
 
