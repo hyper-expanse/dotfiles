@@ -322,7 +322,7 @@ sudo apt update
 Ensure that the Docker package, `docker-ce`, will be installed from the Docker repository (`https://download.docker.com`):
 
 ```bash
-apt-cache policy docker-ce
+sudo apt-cache policy docker-ce
 ```
 
 Install the latest version of Docker CE:
@@ -353,6 +353,46 @@ Lastly, verify Docker was installed correctly by running their test image:
 
 ```bash
 docker run hello-world
+```
+
+### Syncthing
+
+> This section is a modification of the instructions on [Syncthing's download](https://syncthing.net/downloads/) site.
+
+Add Syncthing's official GPG signing key to your system to validate the authenticity of the `syncthing` package:
+
+```bash
+curl -sSL https://syncthing.net/release-key.txt | sudo apt-key add -
+```
+
+Next, verify the key installed for Syncthing (Fingerprint is available on Syncthing's website):
+
+```bash
+sudo apt-key fingerprint
+```
+
+To install the latest version of Syncthing we need to add Syncthing's repository to our `apt` list of Ubuntu package repositories:
+
+```bash
+echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+```
+
+Then update the list of available packages, including those available from the Syncthing repository:
+
+```bash
+sudo apt update
+```
+
+Ensure that the Syncthing package, `syncthing`, will be installed from the Syncthing repository:
+
+```bash
+sudo apt-cache policy syncthing
+```
+
+Install the latest version of Syncthing:
+
+```bash
+sudo apt install syncthing
 ```
 
 ### GnuPG
