@@ -266,6 +266,7 @@ At this point you can install Flatpak packages from Flathub.
 
 Please use the search feature in _Discover_ to install the following packages:
 - Visual Studio Code (Flatpak)
+- Vorta
 
 ### Additional VLC Setup
 
