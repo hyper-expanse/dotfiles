@@ -205,6 +205,14 @@ Please see [Umask](https://en.wikipedia.org/wiki/Umask) documentation to learn h
 
 This section covers customizing the [KDE](https://www.kde.org/) desktop environment.
 
+### Snap
+
+Uninstall the Snap package runtime:
+
+```bash
+sudo apt purge snapd
+```
+
 ### Multi-Factor Authentication Device
 
 > This section specifically mentions [Yubico](https://www.yubico.com/) devices, but any two-factor authentication device is supported by the following instructions.
