@@ -23,8 +23,10 @@ echo "> Symlinking files into the user's home directory (${HOME})."
 find . -maxdepth 1 -type f -name '.*' -exec ln -s -f "$(pwd)/{}" "${HOME}/{}" \;
 
 # Symlink SSH files.
+# Note: Must set `.ssh` directory to 700 to protect files and because some programs may throw a permission error if they see a globally readable symlink file (Which is unavoidable) in the `.ssh` directory. Setting the directory's permissions to be more restrictive usually avoids the error.
 echo "> Symlinking SSH files into the SSH directory (${HOME}/.ssh)."
 mkdir -p "${HOME}/.ssh"
+chmod 700 "${HOME}/.ssh"
 ln -s -f "$(pwd)/.ssh/config" "${HOME}/.ssh/config"
 
 # Symlink GNUPG files.
