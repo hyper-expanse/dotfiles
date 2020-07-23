@@ -83,7 +83,12 @@ if [ "$(uname -n)" == "startopia" ]; then
 	# Disable the prompt from AppImage binaries that ask to integrate with your desktop environment.
 	# Asking to integrate with the desktop environment does not work natively with KDE Plasma.
 	mkdir -p "${PREFIX_DIRECTORY}/share/appimagekit/"
-	touch "${PREFIX_DIRECTORY}/share/appimagekit/no_desktopintegration"
+	touch "${PREFIX_DIRECTORY}/share/appimagekit/no_desktopintegration"]]
+
+	# Unknown issue where the `repo` directory exists but not the `objects` sub-directory.
+	# The `objects` sub-directory is required when launching Flatpak applications, either through the UI or via `flatpak run [APPLICATION]`.
+	# When the `repo` directory is deleted, the next Flatpak application to launch will re-create the required directory structure and the application will launch correctly.
+	rm -rf "${PREFIX_DIRECTORY}/share/flatpak/repo"
 fi
 
 # Must be at end of file to allow the environment (variables) to be configured.
