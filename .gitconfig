@@ -17,6 +17,9 @@
 	# Global ignore list of files I would never want to push into a repository that I would be working with.
 	excludesfile = ~/.gitignore
 
+	# Disable the pager used by Git for output, including output from `diff` and `log`. Disabling paging causes Git to output all text directly to the terminal as if regular output from a CLI command. If paging is needed use `less` or `more` directly.
+	pager =
+
 [pull]
 	# Automatically rebase local-only commits on top of commits fetched from the remotely tracked repository. This retains the existing structure of the remote's history, and causes local commits to be appended to the history in a linear fashion. This option avoids the default behavior of `git pull`, which fetches commits from the remote repository and "merges" them into the local branch.
 	rebase = true
