@@ -276,6 +276,9 @@ installBrewPackages()
 		# Install terminal multiplexer.
 		brew install tmux
 
+		# Install command line text editor.
+		brew install neovim
+
 		# Install network traffic inspection tool.
 		brew install tcpdump
 
