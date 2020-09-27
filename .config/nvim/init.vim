@@ -75,141 +75,73 @@ setlocal spelllang=en_us
 "====================================================
 
 " Enable Vim's syntax highlighting support. Specifically we call 'syntax enable' rather than 'syntax on'. Using 'enable' will instruct Vim to keep the current color settings rather than overruling those settings with Vim's defaults.
-"syntax enable
+syntax enable
 
 " Enable better command-line completion.
-"set wildmenu " Enables a menu at the bottom of the window.
-"set wildmode=list:longest,full " Allows the completion of commands on the command line via the tab button.
+set wildmenu " Enables a menu at the bottom of the window.
+set wildmode=list:longest,full " Allows the completion of commands on the command line via the tab button.
 
 " Ignore certain backup and compiled files based on file extensions when using tab completion.
-"set wildignore=*.swp,*.bak,*.tmp,*~
-"set wildignore+=*.zip,*.7z,*.gzip,*.gz
-"set wildignore+=*.jpg,*.png,*.gif,*.avi,*.mov,*.mpeg
-
-" Show partial commands in the last line of the screen.
-"set showcmd
+set wildignore=*.swp,*.bak,*.tmp,*~
+set wildignore+=*.zip,*.7z,*.gzip,*.gz
+set wildignore+=*.jpg,*.png,*.gif,*.avi,*.mov,*.mpeg
 
 " Try not to split words across multiple lines when a line wraps.
-"set linebreak
-
-" Highlight search results.
-"set hlsearch
-
-" Make search behave like search in modern browsers by initiating a partial search while typing in a search pattern, thereby finding the first occurrence of the search pattern as a sub-string within the file content.
-"set incsearch
+set linebreak
 
 " Use case insensitive search, except when using capital letters.
-"set ignorecase " Case insensitive search.
-"set smartcase " Enable case-sensitive search when the search phrase contains capital letters.
-
-" Allow backspacing over autoindent, line breaks, and start of insert action.
-"set backspace=indent,eol,start
+set ignorecase " Case insensitive search.
+set smartcase " Enable case-sensitive search when the search phrase contains capital letters.
 
 " Allows moving left when at the beginning of a line, or right when at the end of the line. When the end of the line has been reached, the cursor will progress to the next line, either up or down, depending on the direction of movement. < and > are left and right arrow keys, respectively, in normal and visual modes, and [ and ] are arrow keys, respectively, in insert mode.
-"set whichwrap+=<,>,h,l,[,]
-
-" Stop certain movements from always going to the first character of a line. While this behaviour deviates from that of Vi, it does what most users coming from other editors would expect.
-"set nostartofline
-
-" Display the cursor position on the last line of the screen or in the status line of a window and set the ruler display format.
-"set ruler
-"set rulerformat=%40(%t%y:\ %l,%c%V\ \(%o\)\ %p%%%)
+set whichwrap+=<,>,h,l,[,]
 
 " Instead of failing a command because of unsaved changes raise a dialogue asking if you wish to save changed files.
-"set confirm
+set confirm
 
 " Enable use of the mouse for all Vim modes: Normal, Insert, Visual, and Command-line.
-"set mouse=a
-
-" Set the command window height to one line. This leaves a single line underneath the status line for command output. This could cause issues with commands that return more output than can fit on that one line. In those cases you may be prompted with the following statement 'press <Enter> to continue', which will require physical intervention on your part. However, this seems like a reasonable compromise as the reduction of the command output lines to only one line saves valuable real estate by avoiding unused white space. One way to offset the 'press <Enter>' prompting is to use the 'shortmess' option to reduce command output.
-"set cmdheight=1
+set mouse=a
 
 " Use abbreviations when posting status messages to the command output line (The line right beneth Vim's statusline). Shortening command output may help avoid the 'press <Enter>' prompt that appears when the output is longer than the available space in the command output section. Furthermore, we append the 't' option to 'shortmess' so that if abbreviations are insufficient to keep output within the confines of the command output section, then content will be truncated as necessary; beginning at the start of the message.
-"set shortmess=at
+set shortmess=at
 
 " Display line numbers on the left with a column width of 4.
-"set number
-"set numberwidth=4
-
-" Quickly time out on keycodes, but never time out on mappings.
-"set timeout timeoutlen=1000 ttimeoutlen=100
+set number
 
 " A buffer becomes hidden, not destroyed, when it's abandoned.
-"set hidden
+set hidden
 
 " Don't redraw while executing macros, thereby improving performance.
-"set lazyredraw
-
-" Turn on the 'magic' behaviour thereby enabling regular expressions.
-"set magic
+set lazyredraw
 
 " Show matching brackets when text indicator is over them.
-"set showmatch
-
-" Specify how many tenths of a second to blink when matching brackets.
-"set mat=2
-
-" Sets title of the shell's containing window to be the value of `titlestring`, if that variable is not empty, or to `filename [+=-] (path) - VIM`.
-" - File cannot be modified.
-" + File has been modified
-" = File is read-only.
-" =+ File is read-only and has been modified.
-" Only works in terminals that support setting the window title.
-"set title
+set showmatch
 
 " Disable error bells.
-"set noerrorbells
-"set novisualbell
-
-" Set default values for a GVim instance, the GUI version if Vim.
-"if has('gui_running')
-"	set columns=120 " Width of GVim window.
-"	set lines=40 " Height of GVim window.
-
-"	" Disable all GUI toolbars so that only a simple window frame containing the Vim instance is shown.
-"	set browsedir=buffer
-"	set guioptions-=M
-"	set guioptions-=m
-"	set guioptions-=T
-
-"	" Set GUI font options based on the operating system.
-"	if has('win32') || has ('win64')
-"		set guifont=Monospace\ 10
-"	elseif has('unix')
-"		set guifont=DejaVu\ Sans\ Mono\ 10
-"	endif
-"endif
+set noerrorbells
+set novisualbell
 
 " Start scrolling when we're 3 lines from the bottom of the current window.
-"set scrolloff=3
-
-" Disable the highlighting of the column on which the cursor currently resides. When enabled, this feature is useful for the purpose of aligning text, but it's a performance hindrance.
-"set nocursorcolumn
+set scrolloff=3
 
 " Enable the highlighting of the row on which the cursor resides, along with highlighting the row's row number.
-"set cursorline
+set cursorline
 
 " Set the minimum number of lines to search around the cursor's position to derive the appropriate syntax highlighting.
-"syntax sync minlines=256
+syntax sync minlines=256
 
 " Instruct Vim to offer corrections in a pop-up on right-click of the mouse.
-"set mousemodel=popup
-
-" Do not display line numbers when viewing a help file.
-"augroup helpFile
-"	autocmd!
-
-"	autocmd FileType helpfile set nonumber
-"augroup END
+set mousemodel=popup
 
 " Configure Vim's formatting options used by Vim to automatically for a line of text. Formatting not applied when 'paste' is enabled.
 " Options:
 " j - Where it makes sense, remove a comment leader when joining lines.
 " l - Do not break existing long lines when entering insert mode.
 " n - Recognize numbered lists and automatically continue the correct level of indention onto the next line.
-" r - Automatically insert the current comment leader after pressing <ENTER> in Insert mode.
 " o - Automatically insert the current comment leader after after entering 'o' or 'O' in Normal mode.
-"set formatoptions+=jlnro
+" q - Allow formatting of comments using `gq`.
+" r - Automatically insert the current comment leader after pressing <ENTER> in Insert mode.
+set formatoptions+=jlnoqr
 
 "====================================================
 " Backups
@@ -218,15 +150,8 @@ setlocal spelllang=en_us
 "====================================================
 
 " Turn off backups for files that are being edited by Vim.
-"set nobackup " Do not keep a backup of a file after overwriting the file.
-"set nowritebackup " Do not automatically create a write backup before overwriting a file.
-"set noswapfile " No temporary swap files.
-
-" Set the default location to store backup files.
-"set backupdir=~/.vim/backups
-
-" The backup directory, used to store copies of files before they're modified, must exist for backup files to be created. If it does not exist backup files will not get created.
-"call EnsureDirectoryExists($HOME . '/.vim/backups')
+set nobackup " Do not keep a backup of a file after overwriting the file.
+set noswapfile " No temporary swap files.
 
 "====================================================
 " Clipboard
