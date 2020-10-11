@@ -171,72 +171,31 @@ set noswapfile " No temporary swap files.
 "endif
 
 "====================================================
-" Doxygen
-
-" These options manage settings associated with Vim's built-in support for Doxygen.
-"====================================================
-
-" Autoload Doxygen highlighting. This allows Vim to understand special documentation syntax, such as '\param' so that the built-in spell checker does not give a false positive.
-"let g:load_doxygen_syntax = 1
-
-"====================================================
-" Undo
-
-" These options manage settings associated with how undo history is retained by Vim.
-"====================================================
-
-" If the option is available, turn on persistent undo history. This causes all changes to a file to be written to a cache file in the specified undodir directory. This undo history can then be loaded back again by Vim the next time the file is opened.
-"if has('persistent_undo')
-"	" Set the directory to use for storing undo cache files.
-"	set undodir=~/.vim/undo
-
-"	" The undo directory, used to store undo cache files, must exist for undo cache files to be created. If it does not exist undo cache files will not get created.
-"	call EnsureDirectoryExists($HOME . '/.vim/undo')
-
-"	" Turn on persistent undo history.
-"	set undofile
-
-"	" Set the maximum number of undos that should be kept in history.
-"	set undolevels=100
-
-"	" Set the maximum number of lines to save for undo on a buffer reload. Allows the current contents of a buffer to be saved when reloading the buffer so that the buffer reload can be undone.
-"	set undoreload=1000
-"endif
-
-"====================================================
 " Tabs and Indents
 
 " These options manage settings associated with tabs and automatically indenting new lines.
 "====================================================
 
-" When opening a new line and no filetype-specific indenting is enabled, keep the same indent as the line you're currently on.
-"set autoindent
-"set cindent "< Probably should not use 'smartindent', a.k.a. 'cindent', with filetype indent feature enabled. Should only be set manually, enabled, when filetype-based indention is not adequate. 'cindent' is only appropriate for c-style languages.
-
 " Number of spaces Vim should use to visually represent a TAB character when encountered within a file.
-"set tabstop=2
+set tabstop=2
 
 " Number of spaces Vim should use when autoindenting a new line of text, or when using the `<<` and `>>` operations (Such as pressing > or < while text is selected to change the indentation of the text). Also used by `cindent` when that option is enabled.
-"set shiftwidth=2
+set shiftwidth=2
 
 " Number of spaces Vim should insert when TAB is pressed, and the number of spaces Vim should remove when the <backspace> is pressed. This allows for a single backspace to go back this many white space characters.
-"set softtabstop=2
-
-" Enable smart use of tabs.
-"set smarttab
+set softtabstop=2
 
 " Copy the structure of the existing lines indent when autoindenting a new line.
-"set copyindent
+set copyindent
 
 " Causes spaces to be inserted in place of tabs when the TAB key is pressed. To disable this behavior and enable the insertion of tabs when the Tab key is pressed, comment out this option.
-"augroup expand
-"	autocmd!
-
-"	autocmd Filetype javascript setlocal expandtab
-"augroup END
+augroup expand
+	autocmd!
+	autocmd Filetype javascript setlocal expandtab
+augroup END
 
 " Enable special display options to show tabs and end-of-line characters within a non-GUI window. Tabs are represented using '>-' and a sequence of '-'s that will fill out to match the proper width of a tab. End-of-line is represented by a dollar sign '$'. Displaying tabs as '>-' and end-of-lines as '$'. Trailing white space is represented by '~'. Must be toggled by a mapping to ':set list!'.
-"set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
+set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 
 "====================================================
 " Folding
