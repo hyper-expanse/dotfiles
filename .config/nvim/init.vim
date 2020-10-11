@@ -154,23 +154,6 @@ set nobackup " Do not keep a backup of a file after overwriting the file.
 set noswapfile " No temporary swap files.
 
 "====================================================
-" Clipboard
-
-" These options manage settings associated with Vim's built-in clipboard support that allows copying between Vim instances and other applications. This is possible by leveraging the System's clipboard.
-"====================================================
-
-" Setup Vim to use the operating system's native clipboard for all copy and paste operations. This will allow content to be copied and pasted between Vim and other system applications.
-"if has('nvim')
-"	" Noop
-"elseif has('clipboard')
-"	" Set Vim to use the system clipboard, available through the * registry, by default for all copy and paste operations.
-"	set clipboard=unnamed
-"elseif has('xterm_clipboard')
-"	" Set Vim to use the X11 clipboard, available through the + registry, by default for all copy and paste operations.
-"	set clipboard=unnamedplus
-"endif
-
-"====================================================
 " Tabs and Indents
 
 " These options manage settings associated with tabs and automatically indenting new lines.
