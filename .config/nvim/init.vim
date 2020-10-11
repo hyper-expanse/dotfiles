@@ -9,7 +9,6 @@
 
 " These options enable several useful baseline features for improving Vim functionality.
 "====================================================
-
 " Use Unix as the standard file type when saving a buffer back to file. This will cause Unix line terminators, \n, to be used for deliminating a file's newlines.
 set fileformat=unix
 
@@ -20,6 +19,31 @@ set modelines=0 " Set the number of modelines Vim parses, when reading a file, t
 " Set the default language to use for spell checking. `spelllang` is a comma separated list of word lists. Word lists are of the form LANGUAGE_REGION. The LANGUAGE segment may include a specification, such as `-rare` to indicate rare words in that language.
 setlocal spelllang=en_us
 
+" Create a directory if it doesn't already exist.
+function! EnsureDirectoryExists(directory)
+	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore Vim's suffixes and wildignore options..                     
+	let l:path = expand(substitute(a:directory, '\s\+', '', 'g'), 1)
+
+	" Ensure the expanded path is non-empty. An empty l:path may be caused if path expansion in previous step fails. For that reason we should return the original directory in hopes that it's useful for debugging.                                       
+	if empty(l:path)
+		echoerr "EnsureDirectoryExists(): Invalid path: " . a:directory
+		return 0
+	endif
+
+	" Ensure the path does not already exist (Because what's the point of creating a directory that already exists.).
+	if !isdirectory(l:path)
+		" Ensure `mkdir` exists on the system or otherwise we can't create the directory automatically.
+		if exists('*mkdir')
+			call mkdir(l:path,'p')
+			echomsg "Created directory: " . l:path
+		else
+			echoerr "Please create directory: " . l:path
+		endif
+	endif
+
+	return isdirectory(l:path)
+ endfunction
+
 "====================================================
 " Setup vim-plug Plugin
 
@@ -29,24 +53,25 @@ setlocal spelllang=en_us
 "====================================================
 
 " We must ensure that the `autoload` directory exists within our `~/.vim` directory for the installation of `vim-plug` to work. If the `autoload` directory does not exist prior to invoking `curl`, `curl` will fail to download the file, as `curl` is not setup to create missing directories in the destination path.
-"call EnsureDirectoryExists($HOME . '/.vim/autoload')
-"if empty(glob('~/.vim/autoload/plug.vim'))
-"	" If vim-plug has not been downloaded into Vim's autoload directory, go ahead and invoke `curl` to download vim-plug.
-"	silent execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-"endif
+call EnsureDirectoryExists($XDG_DATA_HOME . '/nvim/site/autoload/')
+if empty(glob($XDG_DATA_HOME . '/nvim/site/autoload/plug.vim'))
+	" If vim-plug has not been downloaded into Vim's autoload directory, go ahead and invoke `curl` to download vim-plug.
+	execute '!curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+endif
 
-"call plug#begin()
+call plug#begin()
 
 "Plug 'https://github.com/kien/ctrlp.vim.git'
 "Plug 'https://github.com/gregsexton/gitv.git'
-"Plug 'https://github.com/nanotech/jellybeans.vim.git'
+Plug 'https://github.com/rakr/vim-one.git'
 "Plug 'https://github.com/vim-scripts/jQuery.git'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
 "Plug 'https://github.com/majutsushi/tagbar.git'
 "Plug 'https://github.com/edkolev/tmuxline.vim.git'
 "Plug 'https://github.com/mbbill/undotree.git'
-"Plug 'https://github.com/bling/vim-airline.git'
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 "Plug 'https://github.com/vim-scripts/L9.git' | Plug 'https://github.com/othree/vim-autocomplpop.git'
 "Plug 'https://github.com/derekwyatt/vim-fswitch.git'
 "Plug 'https://github.com/tpope/vim-fugitive.git'
@@ -66,7 +91,7 @@ setlocal spelllang=en_us
 "Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
 
 " Add plugins to Vim's `runtimepath`.
-"call plug#end()
+call plug#end()
 
 "====================================================
 " User Interface
@@ -855,16 +880,19 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "====================================================
 
 " Enable vim-airline's buffer status bar. This buffer status bar will appear at the very top of Vim, similiar to where the multibufexpl plugin would appear.
-"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " Automatically populate the `g:airline_symbols` dictionary with the correct font glyphs used as the special symbols for vim-airline's status bar.
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
+
+" Set airline theme to match the Vim editor theme.
+let g:airline_theme = 'one'
 
 " Correct a spacing issue that may occur with fonts loaded via the fontconfig approach.
-"if !exists('g:airline_symbols')
-"    let g:airline_symbols = {}
-"endif
-"let g:airline_symbols.space = "\ua0"
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 
 "====================================================
 " Setup vim-fswitch Plugin
@@ -1090,10 +1118,14 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "====================================================
 
 " Inform Vim to expect a dark terminal background. This will cause Vim to compensate by altering the color scheme.
-"set background=dark
+set background=dark
+
+" Enable support for italics in the One theme.
+let g:one_allow_italics = 1
 
 " Set Vim's color scheme. We purposely silence any failure notification if the desired colorscheme can't be loaded by Vim. If Vim is unable to load the desired colorscheme, it will be quite apparent to the user. By silencing error messages we gain the ability to automate tasks, such as installing plugins for the first time, that would otherwise block if an error message was displayed because the desired colorscheme wasn't available.
-"silent! colorscheme jellybeans
+silent! colorscheme one
+" highlight Normal ctermbg=NONE " Uncomment if you want to unset a background color and defer to your terminal.
 
 "====================================================
 " Spellcheck Highlighting
@@ -1107,14 +1139,14 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "====================================================
 
 " Clear existing highlighting rules used to make a spelling mistake stand out in text. The existing highlight rules must be cleared to correctly apply our custom rules.
-"highlight clear SpellBad
-"highlight clear SpellCap
-"highlight clear SpellRare
-"highlight clear SpellLocal
+highlight clear SpellBad
+highlight clear SpellCap
+highlight clear SpellRare
+highlight clear SpellLocal
 
 " Set our own highlighting rules for Vim's spell checking.
 " We use `undercurl` to use squiggles under highlighted words when that option is available (gvim only). Otherwise words are simply underlined.
-"highlight SpellBad   term=undercurl cterm=undercurl ctermfg=Red
-"highlight SpellCap   term=undercurl cterm=undercurl ctermfg=Yellow
-"highlight SpellRare  term=undercurl cterm=undercurl ctermfg=Magenta
-"highlight SpellLocal term=undercurl cterm=undercurl ctermfg=Blue
+highlight SpellBad   term=undercurl cterm=undercurl ctermfg=Red
+highlight SpellCap   term=undercurl cterm=undercurl ctermfg=Yellow
+highlight SpellRare  term=undercurl cterm=undercurl ctermfg=Magenta
+highlight SpellLocal term=undercurl cterm=undercurl ctermfg=Blue
