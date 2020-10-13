@@ -212,7 +212,7 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "====================================================
 
 " Use syntax highlighting rules to determine how source code or content should be folded.
-"set foldmethod=syntax
+set foldmethod=syntax
 
 "====================================================
 " Difference Mode
@@ -221,7 +221,7 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "====================================================
 
 " Set the default difference display option such that filler lines are shown to keep text synchronized between two windows and use 6 lines of context between a change and a fold that contains unchanged lines.
-"set diffopt=filler,context:6
+set diffopt=filler,context:6
 
 "====================================================
 " Vim Explorer
@@ -230,37 +230,10 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "====================================================
 
 " Will cause files selected in the Explorer window to be opened in the most recently used buffer window (Causing the previous buffer to be pushed into the background).
-"let g:netrw_browse_split = 4
-
-" Medium speed directory browsing by re-using directory listings only when using Explorer to browse remote directories.
-"let g:netrw_fastbrowse = 1
+let g:netrw_browse_split = 4
 
 " List files and directories in the Explorer window using the tree listing style.
-"let g:netrw_liststyle = 3
-
-" Place the file preview window in a horizontal split window. A file can be previewed by pressing 'P'.
-"let g:netrw_preview = 0
-
-"====================================================
-" Status Line
-
-" These options and commands manage settings associated with the status bar at the bottom of the Vim editor.
-"====================================================
-
-" Always display the status line, even if only one window is displayed.
-"set laststatus=2
-
-" Format the status line.
-"set statusline=%F			" Full path of the file.
-"set statusline+=\ %m		" Display [+] if the current buffer has been modified.
-"set statusline+=\ %r		" Show [RO] for read-only files.
-"set statusline+=%=			" Right align the following status line text.
-"set statusline+=\ %{fugitive#statusline()}	" Fugitive plugin for pulling in Git repo information.
-"set statusline+=\ %y		" File type, such as [cpp] or [bash].
-"set statusline+=\ [%{strlen(&fenc)?&fenc:'none'}]	" File encoding, such as [utf-8] or [latin1].
-"set statusline+=\ [%{strlen(&ff)?&ff:'unknown'}]	" File format, such as [unix] or [dos].
-"set statusline+=\ [Column:\ %3v]	" Virtual column number that is independent of the total byte count of all characters up to that point. Padd with up to 3 invisible characters.
-"set statusline+=\ [Line:\ %4l\/%L]	" Current line number out of '%L' lines in the current buffer. Pass with up to 4 invisible characters.
+let g:netrw_liststyle = 3
 
 "====================================================
 " Helper Functions
@@ -575,10 +548,10 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 "nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
 
 " Support switching between Vim splits using ALT and the arrow keys.
-"nnoremap <silent> <A-Up> :wincmd k<CR>
-"nnoremap <silent> <A-Down> :wincmd j<CR>
-"nnoremap <silent> <A-Left> :wincmd h<CR>
-"nnoremap <silent> <A-Right> :wincmd l<CR>
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
 
 " Support the swapping of buffers between two windows. We support two options, using either the <leader> or a function key. <F3> Marks a buffer for movement and <F4> selects the second buffer of the swap pair and then executes the swap.
 "nnoremap <silent> <leader>mw :call MarkWindowSwap()<CR>
