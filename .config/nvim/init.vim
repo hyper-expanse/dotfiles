@@ -68,13 +68,12 @@ Plug 'https://github.com/rakr/vim-one.git'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
 "Plug 'https://github.com/majutsushi/tagbar.git'
-"Plug 'https://github.com/edkolev/tmuxline.vim.git'
 "Plug 'https://github.com/mbbill/undotree.git'
-Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 "Plug 'https://github.com/vim-scripts/L9.git' | Plug 'https://github.com/othree/vim-autocomplpop.git'
 "Plug 'https://github.com/derekwyatt/vim-fswitch.git'
-"Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/tpope/vim-fugitive.git'
 "Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 "Plug 'https://github.com/jelera/vim-javascript-syntax.git'
 "Plug 'https://github.com/heavenshell/vim-jsdoc.git'
@@ -82,7 +81,7 @@ Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 "Plug 'https://github.com/dbakker/vim-lint.git'
 "Plug 'https://github.com/phleet/vim-mercenary.git'
 "Plug 'https://github.com/kana/vim-scratch.git'
-"Plug 'https://github.com/mhinz/vim-signify.git'
+Plug 'https://github.com/mhinz/vim-signify.git'
 "Plug 'https://github.com/tmux-plugins/vim-tmux.git'
 
 " JavaScript Plugins
@@ -451,8 +450,8 @@ let g:netrw_liststyle = 3
 "====================================================
 
 " Set a map leader so that extra key combinations can be used for quick operations.
-"let mapleader = ","
-"let g:mapleader = ","
+let mapleader = ","
+let g:mapleader = ","
 
 " Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any Vim mode will enter command mode.
 "map ; :
@@ -892,18 +891,6 @@ let g:airline_symbols.space = "\ua0"
 "map! <silent> <F2> <ESC>:FSSplitRight<CR>
 
 "====================================================
-" Setup vim-fugitive Plugin
-
-" Setup for an integrated git tool that allows for the management (clone, checkout, branch, add, .etc) of git repositories from within Vim.
-"====================================================
-
-" Use the following commands like that their counter parts in Git would be used:
-" Gedit
-" Gblame
-" Gcommit
-" Others...
-
-"====================================================
 " Setup vim-indent-guides Plugin
 
 " Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentation level.
@@ -979,27 +966,15 @@ let g:airline_symbols.space = "\ua0"
 " Setup for the Signify plugin that adds the +, -, and ~ characters in the "gutter", a.k.a left sidebar, of Vim to indicate when lines have been added, removed, or modified as compared against a file managed by a VCS.
 "====================================================
 
-" Instruct the Signify plugin to only check for these version control systems upon loading a file into a Vim buffer. Restricting the list of version control systems to check for will improve the performance of the Signify plugin (by preventing Signify from checking the loaded buffer against every version control system). Also note that this list is a priority list. Version control support is checked in the order of those items in the list.
-"let g:signify_vcs_list = ['git', 'hg']
-
 " Mapping for jumping around in a buffer between next, or previous, change hunks.
-"let g:signify_mapping_next_hunk = '<leader>gj'
-"let g:signify_mapping_prev_hunk = '<leader>gk'
-
-" Toggles the Signify plugin for the current buffer only.
-"let g:signify_mapping_toggle = '<leader>gt'
-
-" Don't overwrite existing signs placed into the left sidebar by other Vim plugins.
-"let g:signify_sign_overwrite = 0
-
-" Update signs when Vim is given focus.
-"let g:signify_update_on_focusgained = 0
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
 
 " Use alternative signs for various states of a line under version control.
-"let g:signify_sign_change = '~'
+let g:signify_sign_change = '~'
 
-" By default `git diff` compares the working copy against the staging index. Therefore, after you have added a change hunk to the index, signify will no longer indicate the change along the file's left sidebar. This is not really our desired behavior. It would be preferable to see all changes in a file not yet committed to the repository.
-"let g:signify_diffoptions = { 'git': 'HEAD' }
+" Update line status more quickly.
+set updatetime=100
 
 "====================================================
 " Setup syntastic Plugin
