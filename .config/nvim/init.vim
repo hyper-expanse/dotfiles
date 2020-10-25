@@ -61,7 +61,7 @@ endif
 
 call plug#begin()
 
-"Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
 Plug 'https://github.com/rakr/vim-one.git'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
@@ -800,7 +800,7 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 "====================================================
 
 " Set the default behavior for the CtrlP plugin to search against files only (not against the buffers or MRU).
-"let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_cmd = 'CtrlP'
 
 " Directory ignore list:
 " * .git/.hg/.svn - Source Code Management storage directories.
@@ -812,19 +812,13 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 " * .tox - Cache directory used by `tox`.
 " * coverage - Output directory for generated coverage reports.
 " * .temp - Cache directory we use for Yeoman unit tests.
-"let g:ctrlp_custom_ignore = {
-"	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|dist|bin|build|_book|venv|\.tox|coverage|\.temp)$',
-"	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
-"	\ }
-
-" Set the maximum depth of a directory tree to recurse into.
-"let g:ctrlp_max_depth = 20
-
-" Set the maximum number of files to scan into the CtrlP cache for fuzzing matching.
-"let g:ctrlp_max_files = 10000
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|dist|bin|build|_book|venv|\.tox|coverage|\.temp)$',
+	\ 'file': '\v\.(pyc|pyo|a|exe|dll|so|o|min.js|zip|7z|gzip|gz|jpg|png|gif|avi|mov|mpeg|doc|odt|ods)$'
+	\ }
 
 " Set the option to require CtrlP to scan for dotfiles and dotdirs.
-"let g:ctrlp_show_hidden = 1
+let g:ctrlp_show_hidden = 1
 
 "====================================================
 " Setup vim-airline Plugin
