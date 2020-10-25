@@ -61,28 +61,21 @@ endif
 
 call plug#begin()
 
-"Plug 'https://github.com/kien/ctrlp.vim.git'
-"Plug 'https://github.com/gregsexton/gitv.git'
+"Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
 Plug 'https://github.com/rakr/vim-one.git'
-"Plug 'https://github.com/vim-scripts/jQuery.git'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
 "Plug 'https://github.com/majutsushi/tagbar.git'
 "Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
-"Plug 'https://github.com/vim-scripts/L9.git' | Plug 'https://github.com/othree/vim-autocomplpop.git'
-"Plug 'https://github.com/derekwyatt/vim-fswitch.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 "Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 "Plug 'https://github.com/jelera/vim-javascript-syntax.git'
-"Plug 'https://github.com/heavenshell/vim-jsdoc.git'
 "Plug 'https://github.com/elzr/vim-json.git'
 "Plug 'https://github.com/dbakker/vim-lint.git'
-"Plug 'https://github.com/phleet/vim-mercenary.git'
 "Plug 'https://github.com/kana/vim-scratch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
-"Plug 'https://github.com/tmux-plugins/vim-tmux.git'
 
 " JavaScript Plugins
 
@@ -834,18 +827,6 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 "let g:ctrlp_show_hidden = 1
 
 "====================================================
-" Setup jQuery Plugin
-
-" Setup for working with JQuery files, or JavaScript containing JQuery, including proper syntax highlighting, reference mapping, and proper indentions.
-"====================================================
-
-"augroup jquerySupport
-"	autocmd!
-
-"	autocmd BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-"augroup END
-
-"====================================================
 " Setup vim-airline Plugin
 
 " Setup for a vim-airline environment so that the environment will look and behave in the desired way.
@@ -865,30 +846,6 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
-
-"====================================================
-" Setup vim-fswitch Plugin
-
-" Setup for an integrated tool that can switch between companion files, such as *.cxx and *.h. Furthermore, it allows for the quick creation of companion files, when they don't already exist, in a pre-defined location.
-"====================================================
-
-" Set the default file extension of a companion file.
-"let b:fswitchdst = 'h'
-
-" Set the default folders to search in for a companion file.
-"let b:fswitchlocs = 'reg:|src|include/**|'
-
-" When viewing a C++ header file, open the first available companion file using the following order: {.cxx}, {.cpp}, and then {.c}. Furthermore, look for a companion file in an include and source directory, and if that fails, search in the current directory. If all else fails, create a new companion file in an UNKNOWN directory.
-"augroup cppfiles
-"	autocmd!
-
-"	autocmd BufEnter *.h let b:fswitchdst  = 'cxx,cpp,c'
-"	autocmd BufEnter *.h let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
-"augroup END
-
-" Switch between a C/C++ header and its source by opening the companion file in a new vertical split window on the right. Only works if there are not other splits to the right.
-"map <silent> <F2> <ESC>:FSSplitRight<CR>
-"map! <silent> <F2> <ESC>:FSSplitRight<CR>
 
 "====================================================
 " Setup vim-indent-guides Plugin
@@ -917,24 +874,6 @@ let g:airline_symbols.space = "\ua0"
 
 "	autocmd FileType javascript call JavaScriptFold()
 "augroup END
-
-"====================================================
-" Setup vim-jsdoc Plugin
-
-" Setup for JsDoc plugin to build documentation for a function based on context information and user input.
-"====================================================
-
-" Allow interactive prompting for input.
-"let g:jsdoc_allow_input_prompt = 1
-
-" Turn on access tags such as `@private` and `@public`.
-"let g:jsdoc_access_descriptions = 2
-
-" Turn on detecting a function starting with an underscore as a private function.
-"let g:jsdoc_underscore_private = 1
-
-" Support ECMAScript 6 function definition syntax.
-"let g:jsdoc_allow_shorthand = 1
 
 "====================================================
 " Setup vim-json Plugin
@@ -1047,15 +986,6 @@ set updatetime=100
 
 " Enable support for the key mappings defined by this plugin. These key mappings are available through the use of the <leader> key. For a full list of available key mappings please see: http://usevim.com/files/tern_keyboard.pdf
 "let g:tern_map_keys = 1
-
-"====================================================
-" Setup tmuxline Plugin
-
-" Setup for Tmuxline to enable a Powerline line like status line for TMUX, but using Vim to manage the setup and configuration.
-"====================================================
-
-" Choose one of the built-in status line presets available from the Tmuxline plugin. In this case I have chosen Tmuxline's 'full' preset that includes most available data points; such as open windows, date, time, and host.
-"let g:tmuxline_preset = 'full'
 
 "====================================================
 " Setup Colorscheme
