@@ -467,9 +467,9 @@ inoremap <silent> <F6> <ESC>:set list!<CR>i
 vnoremap <silent> <F6> <ESC>:set list!<CR>v
 
 " Toggle all folds either open if one or more are closed.
-"nnoremap <F9> zR
-"inoremap <F9> <C-O>zR
-"vnoremap <F9> zR
+nnoremap <F9> zR
+inoremap <F9> <C-O>zR
+vnoremap <F9> zR
 
 "====================================================
 " Command-line Mode
