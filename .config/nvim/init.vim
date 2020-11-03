@@ -427,15 +427,6 @@ augroup END
 "	endif
 "endfunction
 
-" Automatically insert header guards into new C++ header files.
-"function! InsertHeaderGuard()
-"	let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-"	execute "normal! i#ifndef " . gatename
-"	execute "normal! o#define " . gatename
-"	execute "normal! Go#endif"
-"	normal! kk
-"endfunction
-
 "====================================================
 " Multi-Mode Mappings
 
