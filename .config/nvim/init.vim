@@ -460,11 +460,11 @@ vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
 "vnoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
 
 " Enable the displaying of whitespace characters, including tab characters.
-"nnoremap <silent> <F6> <ESC>:set list!<CR>
+nnoremap <silent> <F6> <ESC>:set list!<CR>
 " Placing the letter 'i' at the end causes Vim to return to insert mode after toggling list mode.
-"inoremap <silent> <F6> <ESC>:set list!<CR>i
+inoremap <silent> <F6> <ESC>:set list!<CR>i
 " Placing the letter 'v' at the end causes Vim to return to visual mode after toggling list mode.
-"vnoremap <silent> <F6> <ESC>:set list!<CR>v
+vnoremap <silent> <F6> <ESC>:set list!<CR>v
 
 " Toggle all folds either open if one or more are closed.
 "nnoremap <F9> zR
