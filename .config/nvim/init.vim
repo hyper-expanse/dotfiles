@@ -21,10 +21,10 @@ setlocal spelllang=en_us
 
 " Create a directory if it doesn't already exist.
 function! EnsureDirectoryExists(directory)
-	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore Vim's suffixes and wildignore options..                     
+	" Take the given directory, trim white space, and then expand the path using any path wildcards; such as ~ for example. Also, the second argument to expand(...) instructs expand to ignore Vim's suffixes and wildignore options..
 	let l:path = expand(substitute(a:directory, '\s\+', '', 'g'), 1)
 
-	" Ensure the expanded path is non-empty. An empty l:path may be caused if path expansion in previous step fails. For that reason we should return the original directory in hopes that it's useful for debugging.                                       
+	" Ensure the expanded path is non-empty. An empty l:path may be caused if path expansion in previous step fails. For that reason we should return the original directory in hopes that it's useful for debugging.
 	if empty(l:path)
 		echoerr "EnsureDirectoryExists(): Invalid path: " . a:directory
 		return 0
@@ -238,18 +238,18 @@ let g:netrw_liststyle = 3
 "command! -range=% -nargs=0 Space2Tab execute "<line1>,<line2>s/^\\( \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}', '\\t', 'g')"
 
 " Define a function that will delete trailing white space on save.
-"function! DeleteTrailingWS()
-"	exe "normal mz"
-"	%s/\s\+$//ge
-"	exe "normal `z"
-"endfunc
+function! DeleteTrailingWS()
+	exe "normal mz"
+	%s/\s\+$//ge
+	exe "normal `z"
+endfunc
 
 " Create an autocmd that will be executed every time the buffer is written back to file, deleting trailing white space.
-"augroup deleteTrailingWhiteSpace
-"	autocmd!
+augroup deleteTrailingWhiteSpace
+	autocmd!
 
-"	autocmd BufWrite * :call DeleteTrailingWS()
-"augroup END
+	autocmd BufWrite * :call DeleteTrailingWS()
+augroup END
 
 " Return to the last edit position when re-opening a file.
 "augroup returnLastLine
