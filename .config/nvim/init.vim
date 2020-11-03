@@ -466,22 +466,10 @@ vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
 " Placing the letter 'v' at the end causes Vim to return to visual mode after toggling list mode.
 "vnoremap <silent> <F6> <ESC>:set list!<CR>v
 
-" Instruct Vim to generate syntax highlight for the entire buffer, beginning from the start of the buffer.
-"nnoremap <silent> <F12> <Esc>:syntax sync fromstart<CR>
-" Placing the letter 'i' at the end causes Vim to return to insert mode after toggling syntax highlighting.
-"inoremap <silent> <F12> <ESC>:syntax sync fromstart<CR>i
-" Placing the letter 'v' at the end causes Vim to return to visual mode after toggling syntax highlighting.
-"vnoremap <silent> <F12> <ESC>:syntax sync from start<CR>v
-
 " Toggle all folds either open if one or more are closed.
 "nnoremap <F9> zR
 "inoremap <F9> <C-O>zR
 "vnoremap <F9> zR
-
-" Go to the definition of the text that lays below the cursor. This will cause Vim to load the file containing the definition of say a function or variable.
-"nnoremap <silent> <C-D> <ESC><C-]>
-"inoremap <silent> <C-D> <ESC><C-]>
-"vnoremap <silent> <C-D> <ESC><C-]>
 
 "====================================================
 " Command-line Mode
