@@ -213,7 +213,7 @@ set foldmethod=syntax
 "====================================================
 
 " Set the default difference display option such that filler lines are shown to keep text synchronized between two windows and use 6 lines of context between a change and a fold that contains unchanged lines.
-set diffopt=filler,context:6
+"set diffopt=filler,horizontal
 
 "====================================================
 " Vim Explorer
