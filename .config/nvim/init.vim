@@ -441,11 +441,11 @@ let g:mapleader = ","
 set pastetoggle=<F11>
 
 " Manage spell check by supporting mappings that turn spell check on and off.
-"nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
+nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
 " Placing the letter 'i' at the end causes Vim to then return to insert mode after toggling the spell checker.
-"inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
+inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
 " Placing the letter 'v' at the end causes Vim to then return to visual mode after toggling the spell checker.
-"vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
+vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
 
 " Start a browser instance loading the URI that is underneath the cursor.
 "nnoremap <silent> <C-U> <ESC>:call Browser()<CR>
