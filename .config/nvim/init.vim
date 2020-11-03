@@ -437,9 +437,6 @@ augroup END
 let mapleader = ","
 let g:mapleader = ","
 
-" Map the semicolon character to the colon character to prevent the necessity of pressing <SHIFT+;> to enter command mode. Instead, with this map, pressing the semicolon key in any Vim mode will enter command mode.
-"map ; :
-
 " Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of Vim's enabled auto-indent features.
 "set pastetoggle=<F11>
 
@@ -449,19 +446,6 @@ let g:mapleader = ","
 "inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
 " Placing the letter 'v' at the end causes Vim to then return to visual mode after toggling the spell checker.
 "vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
-
-" Re-map screen-256color key sequences for [Alt,CTRL,SHIFT]+[ARROW KEYS] to the appropriate control keys. This accounts for the fact that these key sequences are not automatically handled by Vim when running Vim inside of a screen application such as tmux. Vim is notified that the terminal it is running inside of is a 'screen', or 'screen-256color' terminal by either tmux or screen terminal multiplexers.
-"if &term =~ '^screen'
-"	execute "set <xUp>=\e[1;*A"
-"	execute "set <xDown>=\e[1;*B"
-"	execute "set <xRight>=\e[1;*C"
-"	execute "set <xLeft>=\e[1;*D"
-
-"	" Enable extended mouse reporting mode while within a Screen or TMUX session. By enabling extended mouse reporting mode for Screen and TMUX sessions, mouse click-and-drag works on Vim splits as expected.
-"	" The ttymouse option changes what 'mouse codes' Vim will recognize. Setting this option to 'xterm2' is required when operating Vim within terminal multiplexers.
-"	" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
-"	set ttymouse=xterm2
-"endif
 
 " Start a browser instance loading the URI that is underneath the cursor.
 "nnoremap <silent> <C-U> <ESC>:call Browser()<CR>
