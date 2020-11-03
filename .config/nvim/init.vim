@@ -438,7 +438,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Use <F11> to toggle between 'paste' and 'nopaste' modes. 'paste' and 'nopaste' modes disable and enable auto-indenting respectively. Useful when pasting text that already posses the correct indenting, and you want to preserve that indention regardless of Vim's enabled auto-indent features.
-"set pastetoggle=<F11>
+set pastetoggle=<F11>
 
 " Manage spell check by supporting mappings that turn spell check on and off.
 "nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
