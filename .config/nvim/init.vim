@@ -77,11 +77,6 @@ Plug 'https://github.com/tpope/vim-fugitive.git'
 "Plug 'https://github.com/kana/vim-scratch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 
-" JavaScript Plugins
-
-" We include a post-install hook for installing the plugin's required runtime dependencies. This is accomplished through vim-plug's post-install hook interface that will jump into the plugin's directory and run the command passed as the value to `do`. That installation step will download the `tern` server that will be used by the tern_for_vim plugin.
-"Plug 'https://github.com/marijnh/tern_for_vim.git', { 'do': 'npm install' }
-
 " Add plugins to Vim's `runtimepath`.
 call plug#end()
 
@@ -205,15 +200,6 @@ set listchars=tab:>-,eol:$,trail:~,extends:>,precedes:<
 
 " Use syntax highlighting rules to determine how source code or content should be folded.
 set foldmethod=syntax
-
-"====================================================
-" Difference Mode
-
-" These options manage settings associated with Vim wile operating in difference mode, displaying differences between two similar files.
-"====================================================
-
-" Set the default difference display option such that filler lines are shown to keep text synchronized between two windows and use 6 lines of context between a change and a fold that contains unchanged lines.
-"set diffopt=filler,horizontal
 
 "====================================================
 " Vim Explorer
@@ -413,20 +399,6 @@ augroup END
 "	let &modifiable = l:oldmodifiable
 "endfunction
 
-" Open the URI that is currently underneath the cursor in a browser.
-"function! Browser ()
-"	let line = getline('.')
-"	let line = matchstr(line, "http[^   ]*")
-
-"	" In Windows use Google Chrome.
-"	if has('win32')
-"		execute "!C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --incognito " . line
-"	" In a Unix like environment use a text-based browser such as Elinks.
-"	elseif has('unix')
-"		execute "!elinks " . line
-"	endif
-"endfunction
-
 "====================================================
 " Multi-Mode Mappings
 
@@ -447,11 +419,6 @@ inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
 " Placing the letter 'v' at the end causes Vim to then return to visual mode after toggling the spell checker.
 vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
 
-" Start a browser instance loading the URI that is underneath the cursor.
-"nnoremap <silent> <C-U> <ESC>:call Browser()<CR>
-"inoremap <silent> <C-U> <ESC>:call Browser()<CR>
-"vnoremap <silent> <C-U> <ESC>:call Browser()<CR>
-
 " Enable Hex editing mode.
 "nnoremap <silent> <C-H> <ESC>:call ToggleHex()<CR>
 " Placing the letter 'i' at the end causes Vim to return to insert mode after toggling hex mode.
@@ -470,12 +437,6 @@ vnoremap <silent> <F6> <ESC>:set list!<CR>v
 nnoremap <F9> zR
 inoremap <F9> <C-O>zR
 vnoremap <F9> zR
-
-"====================================================
-" Command-line Mode
-
-" Useful mappings for command-line mode.
-"====================================================
 
 "====================================================
 " Insert Mode
@@ -933,18 +894,6 @@ set updatetime=100
 "\ }
 
 "====================================================
-" Setup tern_for_vim Plugin
-
-" Setup the `tern_for_vim` plugin to allow intelligent parsing of JavaScript code for extraction of meta information; such as function argument lists, argument types, object properties, etc.
-"====================================================
-
-" Display argument type hints when the cursor is left over a function identifier. Type information is displayed in the command/mode line at the bottom of Vim.
-"let g:tern_show_argument_hints = 'on_hold'
-
-" Enable support for the key mappings defined by this plugin. These key mappings are available through the use of the <leader> key. For a full list of available key mappings please see: http://usevim.com/files/tern_keyboard.pdf
-"let g:tern_map_keys = 1
-
-"====================================================
 " Setup Colorscheme
 
 " Setup Vim to recognize our terminal as having a particular background color, and then set our preferred color scheme (a.k.a theme).
@@ -960,7 +909,6 @@ let g:one_allow_italics = 1
 
 " Set Vim's color scheme. We purposely silence any failure notification if the desired colorscheme can't be loaded by Vim. If Vim is unable to load the desired colorscheme, it will be quite apparent to the user. By silencing error messages we gain the ability to automate tasks, such as installing plugins for the first time, that would otherwise block if an error message was displayed because the desired colorscheme wasn't available.
 silent! colorscheme one
-" highlight Normal ctermbg=NONE " Uncomment if you want to unset a background color and defer to your terminal.
 
 "====================================================
 " Spellcheck Highlighting
