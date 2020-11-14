@@ -252,14 +252,14 @@ augroup deleteTrailingWhiteSpace
 augroup END
 
 " Return to the last edit position when re-opening a file.
-"augroup returnLastLine
-"	autocmd!
+augroup returnLastLine
+	autocmd!
 
-"	autocmd BufReadPost *
-"		\ if line("'\"") > 0 && line("'\"") <= line("$") |
-"		\   exe "normal! g`\"" |
-"		\ endif
-"augroup END
+	autocmd BufReadPost *
+		\ if line("'\"") > 0 && line("'\"") <= line("$") |
+		\   exe "normal! g`\"" |
+		\ endif
+augroup END
 
 " Search and replace support.
 "function! VisualSelection(direction) range
