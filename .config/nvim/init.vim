@@ -68,7 +68,6 @@ Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
-"Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 
 " Add plugins to Vim's `runtimepath`.
@@ -334,15 +333,6 @@ inoremap <F9> <C-O>zR
 vnoremap <F9> zR
 
 "====================================================
-" Insert Mode
-
-" Useful mappings for insert mode.
-"====================================================
-
-" Map the TAB key such that pressing TAB while the auto-complete menu is displayed causes the selected item from the menu to iterate to the next item. This effectively causes the TAB key to act as the next button (or down arrow key). The TAB key substitutes for the existing support afforded by CTRL+n.
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-g>u\<Tab>"
-
-"====================================================
 " Normal Mode
 
 " Useful mappings for normal mode.
@@ -483,21 +473,6 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
-
-"====================================================
-" Setup vim-indent-guides Plugin
-
-" Setup for Indent Guide plugin to place special color highlighting to the left of code to indicate indentation level.
-"====================================================
-
-" Enable the indent guide plugin on Vim startup. This will cause indentations to be highlighted automatically when opening up a file into a Vim buffer.
-"let g:indent_guides_enable_on_vim_startup = 0
-
-" Indicate which indentation level to begin showing guides.
-"let g:indent_guides_start_level = 2
-
-" Set the width of the indent guide to be one space in width. Only applies when indentation consists of spaces.
-"let g:indent_guides_guide_size = 1
 
 "====================================================
 " Setup vim-signify Plugin
