@@ -63,17 +63,12 @@ call plug#begin()
 
 Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
 Plug 'https://github.com/rakr/vim-one.git'
-"Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 "Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
-"Plug 'https://github.com/jelera/vim-javascript-syntax.git'
-"Plug 'https://github.com/elzr/vim-json.git'
-"Plug 'https://github.com/dbakker/vim-lint.git'
-"Plug 'https://github.com/kana/vim-scratch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 
 " Add plugins to Vim's `runtimepath`.
@@ -218,10 +213,6 @@ let g:netrw_liststyle = 3
 " These functions help with various automation tasks and can be mapped to various key combinations or function keys.
 "====================================================
 
-" Commands to covert tabs to spaces and vice versa. - boveresch
-"command! -range=% -nargs=0 Tab2Space execute "<line1>,<line2>s/^\\t\\+/\\=substitute(submatch(0), '\\t', repeat(' ', ".&ts."), 'g')"
-"command! -range=% -nargs=0 Space2Tab execute "<line1>,<line2>s/^\\( \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}', '\\t', 'g')"
-
 " Define a function that will delete trailing white space on save.
 function! DeleteTrailingWS()
 	exe "normal mz"
@@ -310,94 +301,6 @@ augroup END
 "	exe 'hide buf' markedBuf
 "endfunction
 
-" Autocmds to automatically enter hex mode and handle file writes properly.
-"augroup Binary
-"	autocmd!
-
-"	" Set binary option for all binary files before reading them.
-"	autocmd BufReadPre *.bin,*.hex,*.exe,*.tar setlocal binary
-
-"	" If on a fresh read the buffer variable is already set, it's wrong.
-"	autocmd BufReadPost *
-"		\ if exists('b:editHex') && b:editHex |
-"		\   let b:editHex = 0 |
-"		\ endif
-
-"	" Convert to hex on startup for binary files automatically.
-"	autocmd BufReadPost *
-"		\ if &binary | :call ToggleHex() | endif
-
-"	" When the text is freed the next time the buffer is made active it will re-read the text and thus not match the correct mode, we will need to convert it again if the buffer is again loaded.
-"	autocmd BufUnload *
-"		\ if getbufvar(expand('<afile>'), 'editHex') == 1 |
-"		\   call setbufvar(expand('<afile>'), 'editHex', 0) |
-"		\ endif
-
-"	" Before writing a file when editing in hex mode, convert back to non-hex.
-"	autocmd BufWritePre *
-"		\ if exists('b:editHex') && b:editHex && &binary |
-"		\  let oldro = &ro | let &ro = 0 |
-"		\  let oldma = &ma | let &ma = 1 |
-"		\  silent exe "%!xxd -r" |
-"		\  let &ma = oldma | let &ro = oldro |
-"		\  unlet oldma | unlet oldro |
-"		\ endif
-
-"	" After writing a binary file, if we're in hex mode, restore hex mode.
-"	autocmd BufWritePost *
-"		\ if exists('b:editHex') && b:editHex && &binary |
-"		\  let oldro = &ro | let &ro = 0 |
-"		\  let oldma = &ma | let &ma = 1 |
-"		\  silent exe "%!xxd" |
-"		\  exe "set nomod" |
-"		\  let &ma = oldma | let &ro = oldro |
-"		\  unlet oldma | unlet oldro |
-"		\ endif
-"augroup END
-
-" Toggles hex mode. Hex mode should be considered a read-only operation. Save values for modified and read-only for restoration later and clear the read-only flag for now.
-"function! ToggleHex()
-"	let l:modified = &mod
-"	let l:oldreadonly = &readonly
-"	let &readonly = 0
-"	let l:oldmodifiable = &modifiable
-"	let &modifiable = 1
-
-"	if !exists('b:editHex') || !b:editHex
-
-"		" Save old options.
-"		let b:oldft = &ft
-"		let b:oldbin = &bin
-
-"		" Set new options.
-"		setlocal binary " Make sure it overrides any textwidth, etc.
-"		let &ft = "xxd"
-
-"		" Set status.
-"		let b:editHex = 1
-
-"		" Switch to hex editor.
-"		%!xxd
-"	else
-"		" Restore old options.
-"		let &ft = b:oldft
-
-"		if !b:oldbin
-"			setlocal nobinary
-"		endif
-
-"		" Set status.
-"		let b:editHex = 0
-"		" Return to normal editing.
-"		%!xxd -r
-"	endif
-
-"	" Restore values for modified and read only state.
-"	let &mod = l:modified
-"	let &readonly = l:oldreadonly
-"	let &modifiable = l:oldmodifiable
-"endfunction
-
 "====================================================
 " Multi-Mode Mappings
 
@@ -417,13 +320,6 @@ nnoremap <silent> <F7> <ESC>:setlocal spell!<CR>
 inoremap <silent> <F7> <ESC>:setlocal spell!<CR>i
 " Placing the letter 'v' at the end causes Vim to then return to visual mode after toggling the spell checker.
 vnoremap <silent> <F7> <ESC>:setlocal spell!<CR>v
-
-" Enable Hex editing mode.
-"nnoremap <silent> <C-H> <ESC>:call ToggleHex()<CR>
-" Placing the letter 'i' at the end causes Vim to return to insert mode after toggling hex mode.
-"inoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
-" Placing the letter 'v' at the end causes Vim to return to visual mode after toggling hex mode.
-"vnoremap <silent> <C-H> <Esc>:call ToggleHex()<CR>i
 
 " Enable the displaying of whitespace characters, including tab characters.
 nnoremap <silent> <F6> <ESC>:set list!<CR>
@@ -510,9 +406,6 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 " Pressing gv uses vimgrep after the selected text.
 "vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
-" Enable Hex editing mode.
-"vnoremap <C-H> :<C-U>ToggleHex()<CR>
-
 " Pressing backspace will delete the character to the left of the cursor.
 "vnoremap <backspace> d
 
@@ -542,181 +435,6 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 "vnoremap <silent> cc :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
 "nnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
 "vnoremap <silent> uc :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
-
-"====================================================
-" Setup Omni Complete Plugin and Other Language Tools
-
-" Setup for Omni Completion to facilitate auto-completion support and to further configure language-specific helper tools.
-"====================================================
-
-" Configure pop-up menu to auto-select based on order of options.
-"set completeopt=menuone,menu,longest,preview
-
-" Set the default tag file to equal the name of the file that is generated as a result of the UpdateTags() function. If a tag file not exist within the directory containing the file that is being edited by Vim then it is simply not used. No negative effects occur.
-"set tags+=./tags
-
-" Use binary search to search a tags file for matching patterns. Assumes the tags file was sorted on ASCII byte value. If no match is found during an initial search, Vim will switch to a linear search and re-scan the tags file. OPTIMIZATION: Requires tags files to be sorted by Ctags using the 'foldcase' option and requires Vim to have 'ignorecase' option set. Optimization will insure all matching tags are found, while still supporting binary search. See ":help tagbsearch".
-"set tagbsearch
-
-" Enable a Vim option to remember which tags were jumped to, and from where. The tagstack list shows the tags that were jumped to and the cursor position right before the jump.
-"set tagstack
-
-" GENERIC LANGUAGE SUPPORT
-
-" Enable default auto complete support in Vim. Will force Vim to select the appropriate auto complete tool based on filetype.
-"set omnifunc=syntaxcomplete#Complete
-
-" C SUPPORT.
-
-" Enable C Omni Complete on C source and header files.
-"augroup cSupport
-"	autocmd!
-
-"	autocmd FileType c set omnifunc=ccomplete#Complete " Default Omni Complete line for enabling Omni Complete for C files.
-"augroup END
-
-" C++ SUPPORT.
-
-"augroup cppSupport
-"	autocmd!
-
-"	" Enable C++ Omni Complete on C++ source and header files.
-"	autocmd FileType cpp set omnifunc=omni#cpp#complete#Main " Override built-in C Omni Complete with C++ OmniCppComplete plugin.
-
-"	" Automatically insert header guards into new C++ header files.
-"	autocmd BufNewFile *.{h,hpp} call InsertHeaderGuard()
-"augroup END
-
-"let OmniCpp_GlobalScopeSearch = 1	" Search for functions starting from the global scope and narrowing down from there.
-"let OmniCpp_NamespaceSearch = 1		" Search for functions within the current file and all included files.
-"let OmniCpp_ShowAccess = 1			" Show access modifier (private(-), public(#), or protected(#)).
-"let OmniCpp_DisplayMode = 1			" Show all members: static, public, protected, and private.
-"let OmniCpp_ShowScopeInAbbr = 1		" Show namespace, such as the class, that defines the function.
-"let OmniCpp_ShowPrototypeInAbbr = 1 " Show prototype (argument types).
-"let OmniCpp_MayCompleteDot = 1		" Autocomplete after .
-"let OmniCpp_MayCompleteArrow = 1	" Autocomplete after ->
-"let OmniCpp_MayCompleteScope = 1	" Autocomplete after ::
-"let OmniCpp_SelectFirstItem = 2		" Select first item within the pop-up menu. (1 = Insert option into text, 2 = Select but don't insert into text)
-"let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"] " Omni Complete will include the following namespaces by default, without first requiring the namespaces to be specified.
-
-" List OmniCppComplete tag database files.
-"if has('unix')
-"	set tags+=~/.vim/tags/stl " STL C++ tag database file.
-"endif
-
-" Enable the display of space errors for C and C++ files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-"let c_space_errors = 1
-
-" Highlight strings inside C comments. Therefore, the use of "string" inside of a C comment will cause the entire "string" to receive a special highlighting color.
-"let c_comment_strings = 1
-
-" PYTHON SUPPORT.
-
-"augroup pythonSupport
-"	autocmd!
-
-"	" Enable Python Omni Complete on Python files.
-"	autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-"	" Expand each tab insert into the number of spaces specified by the `shiftwidth` option.
-"	autocmd FileType python setlocal expandtab
-"augroup END
-
-" Enable the display of space errors for Python files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-"let python_space_errors = 1
-
-" RUBY SUPPORT.
-
-"augroup rubySupport
-"	autocmd!
-
-"	" Enable Ruby Omni Complete on Ruby and eRuby files.
-"	autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-"augroup END
-
-"let g:rubycomplete_buffer_loading = 1		" Show buffer/rails/global members.
-"let g:rubycomplete_rails = 1				" Enable Ruby on Rails support.
-"let g:rubycomplete_classes_in_global = 1	" Show classes in global completions.
-
-" Enable the display of space errors for Ruby files. Space errors are caused by the inclusion of excessive white space on blank lines or as trailing white space. Space errors are shown as highlighted character blocks.
-"let ruby_space_errors = 1
-
-" PHP SUPPORT.
-
-"augroup phpSupport
-"	autocmd!
-
-"	" Instruct Vim to treat *.phtml files as PHP source code files.
-"	autocmd BufNewFile,BufRead *.phtml set syntax=php
-"augroup END
-
-" JAVASCRIPT SUPPORT.
-
-"augroup javascriptSupport
-"	autocmd!
-
-"	" Enable JavaScript Omni Complete on JavaScript files.
-"	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-
-"	" Set the initial fold level for JavaScript files to level 2, rather than the default of maximum folding, a.k.a. level 1. Most JavaScript files begin with `define([], function () {});`. That syntax would, under the default fold level, cause the entire file to be folded into a single line. That level of folding hides everything meaningful, such as functions and objects defined within the confines of a `define` wrapper.
-"	autocmd FileType javascript set foldlevel=2
-"augroup END
-
-" HTML SUPPORT.
-
-"augroup htmlSupport
-"	autocmd!
-
-"	" Enable HTML Omni Complete on HTML file.
-"	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-"augroup END
-
-" CSS SUPPORT.
-
-"augroup cssSupport
-"	autocmd!
-
-"	" Enable CSS Omni Complete on CSS files.
-"	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-"augroup END
-
-" Markdown SUPPORT
-
-"augroup markdownSupport
-"	autocmd!
-
-"	" Instruct Vim to treat files ending in the following extensions as Markdown files. This must be done within our vimrc file because Vim's runtime files treat *.md files as Module-2 files; thereby applying unexpected syntax highlighting (Because I assume files ending in *,md are Markdown files.).
-"	autocmd BufRead,BufNewFile *.{md} set filetype=markdown
-"	autocmd BufRead,BufNewFile *.{md}.{des3,des,bf,bfa,aes,idea,cast,rc2,rc4,rc5,desx} set filetype=markdown
-"augroup END
-
-" JSON SUPPORT
-
-"augroup jsonSupport
-"	autocmd!
-
-"	" Instruct Vim to treat files ending in the following extension as JSON files. This must be done within our vimrc file because Vim's runtime files treat *.json files as JavaScript files; thereby applying unexpected syntax highlighting, and attempting to apply JavaScript style rules to JSON content (Which already has a well defined set of rules).
-"	autocmd BufRead,BufNewFile *.{json} set filetype=json
-"augroup END
-
-" OTHER SUPPORT.
-
-" Change the default auto-complete pop-up window color scheme from pink to a custom scheme using Black for the background, Cyan for each entry in the dropdown, and Green for the item currently under focus..
-"highlight clear
-"highlight Pmenu ctermfg=Cyan ctermbg=Black guifg=Cyan guibg=Black gui=bold
-"highlight PmenuSel ctermfg=Green ctermbg=Black guifg=Green guibg=Black gui=bold
-"highlight PmenuSbar ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
-"highlight PmenuThumb ctermfg=White ctermbg=Green guifg=White guibg=Green gui=bold
-
-" Update, or create, a tag database file for source code contained within the directory, and recursively within sub-directories, that Vim was opened.
-"function! UpdateTags()
-"	execute ":silent !ctags --recurse=yes --sort=foldcase --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+fq ./"
-"	execute ":redraw!"
-"	echohl StatusLine | echo "C/C++ Tags Updated" | echohl None
-"endfunction
-"nnoremap <silent> <F5> <ESC>:call UpdateTags()<CR>
-"inoremap <silent> <F5> <ESC>:call UpdateTags()<CR>i
-"vnoremap <silent> <F5> <ESC>:call updateTags()<CR>v
 
 "====================================================
 " Setup ctrlp Plugin
@@ -780,43 +498,6 @@ let g:airline_symbols.space = "\ua0"
 
 " Set the width of the indent guide to be one space in width. Only applies when indentation consists of spaces.
 "let g:indent_guides_guide_size = 1
-
-"====================================================
-" Setup vim-javascript-syntax Plugin
-
-" Setup for JavaScript Syntax plugin to place special color highlighting to the left of code to indicate indentation level.
-"====================================================
-
-" Enable JavaScript code folding using the vim-javascript-syntax plugin.
-"augroup javascriptFolding
-"	autocmd!
-
-"	autocmd FileType javascript call JavaScriptFold()
-"augroup END
-
-"====================================================
-" Setup vim-json Plugin
-
-" Setup for working with JSON files, including proper syntax highlighting and error detection.
-"====================================================
-
-" Disable concealment of double quotes within JSON files.
-"let g:vim_json_syntax_conceal = 0
-
-"====================================================
-" Setup vim-scratch Plugin
-
-" Setup for a scratch utility that generates scratch buffers, un-savable buffers, on request.
-"====================================================
-
-" Only one scratch buffer can exist per Vim instance. Once invoked, the scratch buffer, and its contents, will not be lost until the current Vim instance is closed.
-
-" To open a new scratch buffer, or existing scratch buffer, in a split window:
-"	:ScratchOpen
-" To close the scratch buffer:
-"	:ScratchClose
-" Closing a scratch buffer can also be done using ':q' as with any buffer.
-"	:q
 
 "====================================================
 " Setup vim-signify Plugin
