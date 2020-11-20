@@ -65,8 +65,7 @@ Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
 Plug 'https://github.com/rakr/vim-one.git'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
-"Plug 'https://github.com/majutsushi/tagbar.git'
-"Plug 'https://github.com/mbbill/undotree.git'
+Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
@@ -462,6 +461,8 @@ vnoremap <F9> zR
 
 " Remove the Window's ^M character when the encoding is messed up.
 "nnoremap <leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
+
+nnoremap <silent> <F2> :UndotreeToggle<CR>
 
 " Support switching between Vim splits using ALT and the arrow keys.
 nnoremap <silent> <A-Up> :wincmd k<CR>
@@ -863,35 +864,6 @@ set updatetime=100
 
 " Set our preferred lint checker to JSYAML.
 "let g:syntastic_yaml_checkers = ['jsyaml']
-
-"====================================================
-" Setup tagbar Plugin
-
-" Setup for Tagbar allowing a sidebar to display Ctags relevant to the current file.
-"====================================================
-
-" Toggle the Tagbar window on or off in normal and insert modes.
-"nnoremap <silent> <F8> <ESC>:TagbarToggle<CR>
-" Placing the letter 'i' at the end causes the Tagbar to be turned on/off and for Vim to then return to insert mode.
-"inoremap <silent> <F8> <ESC>:TagbarToggle<CR>i
-" Place the letter 'v' at the end causes the Tagbar to be turned on/off and for Vim to then return to visual mode.
-"vnoremap <silent> <F8> <ESC>:TagbarToggle<CR>v
-
-" Enable Tagbar support for Markdown files by configuring Tagbar to use a special script that's capable of generating the required Ctag information necessary for Tagbar to render a tree view of the current file's headings.
-"let g:tagbar_type_markdown = {
-"	\ 'ctagstype': 'markdown',
-"	\ 'ctagsbin' : '~/.vim/markdown2ctags.py',
-"	\ 'ctagsargs' : '-f - --sort=yes',
-"	\ 'kinds' : [
-"		\ 's:sections',
-"		\ 'i:images'
-"	\ ],
-"	\ 'sro' : '|',
-"	\ 'kind2scope' : {
-"		\ 's' : 'section',
-"	\ },
-"	\ 'sort': 0,
-"\ }
 
 "====================================================
 " Setup Colorscheme
