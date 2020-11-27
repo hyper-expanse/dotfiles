@@ -1,6 +1,6 @@
 provider "github" {
   organization = "hyper-expanse"
-  version      = "~> 3.0"
+  version      = "~> 4.0"
 }
 
 module "dotfiles" {
