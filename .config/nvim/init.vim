@@ -62,13 +62,15 @@ endif
 call plug#begin()
 
 Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
-Plug 'https://github.com/rakr/vim-one.git'
+Plug 'https://github.com/preservim/nerdtree.git'
 "Plug 'https://github.com/scrooloose/syntastic.git'
 Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/rakr/vim-one.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
+Plug 'https://github.com/ryanoasis/vim-devicons.git'
 
 " Add plugins to Vim's `runtimepath`.
 call plug#end()

@@ -183,6 +183,7 @@ setupEnvironment ()
 	# Install additional tools.
 	installNodePackages
 	installPythonPackages
+	installNerdFonts
 
 	# Install Firefox on personal laptop.
 	if [ `uname -n` == "startopia" ]; then
@@ -206,6 +207,7 @@ updateEnvironment ()
 	# Update general tools.
 	installNodePackages
 	installPythonPackages
+	installNerdFonts
 }
 
 #! Setup HomeBrew.
@@ -379,6 +381,20 @@ installPythonPackages ()
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
+}
+
+installNerdFonts ()
+{
+	local tmpdir="$(mktemp -d)"
+
+	# Always download the latest release.
+	curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*Hack.zip" | cut -d '"' -f 4 | wget -qi - -P "${tmpdir}"
+
+	# Extract Hack glyps into our `fonts` directory by updating existing files and adding new files.
+	unzip -q "${tmpdir}/Hack.zip" -d "${XDG_DATA_HOME}/fonts/" -u
+
+	# Update our font cache so fonts takes effect immediately
+	fc-cache -vf "${XDG_DATA_HOME}/fonts/"
 }
 
 #! Install Visual Studio Code extensions.

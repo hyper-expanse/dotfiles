@@ -1,6 +1,10 @@
 [Appearance]
 ColorScheme=Linux
 Font=Hack,12,-1,5,50,0,0,0,0,0
+UseFontLineChararacters=false
+
+[Cursor Options]
+CursorShape=2
 
 [General]
 Command=/bin/bash
@@ -13,6 +17,8 @@ TerminalCenter=false
 TerminalMargin=0
 
 [Interaction Options]
+CopyTextAsHTML=false
+TrimLeadingSpacesInSelectedText=true
 TrimTrailingSpacesInSelectedText=true
 
 [Scrolling]
