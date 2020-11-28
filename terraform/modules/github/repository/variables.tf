@@ -1,11 +1,11 @@
 variable "description" {
-  type    = string
   default = ""
+  type    = string
 }
 
 variable "default_branch" {
+  default = "main"
   type    = string
-  default = "master"
 }
 
 variable "name" {
@@ -13,6 +13,6 @@ variable "name" {
 }
 
 variable "topics" {
-  type    = set(string)
   default = []
+  type    = set(string)
 }

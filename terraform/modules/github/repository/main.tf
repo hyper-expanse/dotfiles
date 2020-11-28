@@ -1,21 +1,31 @@
 resource "github_repository" "repository" {
-  description    = var.description
-  default_branch = var.default_branch
-  has_downloads  = true
-  has_issues     = true
-  has_projects   = false
-  has_wiki       = false
-  name           = var.name
-  topics         = var.topics
+  description            = var.description
+  delete_branch_on_merge = true
+  has_downloads          = true
+  has_issues             = true
+  has_projects           = false
+  has_wiki               = false
+  name                   = var.name
+  topics                 = var.topics
+}
+
+resource "github_branch" "branch" {
+  repository = var.name
+  branch     = var.default_branch
 }
 
 resource "github_branch_protection" "branch_protection" {
-  repository             = var.name
-  branch                 = var.default_branch
+  repository_id          = var.name
+  pattern                = var.default_branch
   require_signed_commits = true
+
+  required_pull_request_reviews {
+    dismiss_stale_reviews = true
+  }
 
   required_status_checks {
     strict = true
+    contexts = ["DCO"]
   }
 }
 

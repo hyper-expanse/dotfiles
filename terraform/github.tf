@@ -12,7 +12,17 @@ module "dotfiles" {
   ]
 }
 
-module "set-npm-auth-token-for-ci" {
+module "hyper-expanse_github_io" {
+  source = "./modules/github/repository"
+
+  name           = "hyper-expanse.github.io"
+  topics = [
+    "blog",
+    "website",
+  ]
+}
+
+/*module "set-npm-auth-token-for-ci" {
   source = "./modules/github/repository"
 
   name = "set-npm-auth-token-for-ci"
@@ -58,17 +68,6 @@ module "semantic-delivery-gitlab" {
   ]
 }
 
-module "hyper-expanse_github_io" {
-  source = "./modules/github/repository"
-
-  name           = "hyper-expanse.github.io"
-  default_branch = "source"
-  topics = [
-    "blog",
-    "website",
-  ]
-}
-
 module "parse-repository-url" {
   source = "./modules/github/repository"
 
@@ -79,7 +78,6 @@ module "parse-repository-url" {
   ]
 }
 
-/*
 module "library-release-workflows" {
   source = "./modules/github/repository"
 
