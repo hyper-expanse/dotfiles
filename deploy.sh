@@ -51,16 +51,13 @@ if [ "$(uname)" = "Darwin" ]; then
 	echo "> Symlinking Visual Studio Code files into the Library directory (Library/Application Support/Code/User)."
 	mkdir -p "${HOME}/Library/Application Support/Code/User"
 	ln -s -f "$(pwd)/.config/Code/User/settings.json" "${HOME}/Library/Application Support/Code/User/settings.json"
-else
-	echo "> Symlinking Visual Studio Code files into the config directory (${XDG_CONFIG_HOME}/Code/User)."
-	mkdir -p "${XDG_CONFIG_HOME}/Code/User"
-	ln -s -f "$(pwd)/.config/Code/User/settings.json" "${XDG_CONFIG_HOME}/Code/User/settings.json"
 fi
 
 # Symlink Konsole files.
 if [ "$(uname -n)" == "startopia" ]; then
 	echo "> Symlinking Konsole files."
 	mkdir -p "${XDG_CONFIG_HOME}"
+	mkdir -p "${XDG_DATA_HOME}/konsole"
 	ln -s -f "$(pwd)/.config/konsolerc" "${XDG_CONFIG_HOME}/konsolerc"
 	ln -s -f "$(pwd)/icons/noun_1058899_edited_white.png" "${XDG_DATA_HOME}/konsole/noun_1058899_edited_white.png"
 	ln -s -f "$(pwd)/konsole/hutson.profile" "${XDG_DATA_HOME}/konsole/hutson.profile"
