@@ -163,15 +163,12 @@ watch ()
 # Setup a local environment that contains all the tools and libraries needed for development work, and play.
 setupEnvironment ()
 {
-	printf "\n> Removing ${PREFIX_DIRECTORY} directory.\n"
+	printf "\n> Removing ${HOMEBREW_PREFIX} directory.\n"
 
 	# Clear out our local system directory.
-	if [ -d "${PREFIX_DIRECTORY}" ]; then
-		rm -fr "${PREFIX_DIRECTORY}" &> /dev/null
+	if [ -d "${HOMEBREW_PREFIX}" ]; then
+		rm -fr "${HOMEBREW_PREFIX}" &> /dev/null
 	fi
-
-	# Create our local tmp directory for use by tools that cache compilation artifacts there. This directory must exist before those tools can create sub-directories within it.
-	mkdir -p "${PREFIX_DIRECTORY}/tmp"
 
 	# Setup Brew.
 	setupHomeBrew
@@ -184,11 +181,6 @@ setupEnvironment ()
 	installNodePackages
 	installPythonPackages
 	installNerdFonts
-
-	# Install Firefox on personal laptop.
-	if [ `uname -n` == "startopia" ]; then
-		installFirefox
-	fi
 }
 
 #! Update environment.
@@ -217,13 +209,17 @@ setupHomeBrew ()
 	printf "\n> Installing HomeBrew.\n"
 
 	# Create a local binary directory before any setup steps require its existence. It must exist for the tar extraction process to extract the contents of Brew into the `.local/` directory.
-	mkdir -p "${HOME}/.local/bin"
+	mkdir -p "${HOMEBREW_PREFIX}/Homebrew"
 
 	# Download an archive version of the #master branch of Brew to the local system for future extraction. We download an archive version of Brew, rather than cloning the #master branch, because we must assume that the local system does not have the `git` tool available (A tool that will be installed later using Brew).
 	curl -L https://github.com/Homebrew/brew/archive/master.tar.gz -o "/tmp/homebrew.tar.gz"
 
 	# Extract archive file into local system directory.
-	tar -xf "/tmp/homebrew.tar.gz" -C "${HOME}/.local/" --strip-components=1
+	tar -xf "/tmp/homebrew.tar.gz" -C "${HOMEBREW_PREFIX}/Homebrew/" --strip-components=1
+
+	# Symlink the dedicated brew binary into our Homebrew binary directory.
+	mkdir -p "${HOMEBREW_PREFIX}/bin/"
+	ln -s "${HOMEBREW_PREFIX}/Homebrew/bin/brew" "${HOMEBREW_PREFIX}/bin/"
 
 	# Cleanup.
 	rm -f "/tmp/homebrew.tar.gz"
@@ -251,23 +247,17 @@ installBrewPackages()
 		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
 		brew install nvm
 
-		# Install alternative JavaScript package manager called `yarn`. Install without the Node dependency, as we will use the Node installation provided by the `nvm` tool.
-		brew install yarn
-
 		# Install htop, a human-readable version of top.
 		brew install htop
 
 		# Install git, a distributed source code management tool.
-		brew install git
+		#brew install git
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
-		brew install git-lfs
+		#brew install git-lfs
 
 		# Install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
-
-		# Install scrub, a command line tool for securely deleting files.
-		brew install scrub
 
 		# Static site generator and build tool.
 		brew install hugo
@@ -279,25 +269,10 @@ installBrewPackages()
 		brew install tmux
 
 		# Install command line text editor.
-		brew install neovim
+		#brew install neovim
 
 		# Install network traffic inspection tool.
-		brew install tcpdump
-
-		# Install Docker image analysis tool.
-		brew install dive
-
-		# Install tflint, a linter/validator for Terraform files.
-		brew tap wata727/tflint
-		brew install tflint
-
-		# Install shell script linter. (Force install the pre-compiled binary as a full compile requires _lots_ of additional packages that have to be compiled and installed)
-		brew install shellcheck --force-bottle
-
-		# Cloud tools
-		brew install awscli
-		brew install aws-iam-authenticator
-		brew install kubectl
+		#brew install tcpdump
 
 		if [ "$(uname)" == "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
@@ -305,6 +280,10 @@ installBrewPackages()
 
 			# Store Docker Hub credentials in the OSX Keychain for improved security.
 			brew install docker-credential-helper
+
+			# Cloud tools
+			brew install svn awscli
+			brew install aws-iam-authenticator
 
 			brew install wget
 			brew install pinentry-mac
@@ -314,15 +293,16 @@ installBrewPackages()
 			brew cask install keepassxc
 			brew cask install gpg-suite
 			brew cask install joplin # For taking and organizing notes.
-			brew cask install vlc
 			brew cask install iterm2
 			brew cask install slack
 			brew cask install spectacle
-			brew cask install keka # General purpose archive/extractor tool.
 			brew cask install wireshark # For network debugging.
 		fi
 
 		if [ "$(uname -n)" == "startopia" ]; then
+			# Install shell script linter.
+			#brew install shellcheck
+
 			# Install flac, a command line tool for re-encoding audio files into Flac format.
 			brew install flac
 
@@ -344,11 +324,14 @@ installNodePackages ()
 	if command -v yarn &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
+		# Install latest LTS release of NodeJS.
+		nvm install --lts
+
+		# Globally install the Yarn package manager so that we can use that package manager in subsequent tool installation steps.
+		npm install -g yarn
+
 		# Tool to update a markdown file, such as a `README.md` file, with a Table of Contents.
 		yarn global add doctoc
-
-		# Terminal GUI for managing Docker containers.
-		yarn global add dockly
 	else
 		echo "ERROR: `yarn` is required for installing NodeJS packages, but it's not available in your PATH. Please install `yarn` and ensure it's in your PATH. Then re-run `installNodePackages`."
 	fi
@@ -371,60 +354,39 @@ installPythonPackages ()
 
 		# Shell prompt configuration and theming tool.
 		pip3 install powerline-status --upgrade
-
-		# Install and configure powerline font.
-		mkdir -p "${XDG_DATA_HOME}/fonts/"
-		curl -L https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf -o "${XDG_DATA_HOME}/fonts/PowerlineSymbols.otf"
-		fc-cache -vf "${XDG_DATA_HOME}/fonts/"
-		mkdir -p "${XDG_CONFIG_HOME}/fontconfig/conf.d/"
-		curl -L https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf -o "${XDG_CONFIG_HOME}/fontconfig/conf.d/10-powerline-symbols.conf"
+		installPowerlineFonts
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
 	fi
 }
 
+#! Install Powerline fonts.
+# Install Powerline fonts into our fontconfig directory so apply to our current chosen font.
+installPowerlineFonts ()
+{
+    mkdir -p "${XDG_DATA_HOME}/fonts/"
+    curl -L https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf -o "${XDG_DATA_HOME}/fonts/PowerlineSymbols.otf"
+
+    mkdir -p "${XDG_CONFIG_HOME}/fontconfig/conf.d/"
+    curl -L https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf -o "${XDG_CONFIG_HOME}/fontconfig/conf.d/10-powerline-symbols.conf"
+
+    fc-cache -vf "${XDG_DATA_HOME}/fonts/"
+}
+
+#! Install Nerd fonts.
+# Install Nerd fonts into our fontconfig directory so apply to our current chosen font and leverage in Neovim.
 installNerdFonts ()
 {
 	local tmpdir="$(mktemp -d)"
 
 	# Always download the latest release.
-	curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*Hack.zip" | cut -d '"' -f 4 | wget -qi - -P "${tmpdir}"
+	curl https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*Hack.zip" | cut -d '"' -f 4 | wget -qi - -P "${tmpdir}"
 
 	# Extract Hack glyps into our `fonts` directory by updating existing files and adding new files.
-	unzip -q "${tmpdir}/Hack.zip" -d "${XDG_DATA_HOME}/fonts/" -u
+	unzip -u -q "${tmpdir}/Hack.zip" -d "${XDG_DATA_HOME}/fonts/"
 
 	# Update our font cache so fonts takes effect immediately
 	fc-cache -vf "${XDG_DATA_HOME}/fonts/"
-}
-
-#! Install Visual Studio Code extensions.
-# If running on a desktop with Visual Studio Code installed, install our selection of Visual Studio Code extensions.
-installVisualStudioCodeExtensions ()
-{
-
-	if command -v $(code --help) &> /dev/null; then
-		printf "\n> Installing Visual Studio Code extensions.\n"
-
-		# General, offline, spell checker.
-		code --install-extension streetsidesoftware.code-spell-checker
-
-		# Support for Git blame annotations.
-		code --install-extension eamodio.gitlens
-
-		# Docker support.
-		code --install-extension PeterJausovec.vscode-docker
-
-		# Go support.
-		code --install-extension ms-vscode.go
-
-		# Terraform support.
-		code --install-extension mauve.terraform
-
-		# Nice icon theme.
-		code --install-extension vscode-icons-team.vscode-icons
-	else
-		echo "ERROR: `code` is required for installing Visual Studio Code extensions, but it's not available in your PATH. Please install Visual Studio Code and ensure it's in your PATH. Then re-run `installVisualStudioCodeExtensions`."
-	fi
 }
 
 #! Find all file types in use and convert to standard types.
