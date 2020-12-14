@@ -70,9 +70,6 @@ alias update='updateSystem && updateEnvironment'
 # Update system packages.
 alias updateSystem='sudo apt update && sudo apt full-upgrade && sudo apt autoremove'
 
-# Instruct Celibre to add each sub-directory of the designated directory as a book to the Calibre book database.
-alias addBookDirectories='calibredb add --one-book-per-directory -r'
-
 # Print out the status, using `git status`, of each top-level git directory under the current working directory.
 alias gitGroupStatus='find . -maxdepth 1 -type d -not -path . -exec sh -c "echo \"{}\"; cd \"{}\"; git status --short --branch; cd ..; echo;" \;'
 
@@ -93,8 +90,3 @@ alias fileExtensions='find . -type f | perl -ne "print $1 if m/\.([^.\/]+)$/" | 
 
 # Convert each zip file in the current, and sub, directories to a compressed Tar archive.
 alias convertDirectoryZips='export -f convertZip && find . -type f -name "*.zip" -not -path "*/.*" -print | xargs -I % bash -c "convertZip \"%\""'
-
-if [ "$(uname -n)" == "startopia" ]; then
-	# Alias `code` to the Flatpak installation that is used on Startopia, while elsewhere `code` is the executable exposed by a more native installation, such as MacOS.
-	alias code='flatpak run com.visualstudio.code'
-fi
