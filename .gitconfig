@@ -12,7 +12,7 @@
 	autocrlf = input
 
 	# Instruct Git to use the following editor when launching a tool to write, or modify, commit messages, or walk the user through a wizard-like workflow.
-	editor = code --wait
+	editor = nvim
 
 	# Global ignore list of files I would never want to push into a repository that I would be working with.
 	excludesfile = ~/.gitignore
@@ -38,7 +38,7 @@
 
 [diff]
 	# Instruct Git to use the following editor when using git's `difftool` command.
-	tool = vscode
+	tool = fugitive
 
 	# Instruct Git to use mnemonic prefixes (Such as *i*ndex, *w*ork tree, *c*ommit, or *o*bject) instead of the standard *a* and *b* notation when outputting a diff to the console.
 	mnemonicprefix = true
@@ -46,9 +46,8 @@
 	# In addition to having Git detect, and display, simple file renames, instruct Git to diplay when a file has been copied from one location to another.
 	renames = copies
 
-[difftool "vscode"]
-	# Custom command to be invoked by Git when the `git difftool` command is called to visualize a diff in an editor.
-	cmd = code --wait --diff $LOCAL $REMOTE
+[difftool "fugitive"]
+	cmd = nvim -f -c "Gvdiffsplit!" "$MERGED"
 
 [fetch]
 	# Automatically prune, a.k.a. delete, local branches, on every fetch request, if those branches were deleted from the remote repository.
@@ -56,7 +55,7 @@
 
 [merge]
 	# Instruct Git to use the following tool when using git's `mergetool` command.
-	tool = vscode
+	tool = fugitive
 
 	# Specify the style for Git to use when writing out conflicted hunks to a working tree file upon a merge. A diff3 style will show the changes made on one side of a merge, along with the change made on the other side, along with the original text both sides have modified.
 	conflictstyle = diff3
@@ -64,9 +63,8 @@
 	# Tell Git to run a virtual check-out and check-in of all three stages of a file when resolving a three-way merge to normalize the files to avoid differences caused by changes in a repository's attributes.
 	renormalize = true
 
-[mergetool "vscode"]
-	# Custom command to be invoked by Git when the `git mergetool` command is called to manage a merge in an editor.
-	cmd = code --wait $MERGED
+[mergetool "fugitive"]
+	cmd = nvim -f -c "Gvdiffsplit!" "$MERGED"
 
 [filter "lfs"]
 	# Enable large-file support using the large-file support (LFS) plugin for git.
