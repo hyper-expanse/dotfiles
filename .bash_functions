@@ -251,10 +251,10 @@ installBrewPackages()
 		brew install htop
 
 		# Install git, a distributed source code management tool.
-		#brew install git
+		brew install git
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
-		#brew install git-lfs
+		brew install git-lfs
 
 		# Install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
@@ -269,10 +269,10 @@ installBrewPackages()
 		brew install tmux
 
 		# Install command line text editor.
-		#brew install neovim
+		brew install neovim
 
 		# Install network traffic inspection tool.
-		#brew install tcpdump
+		brew install tcpdump
 
 		if [ "$(uname)" == "Darwin" ]; then
 			# Latest GNU core utilities, such as `rm`, `ls`, etc.
@@ -295,7 +295,6 @@ installBrewPackages()
 			brew cask install joplin # For taking and organizing notes.
 			brew cask install iterm2
 			brew cask install slack
-			brew cask install spectacle
 			brew cask install wireshark # For network debugging.
 		fi
 
