@@ -300,7 +300,9 @@ installBrewPackages()
 
 		if [ "$(uname -n)" == "startopia" ]; then
 			# Install shell script linter.
-			#brew install shellcheck
+			# NOTE: We force the installation of `shellcheck` from the pre-compiled bottle as installing `shellcheck` from
+			# source requires `ghc` to be installed from source, and that build appears to never complete.
+			brew install shellcheck --force-bottle
 
 			# Install flac, a command line tool for re-encoding audio files into Flac format.
 			brew install flac
