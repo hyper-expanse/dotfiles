@@ -240,15 +240,20 @@ Please use the command above to install each package:
 - calibre: E-book library manager.
 - dia: Diagram editor.
 - elisa: Music player.
+- firefox: Internet browser.
 - gramps: Genealogy tool.
 - gufw: Graphical user interface for `ufw` firewall.
 - k3b: CD rip/burn application.
 - kde-config-cddb: Module for loading CD metadata from internet.
+- kdeconnect: Client to interact with Android cellphone.
 - keepassxc: Offline password and secrets manager.
 - kgpg: GNUPG graphical front-end.
+- ktorrent: Torrent client.
 - libreoffice-calc: Spreadsheet application.
 - libreoffice-writer: Word application.
 - rsibreak: Tool to encourage regular breaks from typing.
+- smplayer: Simple GUI front-end for `mpv`.
+- thunderbird: E-mail, contacts, and calendar app.
 
 ### Flatpak Applications
 
@@ -265,12 +270,14 @@ Next, go into _Discover_ and navigate to _Settings_. Under _Settings_ click on t
 At this point you can install Flatpak packages from Flathub.
 
 Please use the search feature in _Discover_ to install the following packages:
-- Visual Studio Code (Flatpak)
+- 0 A.D.
+- Endless Sky
+- OBS Studio
 - Vorta
 
-### Additional VLC Setup
+### Additional Multimedia Setup
 
-While VLC can play most multimedia formats, the version distributed with Kubuntu cannot play encrypted DVDs. Encrypted DVDs account for most commercially available movie DVDs. To play encrypted DVDs an additional library, called `libdvdcss2`, is required. `libdvdcss2` is not distributed with the Kubuntu version of VLC because for [legal reasons](https://en.wikipedia.org/wiki/Libdvdcss) that you are encouraged to be fully aware of before you proceed with this section.
+While multimedia players can play most multimedia formats, the players distributed with Kubuntu cannot play encrypted DVDs. Encrypted DVDs account for most commercially available movie DVDs. To play encrypted DVDs an additional library, called `libdvdcss2`, is required. `libdvdcss2` is not distributed with Kubuntu for [legal reasons](https://en.wikipedia.org/wiki/Libdvdcss) that you are encouraged to be fully aware of before you proceed with this section.
 
 Full instructions for installing `libdvdcss2` on Debian-based operating systems are available on the [VideoLAN website](https://www.videolan.org/developers/libdvdcss.html), though I have also included them here.
 
@@ -288,7 +295,7 @@ sudo dpkg-reconfigure libdvd-pkg
 
 Select _Yes_ to install `libdvdcss2`.
 
-At this point VLC will be able to play encrypted DVDs.
+At this point you will be able to play encrypted DVDs.
 
 ### Virtual Machines
 
@@ -1056,4 +1063,4 @@ At this point, signing, encrypting, or authenticating, with your private subkeys
 
 A collection of useful automation tools, and setup scripts, are kept in a publicly accessible repository for consumption by any individual that wishes to replicate the same environment I use.
 
-Installation instructions are available in the dotfile project's [README](https://gitlab.com/hyper-expanse/personal/dotfiles/blob/master/README.md).
+Installation instructions are available in the dotfile project's [README](https://github.com/hyper-expanse/dotfiles/blob/main/readme.md).
