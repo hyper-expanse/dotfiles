@@ -1,0 +1,19 @@
+defaults:
+  run:
+    working-directory: .dotfiles
+jobs:
+  setup:
+      runs-on: ubuntu-20.04
+      steps:
+        - id: dependencies
+          run: sudo apt-get install build-essential curl file git
+        - id: deploy
+          run: bash deploy.sh
+        - id: setup
+          run: source ~/.profile && setupEnvironment
+on:
+  schedule:
+    - cron: '2 2 * * *'
+  push:
+    branches:
+      - test
