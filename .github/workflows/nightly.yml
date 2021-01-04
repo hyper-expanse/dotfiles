@@ -5,11 +5,11 @@ jobs:
   setup:
       runs-on: ubuntu-20.04
       steps:
-        - id: dependencies
-          run: sudo apt-get install build-essential curl file git
-        - id: deploy
+        - name: setup
+          run: apt-get install build-essential curl file git
+        - name: deploy
           run: bash deploy.sh
-        - id: setup
+        - name: setup
           run: source ~/.profile && setupEnvironment
 on:
   schedule:
