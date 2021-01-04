@@ -12,13 +12,11 @@ jobs:
           run: bash deploy.sh
           working-directory: '.dotfiles'
         - name: setup
-          run: |
-            source ~/.profile
-            source ~/.bashrc
-            setupEnvironment
+          run: source ~/.profile && source ~/.bashrc && setupEnvironment
+name: Homebrew
 on:
   schedule:
     - cron: '2 2 * * *'
   push:
-    branches:
-      - test
+    path:
+      - '.bash_functions'
