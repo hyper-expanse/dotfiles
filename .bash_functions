@@ -288,14 +288,14 @@ installBrewPackages()
 			brew install wget
 			brew install pinentry-mac
 
-			brew cask install firefox
-			brew cask install visual-studio-code
-			brew cask install keepassxc
-			brew cask install gpg-suite
-			brew cask install joplin # For taking and organizing notes.
-			brew cask install iterm2
-			brew cask install slack
-			brew cask install wireshark # For network debugging.
+			brew install --cask firefox
+			brew install --cask visual-studio-code
+			brew install --cask keepassxc
+			brew install --cask gpg-suite
+			brew install --cask joplin # For taking and organizing notes.
+			brew install --cask iterm2
+			brew install --cask slack
+			brew install --cask wireshark # For network debugging.
 		fi
 
 		if [ "$(uname -n)" == "startopia" ]; then
@@ -322,7 +322,7 @@ installBrewPackages()
 # Install NodeJS packages via `yarn`.
 installNodePackages ()
 {
-	if command -v yarn &> /dev/null; then
+	if command -v npm &> /dev/null; then
 		printf "\n> Installing Node packages.\n"
 
 		# Install latest LTS release of NodeJS.
@@ -342,19 +342,16 @@ installNodePackages ()
 # Install Python packages via `pip`.
 installPythonPackages ()
 {
-	if command -v pip &> /dev/null; then
+	if command -v pip3 &> /dev/null; then
 		printf "\n> Installing Python packages.\n"
 
 		# Using `pip3` to install other packages is necessary to avoid errors like `pkg_resources.VersionConflict: (pip 19.0.3 (~.local/lib/python3.7/site-packages), Requirement.parse('pip==19.0.2'))`
 
-		# Update the version of `pip` installed in our environment.
-		pip3 install pip --upgrade
-
 		# Package and virtual environment manager for Python.
-		pip3 install pipenv --upgrade
+		pip3 install pipenv --user --upgrade
 
 		# Shell prompt configuration and theming tool.
-		pip3 install powerline-status --upgrade
+		pip3 install powerline-status --user --upgrade
 		installPowerlineFonts
 	else
 		echo "ERROR: `pip` is required for installing Python packages, but it's not available in your PATH. Please install `pip` and ensure it's in your PATH. Then re-run `installPythonPackages`."
