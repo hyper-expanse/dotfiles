@@ -9,8 +9,8 @@ Installation is as simple as copying these files into your home directory, or ex
 First, pull down, and then extract, a copy of the repository into a hidden dotfiles directory.
 
 ```bash
-curl -L https://github.com/hyper-expanse/dotfiles/archive/master.zip -o "/tmp/dotfiles.zip"
-unzip /tmp/dotfiles.zip && mv dotfiles-master .dotfiles
+curl -L https://github.com/hyper-expanse/dotfiles/archive/main.zip -o "/tmp/dotfiles.zip"
+unzip /tmp/dotfiles.zip && mv dotfiles-main .dotfiles
 rm "/tmp/dotfiles.tar.gz"
 ```
 

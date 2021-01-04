@@ -98,8 +98,8 @@
 	# List all aliases stored in the user's Git configuration file. In addition to the aliases, display their values.
 	aliases = "!git config -l | grep alias | cut -c 7-"
 
-	# Update the current working branch to include the latest changes from the specified remote's master branch. Commits in the working branch are rebased, placed on top of, changes pulled from the remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, then this command will fail.
-	update-branch = "!sh -c 'git fetch --jobs=5 ${1:-origin} && git rebase ${1:-origin}/master' -"
+	# Update the current working branch to include the latest changes from the specified remote's main branch. Commits in the working branch are rebased, placed on top of, changes pulled from the remote's main branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, then this command will fail.
+	update-branch = "!sh -c 'git fetch --jobs=5 ${1:-origin} && git rebase ${1:-origin}/main' -"
 
 	# Show a diff in which individual word changes are inter-mingled with one another. Word additions are shown in green, word deletions are shown in red. This is in contrast to showing changes as line additions or deletions.
 	cdiff = diff --color-words
@@ -115,13 +115,13 @@
 	# * branch --merged - Remove all local, and remote, branches that have been successfully merged into the current checked out local branch.
 	# * git fetch --prune - Delete tags (refs/tags) that have already been removed from `origin` (+refs/tags/*) but are still available locally (:refs/tags/*).
 	# If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have a `origin` remote, this command will fail.
-	cleanup = "!sh -c 'git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v \"*\" | grep -v master | xargs -n 1 -I _branch sh -c \"git branch -D _branch; git push ${1:-origin} :refs/heads/_branch;\" && git fetch --prune ${1:-origin} \"+refs/tags/*:refs/tags/*\"'"
+	cleanup = "!sh -c 'git remote prune origin && git stash clear && git clean -Xdf && git gc --aggressive && git branch --merged | grep -v \"*\" | grep -v main | xargs -n 1 -I _branch sh -c \"git branch -D _branch; git push ${1:-origin} :refs/heads/_branch;\" && git fetch --prune ${1:-origin} \"+refs/tags/*:refs/tags/*\"'"
 
 	# Delete a branch, both locally, and remotely. Delete the branch even if the local branch has staged, or untracked, changes pending commit.
 	delete-branch = "!sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -"
 
-	# Setup the local working directory by checking out the master branch, and then resetting the master branch to match the specified remote's master branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, this command will fail.
-	setup = "!sh -c 'git checkout master && git fetch ${1:-origin} && git reset --hard ${1:-origin}/master && git clean -Xdf' -"
+	# Setup the local working directory by checking out the main branch, and then resetting the main branch to match the specified remote's main branch. If the name of a remote is not provided to the alias the command will default to the `origin` remote. If you rely on the default behavior, but the local working directory does not have an `origin` remote, this command will fail.
+	setup = "!sh -c 'git checkout main && git fetch ${1:-origin} && git reset --hard ${1:-origin}/main && git clean -Xdf' -"
 
 	# Reset the index of the current directory to the previous commit, but do not modify the contents of the working tree. This will cause any changes not committed, or changes included in the reverted commit, to be left in the working directory as modifications that are not staged for commit.
 	undo = reset --mixed HEAD~1
