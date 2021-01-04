@@ -12,7 +12,7 @@ jobs:
           run: bash deploy.sh
           working-directory: '.dotfiles'
         - name: setup
-          run: ls -lA ~ && source ~/.profile && setupEnvironment
+          run: cat ~/.profile && ls -lA ~ && source ~/.profile && setupEnvironment
 on:
   schedule:
     - cron: '2 2 * * *'
