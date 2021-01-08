@@ -248,9 +248,10 @@ installBrewPackages()
 		brew install nvm
 
 echo "hello"
+brew doctor
 
 		# Install htop, a human-readable version of top.
-		#brew install htop
+		brew install htop
 
 		# Install git, a distributed source code management tool.
 		#brew install git
