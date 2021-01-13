@@ -251,7 +251,7 @@ echo "hello"
 brew doctor
 
 		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
-		brew install nvm
+		#brew install nvm
 		
 df -h
 free -h
@@ -263,7 +263,7 @@ brew doctor
 		brew install htop
 
 		# Install git, a distributed source code management tool.
-		#brew install git
+		brew install git
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
