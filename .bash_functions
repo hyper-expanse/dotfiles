@@ -243,9 +243,18 @@ installBrewPackages()
 
 		# Install Go compiler and development stack.
 		brew install go
+		
+df -h
+free -h
+		
+echo "hello"
+brew doctor
 
 		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
 		brew install nvm
+		
+df -h
+free -h
 
 echo "hello"
 brew doctor
