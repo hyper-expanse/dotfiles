@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+
 #====================================================
 # Custom Bash Functions
 #
@@ -418,7 +420,7 @@ setupTilingWindowManager () {
 		local dirPriorToExe=`pwd`
 		local tmpdir="$(mktemp -d)"
 
-		git clone --depth 1 https://github.com/kwin-scripts/kwin-tiling.git "${tmpdir}"
+		git clone https://github.com/kwin-scripts/kwin-tiling.git "${tmpdir}"
 
 		cd "${tmpdir}"
 
