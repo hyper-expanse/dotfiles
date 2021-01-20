@@ -254,7 +254,7 @@ installBrewPackages()
 		#brew install git
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
-		#brew install git-lfs
+		brew install git-lfs
 
 		# Install ncdu, a command line tool for displaying disk usage information.
 		brew install ncdu
