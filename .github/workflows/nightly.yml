@@ -13,7 +13,6 @@ jobs:
           working-directory: '.dotfiles'
         - name: setup
           run: |
-            export HOMEBREW_DEBUG=true
             source ~/.profile
             source ~/.bashrc
             setupEnvironment
