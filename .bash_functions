@@ -245,7 +245,7 @@ installBrewPackages()
 		brew install go
 
 		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
-		#brew install nvm
+		brew install nvm
 
 		# Install htop, a human-readable version of top.
 		brew install htop
