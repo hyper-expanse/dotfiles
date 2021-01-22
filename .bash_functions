@@ -233,25 +233,25 @@ installBrewPackages()
 		printf "\n> Installing Brew packages.\n"
 
 		# Install the latest Bash shell environment. This will give us access to the latest features in our primary work environment.
-		brew install bash
+		#brew install bash
 
 		# Install bash-completion. This allows us to leverage bash completion scripts installed by our brew installed packages. Version @2 is required for Bash > 2.
-		brew install bash-completion@2
+		#brew install bash-completion@2
 
 		# Install python version 3, which `pip` is also included, as the header files are required by natively-built pip packages.
-		brew install python
+		#brew install python
 
 		# Install Go compiler and development stack.
-		brew install go
+		#brew install go
 
 		# Install nvm, a CLI tool for managing Node interpreter versions within the current shell environment.
-		brew install nvm
+		#brew install nvm
 
 		# Install htop, a human-readable version of top.
-		brew install htop
+		#brew install htop
 
 		# Install git, a distributed source code management tool.
-		#brew install git
+		brew install git
 
 		# Install the Large File Storage (LFS) git extension. The Large File Storage extension replaces large files that would normally be committed into the git repository, with a text pointer. Each revision of a file managed by the Large File Storage extension is stored server-side. Requires a remote git server with support for the Large File Storage extension.
 		brew install git-lfs
