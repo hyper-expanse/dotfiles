@@ -10,10 +10,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: '.dotfiles'
+      -name: base
+        run: |
+          apt update
+          apt install apt-transport-https -y --no-install-recommends
+          apt install libu2f-host0 pcscd scdaemon gnupg2 pcsc-tools -y --no-install-recommends
       - name: install
         run: |
           apt update
-          apt-get install build-essential curl file git -y --no-install-recommends
+          apt install build-essential curl file git -y --no-install-recommends
       - name: deploy
         run: bash deploy.sh
         working-directory: '.dotfiles'
