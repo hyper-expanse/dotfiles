@@ -4,6 +4,8 @@ defaults:
 jobs:
   setup:
     container: ubuntu:20.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
     runs-on: ubuntu-latest
     steps:
       - name: checkout
