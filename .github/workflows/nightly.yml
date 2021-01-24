@@ -10,7 +10,7 @@ jobs:
       - name: install
         run: |
           apt update
-          apt-get install build-essential curl file git
+          apt-get install build-essential curl file git -y --no-install-recommends
       - name: deploy
         run: bash deploy.sh
         working-directory: '.dotfiles'
