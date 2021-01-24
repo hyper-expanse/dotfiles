@@ -15,7 +15,7 @@ jobs:
       - name: base
         run: |
           apt update
-          apt install apt-transport-https -y --no-install-recommends
+          apt install ca-certificates apt-transport-https -y --no-install-recommends
           apt install libu2f-host0 pcscd scdaemon gnupg2 pcsc-tools -y --no-install-recommends
       - name: install
         run: |
