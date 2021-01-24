@@ -8,7 +8,7 @@ jobs:
         with:
           path: '.dotfiles'
       - name: setup
-        run: sudo apt-get install build-essential curl file git
+        run: apt-get install build-essential curl file git
       - name: deploy
         run: bash deploy.sh
         working-directory: '.dotfiles'
