@@ -11,12 +11,13 @@ First, pull down, and then extract, a copy of the repository into a hidden dotfi
 ```bash
 curl -L https://github.com/hyper-expanse/dotfiles/archive/main.zip -o "/tmp/dotfiles.zip"
 unzip /tmp/dotfiles.zip && mv dotfiles-main .dotfiles
-rm "/tmp/dotfiles.tar.gz"
+rm "/tmp/dotfile.zip"
 ```
 
 Navigate into the `${HOME}/.dotfiles` directory. Once there, run the deployment script to symlink the files into your home directory. The symbolic links will have names matching the names of the files in the repository.
 
 ```bash
+cd ~/.dotfiles
 bash deploy.sh
 ```
 

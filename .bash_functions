@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+
 #====================================================
 # Custom Bash Functions
 #
@@ -181,6 +183,9 @@ setupEnvironment ()
 	installNodePackages
 	installPythonPackages
 	installNerdFonts
+
+	# Configure our desktop environment.
+	setupTilingWindowManager
 }
 
 #! Update environment.
@@ -200,6 +205,9 @@ updateEnvironment ()
 	installNodePackages
 	installPythonPackages
 	installNerdFonts
+
+	# Configure our desktop environment.
+	setupTilingWindowManager
 }
 
 #! Setup HomeBrew.
@@ -402,4 +410,32 @@ checkAndConvert ()
 	# TODO: Convert some known file formats to an alternative, "open", file format.
 	# To convert Office documents to ODF formats such as `.ods`.
 	# lowriter --headless --convert-to ods *.xlsx
+}
+
+#! Setup tiling window manager on KDE.
+# Setup a tiling window manager on a KDE desktop by extending KDE's existing KWin window manager using KDE's ability to load arbitrary scripts as plugins.
+setupTilingWindowManager () {
+	# Only install the tiling window manager on KDE.
+	if command -v plasmapkg2 &> /dev/null; then
+		local dirPriorToExe=`pwd`
+		local tmpdir="$(mktemp -d)"
+
+		git clone https://github.com/kwin-scripts/kwin-tiling.git "${tmpdir}"
+
+		cd "${tmpdir}"
+
+		# Download a fixed commit to install as our tiling window management script to minimize the chance of breaking changes.
+		git checkout 51e51f4bb129dce6ab876d07cfd8bdb3506390e1
+
+		plasmapkg2 --type kwinscript -u .
+
+		# Fix documented here - https://github.com/kwin-scripts/kwin-tiling/issues/79#issuecomment-311465357
+		# Upstream KDE bug report - https://bugs.kde.org/show_bug.cgi?id=386509
+		mkdir --parent "${PREFIX_DIRECTORY}/share/kservices5"
+		ln --force --symbolic "${PREFIX_DIRECTORY}/share/kwin/scripts/kwin-script-tiling/metadata.desktop" "${PREFIX_DIRECTORY}/share/kservices5/kwin-script-tiling.desktop"
+
+		cd "${dirPriorToExe}"
+
+		echo "Navigate to the KWin scripts manager to enable the 'kwinscript' script."
+	fi
 }
