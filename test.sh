@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-shellcheck deploy.sh
+shellcheck \
+	.profile \
+	deploy.sh

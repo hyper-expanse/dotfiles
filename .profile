@@ -66,7 +66,8 @@ fi
 
 # Start our GPG agent so that it can begin responding to requests for a private key (SSH or signing requests), but only from the local system.
 if [ -z "${SSH_CLIENT}" ] && [ -z "${SSH_TTY}" ]; then
-	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+	SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+	export SSH_AUTH_SOCK
 	gpgconf --launch gpg-agent
 fi
 
