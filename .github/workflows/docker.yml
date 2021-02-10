@@ -1,0 +1,14 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - run: docker build.
+name: Docker
+on:
+  push:
+    paths:
+    - 'Dockerfile'
+  pull_request:
+    paths:
+    - 'Dockerfile'
