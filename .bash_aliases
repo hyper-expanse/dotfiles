@@ -90,3 +90,6 @@ alias fileExtensions='find . -type f | perl -ne "print $1 if m/\.([^.\/]+)$/" | 
 
 # Convert each zip file in the current, and sub, directories to a compressed Tar archive.
 alias convertDirectoryZips='export -f convertZip && find . -type f -name "*.zip" -not -path "*/.*" -print | xargs -I % bash -c "convertZip \"%\""'
+
+# Create a personal copy of a DVD onto my primary device as backup in case the legally acquired disk is lost or destroyed.
+alias backupMyDVD='dvdbackup --mirror --input /dev/dvd --output ~/Videos/ --progress --verbose'
