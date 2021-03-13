@@ -67,6 +67,7 @@ Plug 'https://github.com/preservim/nerdtree.git'
 Plug 'https://github.com/mbbill/undotree.git'
 Plug 'https://github.com/vim-airline/vim-airline.git' " At the time of writing Powerline (Python) does not support neovim.
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/rakr/vim-one.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
@@ -475,6 +476,35 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
+
+"====================================================
+" Setup vim-go Plugin
+
+" Setup for a vim-go environment so that the environment will look and behave in the desired way.
+" More options and recommendations available from - https://github.com/fatih/vim-go/wiki/Tutorial#edit-it
+"====================================================
+
+" Automatically add missing imports on file save while also formatting the file like `gofmt` used to do.
+let g:go_fmt_command = "goimports"
+
+" Enable syntax highlighting available through `vim-go`. This feature must be manually enabled as it may signficantly impact the performance of Vim.
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+
+" Automatically invoke the `:GoMetaLinter` command on file save, which invokes `vet`, `golint`, and `errcheck` concurrently by default.
+let g:go_metalinter_autosave = 1
+
+" Automatically show the function signature on the status line when moving your cursor over a valid identifier.
+let g:go_auto_type_info = 1
+
+" Switch to AST-aware identifier renamer that is module aware (No GOPATH necessary).
+let g:go_rename_command = "gopls"
 
 "====================================================
 " Setup vim-signify Plugin
