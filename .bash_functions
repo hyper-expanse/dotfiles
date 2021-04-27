@@ -320,6 +320,9 @@ installBrewPackages()
 
 			# Tool for ripping DVD's from the command line.
 			brew install dvdbackup
+
+			# Tool to create backups of online video files and streams.
+			brew install youtube-dl
 		fi
 	else
 		echo "ERROR: `brew` is required for building and installing tools from source, but it's not available in your PATH. Please install `brew` and ensure it's in your PATH. Then re-run `installBrewPackages`."
