@@ -86,11 +86,14 @@ fi
 # Must be at end of file to allow the environment (variables) to be configured.
 case $- in
 	*i*)
-		# If this is an interactive login session (Such as SSH connection), attempt to launch the version of Bash installed with Homebrew.
 		bash=$(type -p bash)
-		if [ -x "${bash}" ]; then
+		if [ -z "${TMUX}" ] && [ -n "${SSH_TTY}" ]; then
+			exec tmux new-session -A -D -s hutson
+
+		# If this is an interactive login session (Such as SSH connection), attempt to launch the version of Bash installed with Homebrew.
+		elif [ -x "${bash}" ]; then
 			# Set SHELL so that other tools, such as TMUX, know which shell launched them.
 			export SHELL="${bash}"
 			exec "${bash}"
-	fi
+		fi
 esac
