@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+set -euf -o pipefail
+trap 'echo "# $(date) ${BASH_COMMAND}"' DEBUG
+
 # Convert Zip files to a Tar 7-Zip file. 7-Zip offers a greater level of compression.
 
-for file in *.zip; do
+find . -maxdepth 1 -type f -name "*.zip" -print0 | while read -r -d $'\0' file; do
 	# Extract Zip files.
 	unzip "$file"
 
