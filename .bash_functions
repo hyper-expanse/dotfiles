@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 #====================================================
 # Custom Bash Functions
 #
@@ -434,8 +432,8 @@ setupTilingWindowManager () {
 
 		# Fix documented here - https://github.com/kwin-scripts/kwin-tiling/issues/79#issuecomment-311465357
 		# Upstream KDE bug report - https://bugs.kde.org/show_bug.cgi?id=386509
-		mkdir --parent "${PREFIX_DIRECTORY}/share/kservices5"
-		ln --force --symbolic "${PREFIX_DIRECTORY}/share/kwin/scripts/kwin-script-tiling/metadata.desktop" "${PREFIX_DIRECTORY}/share/kservices5/kwin-script-tiling.desktop"
+		mkdir --parent "${HOMEBREW_PREFIX}/share/kservices5"
+		ln --force --symbolic "${HOMEBREW_PREFIX}/share/kwin/scripts/kwin-script-tiling/metadata.desktop" "${HOMEBREW_PREFIX}/share/kservices5/kwin-script-tiling.desktop"
 
 		cd "${dirPriorToExe}"
 

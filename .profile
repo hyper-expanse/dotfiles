@@ -7,9 +7,6 @@
 # Its contents configure the Bash shell environment.
 #====================================================
 
-# Set the path to our local storage directory.
-export PREFIX_DIRECTORY="${HOME}/.local"
-
 # Set the path to our prefix directory containing our local build, and development, environment as setup by Linuxbrew.
 export HOMEBREW_PREFIX="${HOME}/.linuxbrew";
 export HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar";
@@ -26,7 +23,7 @@ export MANPATH="${HOMEBREW_PREFIX}/share/man:${MANPATH:-}"
 export INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}"
 
 # Specify the directory where `nvm` should install various versions of node and npm packages.
-export NVM_DIR="${PREFIX_DIRECTORY}/var/nvm"
+export NVM_DIR="${HOMEBREW_PREFIX}/var/nvm"
 
 # Inform `pkg-config` of additional pkgconfig metadata available from our brew installation.
 export PKG_CONFIG_PATH="${HOMEBREW_PREFIX}/lib/pkgconfig/:${HOMEBREW_PREFIX}/share/pkgconfig/:${PKG_CONFIG_PATH}"
@@ -56,7 +53,7 @@ fi
 
 # If the XDG data home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
 if [ -z "${XDG_DATA_HOME:-}" ]; then
-	export XDG_DATA_HOME="${PREFIX_DIRECTORY}/share"
+	export XDG_DATA_HOME="${HOMEBREW_PREFIX}/share"
 fi
 
 # If the XDG cache home directory is not already set within the current environment, then default it to the value below, which matches the XDG specification.
@@ -74,13 +71,13 @@ fi
 if [ "$(uname -n)" == "startopia" ]; then
 	# Disable the prompt from AppImage binaries that ask to integrate with your desktop environment.
 	# Asking to integrate with the desktop environment does not work natively with KDE Plasma.
-	mkdir -p "${PREFIX_DIRECTORY}/share/appimagekit/"
-	touch "${PREFIX_DIRECTORY}/share/appimagekit/no_desktopintegration"]]
+	mkdir -p "${HOMEBREW_PREFIX}/share/appimagekit/"
+	touch "${HOMEBREW_PREFIX}/share/appimagekit/no_desktopintegration"]]
 
 	# Unknown issue where the `repo` directory exists but not the `objects` sub-directory.
 	# The `objects` sub-directory is required when launching Flatpak applications, either through the UI or via `flatpak run [APPLICATION]`.
 	# When the `repo` directory is deleted, the next Flatpak application to launch will re-create the required directory structure and the application will launch correctly.
-	rm -rf "${PREFIX_DIRECTORY}/share/flatpak/repo"
+	rm -rf "${HOMEBREW_PREFIX}/share/flatpak/repo"
 fi
 
 # Must be at end of file to allow the environment (variables) to be configured.
